@@ -1,0 +1,7 @@
+{
+  "name": "SiteDocumentsAppI7",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
