@@ -1,0 +1,1 @@
+export { defaultQuestion } from "./question";
