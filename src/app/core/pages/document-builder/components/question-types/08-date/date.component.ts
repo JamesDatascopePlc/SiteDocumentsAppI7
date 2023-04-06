@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from "@angular/core";
 import { IonicModule } from "@ionic/angular";
-import { Question } from "src/app/core/stores/site-document/site-document.store";
+import { Question } from "src/app/core/stores/site-document/models";
 import { DatetimePickerComponent } from "src/app/shared/components/datetime-picker/datetime-picker.component";
 import { QuestionTextComponent } from "../extras";
 

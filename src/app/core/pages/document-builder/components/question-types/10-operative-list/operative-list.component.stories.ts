@@ -2,6 +2,7 @@ import { faker } from "@faker-js/faker";
 import { IonicModule } from "@ionic/angular";
 import { moduleMetadata, StoryFn } from "@storybook/angular";
 import { OperativeListComponent } from "./operative-list.component";
+import { defaultQuestion } from ".storybook/default";
 
 export default {
   title: "Pages/Document-Builder/Question-Types/10-Operative-List",
@@ -25,11 +26,8 @@ export const Default = Template.bind({});
 
 Default.args = {
   question: {
-    QuestionID: 1,
+    ...defaultQuestion,
     QuestionText: "Operatives",
-    Required: false,
-    CascadeOptionsText: "",
-    Assets: [],
     Operatives: Array
       .from({ length: 3 })
       .map(() => 
@@ -39,9 +37,6 @@ Default.args = {
         DateAttended: new Date()
       })
     ),
-    CanHaveImg: true,
-    CanHaveFiles: true,
-    AnswerText: ""
   },
   isMobileApp: false
 }

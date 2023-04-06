@@ -1,14 +1,15 @@
 import { ChangeDetectionStrategy, Component, Input } from "@angular/core";
 import { IonicModule } from "@ionic/angular";
-import { Question } from "src/app/core/stores/site-document/site-document.store";
+import { Question } from "src/app/core/stores/site-document/models";
 import { importRxTemplate } from "src/app/shared/imports";
 import { CameraCaptureComponent, FileUploadComponent, QuestionTextComponent } from "../extras";
+import { FormsModule } from "@angular/forms";
 
 @Component({
   selector: 'checkbox-question[question]',
   template: `
     <ion-item lines="none">
-      <ion-checkbox aria-label="" slot="start"></ion-checkbox>
+      <ion-checkbox [(ngModel)]="question.YesNoNA" aria-label="" slot="start"></ion-checkbox>
       <question-text [required]="question.Required">
         {{ question.QuestionText }}
       </question-text>
@@ -20,6 +21,7 @@ import { CameraCaptureComponent, FileUploadComponent, QuestionTextComponent } fr
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     IonicModule,
+    FormsModule,
     ...importRxTemplate(),
     QuestionTextComponent,
     CameraCaptureComponent,

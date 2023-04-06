@@ -1,12 +1,12 @@
 import { HttpClient } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
 import { createStore } from "@ngneat/elf";
-import { Observable, Subject, switchMap } from "rxjs";
+import { entitiesPropsFactory } from "@ngneat/elf-entities";
+import { Observable, switchMap } from "rxjs";
 import { environment } from "src/environments/environment";
 import { withWritingDocument } from "../props";
-import { SiteDocument } from "../site-document.store";
-import { entitiesPropsFactory } from "@ngneat/elf-entities";
 import { writingDocumentAdapter } from "../adapters/writing-document.adapter";
+import { SiteDocument } from "../models";
 
 export interface TemplateMenuItem {
   Id: number;
@@ -43,8 +43,8 @@ export class FormFillerStore {
     setWritingDocument()
   );
 
-  getTemplatesRequest$ = <T>(action$: Observable<T>) => action$.pipe(
-    switchMap(() => this.http.get<SiteDocument[]>(`${environment.siteDocsApi}/TemplateApi/`))
+  getTemplatesRequest$ = () => this.http.get<SiteDocument[]>(`${environment.siteDocsApi}/TemplateApi/`).pipe(
+    
   );
 
   submitDocument$ = (action$: Observable<SiteDocument>) => action$.pipe(

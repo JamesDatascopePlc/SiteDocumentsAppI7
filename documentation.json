@@ -362,12 +362,12 @@
         },
         {
             "name": "Page",
-            "id": "interface-Page-5d70860f8d925ca108e8b46177bfc05fe9ff5d299b6a4d44f36a816bb00385bd5d71bb69e239db8698c8d81d18bc5983b24a6fceecd11b3668e5fafa94397cd4",
+            "id": "interface-Page-5e983d9f903fd8936b53d457225be33ea528da397258d50470c49d9d13c566aeabe7926fac689cd85bc59e2ab090706562ba55d6b17a0fed0eeb92615db6369d",
             "file": "src/app/core/stores/site-document/site-document.store.ts",
             "deprecated": false,
             "deprecationMessage": "",
             "type": "interface",
-            "sourceCode": "import { Injectable } from \"@angular/core\";\r\nimport { createStore } from \"@ngneat/elf\";\r\nimport { selectAllEntities, withEntities } from \"@ngneat/elf-entities\";\r\n\r\nexport interface SiteDocument {\r\n  DocumentID: number;\r\n  DocumentTitle: string;\r\n  Pinned: boolean;\r\n  Pages: Page[];\r\n  AllowAnon: boolean;\r\n  RemainAnon: boolean;\r\n  Queues: { Key: string, Value: string }[],\r\n  DocumentGroup: string;\r\n  CanCreateHotspot: boolean;\r\n  CanBeAddedToHotspot?: boolean;\r\n  CanBeSavedAsDraft?: boolean;\r\n  CanAddActionerFromApp: boolean;\r\n  CanAddCategoryActioner: boolean;\r\n  CanCreateAssetsFromDocument: boolean;\r\n  CanHaveQueueDuration: boolean;\r\n  CanHaveDocumentLevelImages: boolean;\r\n  CanHaveDocLevelPhotoRoll: boolean;\r\n  ShowDocLevelPhotoButtonAtStartOfDoc: boolean;\r\n  CanAddAsset?: boolean;\r\n  CanAddOperative?: boolean;\r\n  CanHaveCompanyActioner: boolean;\r\n  MetaData: Partial<SiteDocumentMetaData>;\r\n}\r\n\r\nexport interface SiteDocumentMetaData {\r\n  ActionerText: string;\r\n  CanBeEditableDocument: boolean;\r\n  CannotAddSelfAsActioner: boolean;\r\n  ColourHex: string;\r\n  QueueSelectorTitle: string;\r\n  HasSiteList: boolean;\r\n  UsesRadioGroupTable: boolean;\r\n}\r\n\r\nexport interface SiteDocumentAsset {\r\n  AssetID: number;\r\n  Tag: string;\r\n  Name: string;\r\n  QRCode?: string;\r\n  TemplateID?: number;\r\n}\r\n\r\nexport interface SiteDocumentOperative {\r\n  AttendeeID: number;\r\n  Name: string;\r\n  DateAttended: Date;\r\n}\r\n\r\nexport interface Page {\r\n  PageID: number;\r\n  PageTitle: string;\r\n  Sections: Section[]\r\n}\r\n\r\nexport interface Section {\r\n  SectionID: number;\r\n  SectionNo: number;\r\n  SectionTitle: string;\r\n  Questions: Question[];\r\n  SectionQuestiontype: QuestionType;\r\n  IsRepeatable: boolean;\r\n  TableTitles: string[];\r\n}\r\n\r\nexport enum QuestionType {\r\n  Label = 0,\r\n  Checkbox = 1,\r\n  RadioGroup = 2,\r\n  Textbox = 3,\r\n  TextArea = 4,\r\n  Select = 5,\r\n  CheckboxTextbox = 6,\r\n  RadioGroupTextbox = 7,\r\n  Date = 8,\r\n  DateTime = 9,\r\n  OperativeList = 10,\r\n  WallOfText = 11,\r\n  Number = 12,\r\n  CascadeDropdown = 13,\r\n  LinkedBool = 16,\r\n  AssetList = 17,\r\n  LinkedDates = 18,\r\n  Signature = 19,\r\n  CompanySelect = 21,\r\n  AreaSelect = 22,\r\n  AssetGroupsAndTypes = 25,\r\n  AssetInspectionSchedule = 26,\r\n  ProjectSelect = 27,\r\n  RamsSelect = 28,\r\n  SelectText = 29,\r\n  CascadeDropdownText = 30,\r\n  MultiCascade = 31,\r\n  Time = 32,\r\n  LinkedTimes = 33,\r\n  HRASelect = 34,\r\n  MultiCheckbox = 35,\r\n  LinkedDateAndTime = 36\r\n}\r\n\r\nexport interface Question {\r\n  QuestionID: number;\r\n  QuestionText: string;\r\n  CascadeOptionsText: string;\r\n  Assets: SiteDocumentAsset[];\r\n  Operatives: SiteDocumentOperative[];\r\n  Required: boolean;\r\n  AnswerText: string;\r\n  CanHaveImg: boolean;\r\n  CanHaveFiles: boolean;\r\n}\r\n\r\nconst store = createStore(\r\n  { name: \"site-documents\" },\r\n  withEntities<SiteDocument, \"DocumentID\">({ idKey: \"DocumentID\" })\r\n);\r\n\r\n@Injectable({ providedIn: \"root\" })\r\nexport class SiteDocumentStore {\r\n  templates$ = store.pipe(selectAllEntities());\r\n}",
+            "sourceCode": "import { Injectable } from \"@angular/core\";\r\nimport { createStore } from \"@ngneat/elf\";\r\nimport { selectAllEntities, withEntities } from \"@ngneat/elf-entities\";\r\n\r\nexport interface SiteDocument {\r\n  DocumentID: number;\r\n  DocumentTitle: string;\r\n  Pinned: boolean;\r\n  Pages: Page[];\r\n  AllowAnon: boolean;\r\n  RemainAnon: boolean;\r\n  Queues: { Key: string, Value: string }[],\r\n  DocumentGroup: string;\r\n  CanCreateHotspot: boolean;\r\n  CanBeAddedToHotspot?: boolean;\r\n  CanBeSavedAsDraft?: boolean;\r\n  CanAddActionerFromApp: boolean;\r\n  CanAddCategoryActioner: boolean;\r\n  CanCreateAssetsFromDocument: boolean;\r\n  CanHaveQueueDuration: boolean;\r\n  CanHaveDocumentLevelImages: boolean;\r\n  CanHaveDocLevelPhotoRoll: boolean;\r\n  ShowDocLevelPhotoButtonAtStartOfDoc: boolean;\r\n  CanAddAsset?: boolean;\r\n  CanAddOperative?: boolean;\r\n  CanHaveCompanyActioner: boolean;\r\n  MetaData: Partial<SiteDocumentMetaData>;\r\n}\r\n\r\nexport interface SiteDocumentMetaData {\r\n  ActionerText: string;\r\n  CanBeEditableDocument: boolean;\r\n  CannotAddSelfAsActioner: boolean;\r\n  ColourHex: string;\r\n  QueueSelectorTitle: string;\r\n  HasSiteList: boolean;\r\n  UsesRadioGroupTable: boolean;\r\n}\r\n\r\nexport interface SiteDocumentAsset {\r\n  AssetID: number;\r\n  Tag: string;\r\n  Name: string;\r\n  QRCode?: string;\r\n  TemplateID?: number;\r\n}\r\n\r\nexport interface SiteDocumentOperative {\r\n  AttendeeID: number;\r\n  Name: string;\r\n  DateAttended: Date;\r\n}\r\n\r\nexport interface Page {\r\n  PageID: number;\r\n  PageTitle: string;\r\n  Sections: Section[]\r\n}\r\n\r\nexport interface Section {\r\n  SectionID: number;\r\n  SectionNo: number;\r\n  SectionTitle: string;\r\n  Questions: Question[];\r\n  SectionQuestiontype: QuestionType;\r\n  IsRepeatable: boolean;\r\n  TableTitles: string[];\r\n}\r\n\r\nexport enum QuestionType {\r\n  Label = 0,\r\n  Checkbox = 1,\r\n  RadioGroup = 2,\r\n  Textbox = 3,\r\n  TextArea = 4,\r\n  Select = 5,\r\n  CheckboxTextbox = 6,\r\n  RadioGroupTextbox = 7,\r\n  Date = 8,\r\n  DateTime = 9,\r\n  OperativeList = 10,\r\n  WallOfText = 11,\r\n  Number = 12,\r\n  CascadeDropdown = 13,\r\n  LinkedBool = 16,\r\n  AssetList = 17,\r\n  LinkedDates = 18,\r\n  Signature = 19,\r\n  CompanySelect = 21,\r\n  AreaSelect = 22,\r\n  AssetGroupsAndTypes = 25,\r\n  AssetInspectionSchedule = 26,\r\n  ProjectSelect = 27,\r\n  RamsSelect = 28,\r\n  SelectText = 29,\r\n  CascadeDropdownText = 30,\r\n  MultiCascade = 31,\r\n  Time = 32,\r\n  LinkedTimes = 33,\r\n  HRASelect = 34,\r\n  MultiCheckbox = 35,\r\n  LinkedDateAndTime = 36\r\n}\r\n\r\nexport interface Question {\r\n  QuestionID: number;\r\n  QuestionText: string;\r\n  CascadeOptionsText: string;\r\n  Assets: SiteDocumentAsset[];\r\n  Operatives: SiteDocumentOperative[];\r\n  Required: boolean;\r\n  AnswerText: string;\r\n  YesNoNA: boolean | null;\r\n  CanHaveImg: boolean;\r\n  CanHaveFiles: boolean;\r\n}\r\n\r\nconst store = createStore(\r\n  { name: \"site-documents\" },\r\n  withEntities<SiteDocument, \"DocumentID\">({ idKey: \"DocumentID\" })\r\n);\r\n\r\n@Injectable({ providedIn: \"root\" })\r\nexport class SiteDocumentStore {\r\n  templates$ = store.pipe(selectAllEntities());\r\n}",
             "properties": [
                 {
                     "name": "PageID",
@@ -403,12 +403,12 @@
         },
         {
             "name": "Question",
-            "id": "interface-Question-5d70860f8d925ca108e8b46177bfc05fe9ff5d299b6a4d44f36a816bb00385bd5d71bb69e239db8698c8d81d18bc5983b24a6fceecd11b3668e5fafa94397cd4",
+            "id": "interface-Question-5e983d9f903fd8936b53d457225be33ea528da397258d50470c49d9d13c566aeabe7926fac689cd85bc59e2ab090706562ba55d6b17a0fed0eeb92615db6369d",
             "file": "src/app/core/stores/site-document/site-document.store.ts",
             "deprecated": false,
             "deprecationMessage": "",
             "type": "interface",
-            "sourceCode": "import { Injectable } from \"@angular/core\";\r\nimport { createStore } from \"@ngneat/elf\";\r\nimport { selectAllEntities, withEntities } from \"@ngneat/elf-entities\";\r\n\r\nexport interface SiteDocument {\r\n  DocumentID: number;\r\n  DocumentTitle: string;\r\n  Pinned: boolean;\r\n  Pages: Page[];\r\n  AllowAnon: boolean;\r\n  RemainAnon: boolean;\r\n  Queues: { Key: string, Value: string }[],\r\n  DocumentGroup: string;\r\n  CanCreateHotspot: boolean;\r\n  CanBeAddedToHotspot?: boolean;\r\n  CanBeSavedAsDraft?: boolean;\r\n  CanAddActionerFromApp: boolean;\r\n  CanAddCategoryActioner: boolean;\r\n  CanCreateAssetsFromDocument: boolean;\r\n  CanHaveQueueDuration: boolean;\r\n  CanHaveDocumentLevelImages: boolean;\r\n  CanHaveDocLevelPhotoRoll: boolean;\r\n  ShowDocLevelPhotoButtonAtStartOfDoc: boolean;\r\n  CanAddAsset?: boolean;\r\n  CanAddOperative?: boolean;\r\n  CanHaveCompanyActioner: boolean;\r\n  MetaData: Partial<SiteDocumentMetaData>;\r\n}\r\n\r\nexport interface SiteDocumentMetaData {\r\n  ActionerText: string;\r\n  CanBeEditableDocument: boolean;\r\n  CannotAddSelfAsActioner: boolean;\r\n  ColourHex: string;\r\n  QueueSelectorTitle: string;\r\n  HasSiteList: boolean;\r\n  UsesRadioGroupTable: boolean;\r\n}\r\n\r\nexport interface SiteDocumentAsset {\r\n  AssetID: number;\r\n  Tag: string;\r\n  Name: string;\r\n  QRCode?: string;\r\n  TemplateID?: number;\r\n}\r\n\r\nexport interface SiteDocumentOperative {\r\n  AttendeeID: number;\r\n  Name: string;\r\n  DateAttended: Date;\r\n}\r\n\r\nexport interface Page {\r\n  PageID: number;\r\n  PageTitle: string;\r\n  Sections: Section[]\r\n}\r\n\r\nexport interface Section {\r\n  SectionID: number;\r\n  SectionNo: number;\r\n  SectionTitle: string;\r\n  Questions: Question[];\r\n  SectionQuestiontype: QuestionType;\r\n  IsRepeatable: boolean;\r\n  TableTitles: string[];\r\n}\r\n\r\nexport enum QuestionType {\r\n  Label = 0,\r\n  Checkbox = 1,\r\n  RadioGroup = 2,\r\n  Textbox = 3,\r\n  TextArea = 4,\r\n  Select = 5,\r\n  CheckboxTextbox = 6,\r\n  RadioGroupTextbox = 7,\r\n  Date = 8,\r\n  DateTime = 9,\r\n  OperativeList = 10,\r\n  WallOfText = 11,\r\n  Number = 12,\r\n  CascadeDropdown = 13,\r\n  LinkedBool = 16,\r\n  AssetList = 17,\r\n  LinkedDates = 18,\r\n  Signature = 19,\r\n  CompanySelect = 21,\r\n  AreaSelect = 22,\r\n  AssetGroupsAndTypes = 25,\r\n  AssetInspectionSchedule = 26,\r\n  ProjectSelect = 27,\r\n  RamsSelect = 28,\r\n  SelectText = 29,\r\n  CascadeDropdownText = 30,\r\n  MultiCascade = 31,\r\n  Time = 32,\r\n  LinkedTimes = 33,\r\n  HRASelect = 34,\r\n  MultiCheckbox = 35,\r\n  LinkedDateAndTime = 36\r\n}\r\n\r\nexport interface Question {\r\n  QuestionID: number;\r\n  QuestionText: string;\r\n  CascadeOptionsText: string;\r\n  Assets: SiteDocumentAsset[];\r\n  Operatives: SiteDocumentOperative[];\r\n  Required: boolean;\r\n  AnswerText: string;\r\n  CanHaveImg: boolean;\r\n  CanHaveFiles: boolean;\r\n}\r\n\r\nconst store = createStore(\r\n  { name: \"site-documents\" },\r\n  withEntities<SiteDocument, \"DocumentID\">({ idKey: \"DocumentID\" })\r\n);\r\n\r\n@Injectable({ providedIn: \"root\" })\r\nexport class SiteDocumentStore {\r\n  templates$ = store.pipe(selectAllEntities());\r\n}",
+            "sourceCode": "import { Injectable } from \"@angular/core\";\r\nimport { createStore } from \"@ngneat/elf\";\r\nimport { selectAllEntities, withEntities } from \"@ngneat/elf-entities\";\r\n\r\nexport interface SiteDocument {\r\n  DocumentID: number;\r\n  DocumentTitle: string;\r\n  Pinned: boolean;\r\n  Pages: Page[];\r\n  AllowAnon: boolean;\r\n  RemainAnon: boolean;\r\n  Queues: { Key: string, Value: string }[],\r\n  DocumentGroup: string;\r\n  CanCreateHotspot: boolean;\r\n  CanBeAddedToHotspot?: boolean;\r\n  CanBeSavedAsDraft?: boolean;\r\n  CanAddActionerFromApp: boolean;\r\n  CanAddCategoryActioner: boolean;\r\n  CanCreateAssetsFromDocument: boolean;\r\n  CanHaveQueueDuration: boolean;\r\n  CanHaveDocumentLevelImages: boolean;\r\n  CanHaveDocLevelPhotoRoll: boolean;\r\n  ShowDocLevelPhotoButtonAtStartOfDoc: boolean;\r\n  CanAddAsset?: boolean;\r\n  CanAddOperative?: boolean;\r\n  CanHaveCompanyActioner: boolean;\r\n  MetaData: Partial<SiteDocumentMetaData>;\r\n}\r\n\r\nexport interface SiteDocumentMetaData {\r\n  ActionerText: string;\r\n  CanBeEditableDocument: boolean;\r\n  CannotAddSelfAsActioner: boolean;\r\n  ColourHex: string;\r\n  QueueSelectorTitle: string;\r\n  HasSiteList: boolean;\r\n  UsesRadioGroupTable: boolean;\r\n}\r\n\r\nexport interface SiteDocumentAsset {\r\n  AssetID: number;\r\n  Tag: string;\r\n  Name: string;\r\n  QRCode?: string;\r\n  TemplateID?: number;\r\n}\r\n\r\nexport interface SiteDocumentOperative {\r\n  AttendeeID: number;\r\n  Name: string;\r\n  DateAttended: Date;\r\n}\r\n\r\nexport interface Page {\r\n  PageID: number;\r\n  PageTitle: string;\r\n  Sections: Section[]\r\n}\r\n\r\nexport interface Section {\r\n  SectionID: number;\r\n  SectionNo: number;\r\n  SectionTitle: string;\r\n  Questions: Question[];\r\n  SectionQuestiontype: QuestionType;\r\n  IsRepeatable: boolean;\r\n  TableTitles: string[];\r\n}\r\n\r\nexport enum QuestionType {\r\n  Label = 0,\r\n  Checkbox = 1,\r\n  RadioGroup = 2,\r\n  Textbox = 3,\r\n  TextArea = 4,\r\n  Select = 5,\r\n  CheckboxTextbox = 6,\r\n  RadioGroupTextbox = 7,\r\n  Date = 8,\r\n  DateTime = 9,\r\n  OperativeList = 10,\r\n  WallOfText = 11,\r\n  Number = 12,\r\n  CascadeDropdown = 13,\r\n  LinkedBool = 16,\r\n  AssetList = 17,\r\n  LinkedDates = 18,\r\n  Signature = 19,\r\n  CompanySelect = 21,\r\n  AreaSelect = 22,\r\n  AssetGroupsAndTypes = 25,\r\n  AssetInspectionSchedule = 26,\r\n  ProjectSelect = 27,\r\n  RamsSelect = 28,\r\n  SelectText = 29,\r\n  CascadeDropdownText = 30,\r\n  MultiCascade = 31,\r\n  Time = 32,\r\n  LinkedTimes = 33,\r\n  HRASelect = 34,\r\n  MultiCheckbox = 35,\r\n  LinkedDateAndTime = 36\r\n}\r\n\r\nexport interface Question {\r\n  QuestionID: number;\r\n  QuestionText: string;\r\n  CascadeOptionsText: string;\r\n  Assets: SiteDocumentAsset[];\r\n  Operatives: SiteDocumentOperative[];\r\n  Required: boolean;\r\n  AnswerText: string;\r\n  YesNoNA: boolean | null;\r\n  CanHaveImg: boolean;\r\n  CanHaveFiles: boolean;\r\n}\r\n\r\nconst store = createStore(\r\n  { name: \"site-documents\" },\r\n  withEntities<SiteDocument, \"DocumentID\">({ idKey: \"DocumentID\" })\r\n);\r\n\r\n@Injectable({ providedIn: \"root\" })\r\nexport class SiteDocumentStore {\r\n  templates$ = store.pipe(selectAllEntities());\r\n}",
             "properties": [
                 {
                     "name": "AnswerText",
@@ -435,7 +435,7 @@
                     "type": "boolean",
                     "optional": false,
                     "description": "",
-                    "line": 114
+                    "line": 115
                 },
                 {
                     "name": "CanHaveImg",
@@ -444,7 +444,7 @@
                     "type": "boolean",
                     "optional": false,
                     "description": "",
-                    "line": 113
+                    "line": 114
                 },
                 {
                     "name": "CascadeOptionsText",
@@ -490,6 +490,15 @@
                     "optional": false,
                     "description": "",
                     "line": 111
+                },
+                {
+                    "name": "YesNoNA",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "boolean | null",
+                    "optional": false,
+                    "description": "",
+                    "line": 113
                 }
             ],
             "indexSignatures": [],
@@ -565,12 +574,12 @@
         },
         {
             "name": "Section",
-            "id": "interface-Section-5d70860f8d925ca108e8b46177bfc05fe9ff5d299b6a4d44f36a816bb00385bd5d71bb69e239db8698c8d81d18bc5983b24a6fceecd11b3668e5fafa94397cd4",
+            "id": "interface-Section-5e983d9f903fd8936b53d457225be33ea528da397258d50470c49d9d13c566aeabe7926fac689cd85bc59e2ab090706562ba55d6b17a0fed0eeb92615db6369d",
             "file": "src/app/core/stores/site-document/site-document.store.ts",
             "deprecated": false,
             "deprecationMessage": "",
             "type": "interface",
-            "sourceCode": "import { Injectable } from \"@angular/core\";\r\nimport { createStore } from \"@ngneat/elf\";\r\nimport { selectAllEntities, withEntities } from \"@ngneat/elf-entities\";\r\n\r\nexport interface SiteDocument {\r\n  DocumentID: number;\r\n  DocumentTitle: string;\r\n  Pinned: boolean;\r\n  Pages: Page[];\r\n  AllowAnon: boolean;\r\n  RemainAnon: boolean;\r\n  Queues: { Key: string, Value: string }[],\r\n  DocumentGroup: string;\r\n  CanCreateHotspot: boolean;\r\n  CanBeAddedToHotspot?: boolean;\r\n  CanBeSavedAsDraft?: boolean;\r\n  CanAddActionerFromApp: boolean;\r\n  CanAddCategoryActioner: boolean;\r\n  CanCreateAssetsFromDocument: boolean;\r\n  CanHaveQueueDuration: boolean;\r\n  CanHaveDocumentLevelImages: boolean;\r\n  CanHaveDocLevelPhotoRoll: boolean;\r\n  ShowDocLevelPhotoButtonAtStartOfDoc: boolean;\r\n  CanAddAsset?: boolean;\r\n  CanAddOperative?: boolean;\r\n  CanHaveCompanyActioner: boolean;\r\n  MetaData: Partial<SiteDocumentMetaData>;\r\n}\r\n\r\nexport interface SiteDocumentMetaData {\r\n  ActionerText: string;\r\n  CanBeEditableDocument: boolean;\r\n  CannotAddSelfAsActioner: boolean;\r\n  ColourHex: string;\r\n  QueueSelectorTitle: string;\r\n  HasSiteList: boolean;\r\n  UsesRadioGroupTable: boolean;\r\n}\r\n\r\nexport interface SiteDocumentAsset {\r\n  AssetID: number;\r\n  Tag: string;\r\n  Name: string;\r\n  QRCode?: string;\r\n  TemplateID?: number;\r\n}\r\n\r\nexport interface SiteDocumentOperative {\r\n  AttendeeID: number;\r\n  Name: string;\r\n  DateAttended: Date;\r\n}\r\n\r\nexport interface Page {\r\n  PageID: number;\r\n  PageTitle: string;\r\n  Sections: Section[]\r\n}\r\n\r\nexport interface Section {\r\n  SectionID: number;\r\n  SectionNo: number;\r\n  SectionTitle: string;\r\n  Questions: Question[];\r\n  SectionQuestiontype: QuestionType;\r\n  IsRepeatable: boolean;\r\n  TableTitles: string[];\r\n}\r\n\r\nexport enum QuestionType {\r\n  Label = 0,\r\n  Checkbox = 1,\r\n  RadioGroup = 2,\r\n  Textbox = 3,\r\n  TextArea = 4,\r\n  Select = 5,\r\n  CheckboxTextbox = 6,\r\n  RadioGroupTextbox = 7,\r\n  Date = 8,\r\n  DateTime = 9,\r\n  OperativeList = 10,\r\n  WallOfText = 11,\r\n  Number = 12,\r\n  CascadeDropdown = 13,\r\n  LinkedBool = 16,\r\n  AssetList = 17,\r\n  LinkedDates = 18,\r\n  Signature = 19,\r\n  CompanySelect = 21,\r\n  AreaSelect = 22,\r\n  AssetGroupsAndTypes = 25,\r\n  AssetInspectionSchedule = 26,\r\n  ProjectSelect = 27,\r\n  RamsSelect = 28,\r\n  SelectText = 29,\r\n  CascadeDropdownText = 30,\r\n  MultiCascade = 31,\r\n  Time = 32,\r\n  LinkedTimes = 33,\r\n  HRASelect = 34,\r\n  MultiCheckbox = 35,\r\n  LinkedDateAndTime = 36\r\n}\r\n\r\nexport interface Question {\r\n  QuestionID: number;\r\n  QuestionText: string;\r\n  CascadeOptionsText: string;\r\n  Assets: SiteDocumentAsset[];\r\n  Operatives: SiteDocumentOperative[];\r\n  Required: boolean;\r\n  AnswerText: string;\r\n  CanHaveImg: boolean;\r\n  CanHaveFiles: boolean;\r\n}\r\n\r\nconst store = createStore(\r\n  { name: \"site-documents\" },\r\n  withEntities<SiteDocument, \"DocumentID\">({ idKey: \"DocumentID\" })\r\n);\r\n\r\n@Injectable({ providedIn: \"root\" })\r\nexport class SiteDocumentStore {\r\n  templates$ = store.pipe(selectAllEntities());\r\n}",
+            "sourceCode": "import { Injectable } from \"@angular/core\";\r\nimport { createStore } from \"@ngneat/elf\";\r\nimport { selectAllEntities, withEntities } from \"@ngneat/elf-entities\";\r\n\r\nexport interface SiteDocument {\r\n  DocumentID: number;\r\n  DocumentTitle: string;\r\n  Pinned: boolean;\r\n  Pages: Page[];\r\n  AllowAnon: boolean;\r\n  RemainAnon: boolean;\r\n  Queues: { Key: string, Value: string }[],\r\n  DocumentGroup: string;\r\n  CanCreateHotspot: boolean;\r\n  CanBeAddedToHotspot?: boolean;\r\n  CanBeSavedAsDraft?: boolean;\r\n  CanAddActionerFromApp: boolean;\r\n  CanAddCategoryActioner: boolean;\r\n  CanCreateAssetsFromDocument: boolean;\r\n  CanHaveQueueDuration: boolean;\r\n  CanHaveDocumentLevelImages: boolean;\r\n  CanHaveDocLevelPhotoRoll: boolean;\r\n  ShowDocLevelPhotoButtonAtStartOfDoc: boolean;\r\n  CanAddAsset?: boolean;\r\n  CanAddOperative?: boolean;\r\n  CanHaveCompanyActioner: boolean;\r\n  MetaData: Partial<SiteDocumentMetaData>;\r\n}\r\n\r\nexport interface SiteDocumentMetaData {\r\n  ActionerText: string;\r\n  CanBeEditableDocument: boolean;\r\n  CannotAddSelfAsActioner: boolean;\r\n  ColourHex: string;\r\n  QueueSelectorTitle: string;\r\n  HasSiteList: boolean;\r\n  UsesRadioGroupTable: boolean;\r\n}\r\n\r\nexport interface SiteDocumentAsset {\r\n  AssetID: number;\r\n  Tag: string;\r\n  Name: string;\r\n  QRCode?: string;\r\n  TemplateID?: number;\r\n}\r\n\r\nexport interface SiteDocumentOperative {\r\n  AttendeeID: number;\r\n  Name: string;\r\n  DateAttended: Date;\r\n}\r\n\r\nexport interface Page {\r\n  PageID: number;\r\n  PageTitle: string;\r\n  Sections: Section[]\r\n}\r\n\r\nexport interface Section {\r\n  SectionID: number;\r\n  SectionNo: number;\r\n  SectionTitle: string;\r\n  Questions: Question[];\r\n  SectionQuestiontype: QuestionType;\r\n  IsRepeatable: boolean;\r\n  TableTitles: string[];\r\n}\r\n\r\nexport enum QuestionType {\r\n  Label = 0,\r\n  Checkbox = 1,\r\n  RadioGroup = 2,\r\n  Textbox = 3,\r\n  TextArea = 4,\r\n  Select = 5,\r\n  CheckboxTextbox = 6,\r\n  RadioGroupTextbox = 7,\r\n  Date = 8,\r\n  DateTime = 9,\r\n  OperativeList = 10,\r\n  WallOfText = 11,\r\n  Number = 12,\r\n  CascadeDropdown = 13,\r\n  LinkedBool = 16,\r\n  AssetList = 17,\r\n  LinkedDates = 18,\r\n  Signature = 19,\r\n  CompanySelect = 21,\r\n  AreaSelect = 22,\r\n  AssetGroupsAndTypes = 25,\r\n  AssetInspectionSchedule = 26,\r\n  ProjectSelect = 27,\r\n  RamsSelect = 28,\r\n  SelectText = 29,\r\n  CascadeDropdownText = 30,\r\n  MultiCascade = 31,\r\n  Time = 32,\r\n  LinkedTimes = 33,\r\n  HRASelect = 34,\r\n  MultiCheckbox = 35,\r\n  LinkedDateAndTime = 36\r\n}\r\n\r\nexport interface Question {\r\n  QuestionID: number;\r\n  QuestionText: string;\r\n  CascadeOptionsText: string;\r\n  Assets: SiteDocumentAsset[];\r\n  Operatives: SiteDocumentOperative[];\r\n  Required: boolean;\r\n  AnswerText: string;\r\n  YesNoNA: boolean | null;\r\n  CanHaveImg: boolean;\r\n  CanHaveFiles: boolean;\r\n}\r\n\r\nconst store = createStore(\r\n  { name: \"site-documents\" },\r\n  withEntities<SiteDocument, \"DocumentID\">({ idKey: \"DocumentID\" })\r\n);\r\n\r\n@Injectable({ providedIn: \"root\" })\r\nexport class SiteDocumentStore {\r\n  templates$ = store.pipe(selectAllEntities());\r\n}",
             "properties": [
                 {
                     "name": "IsRepeatable",
@@ -674,12 +683,12 @@
         },
         {
             "name": "SiteDocument",
-            "id": "interface-SiteDocument-5d70860f8d925ca108e8b46177bfc05fe9ff5d299b6a4d44f36a816bb00385bd5d71bb69e239db8698c8d81d18bc5983b24a6fceecd11b3668e5fafa94397cd4",
+            "id": "interface-SiteDocument-5e983d9f903fd8936b53d457225be33ea528da397258d50470c49d9d13c566aeabe7926fac689cd85bc59e2ab090706562ba55d6b17a0fed0eeb92615db6369d",
             "file": "src/app/core/stores/site-document/site-document.store.ts",
             "deprecated": false,
             "deprecationMessage": "",
             "type": "interface",
-            "sourceCode": "import { Injectable } from \"@angular/core\";\r\nimport { createStore } from \"@ngneat/elf\";\r\nimport { selectAllEntities, withEntities } from \"@ngneat/elf-entities\";\r\n\r\nexport interface SiteDocument {\r\n  DocumentID: number;\r\n  DocumentTitle: string;\r\n  Pinned: boolean;\r\n  Pages: Page[];\r\n  AllowAnon: boolean;\r\n  RemainAnon: boolean;\r\n  Queues: { Key: string, Value: string }[],\r\n  DocumentGroup: string;\r\n  CanCreateHotspot: boolean;\r\n  CanBeAddedToHotspot?: boolean;\r\n  CanBeSavedAsDraft?: boolean;\r\n  CanAddActionerFromApp: boolean;\r\n  CanAddCategoryActioner: boolean;\r\n  CanCreateAssetsFromDocument: boolean;\r\n  CanHaveQueueDuration: boolean;\r\n  CanHaveDocumentLevelImages: boolean;\r\n  CanHaveDocLevelPhotoRoll: boolean;\r\n  ShowDocLevelPhotoButtonAtStartOfDoc: boolean;\r\n  CanAddAsset?: boolean;\r\n  CanAddOperative?: boolean;\r\n  CanHaveCompanyActioner: boolean;\r\n  MetaData: Partial<SiteDocumentMetaData>;\r\n}\r\n\r\nexport interface SiteDocumentMetaData {\r\n  ActionerText: string;\r\n  CanBeEditableDocument: boolean;\r\n  CannotAddSelfAsActioner: boolean;\r\n  ColourHex: string;\r\n  QueueSelectorTitle: string;\r\n  HasSiteList: boolean;\r\n  UsesRadioGroupTable: boolean;\r\n}\r\n\r\nexport interface SiteDocumentAsset {\r\n  AssetID: number;\r\n  Tag: string;\r\n  Name: string;\r\n  QRCode?: string;\r\n  TemplateID?: number;\r\n}\r\n\r\nexport interface SiteDocumentOperative {\r\n  AttendeeID: number;\r\n  Name: string;\r\n  DateAttended: Date;\r\n}\r\n\r\nexport interface Page {\r\n  PageID: number;\r\n  PageTitle: string;\r\n  Sections: Section[]\r\n}\r\n\r\nexport interface Section {\r\n  SectionID: number;\r\n  SectionNo: number;\r\n  SectionTitle: string;\r\n  Questions: Question[];\r\n  SectionQuestiontype: QuestionType;\r\n  IsRepeatable: boolean;\r\n  TableTitles: string[];\r\n}\r\n\r\nexport enum QuestionType {\r\n  Label = 0,\r\n  Checkbox = 1,\r\n  RadioGroup = 2,\r\n  Textbox = 3,\r\n  TextArea = 4,\r\n  Select = 5,\r\n  CheckboxTextbox = 6,\r\n  RadioGroupTextbox = 7,\r\n  Date = 8,\r\n  DateTime = 9,\r\n  OperativeList = 10,\r\n  WallOfText = 11,\r\n  Number = 12,\r\n  CascadeDropdown = 13,\r\n  LinkedBool = 16,\r\n  AssetList = 17,\r\n  LinkedDates = 18,\r\n  Signature = 19,\r\n  CompanySelect = 21,\r\n  AreaSelect = 22,\r\n  AssetGroupsAndTypes = 25,\r\n  AssetInspectionSchedule = 26,\r\n  ProjectSelect = 27,\r\n  RamsSelect = 28,\r\n  SelectText = 29,\r\n  CascadeDropdownText = 30,\r\n  MultiCascade = 31,\r\n  Time = 32,\r\n  LinkedTimes = 33,\r\n  HRASelect = 34,\r\n  MultiCheckbox = 35,\r\n  LinkedDateAndTime = 36\r\n}\r\n\r\nexport interface Question {\r\n  QuestionID: number;\r\n  QuestionText: string;\r\n  CascadeOptionsText: string;\r\n  Assets: SiteDocumentAsset[];\r\n  Operatives: SiteDocumentOperative[];\r\n  Required: boolean;\r\n  AnswerText: string;\r\n  CanHaveImg: boolean;\r\n  CanHaveFiles: boolean;\r\n}\r\n\r\nconst store = createStore(\r\n  { name: \"site-documents\" },\r\n  withEntities<SiteDocument, \"DocumentID\">({ idKey: \"DocumentID\" })\r\n);\r\n\r\n@Injectable({ providedIn: \"root\" })\r\nexport class SiteDocumentStore {\r\n  templates$ = store.pipe(selectAllEntities());\r\n}",
+            "sourceCode": "import { Injectable } from \"@angular/core\";\r\nimport { createStore } from \"@ngneat/elf\";\r\nimport { selectAllEntities, withEntities } from \"@ngneat/elf-entities\";\r\n\r\nexport interface SiteDocument {\r\n  DocumentID: number;\r\n  DocumentTitle: string;\r\n  Pinned: boolean;\r\n  Pages: Page[];\r\n  AllowAnon: boolean;\r\n  RemainAnon: boolean;\r\n  Queues: { Key: string, Value: string }[],\r\n  DocumentGroup: string;\r\n  CanCreateHotspot: boolean;\r\n  CanBeAddedToHotspot?: boolean;\r\n  CanBeSavedAsDraft?: boolean;\r\n  CanAddActionerFromApp: boolean;\r\n  CanAddCategoryActioner: boolean;\r\n  CanCreateAssetsFromDocument: boolean;\r\n  CanHaveQueueDuration: boolean;\r\n  CanHaveDocumentLevelImages: boolean;\r\n  CanHaveDocLevelPhotoRoll: boolean;\r\n  ShowDocLevelPhotoButtonAtStartOfDoc: boolean;\r\n  CanAddAsset?: boolean;\r\n  CanAddOperative?: boolean;\r\n  CanHaveCompanyActioner: boolean;\r\n  MetaData: Partial<SiteDocumentMetaData>;\r\n}\r\n\r\nexport interface SiteDocumentMetaData {\r\n  ActionerText: string;\r\n  CanBeEditableDocument: boolean;\r\n  CannotAddSelfAsActioner: boolean;\r\n  ColourHex: string;\r\n  QueueSelectorTitle: string;\r\n  HasSiteList: boolean;\r\n  UsesRadioGroupTable: boolean;\r\n}\r\n\r\nexport interface SiteDocumentAsset {\r\n  AssetID: number;\r\n  Tag: string;\r\n  Name: string;\r\n  QRCode?: string;\r\n  TemplateID?: number;\r\n}\r\n\r\nexport interface SiteDocumentOperative {\r\n  AttendeeID: number;\r\n  Name: string;\r\n  DateAttended: Date;\r\n}\r\n\r\nexport interface Page {\r\n  PageID: number;\r\n  PageTitle: string;\r\n  Sections: Section[]\r\n}\r\n\r\nexport interface Section {\r\n  SectionID: number;\r\n  SectionNo: number;\r\n  SectionTitle: string;\r\n  Questions: Question[];\r\n  SectionQuestiontype: QuestionType;\r\n  IsRepeatable: boolean;\r\n  TableTitles: string[];\r\n}\r\n\r\nexport enum QuestionType {\r\n  Label = 0,\r\n  Checkbox = 1,\r\n  RadioGroup = 2,\r\n  Textbox = 3,\r\n  TextArea = 4,\r\n  Select = 5,\r\n  CheckboxTextbox = 6,\r\n  RadioGroupTextbox = 7,\r\n  Date = 8,\r\n  DateTime = 9,\r\n  OperativeList = 10,\r\n  WallOfText = 11,\r\n  Number = 12,\r\n  CascadeDropdown = 13,\r\n  LinkedBool = 16,\r\n  AssetList = 17,\r\n  LinkedDates = 18,\r\n  Signature = 19,\r\n  CompanySelect = 21,\r\n  AreaSelect = 22,\r\n  AssetGroupsAndTypes = 25,\r\n  AssetInspectionSchedule = 26,\r\n  ProjectSelect = 27,\r\n  RamsSelect = 28,\r\n  SelectText = 29,\r\n  CascadeDropdownText = 30,\r\n  MultiCascade = 31,\r\n  Time = 32,\r\n  LinkedTimes = 33,\r\n  HRASelect = 34,\r\n  MultiCheckbox = 35,\r\n  LinkedDateAndTime = 36\r\n}\r\n\r\nexport interface Question {\r\n  QuestionID: number;\r\n  QuestionText: string;\r\n  CascadeOptionsText: string;\r\n  Assets: SiteDocumentAsset[];\r\n  Operatives: SiteDocumentOperative[];\r\n  Required: boolean;\r\n  AnswerText: string;\r\n  YesNoNA: boolean | null;\r\n  CanHaveImg: boolean;\r\n  CanHaveFiles: boolean;\r\n}\r\n\r\nconst store = createStore(\r\n  { name: \"site-documents\" },\r\n  withEntities<SiteDocument, \"DocumentID\">({ idKey: \"DocumentID\" })\r\n);\r\n\r\n@Injectable({ providedIn: \"root\" })\r\nexport class SiteDocumentStore {\r\n  templates$ = store.pipe(selectAllEntities());\r\n}",
             "properties": [
                 {
                     "name": "AllowAnon",
@@ -886,12 +895,12 @@
         },
         {
             "name": "SiteDocumentAsset",
-            "id": "interface-SiteDocumentAsset-5d70860f8d925ca108e8b46177bfc05fe9ff5d299b6a4d44f36a816bb00385bd5d71bb69e239db8698c8d81d18bc5983b24a6fceecd11b3668e5fafa94397cd4",
+            "id": "interface-SiteDocumentAsset-5e983d9f903fd8936b53d457225be33ea528da397258d50470c49d9d13c566aeabe7926fac689cd85bc59e2ab090706562ba55d6b17a0fed0eeb92615db6369d",
             "file": "src/app/core/stores/site-document/site-document.store.ts",
             "deprecated": false,
             "deprecationMessage": "",
             "type": "interface",
-            "sourceCode": "import { Injectable } from \"@angular/core\";\r\nimport { createStore } from \"@ngneat/elf\";\r\nimport { selectAllEntities, withEntities } from \"@ngneat/elf-entities\";\r\n\r\nexport interface SiteDocument {\r\n  DocumentID: number;\r\n  DocumentTitle: string;\r\n  Pinned: boolean;\r\n  Pages: Page[];\r\n  AllowAnon: boolean;\r\n  RemainAnon: boolean;\r\n  Queues: { Key: string, Value: string }[],\r\n  DocumentGroup: string;\r\n  CanCreateHotspot: boolean;\r\n  CanBeAddedToHotspot?: boolean;\r\n  CanBeSavedAsDraft?: boolean;\r\n  CanAddActionerFromApp: boolean;\r\n  CanAddCategoryActioner: boolean;\r\n  CanCreateAssetsFromDocument: boolean;\r\n  CanHaveQueueDuration: boolean;\r\n  CanHaveDocumentLevelImages: boolean;\r\n  CanHaveDocLevelPhotoRoll: boolean;\r\n  ShowDocLevelPhotoButtonAtStartOfDoc: boolean;\r\n  CanAddAsset?: boolean;\r\n  CanAddOperative?: boolean;\r\n  CanHaveCompanyActioner: boolean;\r\n  MetaData: Partial<SiteDocumentMetaData>;\r\n}\r\n\r\nexport interface SiteDocumentMetaData {\r\n  ActionerText: string;\r\n  CanBeEditableDocument: boolean;\r\n  CannotAddSelfAsActioner: boolean;\r\n  ColourHex: string;\r\n  QueueSelectorTitle: string;\r\n  HasSiteList: boolean;\r\n  UsesRadioGroupTable: boolean;\r\n}\r\n\r\nexport interface SiteDocumentAsset {\r\n  AssetID: number;\r\n  Tag: string;\r\n  Name: string;\r\n  QRCode?: string;\r\n  TemplateID?: number;\r\n}\r\n\r\nexport interface SiteDocumentOperative {\r\n  AttendeeID: number;\r\n  Name: string;\r\n  DateAttended: Date;\r\n}\r\n\r\nexport interface Page {\r\n  PageID: number;\r\n  PageTitle: string;\r\n  Sections: Section[]\r\n}\r\n\r\nexport interface Section {\r\n  SectionID: number;\r\n  SectionNo: number;\r\n  SectionTitle: string;\r\n  Questions: Question[];\r\n  SectionQuestiontype: QuestionType;\r\n  IsRepeatable: boolean;\r\n  TableTitles: string[];\r\n}\r\n\r\nexport enum QuestionType {\r\n  Label = 0,\r\n  Checkbox = 1,\r\n  RadioGroup = 2,\r\n  Textbox = 3,\r\n  TextArea = 4,\r\n  Select = 5,\r\n  CheckboxTextbox = 6,\r\n  RadioGroupTextbox = 7,\r\n  Date = 8,\r\n  DateTime = 9,\r\n  OperativeList = 10,\r\n  WallOfText = 11,\r\n  Number = 12,\r\n  CascadeDropdown = 13,\r\n  LinkedBool = 16,\r\n  AssetList = 17,\r\n  LinkedDates = 18,\r\n  Signature = 19,\r\n  CompanySelect = 21,\r\n  AreaSelect = 22,\r\n  AssetGroupsAndTypes = 25,\r\n  AssetInspectionSchedule = 26,\r\n  ProjectSelect = 27,\r\n  RamsSelect = 28,\r\n  SelectText = 29,\r\n  CascadeDropdownText = 30,\r\n  MultiCascade = 31,\r\n  Time = 32,\r\n  LinkedTimes = 33,\r\n  HRASelect = 34,\r\n  MultiCheckbox = 35,\r\n  LinkedDateAndTime = 36\r\n}\r\n\r\nexport interface Question {\r\n  QuestionID: number;\r\n  QuestionText: string;\r\n  CascadeOptionsText: string;\r\n  Assets: SiteDocumentAsset[];\r\n  Operatives: SiteDocumentOperative[];\r\n  Required: boolean;\r\n  AnswerText: string;\r\n  CanHaveImg: boolean;\r\n  CanHaveFiles: boolean;\r\n}\r\n\r\nconst store = createStore(\r\n  { name: \"site-documents\" },\r\n  withEntities<SiteDocument, \"DocumentID\">({ idKey: \"DocumentID\" })\r\n);\r\n\r\n@Injectable({ providedIn: \"root\" })\r\nexport class SiteDocumentStore {\r\n  templates$ = store.pipe(selectAllEntities());\r\n}",
+            "sourceCode": "import { Injectable } from \"@angular/core\";\r\nimport { createStore } from \"@ngneat/elf\";\r\nimport { selectAllEntities, withEntities } from \"@ngneat/elf-entities\";\r\n\r\nexport interface SiteDocument {\r\n  DocumentID: number;\r\n  DocumentTitle: string;\r\n  Pinned: boolean;\r\n  Pages: Page[];\r\n  AllowAnon: boolean;\r\n  RemainAnon: boolean;\r\n  Queues: { Key: string, Value: string }[],\r\n  DocumentGroup: string;\r\n  CanCreateHotspot: boolean;\r\n  CanBeAddedToHotspot?: boolean;\r\n  CanBeSavedAsDraft?: boolean;\r\n  CanAddActionerFromApp: boolean;\r\n  CanAddCategoryActioner: boolean;\r\n  CanCreateAssetsFromDocument: boolean;\r\n  CanHaveQueueDuration: boolean;\r\n  CanHaveDocumentLevelImages: boolean;\r\n  CanHaveDocLevelPhotoRoll: boolean;\r\n  ShowDocLevelPhotoButtonAtStartOfDoc: boolean;\r\n  CanAddAsset?: boolean;\r\n  CanAddOperative?: boolean;\r\n  CanHaveCompanyActioner: boolean;\r\n  MetaData: Partial<SiteDocumentMetaData>;\r\n}\r\n\r\nexport interface SiteDocumentMetaData {\r\n  ActionerText: string;\r\n  CanBeEditableDocument: boolean;\r\n  CannotAddSelfAsActioner: boolean;\r\n  ColourHex: string;\r\n  QueueSelectorTitle: string;\r\n  HasSiteList: boolean;\r\n  UsesRadioGroupTable: boolean;\r\n}\r\n\r\nexport interface SiteDocumentAsset {\r\n  AssetID: number;\r\n  Tag: string;\r\n  Name: string;\r\n  QRCode?: string;\r\n  TemplateID?: number;\r\n}\r\n\r\nexport interface SiteDocumentOperative {\r\n  AttendeeID: number;\r\n  Name: string;\r\n  DateAttended: Date;\r\n}\r\n\r\nexport interface Page {\r\n  PageID: number;\r\n  PageTitle: string;\r\n  Sections: Section[]\r\n}\r\n\r\nexport interface Section {\r\n  SectionID: number;\r\n  SectionNo: number;\r\n  SectionTitle: string;\r\n  Questions: Question[];\r\n  SectionQuestiontype: QuestionType;\r\n  IsRepeatable: boolean;\r\n  TableTitles: string[];\r\n}\r\n\r\nexport enum QuestionType {\r\n  Label = 0,\r\n  Checkbox = 1,\r\n  RadioGroup = 2,\r\n  Textbox = 3,\r\n  TextArea = 4,\r\n  Select = 5,\r\n  CheckboxTextbox = 6,\r\n  RadioGroupTextbox = 7,\r\n  Date = 8,\r\n  DateTime = 9,\r\n  OperativeList = 10,\r\n  WallOfText = 11,\r\n  Number = 12,\r\n  CascadeDropdown = 13,\r\n  LinkedBool = 16,\r\n  AssetList = 17,\r\n  LinkedDates = 18,\r\n  Signature = 19,\r\n  CompanySelect = 21,\r\n  AreaSelect = 22,\r\n  AssetGroupsAndTypes = 25,\r\n  AssetInspectionSchedule = 26,\r\n  ProjectSelect = 27,\r\n  RamsSelect = 28,\r\n  SelectText = 29,\r\n  CascadeDropdownText = 30,\r\n  MultiCascade = 31,\r\n  Time = 32,\r\n  LinkedTimes = 33,\r\n  HRASelect = 34,\r\n  MultiCheckbox = 35,\r\n  LinkedDateAndTime = 36\r\n}\r\n\r\nexport interface Question {\r\n  QuestionID: number;\r\n  QuestionText: string;\r\n  CascadeOptionsText: string;\r\n  Assets: SiteDocumentAsset[];\r\n  Operatives: SiteDocumentOperative[];\r\n  Required: boolean;\r\n  AnswerText: string;\r\n  YesNoNA: boolean | null;\r\n  CanHaveImg: boolean;\r\n  CanHaveFiles: boolean;\r\n}\r\n\r\nconst store = createStore(\r\n  { name: \"site-documents\" },\r\n  withEntities<SiteDocument, \"DocumentID\">({ idKey: \"DocumentID\" })\r\n);\r\n\r\n@Injectable({ providedIn: \"root\" })\r\nexport class SiteDocumentStore {\r\n  templates$ = store.pipe(selectAllEntities());\r\n}",
             "properties": [
                 {
                     "name": "AssetID",
@@ -945,12 +954,12 @@
         },
         {
             "name": "SiteDocumentMetaData",
-            "id": "interface-SiteDocumentMetaData-5d70860f8d925ca108e8b46177bfc05fe9ff5d299b6a4d44f36a816bb00385bd5d71bb69e239db8698c8d81d18bc5983b24a6fceecd11b3668e5fafa94397cd4",
+            "id": "interface-SiteDocumentMetaData-5e983d9f903fd8936b53d457225be33ea528da397258d50470c49d9d13c566aeabe7926fac689cd85bc59e2ab090706562ba55d6b17a0fed0eeb92615db6369d",
             "file": "src/app/core/stores/site-document/site-document.store.ts",
             "deprecated": false,
             "deprecationMessage": "",
             "type": "interface",
-            "sourceCode": "import { Injectable } from \"@angular/core\";\r\nimport { createStore } from \"@ngneat/elf\";\r\nimport { selectAllEntities, withEntities } from \"@ngneat/elf-entities\";\r\n\r\nexport interface SiteDocument {\r\n  DocumentID: number;\r\n  DocumentTitle: string;\r\n  Pinned: boolean;\r\n  Pages: Page[];\r\n  AllowAnon: boolean;\r\n  RemainAnon: boolean;\r\n  Queues: { Key: string, Value: string }[],\r\n  DocumentGroup: string;\r\n  CanCreateHotspot: boolean;\r\n  CanBeAddedToHotspot?: boolean;\r\n  CanBeSavedAsDraft?: boolean;\r\n  CanAddActionerFromApp: boolean;\r\n  CanAddCategoryActioner: boolean;\r\n  CanCreateAssetsFromDocument: boolean;\r\n  CanHaveQueueDuration: boolean;\r\n  CanHaveDocumentLevelImages: boolean;\r\n  CanHaveDocLevelPhotoRoll: boolean;\r\n  ShowDocLevelPhotoButtonAtStartOfDoc: boolean;\r\n  CanAddAsset?: boolean;\r\n  CanAddOperative?: boolean;\r\n  CanHaveCompanyActioner: boolean;\r\n  MetaData: Partial<SiteDocumentMetaData>;\r\n}\r\n\r\nexport interface SiteDocumentMetaData {\r\n  ActionerText: string;\r\n  CanBeEditableDocument: boolean;\r\n  CannotAddSelfAsActioner: boolean;\r\n  ColourHex: string;\r\n  QueueSelectorTitle: string;\r\n  HasSiteList: boolean;\r\n  UsesRadioGroupTable: boolean;\r\n}\r\n\r\nexport interface SiteDocumentAsset {\r\n  AssetID: number;\r\n  Tag: string;\r\n  Name: string;\r\n  QRCode?: string;\r\n  TemplateID?: number;\r\n}\r\n\r\nexport interface SiteDocumentOperative {\r\n  AttendeeID: number;\r\n  Name: string;\r\n  DateAttended: Date;\r\n}\r\n\r\nexport interface Page {\r\n  PageID: number;\r\n  PageTitle: string;\r\n  Sections: Section[]\r\n}\r\n\r\nexport interface Section {\r\n  SectionID: number;\r\n  SectionNo: number;\r\n  SectionTitle: string;\r\n  Questions: Question[];\r\n  SectionQuestiontype: QuestionType;\r\n  IsRepeatable: boolean;\r\n  TableTitles: string[];\r\n}\r\n\r\nexport enum QuestionType {\r\n  Label = 0,\r\n  Checkbox = 1,\r\n  RadioGroup = 2,\r\n  Textbox = 3,\r\n  TextArea = 4,\r\n  Select = 5,\r\n  CheckboxTextbox = 6,\r\n  RadioGroupTextbox = 7,\r\n  Date = 8,\r\n  DateTime = 9,\r\n  OperativeList = 10,\r\n  WallOfText = 11,\r\n  Number = 12,\r\n  CascadeDropdown = 13,\r\n  LinkedBool = 16,\r\n  AssetList = 17,\r\n  LinkedDates = 18,\r\n  Signature = 19,\r\n  CompanySelect = 21,\r\n  AreaSelect = 22,\r\n  AssetGroupsAndTypes = 25,\r\n  AssetInspectionSchedule = 26,\r\n  ProjectSelect = 27,\r\n  RamsSelect = 28,\r\n  SelectText = 29,\r\n  CascadeDropdownText = 30,\r\n  MultiCascade = 31,\r\n  Time = 32,\r\n  LinkedTimes = 33,\r\n  HRASelect = 34,\r\n  MultiCheckbox = 35,\r\n  LinkedDateAndTime = 36\r\n}\r\n\r\nexport interface Question {\r\n  QuestionID: number;\r\n  QuestionText: string;\r\n  CascadeOptionsText: string;\r\n  Assets: SiteDocumentAsset[];\r\n  Operatives: SiteDocumentOperative[];\r\n  Required: boolean;\r\n  AnswerText: string;\r\n  CanHaveImg: boolean;\r\n  CanHaveFiles: boolean;\r\n}\r\n\r\nconst store = createStore(\r\n  { name: \"site-documents\" },\r\n  withEntities<SiteDocument, \"DocumentID\">({ idKey: \"DocumentID\" })\r\n);\r\n\r\n@Injectable({ providedIn: \"root\" })\r\nexport class SiteDocumentStore {\r\n  templates$ = store.pipe(selectAllEntities());\r\n}",
+            "sourceCode": "import { Injectable } from \"@angular/core\";\r\nimport { createStore } from \"@ngneat/elf\";\r\nimport { selectAllEntities, withEntities } from \"@ngneat/elf-entities\";\r\n\r\nexport interface SiteDocument {\r\n  DocumentID: number;\r\n  DocumentTitle: string;\r\n  Pinned: boolean;\r\n  Pages: Page[];\r\n  AllowAnon: boolean;\r\n  RemainAnon: boolean;\r\n  Queues: { Key: string, Value: string }[],\r\n  DocumentGroup: string;\r\n  CanCreateHotspot: boolean;\r\n  CanBeAddedToHotspot?: boolean;\r\n  CanBeSavedAsDraft?: boolean;\r\n  CanAddActionerFromApp: boolean;\r\n  CanAddCategoryActioner: boolean;\r\n  CanCreateAssetsFromDocument: boolean;\r\n  CanHaveQueueDuration: boolean;\r\n  CanHaveDocumentLevelImages: boolean;\r\n  CanHaveDocLevelPhotoRoll: boolean;\r\n  ShowDocLevelPhotoButtonAtStartOfDoc: boolean;\r\n  CanAddAsset?: boolean;\r\n  CanAddOperative?: boolean;\r\n  CanHaveCompanyActioner: boolean;\r\n  MetaData: Partial<SiteDocumentMetaData>;\r\n}\r\n\r\nexport interface SiteDocumentMetaData {\r\n  ActionerText: string;\r\n  CanBeEditableDocument: boolean;\r\n  CannotAddSelfAsActioner: boolean;\r\n  ColourHex: string;\r\n  QueueSelectorTitle: string;\r\n  HasSiteList: boolean;\r\n  UsesRadioGroupTable: boolean;\r\n}\r\n\r\nexport interface SiteDocumentAsset {\r\n  AssetID: number;\r\n  Tag: string;\r\n  Name: string;\r\n  QRCode?: string;\r\n  TemplateID?: number;\r\n}\r\n\r\nexport interface SiteDocumentOperative {\r\n  AttendeeID: number;\r\n  Name: string;\r\n  DateAttended: Date;\r\n}\r\n\r\nexport interface Page {\r\n  PageID: number;\r\n  PageTitle: string;\r\n  Sections: Section[]\r\n}\r\n\r\nexport interface Section {\r\n  SectionID: number;\r\n  SectionNo: number;\r\n  SectionTitle: string;\r\n  Questions: Question[];\r\n  SectionQuestiontype: QuestionType;\r\n  IsRepeatable: boolean;\r\n  TableTitles: string[];\r\n}\r\n\r\nexport enum QuestionType {\r\n  Label = 0,\r\n  Checkbox = 1,\r\n  RadioGroup = 2,\r\n  Textbox = 3,\r\n  TextArea = 4,\r\n  Select = 5,\r\n  CheckboxTextbox = 6,\r\n  RadioGroupTextbox = 7,\r\n  Date = 8,\r\n  DateTime = 9,\r\n  OperativeList = 10,\r\n  WallOfText = 11,\r\n  Number = 12,\r\n  CascadeDropdown = 13,\r\n  LinkedBool = 16,\r\n  AssetList = 17,\r\n  LinkedDates = 18,\r\n  Signature = 19,\r\n  CompanySelect = 21,\r\n  AreaSelect = 22,\r\n  AssetGroupsAndTypes = 25,\r\n  AssetInspectionSchedule = 26,\r\n  ProjectSelect = 27,\r\n  RamsSelect = 28,\r\n  SelectText = 29,\r\n  CascadeDropdownText = 30,\r\n  MultiCascade = 31,\r\n  Time = 32,\r\n  LinkedTimes = 33,\r\n  HRASelect = 34,\r\n  MultiCheckbox = 35,\r\n  LinkedDateAndTime = 36\r\n}\r\n\r\nexport interface Question {\r\n  QuestionID: number;\r\n  QuestionText: string;\r\n  CascadeOptionsText: string;\r\n  Assets: SiteDocumentAsset[];\r\n  Operatives: SiteDocumentOperative[];\r\n  Required: boolean;\r\n  AnswerText: string;\r\n  YesNoNA: boolean | null;\r\n  CanHaveImg: boolean;\r\n  CanHaveFiles: boolean;\r\n}\r\n\r\nconst store = createStore(\r\n  { name: \"site-documents\" },\r\n  withEntities<SiteDocument, \"DocumentID\">({ idKey: \"DocumentID\" })\r\n);\r\n\r\n@Injectable({ providedIn: \"root\" })\r\nexport class SiteDocumentStore {\r\n  templates$ = store.pipe(selectAllEntities());\r\n}",
             "properties": [
                 {
                     "name": "ActionerText",
@@ -1022,12 +1031,12 @@
         },
         {
             "name": "SiteDocumentOperative",
-            "id": "interface-SiteDocumentOperative-5d70860f8d925ca108e8b46177bfc05fe9ff5d299b6a4d44f36a816bb00385bd5d71bb69e239db8698c8d81d18bc5983b24a6fceecd11b3668e5fafa94397cd4",
+            "id": "interface-SiteDocumentOperative-5e983d9f903fd8936b53d457225be33ea528da397258d50470c49d9d13c566aeabe7926fac689cd85bc59e2ab090706562ba55d6b17a0fed0eeb92615db6369d",
             "file": "src/app/core/stores/site-document/site-document.store.ts",
             "deprecated": false,
             "deprecationMessage": "",
             "type": "interface",
-            "sourceCode": "import { Injectable } from \"@angular/core\";\r\nimport { createStore } from \"@ngneat/elf\";\r\nimport { selectAllEntities, withEntities } from \"@ngneat/elf-entities\";\r\n\r\nexport interface SiteDocument {\r\n  DocumentID: number;\r\n  DocumentTitle: string;\r\n  Pinned: boolean;\r\n  Pages: Page[];\r\n  AllowAnon: boolean;\r\n  RemainAnon: boolean;\r\n  Queues: { Key: string, Value: string }[],\r\n  DocumentGroup: string;\r\n  CanCreateHotspot: boolean;\r\n  CanBeAddedToHotspot?: boolean;\r\n  CanBeSavedAsDraft?: boolean;\r\n  CanAddActionerFromApp: boolean;\r\n  CanAddCategoryActioner: boolean;\r\n  CanCreateAssetsFromDocument: boolean;\r\n  CanHaveQueueDuration: boolean;\r\n  CanHaveDocumentLevelImages: boolean;\r\n  CanHaveDocLevelPhotoRoll: boolean;\r\n  ShowDocLevelPhotoButtonAtStartOfDoc: boolean;\r\n  CanAddAsset?: boolean;\r\n  CanAddOperative?: boolean;\r\n  CanHaveCompanyActioner: boolean;\r\n  MetaData: Partial<SiteDocumentMetaData>;\r\n}\r\n\r\nexport interface SiteDocumentMetaData {\r\n  ActionerText: string;\r\n  CanBeEditableDocument: boolean;\r\n  CannotAddSelfAsActioner: boolean;\r\n  ColourHex: string;\r\n  QueueSelectorTitle: string;\r\n  HasSiteList: boolean;\r\n  UsesRadioGroupTable: boolean;\r\n}\r\n\r\nexport interface SiteDocumentAsset {\r\n  AssetID: number;\r\n  Tag: string;\r\n  Name: string;\r\n  QRCode?: string;\r\n  TemplateID?: number;\r\n}\r\n\r\nexport interface SiteDocumentOperative {\r\n  AttendeeID: number;\r\n  Name: string;\r\n  DateAttended: Date;\r\n}\r\n\r\nexport interface Page {\r\n  PageID: number;\r\n  PageTitle: string;\r\n  Sections: Section[]\r\n}\r\n\r\nexport interface Section {\r\n  SectionID: number;\r\n  SectionNo: number;\r\n  SectionTitle: string;\r\n  Questions: Question[];\r\n  SectionQuestiontype: QuestionType;\r\n  IsRepeatable: boolean;\r\n  TableTitles: string[];\r\n}\r\n\r\nexport enum QuestionType {\r\n  Label = 0,\r\n  Checkbox = 1,\r\n  RadioGroup = 2,\r\n  Textbox = 3,\r\n  TextArea = 4,\r\n  Select = 5,\r\n  CheckboxTextbox = 6,\r\n  RadioGroupTextbox = 7,\r\n  Date = 8,\r\n  DateTime = 9,\r\n  OperativeList = 10,\r\n  WallOfText = 11,\r\n  Number = 12,\r\n  CascadeDropdown = 13,\r\n  LinkedBool = 16,\r\n  AssetList = 17,\r\n  LinkedDates = 18,\r\n  Signature = 19,\r\n  CompanySelect = 21,\r\n  AreaSelect = 22,\r\n  AssetGroupsAndTypes = 25,\r\n  AssetInspectionSchedule = 26,\r\n  ProjectSelect = 27,\r\n  RamsSelect = 28,\r\n  SelectText = 29,\r\n  CascadeDropdownText = 30,\r\n  MultiCascade = 31,\r\n  Time = 32,\r\n  LinkedTimes = 33,\r\n  HRASelect = 34,\r\n  MultiCheckbox = 35,\r\n  LinkedDateAndTime = 36\r\n}\r\n\r\nexport interface Question {\r\n  QuestionID: number;\r\n  QuestionText: string;\r\n  CascadeOptionsText: string;\r\n  Assets: SiteDocumentAsset[];\r\n  Operatives: SiteDocumentOperative[];\r\n  Required: boolean;\r\n  AnswerText: string;\r\n  CanHaveImg: boolean;\r\n  CanHaveFiles: boolean;\r\n}\r\n\r\nconst store = createStore(\r\n  { name: \"site-documents\" },\r\n  withEntities<SiteDocument, \"DocumentID\">({ idKey: \"DocumentID\" })\r\n);\r\n\r\n@Injectable({ providedIn: \"root\" })\r\nexport class SiteDocumentStore {\r\n  templates$ = store.pipe(selectAllEntities());\r\n}",
+            "sourceCode": "import { Injectable } from \"@angular/core\";\r\nimport { createStore } from \"@ngneat/elf\";\r\nimport { selectAllEntities, withEntities } from \"@ngneat/elf-entities\";\r\n\r\nexport interface SiteDocument {\r\n  DocumentID: number;\r\n  DocumentTitle: string;\r\n  Pinned: boolean;\r\n  Pages: Page[];\r\n  AllowAnon: boolean;\r\n  RemainAnon: boolean;\r\n  Queues: { Key: string, Value: string }[],\r\n  DocumentGroup: string;\r\n  CanCreateHotspot: boolean;\r\n  CanBeAddedToHotspot?: boolean;\r\n  CanBeSavedAsDraft?: boolean;\r\n  CanAddActionerFromApp: boolean;\r\n  CanAddCategoryActioner: boolean;\r\n  CanCreateAssetsFromDocument: boolean;\r\n  CanHaveQueueDuration: boolean;\r\n  CanHaveDocumentLevelImages: boolean;\r\n  CanHaveDocLevelPhotoRoll: boolean;\r\n  ShowDocLevelPhotoButtonAtStartOfDoc: boolean;\r\n  CanAddAsset?: boolean;\r\n  CanAddOperative?: boolean;\r\n  CanHaveCompanyActioner: boolean;\r\n  MetaData: Partial<SiteDocumentMetaData>;\r\n}\r\n\r\nexport interface SiteDocumentMetaData {\r\n  ActionerText: string;\r\n  CanBeEditableDocument: boolean;\r\n  CannotAddSelfAsActioner: boolean;\r\n  ColourHex: string;\r\n  QueueSelectorTitle: string;\r\n  HasSiteList: boolean;\r\n  UsesRadioGroupTable: boolean;\r\n}\r\n\r\nexport interface SiteDocumentAsset {\r\n  AssetID: number;\r\n  Tag: string;\r\n  Name: string;\r\n  QRCode?: string;\r\n  TemplateID?: number;\r\n}\r\n\r\nexport interface SiteDocumentOperative {\r\n  AttendeeID: number;\r\n  Name: string;\r\n  DateAttended: Date;\r\n}\r\n\r\nexport interface Page {\r\n  PageID: number;\r\n  PageTitle: string;\r\n  Sections: Section[]\r\n}\r\n\r\nexport interface Section {\r\n  SectionID: number;\r\n  SectionNo: number;\r\n  SectionTitle: string;\r\n  Questions: Question[];\r\n  SectionQuestiontype: QuestionType;\r\n  IsRepeatable: boolean;\r\n  TableTitles: string[];\r\n}\r\n\r\nexport enum QuestionType {\r\n  Label = 0,\r\n  Checkbox = 1,\r\n  RadioGroup = 2,\r\n  Textbox = 3,\r\n  TextArea = 4,\r\n  Select = 5,\r\n  CheckboxTextbox = 6,\r\n  RadioGroupTextbox = 7,\r\n  Date = 8,\r\n  DateTime = 9,\r\n  OperativeList = 10,\r\n  WallOfText = 11,\r\n  Number = 12,\r\n  CascadeDropdown = 13,\r\n  LinkedBool = 16,\r\n  AssetList = 17,\r\n  LinkedDates = 18,\r\n  Signature = 19,\r\n  CompanySelect = 21,\r\n  AreaSelect = 22,\r\n  AssetGroupsAndTypes = 25,\r\n  AssetInspectionSchedule = 26,\r\n  ProjectSelect = 27,\r\n  RamsSelect = 28,\r\n  SelectText = 29,\r\n  CascadeDropdownText = 30,\r\n  MultiCascade = 31,\r\n  Time = 32,\r\n  LinkedTimes = 33,\r\n  HRASelect = 34,\r\n  MultiCheckbox = 35,\r\n  LinkedDateAndTime = 36\r\n}\r\n\r\nexport interface Question {\r\n  QuestionID: number;\r\n  QuestionText: string;\r\n  CascadeOptionsText: string;\r\n  Assets: SiteDocumentAsset[];\r\n  Operatives: SiteDocumentOperative[];\r\n  Required: boolean;\r\n  AnswerText: string;\r\n  YesNoNA: boolean | null;\r\n  CanHaveImg: boolean;\r\n  CanHaveFiles: boolean;\r\n}\r\n\r\nconst store = createStore(\r\n  { name: \"site-documents\" },\r\n  withEntities<SiteDocument, \"DocumentID\">({ idKey: \"DocumentID\" })\r\n);\r\n\r\n@Injectable({ providedIn: \"root\" })\r\nexport class SiteDocumentStore {\r\n  templates$ = store.pipe(selectAllEntities());\r\n}",
             "properties": [
                 {
                     "name": "AttendeeID",
@@ -1086,12 +1095,12 @@
         },
         {
             "name": "TemplateMenuItem",
-            "id": "interface-TemplateMenuItem-ccba4481246df428a45995d75e31379c8679b39db1ab8390112737d280239cd58af8e99f243414d164917a5278b823aa533b84b8b7432e2abf39b9d263802e1f",
+            "id": "interface-TemplateMenuItem-841bbb28e0f1d7ea49fe52ef349a21a3a4d71571b8b0015b607d3eea447a040c20c7fa22172d377264a5358c8b9fc8a51c34160d7e2c39017c1eafd9327500fe",
             "file": "src/app/core/stores/site-document/form-filler/form-filler.store.ts",
             "deprecated": false,
             "deprecationMessage": "",
             "type": "interface",
-            "sourceCode": "import { HttpClient } from \"@angular/common/http\";\nimport { inject, Injectable } from \"@angular/core\";\nimport { createStore } from \"@ngneat/elf\";\nimport { Observable, Subject, switchMap } from \"rxjs\";\nimport { environment } from \"src/environments/environment\";\nimport { withWritingDocument } from \"../props\";\nimport { SiteDocument } from \"../site-document.store\";\nimport { entitiesPropsFactory } from \"@ngneat/elf-entities\";\nimport { writingDocumentAdapter } from \"../adapters/writing-document.adapter\";\n\nexport interface TemplateMenuItem {\n  Id: number;\n  Title: string;\n  SiteDocumentType: number;\n  RevNo: number;\n}\n\nconst { withTemplateMenuEntities } = entitiesPropsFactory(\"templateMenu\");\n\nconst store = createStore(\n  { name: \"form-filler\" },\n  withWritingDocument(null as SiteDocument | null),\n  withTemplateMenuEntities<TemplateMenuItem, \"Id\">({ idKey: \"Id\", initialValue: [] })\n);\n\nconst { \n  selectWritingDocument, \n  setWritingDocument \n} = writingDocumentAdapter(store);\n\n@Injectable({ providedIn: \"root\" })\nexport class FormFillerStore {\n  protected http = inject(HttpClient);\n\n  writingDocument$ = selectWritingDocument();\n\n  getTemplateRequest$ = (action$: Observable<number>) => action$.pipe(\n    switchMap(id => this.http.get<SiteDocument>(`${environment.siteDocsApi}/TemplateApi/GetDocumentTemplate`, {\n      params: {\n        id: id!.toString()\n      }\n    })),\n    setWritingDocument()\n  );\n\n  getTemplatesRequest$ = <T>(action$: Observable<T>) => action$.pipe(\n    switchMap(() => this.http.get<SiteDocument[]>(`${environment.siteDocsApi}/TemplateApi/`))\n  );\n\n  submitDocument$ = (action$: Observable<SiteDocument>) => action$.pipe(\n    switchMap(doc => this.http.post<number>(`${environment.siteDocsApi}/TemplateApi/UploadDocument`, doc))\n  );\n}",
+            "sourceCode": "import { HttpClient } from \"@angular/common/http\";\r\nimport { inject, Injectable } from \"@angular/core\";\r\nimport { createStore } from \"@ngneat/elf\";\r\nimport { Observable, Subject, switchMap } from \"rxjs\";\r\nimport { environment } from \"src/environments/environment\";\r\nimport { withWritingDocument } from \"../props\";\r\nimport { SiteDocument } from \"../site-document.store\";\r\nimport { entitiesPropsFactory } from \"@ngneat/elf-entities\";\r\nimport { writingDocumentAdapter } from \"../adapters/writing-document.adapter\";\r\n\r\nexport interface TemplateMenuItem {\r\n  Id: number;\r\n  Title: string;\r\n  SiteDocumentType: number;\r\n  RevNo: number;\r\n}\r\n\r\nconst { withTemplateMenuEntities } = entitiesPropsFactory(\"templateMenu\");\r\n\r\nconst store = createStore(\r\n  { name: \"form-filler\" },\r\n  withWritingDocument(null as SiteDocument | null),\r\n  withTemplateMenuEntities<TemplateMenuItem, \"Id\">({ idKey: \"Id\", initialValue: [] })\r\n);\r\n\r\nconst { \r\n  selectWritingDocument, \r\n  setWritingDocument \r\n} = writingDocumentAdapter(store);\r\n\r\n@Injectable({ providedIn: \"root\" })\r\nexport class FormFillerStore {\r\n  protected http = inject(HttpClient);\r\n\r\n  writingDocument$ = selectWritingDocument();\r\n\r\n  getTemplateRequest$ = (action$: Observable<number>) => action$.pipe(\r\n    switchMap(id => this.http.get<SiteDocument>(`${environment.siteDocsApi}/TemplateApi/GetDocumentTemplate`, {\r\n      params: {\r\n        id: id!.toString()\r\n      }\r\n    })),\r\n    setWritingDocument()\r\n  );\r\n\r\n  getTemplatesRequest$ = <T>(action$: Observable<T>) => action$.pipe(\r\n    switchMap(() => this.http.get<SiteDocument[]>(`${environment.siteDocsApi}/TemplateApi/`))\r\n  );\r\n\r\n  submitDocument$ = (action$: Observable<SiteDocument>) => action$.pipe(\r\n    switchMap(doc => this.http.post<number>(`${environment.siteDocsApi}/TemplateApi/UploadDocument`, doc))\r\n  );\r\n}",
             "properties": [
                 {
                     "name": "Id",
@@ -1810,7 +1819,7 @@
         },
         {
             "name": "FormFillerStore",
-            "id": "injectable-FormFillerStore-ccba4481246df428a45995d75e31379c8679b39db1ab8390112737d280239cd58af8e99f243414d164917a5278b823aa533b84b8b7432e2abf39b9d263802e1f",
+            "id": "injectable-FormFillerStore-841bbb28e0f1d7ea49fe52ef349a21a3a4d71571b8b0015b607d3eea447a040c20c7fa22172d377264a5358c8b9fc8a51c34160d7e2c39017c1eafd9327500fe",
             "file": "src/app/core/stores/site-document/form-filler/form-filler.store.ts",
             "properties": [
                 {
@@ -1872,12 +1881,12 @@
             "deprecationMessage": "",
             "description": "",
             "rawdescription": "\n",
-            "sourceCode": "import { HttpClient } from \"@angular/common/http\";\nimport { inject, Injectable } from \"@angular/core\";\nimport { createStore } from \"@ngneat/elf\";\nimport { Observable, Subject, switchMap } from \"rxjs\";\nimport { environment } from \"src/environments/environment\";\nimport { withWritingDocument } from \"../props\";\nimport { SiteDocument } from \"../site-document.store\";\nimport { entitiesPropsFactory } from \"@ngneat/elf-entities\";\nimport { writingDocumentAdapter } from \"../adapters/writing-document.adapter\";\n\nexport interface TemplateMenuItem {\n  Id: number;\n  Title: string;\n  SiteDocumentType: number;\n  RevNo: number;\n}\n\nconst { withTemplateMenuEntities } = entitiesPropsFactory(\"templateMenu\");\n\nconst store = createStore(\n  { name: \"form-filler\" },\n  withWritingDocument(null as SiteDocument | null),\n  withTemplateMenuEntities<TemplateMenuItem, \"Id\">({ idKey: \"Id\", initialValue: [] })\n);\n\nconst { \n  selectWritingDocument, \n  setWritingDocument \n} = writingDocumentAdapter(store);\n\n@Injectable({ providedIn: \"root\" })\nexport class FormFillerStore {\n  protected http = inject(HttpClient);\n\n  writingDocument$ = selectWritingDocument();\n\n  getTemplateRequest$ = (action$: Observable<number>) => action$.pipe(\n    switchMap(id => this.http.get<SiteDocument>(`${environment.siteDocsApi}/TemplateApi/GetDocumentTemplate`, {\n      params: {\n        id: id!.toString()\n      }\n    })),\n    setWritingDocument()\n  );\n\n  getTemplatesRequest$ = <T>(action$: Observable<T>) => action$.pipe(\n    switchMap(() => this.http.get<SiteDocument[]>(`${environment.siteDocsApi}/TemplateApi/`))\n  );\n\n  submitDocument$ = (action$: Observable<SiteDocument>) => action$.pipe(\n    switchMap(doc => this.http.post<number>(`${environment.siteDocsApi}/TemplateApi/UploadDocument`, doc))\n  );\n}",
+            "sourceCode": "import { HttpClient } from \"@angular/common/http\";\r\nimport { inject, Injectable } from \"@angular/core\";\r\nimport { createStore } from \"@ngneat/elf\";\r\nimport { Observable, Subject, switchMap } from \"rxjs\";\r\nimport { environment } from \"src/environments/environment\";\r\nimport { withWritingDocument } from \"../props\";\r\nimport { SiteDocument } from \"../site-document.store\";\r\nimport { entitiesPropsFactory } from \"@ngneat/elf-entities\";\r\nimport { writingDocumentAdapter } from \"../adapters/writing-document.adapter\";\r\n\r\nexport interface TemplateMenuItem {\r\n  Id: number;\r\n  Title: string;\r\n  SiteDocumentType: number;\r\n  RevNo: number;\r\n}\r\n\r\nconst { withTemplateMenuEntities } = entitiesPropsFactory(\"templateMenu\");\r\n\r\nconst store = createStore(\r\n  { name: \"form-filler\" },\r\n  withWritingDocument(null as SiteDocument | null),\r\n  withTemplateMenuEntities<TemplateMenuItem, \"Id\">({ idKey: \"Id\", initialValue: [] })\r\n);\r\n\r\nconst { \r\n  selectWritingDocument, \r\n  setWritingDocument \r\n} = writingDocumentAdapter(store);\r\n\r\n@Injectable({ providedIn: \"root\" })\r\nexport class FormFillerStore {\r\n  protected http = inject(HttpClient);\r\n\r\n  writingDocument$ = selectWritingDocument();\r\n\r\n  getTemplateRequest$ = (action$: Observable<number>) => action$.pipe(\r\n    switchMap(id => this.http.get<SiteDocument>(`${environment.siteDocsApi}/TemplateApi/GetDocumentTemplate`, {\r\n      params: {\r\n        id: id!.toString()\r\n      }\r\n    })),\r\n    setWritingDocument()\r\n  );\r\n\r\n  getTemplatesRequest$ = <T>(action$: Observable<T>) => action$.pipe(\r\n    switchMap(() => this.http.get<SiteDocument[]>(`${environment.siteDocsApi}/TemplateApi/`))\r\n  );\r\n\r\n  submitDocument$ = (action$: Observable<SiteDocument>) => action$.pipe(\r\n    switchMap(doc => this.http.post<number>(`${environment.siteDocsApi}/TemplateApi/UploadDocument`, doc))\r\n  );\r\n}",
             "type": "injectable"
         },
         {
             "name": "LiveQueuesStore",
-            "id": "injectable-LiveQueuesStore-3adfefc52ef04ef20895358fa276c0f8080967a712d640fd9112d7e15b8a678ced1ef1ded20f5f55dc306796e3d206c772819e1f8878c04a8153d7475f7f60ca",
+            "id": "injectable-LiveQueuesStore-ec23ba02ee486a663b1d6dade3cc49270d103e1fce4a0e7711afd0bb87a8989217c5c8f00e2144ae00254dc73157f063f1502f657b528c1ff58c665abefacccd",
             "file": "src/app/core/stores/live-queues/live-queues.store.ts",
             "properties": [],
             "methods": [],
@@ -1885,12 +1894,12 @@
             "deprecationMessage": "",
             "description": "",
             "rawdescription": "\n",
-            "sourceCode": "import { Injectable } from \"@angular/core\";\nimport { createStore, setProp, withProps } from \"@ngneat/elf\";\n\nconst store = createStore(\n  { name: \"live-queues\" },\n  withProps<{ hideEmptyQueues: boolean }>({\n    hideEmptyQueues: false\n  })\n);\n\nconst toggleHideEmptyQueues = () => store.update(\n  setProp(\"hideEmptyQueues\", prop => !prop)\n);\n\n@Injectable({ providedIn: \"root\" })\nexport class LiveQueuesStore {\n  \n}\n",
+            "sourceCode": "import { Injectable } from \"@angular/core\";\r\nimport { createStore, setProp, withProps } from \"@ngneat/elf\";\r\n\r\nconst store = createStore(\r\n  { name: \"live-queues\" },\r\n  withProps<{ hideEmptyQueues: boolean }>({\r\n    hideEmptyQueues: false\r\n  })\r\n);\r\n\r\nconst toggleHideEmptyQueues = () => store.update(\r\n  setProp(\"hideEmptyQueues\", prop => !prop)\r\n);\r\n\r\n@Injectable({ providedIn: \"root\" })\r\nexport class LiveQueuesStore {\r\n  \r\n}\r\n",
             "type": "injectable"
         },
         {
             "name": "OneSignalService",
-            "id": "injectable-OneSignalService-46c025d481e6a4ace2167dfff7f2c154709c9de0f0250d36c02ff704af5c0a183ac99699a5c6a67f74957ffe71ee3d543e2844ff238727205c0b77d88c35213f",
+            "id": "injectable-OneSignalService-ea68c9c0cbdeea4638925ea4c6f542f26605cc6684bd432b725a6362ea03eab9ca020d4399509462c67d478eb4ea62925b2cf3b9c12c759b8bdbe70ef4684338",
             "file": "src/app/shared/services/onesignal/onesignal.service.ts",
             "properties": [
                 {
@@ -1939,7 +1948,7 @@
             "deprecationMessage": "",
             "description": "",
             "rawdescription": "\n",
-            "sourceCode": "import { inject, Injectable } from \"@angular/core\";\r\nimport { Device } from \"@capacitor/device\";\r\nimport { ToastController } from \"@ionic/angular\";\r\nimport OneSignal from \"onesignal-cordova-plugin\";\r\nimport NotificationReceivedEvent from \"onesignal-cordova-plugin/dist/NotificationReceivedEvent\";\r\nimport { map, Subject, switchMap, tap } from \"rxjs\";\r\n\r\n@Injectable({\r\n  providedIn: \"root\"\r\n})\r\nexport class OneSignalService {\r\n  protected toastCtrl = inject(ToastController);\r\n  protected notificationReceived$ = new Subject<NotificationReceivedEvent>();\r\n\r\n  async startup() {\r\n    const device = await Device.getInfo();\r\n\r\n    if (device.platform === \"web\")\r\n      return;\r\n\r\n    this.notificationReceived$.pipe(\r\n      map(nr => nr.getNotification()),\r\n      switchMap(notification => this.toastCtrl.create({\r\n        header: notification.title,\r\n        message: notification.body,\r\n        duration: 5000,\r\n        position: \"top\"\r\n      })),\r\n      tap(toast => toast.present())\r\n    )\r\n    .subscribe();\r\n\r\n    OneSignal.setAppId(\"\");\r\n\r\n    OneSignal.promptForPushNotificationsWithUserResponse(() => \r\n      OneSignal.setNotificationWillShowInForegroundHandler(notification => this.notificationReceived$.next(notification))\r\n    );\r\n  }\r\n}\r\n",
+            "sourceCode": "import { inject, Injectable } from \"@angular/core\";\nimport { Device } from \"@capacitor/device\";\nimport { ToastController } from \"@ionic/angular\";\nimport OneSignal from \"onesignal-cordova-plugin\";\nimport NotificationReceivedEvent from \"onesignal-cordova-plugin/dist/NotificationReceivedEvent\";\nimport { map, Subject, switchMap, tap } from \"rxjs\";\n\n@Injectable({\n  providedIn: \"root\"\n})\nexport class OneSignalService {\n  protected toastCtrl = inject(ToastController);\n  protected notificationReceived$ = new Subject<NotificationReceivedEvent>();\n\n  async startup() {\n    const device = await Device.getInfo();\n\n    if (device.platform === \"web\")\n      return;\n\n    this.notificationReceived$.pipe(\n      map(nr => nr.getNotification()),\n      switchMap(notification => this.toastCtrl.create({\n        header: notification.title,\n        message: notification.body,\n        duration: 5000,\n        position: \"top\"\n      })),\n      tap(toast => toast.present())\n    )\n    .subscribe();\n\n    OneSignal.setAppId(\"\");\n\n    OneSignal.promptForPushNotificationsWithUserResponse(() => \n      OneSignal.setNotificationWillShowInForegroundHandler(notification => this.notificationReceived$.next(notification))\n    );\n  }\n}\n",
             "type": "injectable"
         },
         {
@@ -1998,7 +2007,7 @@
         },
         {
             "name": "SiteDocumentStore",
-            "id": "injectable-SiteDocumentStore-5d70860f8d925ca108e8b46177bfc05fe9ff5d299b6a4d44f36a816bb00385bd5d71bb69e239db8698c8d81d18bc5983b24a6fceecd11b3668e5fafa94397cd4",
+            "id": "injectable-SiteDocumentStore-5e983d9f903fd8936b53d457225be33ea528da397258d50470c49d9d13c566aeabe7926fac689cd85bc59e2ab090706562ba55d6b17a0fed0eeb92615db6369d",
             "file": "src/app/core/stores/site-document/site-document.store.ts",
             "properties": [
                 {
@@ -2009,7 +2018,7 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 124
+                    "line": 125
                 }
             ],
             "methods": [],
@@ -2017,7 +2026,7 @@
             "deprecationMessage": "",
             "description": "",
             "rawdescription": "\n",
-            "sourceCode": "import { Injectable } from \"@angular/core\";\r\nimport { createStore } from \"@ngneat/elf\";\r\nimport { selectAllEntities, withEntities } from \"@ngneat/elf-entities\";\r\n\r\nexport interface SiteDocument {\r\n  DocumentID: number;\r\n  DocumentTitle: string;\r\n  Pinned: boolean;\r\n  Pages: Page[];\r\n  AllowAnon: boolean;\r\n  RemainAnon: boolean;\r\n  Queues: { Key: string, Value: string }[],\r\n  DocumentGroup: string;\r\n  CanCreateHotspot: boolean;\r\n  CanBeAddedToHotspot?: boolean;\r\n  CanBeSavedAsDraft?: boolean;\r\n  CanAddActionerFromApp: boolean;\r\n  CanAddCategoryActioner: boolean;\r\n  CanCreateAssetsFromDocument: boolean;\r\n  CanHaveQueueDuration: boolean;\r\n  CanHaveDocumentLevelImages: boolean;\r\n  CanHaveDocLevelPhotoRoll: boolean;\r\n  ShowDocLevelPhotoButtonAtStartOfDoc: boolean;\r\n  CanAddAsset?: boolean;\r\n  CanAddOperative?: boolean;\r\n  CanHaveCompanyActioner: boolean;\r\n  MetaData: Partial<SiteDocumentMetaData>;\r\n}\r\n\r\nexport interface SiteDocumentMetaData {\r\n  ActionerText: string;\r\n  CanBeEditableDocument: boolean;\r\n  CannotAddSelfAsActioner: boolean;\r\n  ColourHex: string;\r\n  QueueSelectorTitle: string;\r\n  HasSiteList: boolean;\r\n  UsesRadioGroupTable: boolean;\r\n}\r\n\r\nexport interface SiteDocumentAsset {\r\n  AssetID: number;\r\n  Tag: string;\r\n  Name: string;\r\n  QRCode?: string;\r\n  TemplateID?: number;\r\n}\r\n\r\nexport interface SiteDocumentOperative {\r\n  AttendeeID: number;\r\n  Name: string;\r\n  DateAttended: Date;\r\n}\r\n\r\nexport interface Page {\r\n  PageID: number;\r\n  PageTitle: string;\r\n  Sections: Section[]\r\n}\r\n\r\nexport interface Section {\r\n  SectionID: number;\r\n  SectionNo: number;\r\n  SectionTitle: string;\r\n  Questions: Question[];\r\n  SectionQuestiontype: QuestionType;\r\n  IsRepeatable: boolean;\r\n  TableTitles: string[];\r\n}\r\n\r\nexport enum QuestionType {\r\n  Label = 0,\r\n  Checkbox = 1,\r\n  RadioGroup = 2,\r\n  Textbox = 3,\r\n  TextArea = 4,\r\n  Select = 5,\r\n  CheckboxTextbox = 6,\r\n  RadioGroupTextbox = 7,\r\n  Date = 8,\r\n  DateTime = 9,\r\n  OperativeList = 10,\r\n  WallOfText = 11,\r\n  Number = 12,\r\n  CascadeDropdown = 13,\r\n  LinkedBool = 16,\r\n  AssetList = 17,\r\n  LinkedDates = 18,\r\n  Signature = 19,\r\n  CompanySelect = 21,\r\n  AreaSelect = 22,\r\n  AssetGroupsAndTypes = 25,\r\n  AssetInspectionSchedule = 26,\r\n  ProjectSelect = 27,\r\n  RamsSelect = 28,\r\n  SelectText = 29,\r\n  CascadeDropdownText = 30,\r\n  MultiCascade = 31,\r\n  Time = 32,\r\n  LinkedTimes = 33,\r\n  HRASelect = 34,\r\n  MultiCheckbox = 35,\r\n  LinkedDateAndTime = 36\r\n}\r\n\r\nexport interface Question {\r\n  QuestionID: number;\r\n  QuestionText: string;\r\n  CascadeOptionsText: string;\r\n  Assets: SiteDocumentAsset[];\r\n  Operatives: SiteDocumentOperative[];\r\n  Required: boolean;\r\n  AnswerText: string;\r\n  CanHaveImg: boolean;\r\n  CanHaveFiles: boolean;\r\n}\r\n\r\nconst store = createStore(\r\n  { name: \"site-documents\" },\r\n  withEntities<SiteDocument, \"DocumentID\">({ idKey: \"DocumentID\" })\r\n);\r\n\r\n@Injectable({ providedIn: \"root\" })\r\nexport class SiteDocumentStore {\r\n  templates$ = store.pipe(selectAllEntities());\r\n}",
+            "sourceCode": "import { Injectable } from \"@angular/core\";\r\nimport { createStore } from \"@ngneat/elf\";\r\nimport { selectAllEntities, withEntities } from \"@ngneat/elf-entities\";\r\n\r\nexport interface SiteDocument {\r\n  DocumentID: number;\r\n  DocumentTitle: string;\r\n  Pinned: boolean;\r\n  Pages: Page[];\r\n  AllowAnon: boolean;\r\n  RemainAnon: boolean;\r\n  Queues: { Key: string, Value: string }[],\r\n  DocumentGroup: string;\r\n  CanCreateHotspot: boolean;\r\n  CanBeAddedToHotspot?: boolean;\r\n  CanBeSavedAsDraft?: boolean;\r\n  CanAddActionerFromApp: boolean;\r\n  CanAddCategoryActioner: boolean;\r\n  CanCreateAssetsFromDocument: boolean;\r\n  CanHaveQueueDuration: boolean;\r\n  CanHaveDocumentLevelImages: boolean;\r\n  CanHaveDocLevelPhotoRoll: boolean;\r\n  ShowDocLevelPhotoButtonAtStartOfDoc: boolean;\r\n  CanAddAsset?: boolean;\r\n  CanAddOperative?: boolean;\r\n  CanHaveCompanyActioner: boolean;\r\n  MetaData: Partial<SiteDocumentMetaData>;\r\n}\r\n\r\nexport interface SiteDocumentMetaData {\r\n  ActionerText: string;\r\n  CanBeEditableDocument: boolean;\r\n  CannotAddSelfAsActioner: boolean;\r\n  ColourHex: string;\r\n  QueueSelectorTitle: string;\r\n  HasSiteList: boolean;\r\n  UsesRadioGroupTable: boolean;\r\n}\r\n\r\nexport interface SiteDocumentAsset {\r\n  AssetID: number;\r\n  Tag: string;\r\n  Name: string;\r\n  QRCode?: string;\r\n  TemplateID?: number;\r\n}\r\n\r\nexport interface SiteDocumentOperative {\r\n  AttendeeID: number;\r\n  Name: string;\r\n  DateAttended: Date;\r\n}\r\n\r\nexport interface Page {\r\n  PageID: number;\r\n  PageTitle: string;\r\n  Sections: Section[]\r\n}\r\n\r\nexport interface Section {\r\n  SectionID: number;\r\n  SectionNo: number;\r\n  SectionTitle: string;\r\n  Questions: Question[];\r\n  SectionQuestiontype: QuestionType;\r\n  IsRepeatable: boolean;\r\n  TableTitles: string[];\r\n}\r\n\r\nexport enum QuestionType {\r\n  Label = 0,\r\n  Checkbox = 1,\r\n  RadioGroup = 2,\r\n  Textbox = 3,\r\n  TextArea = 4,\r\n  Select = 5,\r\n  CheckboxTextbox = 6,\r\n  RadioGroupTextbox = 7,\r\n  Date = 8,\r\n  DateTime = 9,\r\n  OperativeList = 10,\r\n  WallOfText = 11,\r\n  Number = 12,\r\n  CascadeDropdown = 13,\r\n  LinkedBool = 16,\r\n  AssetList = 17,\r\n  LinkedDates = 18,\r\n  Signature = 19,\r\n  CompanySelect = 21,\r\n  AreaSelect = 22,\r\n  AssetGroupsAndTypes = 25,\r\n  AssetInspectionSchedule = 26,\r\n  ProjectSelect = 27,\r\n  RamsSelect = 28,\r\n  SelectText = 29,\r\n  CascadeDropdownText = 30,\r\n  MultiCascade = 31,\r\n  Time = 32,\r\n  LinkedTimes = 33,\r\n  HRASelect = 34,\r\n  MultiCheckbox = 35,\r\n  LinkedDateAndTime = 36\r\n}\r\n\r\nexport interface Question {\r\n  QuestionID: number;\r\n  QuestionText: string;\r\n  CascadeOptionsText: string;\r\n  Assets: SiteDocumentAsset[];\r\n  Operatives: SiteDocumentOperative[];\r\n  Required: boolean;\r\n  AnswerText: string;\r\n  YesNoNA: boolean | null;\r\n  CanHaveImg: boolean;\r\n  CanHaveFiles: boolean;\r\n}\r\n\r\nconst store = createStore(\r\n  { name: \"site-documents\" },\r\n  withEntities<SiteDocument, \"DocumentID\">({ idKey: \"DocumentID\" })\r\n);\r\n\r\n@Injectable({ providedIn: \"root\" })\r\nexport class SiteDocumentStore {\r\n  templates$ = store.pipe(selectAllEntities());\r\n}",
             "type": "injectable"
         },
         {
@@ -2080,12 +2089,12 @@
     "classes": [
         {
             "name": "AssetListModal",
-            "id": "class-AssetListModal-14805cf960a48aaf1ed4576f6dccf31898e6feed343e85b9d8b25a9baea7b23723aa122bb76ed194b2f4665cddf8b6b0adaf2c4bc788f813d54cb03745063c77",
+            "id": "class-AssetListModal-6afe7b5a3f66b3a856573947b2509f8ef3ecd451897623f684ea99121a3694d03502b514cb6980506ba0f59f9187d4b0e0f724755022e6b696f5670a665dfbbc",
             "file": "src/app/shared/modals/asset-list/asset-list.modal.ts",
             "deprecated": false,
             "deprecationMessage": "",
             "type": "class",
-            "sourceCode": "export class AssetListModal {\n}\n",
+            "sourceCode": "export class AssetListModal {\r\n}\r\n",
             "properties": [],
             "methods": [],
             "indexSignatures": [],
@@ -2114,12 +2123,12 @@
     "directives": [
         {
             "name": "BarcodeScannerDirective",
-            "id": "directive-BarcodeScannerDirective-2090b1d2d924f19a05479ab3d246af7c86f50045098dc549f9e2c808faee7a81e5eca4f1374938fec331f42702743a3ad29903ae67ac4a0e9c689e5d6e91c260",
+            "id": "directive-BarcodeScannerDirective-e7ab6e64f44fc426c4d8d715ee139a730b17b8b0304d2ed60c9bd1963305c222b91562838f03e7d909258d5d1b915ddc777b6614fa4103b28777a1fefaa3e26b",
             "file": "src/app/shared/directives/barcode-scanner/barcode-scanner.directive.ts",
             "type": "directive",
             "description": "",
             "rawdescription": "\n",
-            "sourceCode": "import { Directive, EventEmitter, HostListener, Input, Output } from \"@angular/core\";\r\nimport { BarcodeScanner, ScanOptions } from \"@capacitor-community/barcode-scanner\";\r\n\r\n@Directive({\r\n  selector: \"[barcode-scanner]\",\r\n  standalone: true\r\n})\r\nexport class BarcodeScannerDirective {\r\n  @Input(\"barcode-scanner\")\r\n  options: ScanOptions = {}\r\n\r\n  @Output(\"scan\") \r\n  scan = new EventEmitter<string>();\r\n\r\n  @HostListener(\"click\")\r\n  async scanCode() {\r\n    await BarcodeScanner.hideBackground();\r\n    const res = await BarcodeScanner.startScan({ targetedFormats: [] });\r\n    \r\n    if (res.hasContent)\r\n      this.scan.emit(res.content);\r\n  }\r\n}\r\n",
+            "sourceCode": "import { Directive, EventEmitter, HostListener, Input, Output } from \"@angular/core\";\nimport { BarcodeScanner, ScanOptions } from \"@capacitor-community/barcode-scanner\";\n\n@Directive({\n  selector: \"[barcode-scanner]\",\n  standalone: true\n})\nexport class BarcodeScannerDirective {\n  @Input(\"barcode-scanner\")\n  options: ScanOptions = {}\n\n  @Output(\"scan\") \n  scan = new EventEmitter<string>();\n\n  @HostListener(\"click\")\n  async scanCode() {\n    await BarcodeScanner.hideBackground();\n    const res = await BarcodeScanner.startScan({ targetedFormats: [] });\n    \n    if (res.hasContent)\n      this.scan.emit(res.content);\n  }\n}\n",
             "selector": "[barcode-scanner]",
             "providers": [],
             "inputsClass": [
@@ -2181,18 +2190,18 @@
         },
         {
             "name": "CameraDirective",
-            "id": "directive-CameraDirective-637db5314fa9eef57df799c7f8e7e0a437194d3710096ceac8d6b475feac7693a8a247268000989ab19ddba736ec18271c19b62d59c2e4d81bdb5d1115764f09",
+            "id": "directive-CameraDirective-f10927f7df2eb3c81832d7b42583e586499c7f0ddb1106034e3c715ac18c83dd59604204487614b6d0fa286aac7ca15a8e32f94cb28e5087c15ac956f206ec92",
             "file": "src/app/shared/directives/camera/camera.directive.ts",
             "type": "directive",
             "description": "",
             "rawdescription": "\n",
-            "sourceCode": "import { Directive, EventEmitter, HostBinding, Input, Output } from \"@angular/core\";\r\nimport { Camera, ImageOptions } from \"@capacitor/camera\";\r\nimport { CameraResultType, Photo } from \"@capacitor/camera/dist/esm/definitions\";\r\n\r\n@Directive({\r\n  selector: \"[camera]\",\r\n  standalone: true\r\n})\r\nexport class CameraDirective {\r\n  @Input(\"camera\")\r\n  options: ImageOptions = {\r\n    resultType: CameraResultType.Base64\r\n  };\r\n\r\n  @Output()\r\n  takePhoto = new EventEmitter<Photo>();\r\n\r\n  @HostBinding(\"click\")\r\n  async take() {\r\n    const photo = await Camera.getPhoto(this.options);\r\n    this.takePhoto.emit(photo);\r\n  }\r\n}\r\n",
+            "sourceCode": "import { Directive, EventEmitter, HostBinding, Input, Output } from \"@angular/core\";\nimport { Camera, ImageOptions } from \"@capacitor/camera\";\nimport { CameraResultType, Photo } from \"@capacitor/camera/dist/esm/definitions\";\n\n@Directive({\n  selector: \"[camera]\",\n  standalone: true\n})\nexport class CameraDirective {\n  @Input(\"camera\")\n  options: ImageOptions = {\n    resultType: CameraResultType.Base64\n  };\n\n  @Output()\n  takePhoto = new EventEmitter<Photo>();\n\n  @HostBinding(\"click\")\n  async take() {\n    const photo = await Camera.getPhoto(this.options);\n    this.takePhoto.emit(photo);\n  }\n}\n",
             "selector": "[camera]",
             "providers": [],
             "inputsClass": [
                 {
                     "name": "camera",
-                    "defaultValue": "{\r\n    resultType: CameraResultType.Base64\r\n  }",
+                    "defaultValue": "{\n    resultType: CameraResultType.Base64\n  }",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "line": 11,
@@ -2548,7 +2557,7 @@
         },
         {
             "name": "AppComponent",
-            "id": "component-AppComponent-1ec040a91f41102ea933f46462e206d3a941e35a0d50f1652261905e96af137ae536ab5179c199c7069e97e9ab1b58a16b836b6235b5b11f562d4a0515565fb7",
+            "id": "component-AppComponent-d41cfd42d13923078762ea410fbe2dca1567b4115e79eed159cf8ddb724e841d83ae01cc29a79701af47deae4a91fa8962e9322fcc26c1f1cbe8126ef1638a0c",
             "file": "src/app/app.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -2572,7 +2581,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component } from '@angular/core';\r\nimport { IonicModule } from '@ionic/angular';\r\n\r\n@Component({\r\n  selector: 'app-root',\r\n  template: `\r\n    <ion-app>\r\n      <ion-router-outlet></ion-router-outlet>\r\n    </ion-app>\r\n  `,\r\n  standalone: true,\r\n  imports: [IonicModule],\r\n})\r\nexport class AppComponent {\r\n  constructor() {}\r\n}\r\n",
+            "sourceCode": "import { Component } from '@angular/core';\nimport { IonicModule } from '@ionic/angular';\n\n@Component({\n  selector: 'app-root',\n  template: `\n    <ion-app>\n      <ion-router-outlet></ion-router-outlet>\n    </ion-app>\n  `,\n  standalone: true,\n  imports: [IonicModule],\n})\nexport class AppComponent {\n  constructor() {}\n}\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
@@ -2805,7 +2814,7 @@
         },
         {
             "name": "CheckboxComponent",
-            "id": "component-CheckboxComponent-d15641f17f79069bbecf20ce7d254b038a7666556294a12a774a8fa233c83fa22842fdc0a715b201e5c8574a38b708cb2bab6e2447d5a1c0f9e3807b2209bd6e",
+            "id": "component-CheckboxComponent-a84da3e61649daea969cae62b280e1337dc72d2777d9a6ee3c76cfb64f1474122df0c1db01e184a58b28306216efe841dfa4348ba2475512ed32f868b0d43cd7",
             "file": "src/app/core/pages/document-builder/components/question-types/01-checkbox/checkbox.component.ts",
             "changeDetection": "ChangeDetectionStrategy.OnPush",
             "encapsulation": [],
@@ -2816,7 +2825,7 @@
             "selector": "checkbox-question[question]",
             "styleUrls": [],
             "styles": [],
-            "template": "<ion-item lines=\"none\">\n  <ion-checkbox aria-label=\"\" slot=\"start\"></ion-checkbox>\n  <question-text [required]=\"question.Required\">\n    {{ question.QuestionText }}\n  </question-text>\n  <camera-capture *rxIf=\"question.CanHaveImg\" class=\"ion-no-margin\" slot=\"end\"></camera-capture>\n  <file-upload *rxIf=\"question.CanHaveFiles\" class=\"ion-no-margin\" slot=\"end\"></file-upload>\n</ion-item>\n",
+            "template": "<ion-item lines=\"none\">\n  <ion-checkbox [(ngModel)]=\"question.YesNoNA\" aria-label=\"\" slot=\"start\"></ion-checkbox>\n  <question-text [required]=\"question.Required\">\n    {{ question.QuestionText }}\n  </question-text>\n  <camera-capture *rxIf=\"question.CanHaveImg\" class=\"ion-no-margin\" slot=\"end\"></camera-capture>\n  <file-upload *rxIf=\"question.CanHaveFiles\" class=\"ion-no-margin\" slot=\"end\"></file-upload>\n</ion-item>\n",
             "templateUrl": [],
             "viewProviders": [],
             "inputsClass": [
@@ -2824,7 +2833,7 @@
                     "name": "question",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 31,
+                    "line": 33,
                     "type": "Question",
                     "decorators": []
                 }
@@ -2839,7 +2848,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { ChangeDetectionStrategy, Component, Input } from \"@angular/core\";\r\nimport { IonicModule } from \"@ionic/angular\";\r\nimport { Question } from \"src/app/core/stores/site-document/site-document.store\";\r\nimport { importRxTemplate } from \"src/app/shared/imports\";\r\nimport { CameraCaptureComponent, FileUploadComponent, QuestionTextComponent } from \"../extras\";\r\n\r\n@Component({\r\n  selector: 'checkbox-question[question]',\r\n  template: `\r\n    <ion-item lines=\"none\">\r\n      <ion-checkbox aria-label=\"\" slot=\"start\"></ion-checkbox>\r\n      <question-text [required]=\"question.Required\">\r\n        {{ question.QuestionText }}\r\n      </question-text>\r\n      <camera-capture *rxIf=\"question.CanHaveImg\" class=\"ion-no-margin\" slot=\"end\"></camera-capture>\r\n      <file-upload *rxIf=\"question.CanHaveFiles\" class=\"ion-no-margin\" slot=\"end\"></file-upload>\r\n    </ion-item>\r\n  `,\r\n  standalone: true,\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  imports: [\r\n    IonicModule,\r\n    ...importRxTemplate(),\r\n    QuestionTextComponent,\r\n    CameraCaptureComponent,\r\n    FileUploadComponent\r\n  ]\r\n})\r\nexport class CheckboxComponent {\r\n  @Input()\r\n  question!: Question;\r\n}\r\n",
+            "sourceCode": "import { ChangeDetectionStrategy, Component, Input } from \"@angular/core\";\r\nimport { IonicModule } from \"@ionic/angular\";\r\nimport { Question } from \"src/app/core/stores/site-document/site-document.store\";\r\nimport { importRxTemplate } from \"src/app/shared/imports\";\r\nimport { CameraCaptureComponent, FileUploadComponent, QuestionTextComponent } from \"../extras\";\r\nimport { FormsModule } from \"@angular/forms\";\r\n\r\n@Component({\r\n  selector: 'checkbox-question[question]',\r\n  template: `\r\n    <ion-item lines=\"none\">\r\n      <ion-checkbox [(ngModel)]=\"question.YesNoNA\" aria-label=\"\" slot=\"start\"></ion-checkbox>\r\n      <question-text [required]=\"question.Required\">\r\n        {{ question.QuestionText }}\r\n      </question-text>\r\n      <camera-capture *rxIf=\"question.CanHaveImg\" class=\"ion-no-margin\" slot=\"end\"></camera-capture>\r\n      <file-upload *rxIf=\"question.CanHaveFiles\" class=\"ion-no-margin\" slot=\"end\"></file-upload>\r\n    </ion-item>\r\n  `,\r\n  standalone: true,\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  imports: [\r\n    IonicModule,\r\n    FormsModule,\r\n    ...importRxTemplate(),\r\n    QuestionTextComponent,\r\n    CameraCaptureComponent,\r\n    FileUploadComponent\r\n  ]\r\n})\r\nexport class CheckboxComponent {\r\n  @Input()\r\n  question!: Question;\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": ""
@@ -2887,7 +2896,7 @@
         },
         {
             "name": "ChildDocumentCardComponent",
-            "id": "component-ChildDocumentCardComponent-8e97586f65e58162461e307e04fcfbb8e91a9c6fc9d9967aed0c54a2d3659b96c119b672050bb189c3111d307cc31639c0087973217b27ec4a0292e47b1da32f",
+            "id": "component-ChildDocumentCardComponent-a6c93a601dfb49952bb99be591db0de210767a13ef4b1cdc86ccf79ff9ed9a4f98ebc0bfd34d8de4f8b7f652e1cc04e9b2795ab2edf235c641d3eeee3a6d43d1",
             "file": "src/app/core/pages/document-builder/components/child-document-card/child-document-card.component.ts",
             "changeDetection": "ChangeDetectionStrategy.OnPush",
             "encapsulation": [],
@@ -2921,7 +2930,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { ChangeDetectionStrategy, Component, Input } from \"@angular/core\";\r\nimport { IonicModule } from \"@ionic/angular\";\r\nimport { SiteDocument } from \"src/app/core/stores/site-document/site-document.store\";\r\n\r\n@Component({\r\n  selector: \"child-document-card[document]\",\r\n  template: `\r\n    <ion-list>\r\n      <ion-list-header>Action Document</ion-list-header>\r\n      <ion-item lines=\"none\">\r\n        <ion-label class=\"ion-text-wrap\">\r\n          {{ document.DocumentTitle }}\r\n        </ion-label>\r\n        <ion-button>\r\n          <ion-icon name=\"pencil-outline\" slot=\"icon-only\"></ion-icon>\r\n        </ion-button>\r\n      </ion-item>\r\n    </ion-list>\r\n  `,\r\n  standalone: true,\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  imports: [IonicModule]\r\n})\r\nexport class ChildDocumentCardComponent {\r\n  @Input()\r\n  document!: SiteDocument;\r\n}\r\n",
+            "sourceCode": "import { ChangeDetectionStrategy, Component, Input } from \"@angular/core\";\nimport { IonicModule } from \"@ionic/angular\";\nimport { SiteDocument } from \"src/app/core/stores/site-document/site-document.store\";\n\n@Component({\n  selector: \"child-document-card[document]\",\n  template: `\n    <ion-list>\n      <ion-list-header>Action Document</ion-list-header>\n      <ion-item lines=\"none\">\n        <ion-label class=\"ion-text-wrap\">\n          {{ document.DocumentTitle }}\n        </ion-label>\n        <ion-button>\n          <ion-icon name=\"pencil-outline\" slot=\"icon-only\"></ion-icon>\n        </ion-button>\n      </ion-item>\n    </ion-list>\n  `,\n  standalone: true,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  imports: [IonicModule]\n})\nexport class ChildDocumentCardComponent {\n  @Input()\n  document!: SiteDocument;\n}\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": ""
@@ -3922,7 +3931,7 @@
         },
         {
             "name": "OperativeListModal",
-            "id": "component-OperativeListModal-072e669b7a8bfe697eb8a60ef60150743b898250217a57aa32bdc779c8c7dedd6c744faf2f5e41298f587f17763493ff3f49e2f2bfc695b490de71f35154d429",
+            "id": "component-OperativeListModal-f7b1d181e1dc4ef979421c02858b24abf449582f038f71855955aea4fab346d973ad490340aeb8a8a4283e235fa7429ffabc1c3428dc4eeeb7b068a0574c3119",
             "file": "src/app/shared/modals/operative-list/operative-list.modal.ts",
             "changeDetection": "ChangeDetectionStrategy.OnPush",
             "encapsulation": [],
@@ -3965,7 +3974,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { ChangeDetectionStrategy, Component, Input } from \"@angular/core\";\nimport { IonicModule } from \"@ionic/angular\";\nimport { importRxTemplate } from \"../../imports\";\nimport { LocalOperativeSearchComponent, OnlineOperativeSearchComponent } from \"./components\";\n\n@Component({\n  selector: \"operative-search-modal[trigger]\",\n  template: `\n    <ion-modal #modal [trigger]=\"trigger\" [isOpen]=\"isOpen\">\n      <ng-template>\n        <ion-header>\n          <ion-toolbar>\n            <ion-title class=\"ion-text-center\">Select an Operative</ion-title>\n            <ion-buttons slot=\"end\">\n              <ion-button (click)=\"modal.dismiss()\" [unpatch]>\n                <ion-icon name=\"close-outline\" slot=\"icon-only\"></ion-icon>\n              </ion-button>\n            </ion-buttons>\n          </ion-toolbar>\n\n          <ion-toolbar>\n            <ion-segment class=\"w-full\">\n              <ion-segment-button value=\"local\">\n                <ion-icon name=\"phone-portrait-outline\"></ion-icon>\n              </ion-segment-button>\n              <ion-segment-button value=\"online\">\n                <ion-icon name=\"wifi-outline\"></ion-icon>\n              </ion-segment-button>\n            </ion-segment>\n          </ion-toolbar>\n        </ion-header>\n      \n        <ion-content class=\"ion-padding\">\n          <local-operative-search></local-operative-search>\n          <online-operative-search></online-operative-search>\n        </ion-content>\n      </ng-template>\n    </ion-modal>\n  `,\n  standalone: true,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  imports: [\n    IonicModule,\n    ...importRxTemplate(),\n    LocalOperativeSearchComponent,\n    OnlineOperativeSearchComponent\n  ]\n})\nexport class OperativeListModal {\n  @Input()\n  trigger!: string;\n  \n  @Input()\n  isOpen: boolean = false;\n}\n",
+            "sourceCode": "import { ChangeDetectionStrategy, Component, Input } from \"@angular/core\";\r\nimport { IonicModule } from \"@ionic/angular\";\r\nimport { importRxTemplate } from \"../../imports\";\r\nimport { LocalOperativeSearchComponent, OnlineOperativeSearchComponent } from \"./components\";\r\n\r\n@Component({\r\n  selector: \"operative-search-modal[trigger]\",\r\n  template: `\r\n    <ion-modal #modal [trigger]=\"trigger\" [isOpen]=\"isOpen\">\r\n      <ng-template>\r\n        <ion-header>\r\n          <ion-toolbar>\r\n            <ion-title class=\"ion-text-center\">Select an Operative</ion-title>\r\n            <ion-buttons slot=\"end\">\r\n              <ion-button (click)=\"modal.dismiss()\" [unpatch]>\r\n                <ion-icon name=\"close-outline\" slot=\"icon-only\"></ion-icon>\r\n              </ion-button>\r\n            </ion-buttons>\r\n          </ion-toolbar>\r\n\r\n          <ion-toolbar>\r\n            <ion-segment class=\"w-full\">\r\n              <ion-segment-button value=\"local\">\r\n                <ion-icon name=\"phone-portrait-outline\"></ion-icon>\r\n              </ion-segment-button>\r\n              <ion-segment-button value=\"online\">\r\n                <ion-icon name=\"wifi-outline\"></ion-icon>\r\n              </ion-segment-button>\r\n            </ion-segment>\r\n          </ion-toolbar>\r\n        </ion-header>\r\n      \r\n        <ion-content class=\"ion-padding\">\r\n          <local-operative-search></local-operative-search>\r\n          <online-operative-search></online-operative-search>\r\n        </ion-content>\r\n      </ng-template>\r\n    </ion-modal>\r\n  `,\r\n  standalone: true,\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  imports: [\r\n    IonicModule,\r\n    ...importRxTemplate(),\r\n    LocalOperativeSearchComponent,\r\n    OnlineOperativeSearchComponent\r\n  ]\r\n})\r\nexport class OperativeListModal {\r\n  @Input()\r\n  trigger!: string;\r\n  \r\n  @Input()\r\n  isOpen: boolean = false;\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": ""
@@ -4739,7 +4748,7 @@
         },
         {
             "name": "SiteSelectComponent",
-            "id": "component-SiteSelectComponent-0da1e6774ee825f5bf199462d0f6b0d0a555bc0c89c02071367c8dbe122283d5172bb1e99d124ff42ccf1ff21761dd5511fbebfbeb67084c4eb94357ca3a2034",
+            "id": "component-SiteSelectComponent-adb64957daefb15fbd6e286b8b90ca6d9ce4a174e6d9140f509ce112d177dc2eb68279851394e07076c67489443d1d34348e528bd69fecc8f9956d001288f764",
             "file": "src/app/core/pages/document-builder/components/input-types/site-select/site-select.component.ts",
             "changeDetection": "ChangeDetectionStrategy.OnPush",
             "encapsulation": [],
@@ -4764,14 +4773,14 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { ChangeDetectionStrategy, Component } from \"@angular/core\";\r\nimport { IonicModule } from \"@ionic/angular\";\r\nimport { SelectableComponent } from \"src/app/shared/components\";\r\n\r\n@Component({\r\n  selector: \"site-select\",\r\n  template: `\r\n    <ion-card>\r\n      <ion-card-header>\r\n        \r\n      </ion-card-header>\r\n      <ion-card-content>\r\n        <ion-item lines=\"none\">\r\n          <selectable></selectable>\r\n        </ion-item>\r\n      </ion-card-content>\r\n    </ion-card>\r\n  `,\r\n  standalone: true,\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  imports: [\r\n    IonicModule,\r\n    SelectableComponent\r\n  ]\r\n})\r\nexport class SiteSelectComponent {\r\n}\r\n",
+            "sourceCode": "import { ChangeDetectionStrategy, Component } from \"@angular/core\";\nimport { IonicModule } from \"@ionic/angular\";\nimport { SelectableComponent } from \"src/app/shared/components\";\n\n@Component({\n  selector: \"site-select\",\n  template: `\n    <ion-card>\n      <ion-card-header>\n        \n      </ion-card-header>\n      <ion-card-content>\n        <ion-item lines=\"none\">\n          <selectable></selectable>\n        </ion-item>\n      </ion-card-content>\n    </ion-card>\n  `,\n  standalone: true,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  imports: [\n    IonicModule,\n    SelectableComponent\n  ]\n})\nexport class SiteSelectComponent {\n}\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": ""
         },
         {
             "name": "TemplateMenuModal",
-            "id": "component-TemplateMenuModal-25a6084484dbbe5f294ce4e60736ab2c3d5aa8d7ef125f38d5f2c578b8807ee9a626d000eb5cd2755a73cec10083bc368915610e7cb5ca467bfb9e05886468d8",
+            "id": "component-TemplateMenuModal-b3f5dbb2b23208830bf6f163cb762189760a32bc1eba4b313cdc7c7466fbad3dd4600625d43533e89a8383a03744ed4987be1bed5d881c57e6172fe7ccaa0c56",
             "file": "src/app/core/pages/document-builder/modals/template-menu/template-menu.modal.ts",
             "changeDetection": "ChangeDetectionStrategy.OnPush",
             "encapsulation": [],
@@ -4814,7 +4823,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { ScrollingModule } from \"@angular/cdk/scrolling\";\nimport { ChangeDetectionStrategy, Component, Input } from \"@angular/core\";\nimport { IonicModule } from \"@ionic/angular\";\n\n@Component({\n  selector: \"template-menu-modal[trigger]\",\n  template: `\n    <ion-modal #modal [trigger]=\"trigger\" [isOpen]=\"isOpen\">\n      <ng-template>\n        <ion-header>\n          <ion-toolbar>\n            <ion-title class=\"text-center\">Templates</ion-title>\n            <ion-buttons slot=\"end\">\n              <ion-button>\n                <ion-icon name=\"close-outline\" slot=\"icon-only\"></ion-icon>\n              </ion-button>\n            </ion-buttons>\n          </ion-toolbar>\n        </ion-header>\n\n        <ion-content class=\"ion-padding\">\n          <cdk-virtual-scroll-viewport itemSize=\"50\" minBufferPx=\"1200\" maxBufferPx=\"1200\">\n            <ion-list>\n              <ion-item button></ion-item>\n            </ion-list>\n          </cdk-virtual-scroll-viewport>\n        </ion-content>\n      </ng-template>\n    </ion-modal>\n  `,\n  standalone: true,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  imports: [\n    IonicModule,\n    ScrollingModule\n  ]\n})\nexport class TemplateMenuModal {\n  @Input()\n  trigger!: string;\n\n  @Input()\n  isOpen: boolean = false;\n\n  \n}\n",
+            "sourceCode": "import { ScrollingModule } from \"@angular/cdk/scrolling\";\r\nimport { ChangeDetectionStrategy, Component, Input } from \"@angular/core\";\r\nimport { IonicModule } from \"@ionic/angular\";\r\n\r\n@Component({\r\n  selector: \"template-menu-modal[trigger]\",\r\n  template: `\r\n    <ion-modal #modal [trigger]=\"trigger\" [isOpen]=\"isOpen\">\r\n      <ng-template>\r\n        <ion-header>\r\n          <ion-toolbar>\r\n            <ion-title class=\"text-center\">Templates</ion-title>\r\n            <ion-buttons slot=\"end\">\r\n              <ion-button>\r\n                <ion-icon name=\"close-outline\" slot=\"icon-only\"></ion-icon>\r\n              </ion-button>\r\n            </ion-buttons>\r\n          </ion-toolbar>\r\n        </ion-header>\r\n\r\n        <ion-content class=\"ion-padding\">\r\n          <cdk-virtual-scroll-viewport itemSize=\"50\" minBufferPx=\"1200\" maxBufferPx=\"1200\">\r\n            <ion-list>\r\n              <ion-item button></ion-item>\r\n            </ion-list>\r\n          </cdk-virtual-scroll-viewport>\r\n        </ion-content>\r\n      </ng-template>\r\n    </ion-modal>\r\n  `,\r\n  standalone: true,\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  imports: [\r\n    IonicModule,\r\n    ScrollingModule\r\n  ]\r\n})\r\nexport class TemplateMenuModal {\r\n  @Input()\r\n  trigger!: string;\r\n\r\n  @Input()\r\n  isOpen: boolean = false;\r\n\r\n  \r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": ""
@@ -5138,7 +5147,7 @@
                 "name": "Default",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/shared/components/multi-selectable/multi-selectable.component.stories.ts",
+                "file": "src/app/shared/components/selectable/selectable.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -5148,7 +5157,7 @@
                 "name": "Default",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/shared/components/selectable/selectable.component.stories.ts",
+                "file": "src/app/shared/components/multi-selectable/multi-selectable.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -5178,7 +5187,7 @@
                 "name": "Default",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/core/pages/document-builder/components/input-types/queue-select/queue-select.component.stories.ts",
+                "file": "src/app/core/pages/document-builder/components/input-types/remain-anonymous/remain-anonymous.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -5189,26 +5198,6 @@
                 "ctype": "miscellaneous",
                 "subtype": "variable",
                 "file": "src/app/core/pages/document-builder/components/input-types/queue-select/queue-select.component.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "",
-                "defaultValue": "Template.bind({})"
-            },
-            {
-                "name": "Default",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "src/app/core/pages/document-builder/components/question-types/02-radio-group/radio-group.component.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "",
-                "defaultValue": "Template.bind({})"
-            },
-            {
-                "name": "Default",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "src/app/core/pages/document-builder/components/question-types/02-radio-table/radio-table.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -5228,7 +5217,7 @@
                 "name": "Default",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/core/pages/document-builder/components/question-types/05-select/select.component.stories.ts",
+                "file": "src/app/core/pages/document-builder/components/question-types/02-radio-group/radio-group.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -5258,7 +5247,7 @@
                 "name": "Default",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/core/pages/document-builder/components/question-types/07-radio-table-textbox/radio-table-textbox.component.stories.ts",
+                "file": "src/app/core/pages/document-builder/components/question-types/05-select/select.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -5268,37 +5257,7 @@
                 "name": "Default",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/core/pages/document-builder/components/question-types/07-radio-table-textbox/radio-table-textbox.component.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "",
-                "defaultValue": "Template.bind({})"
-            },
-            {
-                "name": "Default",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "src/app/core/pages/document-builder/components/question-types/08-date/date.component.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "",
-                "defaultValue": "Template.bind({})"
-            },
-            {
-                "name": "Default",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "src/app/core/pages/document-builder/components/question-types/09-datetime/datetime.component.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "",
-                "defaultValue": "Template.bind({})"
-            },
-            {
-                "name": "Default",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "src/app/core/pages/document-builder/components/question-types/10-operative-list/operative-list.component.stories.ts",
+                "file": "src/app/core/pages/document-builder/components/question-types/02-radio-table/radio-table.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -5318,7 +5277,57 @@
                 "name": "Default",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/core/pages/document-builder/components/question-types/18-linked-dates/linked-dates.component.stories.ts",
+                "file": "src/app/core/pages/document-builder/components/question-types/07-radio-group-textbox/radio-group-textbox.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "Default",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/core/pages/document-builder/components/question-types/09-datetime/datetime.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "Default",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/core/pages/document-builder/components/question-types/08-date/date.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "Default",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/core/pages/document-builder/components/question-types/07-radio-table-textbox/radio-table-textbox.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "Default",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/core/pages/document-builder/components/question-types/10-operative-list/operative-list.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "Default",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/core/pages/document-builder/components/question-types/12-number/number.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -5338,17 +5347,7 @@
                 "name": "Default",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/core/pages/document-builder/components/question-types/07-radio-group-textbox/radio-group-textbox.component.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "",
-                "defaultValue": "Template.bind({})"
-            },
-            {
-                "name": "Default",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "src/app/core/pages/document-builder/components/question-types/extras/file-upload/file-upload.component.stories.ts",
+                "file": "src/app/core/pages/document-builder/components/question-types/18-linked-dates/linked-dates.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -5359,6 +5358,16 @@
                 "ctype": "miscellaneous",
                 "subtype": "variable",
                 "file": "src/app/core/pages/document-builder/components/question-types/extras/camera-capture/camera-capture.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "Default",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/core/pages/document-builder/components/question-types/extras/file-upload/file-upload.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -5402,7 +5411,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "object",
-                "defaultValue": "{\r\n  production: true,\r\n  siteDocsApi: \"http://localhost:3002/api\",\r\n  apiTimeout: 60000\r\n}"
+                "defaultValue": "{\n  production: true,\n  siteDocsApi: \"http://localhost:3002/api\",\n  apiTimeout: 60000\n}"
             },
             {
                 "name": "environment",
@@ -5412,7 +5421,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "object",
-                "defaultValue": "{\r\n  production: false,\r\n  siteDocsApi: \"http://localhost:3002/api\",\r\n  apiTimeout: 60000\r\n}"
+                "defaultValue": "{\n  production: false,\n  siteDocsApi: \"http://localhost:3002/api\",\n  apiTimeout: 60000\n}"
             },
             {
                 "name": "formFillerRouteMock",
@@ -5542,7 +5551,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
-                "defaultValue": "createStore(\n  { name: \"live-queues\" },\n  withProps<{ hideEmptyQueues: boolean }>({\n    hideEmptyQueues: false\n  })\n)"
+                "defaultValue": "createStore(\r\n  { name: \"live-queues\" },\r\n  withProps<{ hideEmptyQueues: boolean }>({\r\n    hideEmptyQueues: false\r\n  })\r\n)"
             },
             {
                 "name": "store",
@@ -5582,7 +5591,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
-                "defaultValue": "createStore(\n  { name: \"form-filler\" },\n  withWritingDocument(null as SiteDocument | null),\n  withTemplateMenuEntities<TemplateMenuItem, \"Id\">({ idKey: \"Id\", initialValue: [] })\n)"
+                "defaultValue": "createStore(\r\n  { name: \"form-filler\" },\r\n  withWritingDocument(null as SiteDocument | null),\r\n  withTemplateMenuEntities<TemplateMenuItem, \"Id\">({ idKey: \"Id\", initialValue: [] })\r\n)"
             },
             {
                 "name": "Template",
@@ -5628,11 +5637,11 @@
                 "name": "Template",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/core/pages/registration/registration.page.stories.ts",
+                "file": "src/app/shared/components/selectable/selectable.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
-                "type": "StoryFn<RegistrationPage>",
-                "defaultValue": "(args: RegistrationPage) => ({\r\n  props: args\r\n})"
+                "type": "StoryFn<SelectableComponent>",
+                "defaultValue": "(args: SelectableComponent) => ({\r\n  props: args\r\n})"
             },
             {
                 "name": "Template",
@@ -5668,16 +5677,6 @@
                 "name": "Template",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/core/pages/document-builder/components/input-types/queue-select/queue-select.component.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "StoryFn<QueueSelectComponent>",
-                "defaultValue": "(args: QueueSelectComponent) => ({\r\n  props: args\r\n})"
-            },
-            {
-                "name": "Template",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "src/app/core/pages/document-builder/components/input-types/remain-anonymous/remain-anonymous.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -5698,41 +5697,21 @@
                 "name": "Template",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "src/app/core/pages/document-builder/components/question-types/01-checkbox/checkbox.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "StoryFn<>",
+                "defaultValue": "(args: CheckboxComponent & Prefix<Question, \"question\">) => ({\r\n  props: {\r\n    ...args,\r\n    question: {\r\n      ...args.question,\r\n      QuestionText: args[\"question.QuestionText\"],\r\n      Required: args[\"question.Required\"]\r\n    }\r\n  }\r\n})"
+            },
+            {
+                "name": "Template",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "src/app/core/pages/document-builder/components/question-types/02-radio-group/radio-group.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "StoryFn<RadioGroupComponent>",
                 "defaultValue": "(args: RadioGroupComponent) => ({\r\n  props: args\r\n})"
-            },
-            {
-                "name": "Template",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "src/app/core/pages/document-builder/components/question-types/02-radio-table/radio-table.component.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "StoryFn<RadioTableComponent>",
-                "defaultValue": "(args: RadioTableComponent) => ({\r\n  props: args\r\n})"
-            },
-            {
-                "name": "Template",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "src/app/core/pages/document-builder/components/question-types/01-checkbox/checkbox.component.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "StoryFn<CheckboxComponent>",
-                "defaultValue": "(args: CheckboxComponent) => ({\r\n  props: args\r\n})"
-            },
-            {
-                "name": "Template",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "src/app/core/pages/document-builder/components/question-types/05-select/select.component.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "StoryFn<SelectComponent>",
-                "defaultValue": "(args: SelectComponent) => ({\r\n  props: args\r\n})"
             },
             {
                 "name": "Template",
@@ -5758,11 +5737,51 @@
                 "name": "Template",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/core/pages/document-builder/components/question-types/07-radio-table-textbox/radio-table-textbox.component.stories.ts",
+                "file": "src/app/core/pages/document-builder/components/question-types/05-select/select.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "StoryFn<SelectComponent>",
+                "defaultValue": "(args: SelectComponent) => ({\r\n  props: args\r\n})"
+            },
+            {
+                "name": "Template",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/core/pages/document-builder/components/question-types/02-radio-table/radio-table.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "StoryFn<RadioTableComponent>",
+                "defaultValue": "(args: RadioTableComponent) => ({\r\n  props: args\r\n})"
+            },
+            {
+                "name": "Template",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/core/pages/document-builder/components/question-types/06-checkbox-textbox/checkbox-textbox.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "StoryFn<CheckboxTextboxComponent>",
+                "defaultValue": "(args: CheckboxTextboxComponent) => ({\r\n  props: args\r\n})"
+            },
+            {
+                "name": "Template",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/core/pages/document-builder/components/question-types/07-radio-group-textbox/radio-group-textbox.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "StoryFn<RadioGroupTextboxComponent>",
                 "defaultValue": "(args: RadioGroupTextboxComponent) => ({\r\n  props: args\r\n})"
+            },
+            {
+                "name": "Template",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/core/pages/document-builder/components/question-types/09-datetime/datetime.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "StoryFn<DatetimeComponent>",
+                "defaultValue": "(args: DatetimeComponent) => ({\r\n  props: args\r\n})"
             },
             {
                 "name": "Template",
@@ -5778,21 +5797,11 @@
                 "name": "Template",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/core/pages/document-builder/components/question-types/10-operative-list/operative-list.component.stories.ts",
+                "file": "src/app/core/pages/document-builder/components/question-types/07-radio-table-textbox/radio-table-textbox.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
-                "type": "StoryFn<OperativeListComponent>",
-                "defaultValue": "(args: OperativeListComponent) => ({\r\n  props: args\r\n})"
-            },
-            {
-                "name": "Template",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "src/app/core/pages/document-builder/components/question-types/09-datetime/datetime.component.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "StoryFn<DatetimeComponent>",
-                "defaultValue": "(args: DatetimeComponent) => ({\r\n  props: args\r\n})"
+                "type": "StoryFn<RadioTableTextboxComponent>",
+                "defaultValue": "(args: RadioTableTextboxComponent) => ({\r\n  props: args\r\n})"
             },
             {
                 "name": "Template",
@@ -5818,16 +5827,6 @@
                 "name": "Template",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/core/pages/document-builder/components/question-types/18-linked-dates/linked-dates.component.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "StoryFn<LinkedDatesComponent>",
-                "defaultValue": "(args: LinkedDatesComponent) => ({\r\n  props: args\r\n})"
-            },
-            {
-                "name": "Template",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "src/app/core/pages/document-builder/components/question-types/19-signature/signature.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -5838,21 +5837,11 @@
                 "name": "Template",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/core/pages/document-builder/components/question-types/07-radio-group-textbox/radio-group-textbox.component.stories.ts",
+                "file": "src/app/core/pages/document-builder/components/question-types/18-linked-dates/linked-dates.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
-                "type": "StoryFn<RadioGroupTextboxComponent>",
-                "defaultValue": "(args: RadioGroupTextboxComponent) => ({\r\n  props: args\r\n})"
-            },
-            {
-                "name": "Template",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "src/app/core/pages/document-builder/components/question-types/extras/camera-capture/camera-capture.component.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "StoryFn<FileUploadComponent>",
-                "defaultValue": "(args: FileUploadComponent) => ({\r\n  props: args\r\n})"
+                "type": "StoryFn<LinkedDatesComponent>",
+                "defaultValue": "(args: LinkedDatesComponent) => ({\r\n  props: args\r\n})"
             },
             {
                 "name": "Template",
@@ -5865,6 +5854,16 @@
                 "defaultValue": "(args: CameraCaptureComponent) => ({\r\n  props: args\r\n})"
             },
             {
+                "name": "Template",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/core/pages/document-builder/components/question-types/extras/file-upload/file-upload.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "StoryFn<FileUploadComponent>",
+                "defaultValue": "(args: FileUploadComponent) => ({\r\n  props: args\r\n})"
+            },
+            {
                 "name": "toggleHideEmptyQueues",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -5872,7 +5871,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
-                "defaultValue": "() => store.update(\n  setProp(\"hideEmptyQueues\", prop => !prop)\n)"
+                "defaultValue": "() => store.update(\r\n  setProp(\"hideEmptyQueues\", prop => !prop)\r\n)"
             },
             {
                 "ctype": "miscellaneous",
@@ -6650,7 +6649,7 @@
                         "type": "AdapterTarget<TState>",
                         "deprecated": false,
                         "deprecationMessage": "",
-                        "destrucuredGroupId": "923bf421-969d-4a80-8301-f8208d3f3890",
+                        "destrucuredGroupId": "9ae0ee54-a7ac-4fe7-8e30-8079fb09cc5e",
                         "destructuredParameter": true
                     },
                     {
@@ -6658,7 +6657,7 @@
                         "type": "",
                         "deprecated": false,
                         "deprecationMessage": "",
-                        "destrucuredGroupId": "923bf421-969d-4a80-8301-f8208d3f3890",
+                        "destrucuredGroupId": "9ae0ee54-a7ac-4fe7-8e30-8079fb09cc5e",
                         "destructuredParameter": true
                     }
                 ],
@@ -6668,7 +6667,7 @@
                         "type": "AdapterTarget<TState>",
                         "deprecated": false,
                         "deprecationMessage": "",
-                        "destrucuredGroupId": "923bf421-969d-4a80-8301-f8208d3f3890",
+                        "destrucuredGroupId": "9ae0ee54-a7ac-4fe7-8e30-8079fb09cc5e",
                         "destructuredParameter": true,
                         "tagName": {
                             "text": "param"
@@ -6679,7 +6678,7 @@
                         "type": "",
                         "deprecated": false,
                         "deprecationMessage": "",
-                        "destrucuredGroupId": "923bf421-969d-4a80-8301-f8208d3f3890",
+                        "destrucuredGroupId": "9ae0ee54-a7ac-4fe7-8e30-8079fb09cc5e",
                         "destructuredParameter": true,
                         "tagName": {
                             "text": "param"
@@ -7518,50 +7517,6 @@
                     "defaultValue": "(args: CameraComponent) => ({\r\n  props: args,\r\n  template: `\r\n    <camera [fill]=\"fill\" [expand]=\"expand\" [color]=\"color\">\r\n      Add Image\r\n    </camera>\r\n  `\r\n})"
                 }
             ],
-            "src/app/core/pages/registration/registration.page.stories.ts": [
-                {
-                    "name": "Default",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/core/pages/registration/registration.page.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "Template.bind({})"
-                },
-                {
-                    "name": "Template",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/core/pages/registration/registration.page.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "StoryFn<RegistrationPage>",
-                    "defaultValue": "(args: RegistrationPage) => ({\r\n  props: args\r\n})"
-                }
-            ],
-            "src/app/shared/components/multi-selectable/multi-selectable.component.stories.ts": [
-                {
-                    "name": "Default",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/shared/components/multi-selectable/multi-selectable.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "Template.bind({})"
-                },
-                {
-                    "name": "Template",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/shared/components/multi-selectable/multi-selectable.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "StoryFn<MultiSelectableComponent>",
-                    "defaultValue": "(args: MultiSelectableComponent) => ({\r\n  props: args\r\n})"
-                }
-            ],
             "src/app/shared/components/selectable/selectable.component.stories.ts": [
                 {
                     "name": "Default",
@@ -7602,6 +7557,28 @@
                     "deprecationMessage": "",
                     "type": "StoryFn<SelectableComponent>",
                     "defaultValue": "(args: SelectableComponent) => ({\r\n  props: args\r\n})"
+                }
+            ],
+            "src/app/shared/components/multi-selectable/multi-selectable.component.stories.ts": [
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/shared/components/multi-selectable/multi-selectable.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/shared/components/multi-selectable/multi-selectable.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "StoryFn<MultiSelectableComponent>",
+                    "defaultValue": "(args: MultiSelectableComponent) => ({\r\n  props: args\r\n})"
                 }
             ],
             "src/app/core/pages/document-builder/components/input-types/actioner-select/actioner-select.component.stories.ts": [
@@ -7648,6 +7625,28 @@
                     "defaultValue": "(args: QueueDurationComponent) => ({\r\n  props: args\r\n})"
                 }
             ],
+            "src/app/core/pages/document-builder/components/input-types/remain-anonymous/remain-anonymous.component.stories.ts": [
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/core/pages/document-builder/components/input-types/remain-anonymous/remain-anonymous.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/core/pages/document-builder/components/input-types/remain-anonymous/remain-anonymous.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "StoryFn<RemainAnonymousComponent>",
+                    "defaultValue": "(args: RemainAnonymousComponent) => ({\r\n  props: args\r\n})"
+                }
+            ],
             "src/app/core/pages/document-builder/components/input-types/queue-select/queue-select.component.stories.ts": [
                 {
                     "name": "Default",
@@ -7690,6 +7689,28 @@
                     "defaultValue": "(args: QueueSelectComponent) => ({\r\n  props: args\r\n})"
                 }
             ],
+            "src/app/core/pages/document-builder/components/question-types/01-checkbox/checkbox.component.stories.ts": [
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/core/pages/document-builder/components/question-types/01-checkbox/checkbox.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/core/pages/document-builder/components/question-types/01-checkbox/checkbox.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "StoryFn<>",
+                    "defaultValue": "(args: CheckboxComponent & Prefix<Question, \"question\">) => ({\r\n  props: {\r\n    ...args,\r\n    question: {\r\n      ...args.question,\r\n      QuestionText: args[\"question.QuestionText\"],\r\n      Required: args[\"question.Required\"]\r\n    }\r\n  }\r\n})"
+                }
+            ],
             "src/app/core/pages/document-builder/components/question-types/02-radio-group/radio-group.component.stories.ts": [
                 {
                     "name": "Default",
@@ -7710,72 +7731,6 @@
                     "deprecationMessage": "",
                     "type": "StoryFn<RadioGroupComponent>",
                     "defaultValue": "(args: RadioGroupComponent) => ({\r\n  props: args\r\n})"
-                }
-            ],
-            "src/app/core/pages/document-builder/components/question-types/02-radio-table/radio-table.component.stories.ts": [
-                {
-                    "name": "Default",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/core/pages/document-builder/components/question-types/02-radio-table/radio-table.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "Template.bind({})"
-                },
-                {
-                    "name": "Template",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/core/pages/document-builder/components/question-types/02-radio-table/radio-table.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "StoryFn<RadioTableComponent>",
-                    "defaultValue": "(args: RadioTableComponent) => ({\r\n  props: args\r\n})"
-                }
-            ],
-            "src/app/core/pages/document-builder/components/question-types/01-checkbox/checkbox.component.stories.ts": [
-                {
-                    "name": "Default",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/core/pages/document-builder/components/question-types/01-checkbox/checkbox.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "Template.bind({})"
-                },
-                {
-                    "name": "Template",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/core/pages/document-builder/components/question-types/01-checkbox/checkbox.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "StoryFn<CheckboxComponent>",
-                    "defaultValue": "(args: CheckboxComponent) => ({\r\n  props: args\r\n})"
-                }
-            ],
-            "src/app/core/pages/document-builder/components/question-types/05-select/select.component.stories.ts": [
-                {
-                    "name": "Default",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/core/pages/document-builder/components/question-types/05-select/select.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "Template.bind({})"
-                },
-                {
-                    "name": "Template",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/core/pages/document-builder/components/question-types/05-select/select.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "StoryFn<SelectComponent>",
-                    "defaultValue": "(args: SelectComponent) => ({\r\n  props: args\r\n})"
                 }
             ],
             "src/app/core/pages/document-builder/components/question-types/03-textbox/textbox.component.stories.ts": [
@@ -7822,12 +7777,12 @@
                     "defaultValue": "(args: TextareaComponent) => ({\r\n  props: args\r\n})"
                 }
             ],
-            "src/app/core/pages/document-builder/components/question-types/07-radio-table-textbox/radio-table-textbox.component.stories.ts": [
+            "src/app/core/pages/document-builder/components/question-types/05-select/select.component.stories.ts": [
                 {
                     "name": "Default",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "src/app/core/pages/document-builder/components/question-types/07-radio-table-textbox/radio-table-textbox.component.stories.ts",
+                    "file": "src/app/core/pages/document-builder/components/question-types/05-select/select.component.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "",
@@ -7837,11 +7792,33 @@
                     "name": "Template",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "src/app/core/pages/document-builder/components/question-types/07-radio-table-textbox/radio-table-textbox.component.stories.ts",
+                    "file": "src/app/core/pages/document-builder/components/question-types/05-select/select.component.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "type": "StoryFn<RadioTableTextboxComponent>",
-                    "defaultValue": "(args: RadioTableTextboxComponent) => ({\r\n  props: args\r\n})"
+                    "type": "StoryFn<SelectComponent>",
+                    "defaultValue": "(args: SelectComponent) => ({\r\n  props: args\r\n})"
+                }
+            ],
+            "src/app/core/pages/document-builder/components/question-types/02-radio-table/radio-table.component.stories.ts": [
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/core/pages/document-builder/components/question-types/02-radio-table/radio-table.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/core/pages/document-builder/components/question-types/02-radio-table/radio-table.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "StoryFn<RadioTableComponent>",
+                    "defaultValue": "(args: RadioTableComponent) => ({\r\n  props: args\r\n})"
                 }
             ],
             "src/app/core/pages/document-builder/components/question-types/06-checkbox-textbox/checkbox-textbox.component.stories.ts": [
@@ -7866,12 +7843,12 @@
                     "defaultValue": "(args: CheckboxTextboxComponent) => ({\r\n  props: args\r\n})"
                 }
             ],
-            "src/app/core/pages/document-builder/components/question-types/07-radio-table-textbox/radio-table-textbox.component.stories.ts": [
+            "src/app/core/pages/document-builder/components/question-types/07-radio-group-textbox/radio-group-textbox.component.stories.ts": [
                 {
                     "name": "Default",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "src/app/core/pages/document-builder/components/question-types/08-date/date.component.stories.ts",
+                    "file": "src/app/core/pages/document-builder/components/question-types/07-radio-group-textbox/radio-group-textbox.component.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "",
@@ -7881,33 +7858,11 @@
                     "name": "Template",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "src/app/core/pages/document-builder/components/question-types/08-date/date.component.stories.ts",
+                    "file": "src/app/core/pages/document-builder/components/question-types/07-radio-group-textbox/radio-group-textbox.component.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "type": "StoryFn<DateComponent>",
-                    "defaultValue": "(args: DateComponent) => ({\r\n  props: args\r\n})"
-                }
-            ],
-            "src/app/core/pages/document-builder/components/question-types/10-operative-list/operative-list.component.stories.ts": [
-                {
-                    "name": "Default",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/core/pages/document-builder/components/question-types/10-operative-list/operative-list.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "Template.bind({})"
-                },
-                {
-                    "name": "Template",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/core/pages/document-builder/components/question-types/10-operative-list/operative-list.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "StoryFn<OperativeListComponent>",
-                    "defaultValue": "(args: OperativeListComponent) => ({\r\n  props: args\r\n})"
+                    "type": "StoryFn<RadioGroupTextboxComponent>",
+                    "defaultValue": "(args: RadioGroupTextboxComponent) => ({\r\n  props: args\r\n})"
                 }
             ],
             "src/app/core/pages/document-builder/components/question-types/09-datetime/datetime.component.stories.ts": [
@@ -7930,6 +7885,50 @@
                     "deprecationMessage": "",
                     "type": "StoryFn<DatetimeComponent>",
                     "defaultValue": "(args: DatetimeComponent) => ({\r\n  props: args\r\n})"
+                }
+            ],
+            "src/app/core/pages/document-builder/components/question-types/08-date/date.component.stories.ts": [
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/core/pages/document-builder/components/question-types/08-date/date.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/core/pages/document-builder/components/question-types/08-date/date.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "StoryFn<DateComponent>",
+                    "defaultValue": "(args: DateComponent) => ({\r\n  props: args\r\n})"
+                }
+            ],
+            "src/app/core/pages/document-builder/components/question-types/07-radio-table-textbox/radio-table-textbox.component.stories.ts": [
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/core/pages/document-builder/components/question-types/07-radio-table-textbox/radio-table-textbox.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/core/pages/document-builder/components/question-types/07-radio-table-textbox/radio-table-textbox.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "StoryFn<RadioTableTextboxComponent>",
+                    "defaultValue": "(args: RadioTableTextboxComponent) => ({\r\n  props: args\r\n})"
                 }
             ],
             "src/app/core/pages/document-builder/components/question-types/10-operative-list/operative-list.component.stories.ts": [
@@ -7976,28 +7975,6 @@
                     "defaultValue": "(args: NumberComponent) => ({\r\n  props: args\r\n})"
                 }
             ],
-            "src/app/core/pages/document-builder/components/question-types/18-linked-dates/linked-dates.component.stories.ts": [
-                {
-                    "name": "Default",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/core/pages/document-builder/components/question-types/18-linked-dates/linked-dates.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "Template.bind({})"
-                },
-                {
-                    "name": "Template",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/core/pages/document-builder/components/question-types/18-linked-dates/linked-dates.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "StoryFn<LinkedDatesComponent>",
-                    "defaultValue": "(args: LinkedDatesComponent) => ({\r\n  props: args\r\n})"
-                }
-            ],
             "src/app/core/pages/document-builder/components/question-types/19-signature/signature.component.stories.ts": [
                 {
                     "name": "Default",
@@ -8020,12 +7997,12 @@
                     "defaultValue": "(args: SignatureComponent) => ({\r\n  props: args\r\n})"
                 }
             ],
-            "src/app/core/pages/document-builder/components/question-types/07-radio-group-textbox/radio-group-textbox.component.stories.ts": [
+            "src/app/core/pages/document-builder/components/question-types/18-linked-dates/linked-dates.component.stories.ts": [
                 {
                     "name": "Default",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "src/app/core/pages/document-builder/components/question-types/07-radio-group-textbox/radio-group-textbox.component.stories.ts",
+                    "file": "src/app/core/pages/document-builder/components/question-types/18-linked-dates/linked-dates.component.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "",
@@ -8035,33 +8012,11 @@
                     "name": "Template",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "src/app/core/pages/document-builder/components/question-types/07-radio-group-textbox/radio-group-textbox.component.stories.ts",
+                    "file": "src/app/core/pages/document-builder/components/question-types/18-linked-dates/linked-dates.component.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "type": "StoryFn<RadioGroupTextboxComponent>",
-                    "defaultValue": "(args: RadioGroupTextboxComponent) => ({\r\n  props: args\r\n})"
-                }
-            ],
-            "src/app/core/pages/document-builder/components/question-types/extras/camera-capture/camera-capture.component.stories.ts": [
-                {
-                    "name": "Default",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/core/pages/document-builder/components/question-types/extras/file-upload/file-upload.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "Template.bind({})"
-                },
-                {
-                    "name": "Template",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/core/pages/document-builder/components/question-types/extras/file-upload/file-upload.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "StoryFn<FileUploadComponent>",
-                    "defaultValue": "(args: FileUploadComponent) => ({\r\n  props: args\r\n})"
+                    "type": "StoryFn<LinkedDatesComponent>",
+                    "defaultValue": "(args: LinkedDatesComponent) => ({\r\n  props: args\r\n})"
                 }
             ],
             "src/app/core/pages/document-builder/components/question-types/extras/camera-capture/camera-capture.component.stories.ts": [
@@ -8086,6 +8041,28 @@
                     "defaultValue": "(args: CameraCaptureComponent) => ({\r\n  props: args\r\n})"
                 }
             ],
+            "src/app/core/pages/document-builder/components/question-types/extras/file-upload/file-upload.component.stories.ts": [
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/core/pages/document-builder/components/question-types/extras/file-upload/file-upload.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/core/pages/document-builder/components/question-types/extras/file-upload/file-upload.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "StoryFn<FileUploadComponent>",
+                    "defaultValue": "(args: FileUploadComponent) => ({\r\n  props: args\r\n})"
+                }
+            ],
             "src/environments/environment.prod.ts": [
                 {
                     "name": "environment",
@@ -8095,7 +8072,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "object",
-                    "defaultValue": "{\r\n  production: true,\r\n  siteDocsApi: \"http://localhost:3002/api\",\r\n  apiTimeout: 60000\r\n}"
+                    "defaultValue": "{\n  production: true,\n  siteDocsApi: \"http://localhost:3002/api\",\n  apiTimeout: 60000\n}"
                 }
             ],
             "src/environments/environment.ts": [
@@ -8107,7 +8084,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "object",
-                    "defaultValue": "{\r\n  production: false,\r\n  siteDocsApi: \"http://localhost:3002/api\",\r\n  apiTimeout: 60000\r\n}"
+                    "defaultValue": "{\n  production: false,\n  siteDocsApi: \"http://localhost:3002/api\",\n  apiTimeout: 60000\n}"
                 }
             ],
             "src/app/shared/plugins/device.plugin.ts": [
@@ -8216,7 +8193,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "",
-                    "defaultValue": "createStore(\n  { name: \"live-queues\" },\n  withProps<{ hideEmptyQueues: boolean }>({\n    hideEmptyQueues: false\n  })\n)"
+                    "defaultValue": "createStore(\r\n  { name: \"live-queues\" },\r\n  withProps<{ hideEmptyQueues: boolean }>({\r\n    hideEmptyQueues: false\r\n  })\r\n)"
                 },
                 {
                     "name": "toggleHideEmptyQueues",
@@ -8226,7 +8203,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "",
-                    "defaultValue": "() => store.update(\n  setProp(\"hideEmptyQueues\", prop => !prop)\n)"
+                    "defaultValue": "() => store.update(\r\n  setProp(\"hideEmptyQueues\", prop => !prop)\r\n)"
                 }
             ],
             "src/app/core/stores/operative/operatives.store.ts": [
@@ -8280,7 +8257,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "",
-                    "defaultValue": "createStore(\n  { name: \"form-filler\" },\n  withWritingDocument(null as SiteDocument | null),\n  withTemplateMenuEntities<TemplateMenuItem, \"Id\">({ idKey: \"Id\", initialValue: [] })\n)"
+                    "defaultValue": "createStore(\r\n  { name: \"form-filler\" },\r\n  withWritingDocument(null as SiteDocument | null),\r\n  withTemplateMenuEntities<TemplateMenuItem, \"Id\">({ idKey: \"Id\", initialValue: [] })\r\n)"
                 },
                 {
                     "ctype": "miscellaneous",
@@ -9111,7 +9088,7 @@
                             "type": "AdapterTarget<TState>",
                             "deprecated": false,
                             "deprecationMessage": "",
-                            "destrucuredGroupId": "923bf421-969d-4a80-8301-f8208d3f3890",
+                            "destrucuredGroupId": "9ae0ee54-a7ac-4fe7-8e30-8079fb09cc5e",
                             "destructuredParameter": true
                         },
                         {
@@ -9119,7 +9096,7 @@
                             "type": "",
                             "deprecated": false,
                             "deprecationMessage": "",
-                            "destrucuredGroupId": "923bf421-969d-4a80-8301-f8208d3f3890",
+                            "destrucuredGroupId": "9ae0ee54-a7ac-4fe7-8e30-8079fb09cc5e",
                             "destructuredParameter": true
                         }
                     ],
@@ -9129,7 +9106,7 @@
                             "type": "AdapterTarget<TState>",
                             "deprecated": false,
                             "deprecationMessage": "",
-                            "destrucuredGroupId": "923bf421-969d-4a80-8301-f8208d3f3890",
+                            "destrucuredGroupId": "9ae0ee54-a7ac-4fe7-8e30-8079fb09cc5e",
                             "destructuredParameter": true,
                             "tagName": {
                                 "text": "param"
@@ -9140,7 +9117,7 @@
                             "type": "",
                             "deprecated": false,
                             "deprecationMessage": "",
-                            "destrucuredGroupId": "923bf421-969d-4a80-8301-f8208d3f3890",
+                            "destrucuredGroupId": "9ae0ee54-a7ac-4fe7-8e30-8079fb09cc5e",
                             "destructuredParameter": true,
                             "tagName": {
                                 "text": "param"
@@ -10991,7 +10968,7 @@
                 "linktype": "interface",
                 "name": "Question",
                 "coveragePercent": 0,
-                "coverageCount": "0/10",
+                "coverageCount": "0/11",
                 "status": "low"
             },
             {

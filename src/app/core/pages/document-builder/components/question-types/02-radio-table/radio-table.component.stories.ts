@@ -1,6 +1,7 @@
 import { IonicModule } from "@ionic/angular";
 import { moduleMetadata, StoryFn } from "@storybook/angular";
 import { RadioTableComponent } from "./radio-table.component";
+import { defaultQuestion } from ".storybook/default";
 
 export default {
   title: "Pages/Document-Builder/Question-Types/02-Radio-Table",
@@ -23,14 +24,7 @@ export const Default = Template.bind({});
 
 Default.args = {
   question: {
-    QuestionID: 1,
-    QuestionText: "Radio Group Question",
-    CascadeOptionsText: "",
-    Required: false,
-    Assets: [],
-    Operatives: [],
-    CanHaveImg: true,
-    CanHaveFiles: true,
-    AnswerText: ""
+    ...defaultQuestion,
+    QuestionText: "Radio Group Question"
   }
 }

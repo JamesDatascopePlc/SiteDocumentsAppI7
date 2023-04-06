@@ -5,11 +5,11 @@ import { IfComponent } from "src/app/shared/components";
 import { importNgSwitch, importRxTemplate } from "src/app/shared/imports";
 import { AngularComponent } from "src/app/shared/lifecycles";
 import { FormFillerStore } from "../../stores/site-document/form-filler/form-filler.store";
-import { QuestionType, SiteDocument } from "../../stores/site-document/site-document.store";
 import { DocumentPageComponent, DocumentSectionComponent, QuestionTemplateDirective, importInputTypes, importQuestionTypes } from "./components";
 import { FormFillerRoute } from "./routes";
-import { clickReaction } from "src/app/shared/reactions";
+import { clickReaction, reaction } from "src/app/shared/reactions";
 import { TemplateMenuModal } from "./modals";
+import { QuestionType, SiteDocument } from "../../stores/site-document/models/site-document.model";
 
 @Component({
   selector: 'app-document-builder',
@@ -21,11 +21,11 @@ import { TemplateMenuModal } from "./modals";
         </ion-title>
         <ion-buttons slot="end">
           <if [condition]="document.Pinned">
-            <ion-button show color="primary">
+            <ion-button [unpatch] show color="primary">
               <ion-icon name="bookmark"></ion-icon>
             </ion-button>
 
-            <ion-button else>
+            <ion-button [unpatch] else>
               <ion-icon name="bookmark-outline"></ion-icon>
             </ion-button>
           </if>
@@ -76,7 +76,8 @@ import { TemplateMenuModal } from "./modals";
       </remain-anonymous>
 
       <ion-button
-        (click)="submit(document)" 
+        (click)="submit(document)"
+        [unpatch] 
         class="ion-margin-vertical" 
         expand="full">
         Submit
@@ -85,8 +86,8 @@ import { TemplateMenuModal } from "./modals";
 
     <ng-container *rxIf="document$; let document">
       <ion-footer *rxIf="document.Pages.length > 1">
-        <ion-button class="float-left">Back</ion-button>
-        <ion-button class="float-right">Next</ion-button>
+        <ion-button [unpatch] class="float-left">Back</ion-button>
+        <ion-button [unpatch] class="float-right">Next</ion-button>
       </ion-footer>
     </ng-container>
   `,
@@ -111,7 +112,7 @@ export class DocumentBuilderPage extends AngularComponent() {
 
   QuestionType = QuestionType;
 
-  templates$ = this.formFillerStore
+  templates$ = this.formFillerStore.getTemplatesRequest$()
 
   document$ = merge(
     this.formFillerStore.getTemplateRequest$(this.formFillerRoute.lastDocumentId$),
@@ -120,7 +121,8 @@ export class DocumentBuilderPage extends AngularComponent() {
     shareReplay()
   );
 
-  submit = clickReaction<SiteDocument>(document$ => this.formFillerStore.submitDocument$(document$).pipe(
-    this.takeUntilDestroyed()
+  submit = reaction<SiteDocument>(document$ => this.formFillerStore.submitDocument$(document$).pipe(
+    this.takeUntilDestroyed(),
+    clickReaction()
   ));
 }

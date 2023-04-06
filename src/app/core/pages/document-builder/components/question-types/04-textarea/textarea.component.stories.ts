@@ -1,6 +1,7 @@
 import { IonicModule } from "@ionic/angular";
 import { moduleMetadata, StoryFn } from "@storybook/angular";
 import { TextareaComponent } from "./textarea.component";
+import { defaultQuestion } from ".storybook/default";
 
 export default {
   title: "Pages/Document-Builder/Question-Types/04-Textarea",
@@ -23,14 +24,7 @@ export const Default = Template.bind({});
 
 Default.args = {
   question: {
-    QuestionID: 1,
-    QuestionText: "Type in some text",
-    CascadeOptionsText: "",
-    Required: false,
-    Assets: [],
-    Operatives: [],
-    CanHaveImg: true,
-    CanHaveFiles: true,
-    AnswerText: ""
+    ...defaultQuestion,
+    QuestionText: "Type in some text"
   }
 }

@@ -1,6 +1,6 @@
 import { Store, propsFactory } from "@ngneat/elf";
 import { pipeTap } from "src/app/shared/rxjs";
-import { SiteDocument } from "../site-document.store";
+import { SiteDocument } from "../models";
 
 const {
   withWritingDocument,

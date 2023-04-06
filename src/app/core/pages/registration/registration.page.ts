@@ -6,7 +6,7 @@ import { AngularComponent } from "src/app/shared/lifecycles";
 import { importRxTemplate } from "src/app/shared/imports";
 import { UserStore } from "../../stores/user/user.store";
 import { switchMap } from "rxjs";
-import { clickReaction } from "src/app/shared/reactions";
+import { clickReaction, reaction } from "src/app/shared/reactions";
 
 @Component({
   selector: "app-registration",
@@ -43,6 +43,7 @@ import { clickReaction } from "src/app/shared/reactions";
         *rxLet="form.invalid$; let isInvalid" 
         [disabled]="isInvalid"
         (click)="submit()"
+        [unpatch]
         expand="full">
         Submit
       </ion-button>
@@ -69,8 +70,9 @@ export class RegistrationPage extends AngularComponent() {
     ])
   });
 
-  submit = clickReaction(click$ => click$.pipe(
+  submit = reaction(click$ => click$.pipe(
     this.takeUntilDestroyed(),
+    clickReaction(),
     switchMap(() => this.userStore.getUserRequest$(this.form.value$))
   ));
 }

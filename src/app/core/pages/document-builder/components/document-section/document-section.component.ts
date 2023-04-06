@@ -1,7 +1,7 @@
 import { NgTemplateOutlet } from "@angular/common";
 import { ChangeDetectionStrategy, Component, ContentChild, Directive, Input, TemplateRef } from "@angular/core";
 import { IonicModule } from "@ionic/angular";
-import { Question, Section } from "src/app/core/stores/site-document/site-document.store";
+import { Question, Section } from "src/app/core/stores/site-document/models";
 import { importRxTemplate } from "src/app/shared/imports";
 
 @Directive({

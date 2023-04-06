@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from "@angular/core";
 import { IonicModule } from "@ionic/angular";
-import { Page } from "src/app/core/stores/site-document/site-document.store";
+import { Page } from "src/app/core/stores/site-document/models";
 
 @Component({
   selector: "document-page[page]",

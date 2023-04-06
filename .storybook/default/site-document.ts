@@ -68,6 +68,7 @@ export const defaultQuestion: Question = {
   ),
   CanHaveImg: true,
   CanHaveFiles: true,
-  AnswerText: ""
+  AnswerText: "",
+  YesNoNA: null
 }
 

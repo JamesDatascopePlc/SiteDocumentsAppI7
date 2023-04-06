@@ -1,5 +1,6 @@
 import { StoryFn } from "@storybook/angular";
 import { SelectComponent } from "./select.component";
+import { defaultQuestion } from ".storybook/default";
 
 export default {
   title: "Pages/Document-Builder/Question-Types/05-Select",
@@ -17,14 +18,7 @@ export const Default = Template.bind({});
 
 Default.args = {
   question: {
-    QuestionID: 1,
-    QuestionText: "Select an item",
-    CascadeOptionsText: "",
-    Required: false,
-    Assets: [],
-    Operatives: [],
-    CanHaveImg: true,
-    CanHaveFiles: true,
-    AnswerText: ""
+    ...defaultQuestion,
+    QuestionText: "Select an item"
   }
 }

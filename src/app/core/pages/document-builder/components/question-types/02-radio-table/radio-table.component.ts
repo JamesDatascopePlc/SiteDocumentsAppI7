@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from "@angular/core";
 import { IonicModule } from "@ionic/angular";
-import { Question } from "src/app/core/stores/site-document/site-document.store";
+import { Question } from "src/app/core/stores/site-document/models";
 import { CameraCaptureComponent, FileUploadComponent, QuestionTextComponent } from "../extras";
 
 @Component({

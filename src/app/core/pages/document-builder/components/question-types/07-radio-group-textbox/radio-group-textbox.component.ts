@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input } from "@angular/core";
 import { IonicModule } from "@ionic/angular";
-import { Question, Section } from "src/app/core/stores/site-document/site-document.store";
 import { RadioGroupComponent } from "../02-radio-group/radio-group.component";
+import { Question, Section } from "src/app/core/stores/site-document/models";
 
 @Component({
   selector: "radio-group-textbox-question[question]",

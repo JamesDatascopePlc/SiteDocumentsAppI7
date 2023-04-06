@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from "@angular/core";
 import { IonicModule } from "@ionic/angular";
-import { Question } from "src/app/core/stores/site-document/site-document.store";
+import { Question } from "src/app/core/stores/site-document/models";
 import { importRxTemplate } from "src/app/shared/imports";
 import { SelectableComponent } from "src/app/shared/components/selectable/selectable.component";
 import { CameraCaptureComponent, FileUploadComponent, QuestionTextComponent } from "../extras";

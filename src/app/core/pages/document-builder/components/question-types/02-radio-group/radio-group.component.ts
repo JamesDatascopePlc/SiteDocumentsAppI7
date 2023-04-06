@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, Input } from "@angular/core";
 import { IonicModule } from "@ionic/angular";
-import { Question, Section } from "src/app/core/stores/site-document/site-document.store";
 import { importRxTemplate } from "src/app/shared/imports";
 import { CameraCaptureComponent, FileUploadComponent, QuestionTextComponent } from "../extras";
+import { Question, Section } from "src/app/core/stores/site-document/models";
 
 @Component({
   selector: "radio-group-question[section][question]",

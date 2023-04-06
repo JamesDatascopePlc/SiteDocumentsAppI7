@@ -1,6 +1,7 @@
 import { IonicModule } from "@ionic/angular";
 import { moduleMetadata, StoryFn } from "@storybook/angular";
 import { SignatureComponent } from "./signature.component";
+import { defaultQuestion } from ".storybook/default";
 
 export default {
   title: "Pages/Document-Builder/Question-Types/19-Signature",
@@ -23,14 +24,7 @@ export const Default = Template.bind({});
 
 Default.args = {
   question: {
-    QuestionID: 1,
+    ...defaultQuestion,
     QuestionText: "Sign Here",
-    CascadeOptionsText: "",
-    Required: false,
-    Assets: [],
-    Operatives: [],
-    CanHaveImg: true,
-    CanHaveFiles: true,
-    AnswerText: ""
   }
 }

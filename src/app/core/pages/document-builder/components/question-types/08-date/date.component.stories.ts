@@ -1,6 +1,7 @@
 import { IonicModule } from "@ionic/angular";
 import { moduleMetadata, StoryFn } from "@storybook/angular";
 import { DateComponent } from "./date.component";
+import { defaultQuestion } from ".storybook/default";
 
 export default {
   title: "Pages/Document-Builder/Question-Types/08-Date",
@@ -23,14 +24,7 @@ export const Default = Template.bind({});
 
 Default.args = {
   question: {
-    QuestionID: 1,
-    QuestionText: "Select Date",
-    CascadeOptionsText: "",
-    Required: false,
-    Assets: [],
-    Operatives: [],
-    CanHaveImg: true,
-    CanHaveFiles: true,
-    AnswerText: ""
+    ...defaultQuestion,
+    QuestionText: "Select Date"
   }
 }
