@@ -1,0 +1,1 @@
+export { clickReaction } from "./click.reaction";

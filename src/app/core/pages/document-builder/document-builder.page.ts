@@ -1,16 +1,15 @@
-import { ChangeDetectionStrategy, Component } from "@angular/core";
+import { ChangeDetectionStrategy, Component, inject } from "@angular/core";
 import { IonicModule } from "@ionic/angular";
-import { Subject } from "rxjs";
+import { merge, shareReplay, switchMap } from "rxjs";
 import { IfComponent } from "src/app/shared/components";
 import { importNgSwitch, importRxTemplate } from "src/app/shared/imports";
-import { AngularComponent, withAfterViewInit } from "src/app/shared/lifecycles";
+import { AngularComponent } from "src/app/shared/lifecycles";
+import { FormFillerStore } from "../../stores/site-document/form-filler/form-filler.store";
 import { QuestionType, SiteDocument } from "../../stores/site-document/site-document.store";
-import { DocumentPageComponent, DocumentSectionComponent, DocumentPageNavigationComponent, QuestionTemplateDirective, importInputTypes, importQuestionTypes } from "./components";
-
-export interface DocumentBuilderPageParams {
-  documentId: number;
-  specificId: number;
-}
+import { DocumentPageComponent, DocumentSectionComponent, QuestionTemplateDirective, importInputTypes, importQuestionTypes } from "./components";
+import { FormFillerRoute } from "./routes";
+import { clickReaction } from "src/app/shared/reactions";
+import { TemplateMenuModal } from "./modals";
 
 @Component({
   selector: 'app-document-builder',
@@ -35,10 +34,10 @@ export interface DocumentBuilderPageParams {
     </ion-header>
 
     <ion-content *rxIf="document$; let document" class="ion-padding">
-      <actioner-select></actioner-select>
-      <company-actioner-select></company-actioner-select>
-      <queue-duration></queue-duration>
-      <queue-select></queue-select>
+      <actioner-select *rxIf="document.CanAddActionerFromApp"></actioner-select>
+      <company-actioner-select *rxIf="document.CanHaveCompanyActioner"></company-actioner-select>
+      <queue-select *rxIf="document.Queues && document.Queues.length > 0"></queue-select>
+      <queue-duration *rxIf="document.CanHaveQueueDuration"></queue-duration>
 
       <document-page *rxFor="let page of document.Pages; index as idx" [page]="page">
         <document-section *rxFor="let section of page.Sections" [section]="section">
@@ -46,28 +45,50 @@ export interface DocumentBuilderPageParams {
             <label-question *ngSwitchCase="QuestionType.Label" [question]="question"></label-question>
             <checkbox-question *ngSwitchCase="QuestionType.Checkbox" [question]="question"></checkbox-question>
             <radio-group-question *ngSwitchCase="QuestionType.RadioGroup" [section]="section" [question]="question"></radio-group-question>
+            <radio-table-question 
+              *rxIf="section.SectionQuestiontype === QuestionType.RadioGroup && document.MetaData.UsesRadioGroupTable" 
+              [question]="question">
+            </radio-table-question>
             <textarea-question *ngSwitchCase="QuestionType.TextArea" [question]="question"></textarea-question>
+            <select-question *ngSwitchCase="QuestionType.Select" [question]="question"></select-question>
+            <checkbox-question *ngSwitchCase="QuestionType.CheckboxTextbox" [question]="question"></checkbox-question>
+            <radio-group-textbox-question *ngSwitchCase="QuestionType.RadioGroupTextbox" [question]="question"></radio-group-textbox-question>
+            <radio-table-textbox-question 
+              *rxIf="section.SectionQuestiontype === QuestionType.RadioGroupTextbox && document.MetaData.UsesRadioGroupTable" 
+              [question]="question">
+            </radio-table-textbox-question>
             <date-question *ngSwitchCase="QuestionType.Date" [question]="question"></date-question>
             <datetime-question *ngSwitchCase="QuestionType.DateTime" [question]="question"></datetime-question>
             <operative-list-question *ngSwitchCase="QuestionType.OperativeList" [question]="question"></operative-list-question>
             <number-question *ngSwitchCase="QuestionType.Number" [question]="question"></number-question>
             <asset-list-question *ngSwitchCase="QuestionType.AssetList" [question]="question"></asset-list-question>
+            <linked-dates-question *ngSwitchCase="QuestionType.LinkedDates" [question]="question"></linked-dates-question>
+            <signature-question *ngSwitchCase="QuestionType.Signature" [question]="question"></signature-question>
+            <select-text-question *ngSwitchCase="QuestionType.SelectText" [question]="question"></select-text-question>
             <time-question *ngSwitchCase="QuestionType.Time" [question]="question"></time-question>
           </ng-template>
         </document-section>
       </document-page>
 
-      <remain-anonymous></remain-anonymous>
+      <remain-anonymous 
+        *rxIf="document.AllowAnon"
+        [(isTicked)]="document.RemainAnon">
+      </remain-anonymous>
 
-      <ion-button class="ion-margin-vertical" expand="full">
+      <ion-button
+        (click)="submit(document)" 
+        class="ion-margin-vertical" 
+        expand="full">
         Submit
       </ion-button>
     </ion-content>
 
-    <ion-footer>
-      <ion-button class="float-left">Back</ion-button>
-      <ion-button class="float-right">Next</ion-button>
-    </ion-footer>
+    <ng-container *rxIf="document$; let document">
+      <ion-footer *rxIf="document.Pages.length > 1">
+        <ion-button class="float-left">Back</ion-button>
+        <ion-button class="float-right">Next</ion-button>
+      </ion-footer>
+    </ng-container>
   `,
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -78,14 +99,28 @@ export interface DocumentBuilderPageParams {
     IfComponent,
     DocumentPageComponent,
     DocumentSectionComponent,
-    DocumentPageNavigationComponent,
     QuestionTemplateDirective,
     ...importInputTypes(),
-    ...importQuestionTypes()
+    ...importQuestionTypes(),
+    TemplateMenuModal
   ]
 })
-export class DocumentBuilderPage extends AngularComponent(withAfterViewInit) {
+export class DocumentBuilderPage extends AngularComponent() {  
+  protected readonly formFillerRoute = inject(FormFillerRoute);
+  protected readonly formFillerStore = inject(FormFillerStore);
+
   QuestionType = QuestionType;
 
-  document$ = new Subject<SiteDocument>();
+  templates$ = this.formFillerStore
+
+  document$ = merge(
+    this.formFillerStore.getTemplateRequest$(this.formFillerRoute.lastDocumentId$),
+  ).pipe(
+    switchMap(() => this.formFillerStore.writingDocument$),
+    shareReplay()
+  );
+
+  submit = clickReaction<SiteDocument>(document$ => this.formFillerStore.submitDocument$(document$).pipe(
+    this.takeUntilDestroyed()
+  ));
 }

@@ -5,9 +5,11 @@ import { FormGroup, FormControl } from "@ngneat/reactive-forms";
 import { AngularComponent } from "src/app/shared/lifecycles";
 import { importRxTemplate } from "src/app/shared/imports";
 import { UserStore } from "../../stores/user/user.store";
+import { switchMap } from "rxjs";
+import { clickReaction } from "src/app/shared/reactions";
 
 @Component({
-  selector: 'app-registration',
+  selector: "app-registration",
   template: `
     <ion-header>
       <ion-toolbar>
@@ -40,6 +42,7 @@ import { UserStore } from "../../stores/user/user.store";
       <ion-button 
         *rxLet="form.invalid$; let isInvalid" 
         [disabled]="isInvalid"
+        (click)="submit()"
         expand="full">
         Submit
       </ion-button>
@@ -66,14 +69,8 @@ export class RegistrationPage extends AngularComponent() {
     ])
   });
 
-  subscriptions = [
-    this.userStore.getUser$.effect
-      .pipe(this.takeUntilDestroyed())
-      .subscribe()
-  ];
-
-  submit = () => this.userStore.getUser$.next({
-    pin: this.form.value.pin,
-    token: this.form.value.token
-  });
+  submit = clickReaction(click$ => click$.pipe(
+    this.takeUntilDestroyed(),
+    switchMap(() => this.userStore.getUserRequest$(this.form.value$))
+  ));
 }

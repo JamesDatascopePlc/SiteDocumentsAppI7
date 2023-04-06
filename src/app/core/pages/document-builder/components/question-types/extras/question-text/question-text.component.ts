@@ -4,7 +4,7 @@ import { importRxTemplate } from "src/app/shared/imports";
 @Component({
   selector: "question-text",
   template: `
-    <p class="ion-text-wrap text-lg">
+    <p class="ion-text-wrap">
       <ng-content></ng-content>
       <span *rxIf="required" class="text-red-500">*</span>
     </p>

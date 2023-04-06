@@ -7,8 +7,9 @@ import { IonicModule } from "@ionic/angular";
   template: `
     <ion-list>
       <ion-item>
-        <ion-label>Remain Anonymous?</ion-label>
-        <ion-checkbox [(ngModel)]="isTicked" (ionChange)="isTickedChange.emit(isTicked)"></ion-checkbox>
+        <ion-checkbox [(ngModel)]="isTicked" (ionChange)="isTickedChange.emit(isTicked)">
+          Remain Anonymous?
+        </ion-checkbox>
       </ion-item>
     </ion-list>
   `,

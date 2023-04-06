@@ -5,11 +5,11 @@ import { importRxTemplate } from "src/app/shared/imports";
 import { CameraCaptureComponent, FileUploadComponent, QuestionTextComponent } from "../extras";
 
 @Component({
-  selector: "checkbox-textbox[question]",
+  selector: "checkbox-question-question[question]",
   template: `
     <ion-list>
       <ion-item lines="none">
-        <ion-checkbox slot="start"></ion-checkbox>
+        <ion-checkbox aria-label="" slot="start"></ion-checkbox>
         <question-text [required]="question.Required">
           {{ question.QuestionText }}
         </question-text>
@@ -19,7 +19,7 @@ import { CameraCaptureComponent, FileUploadComponent, QuestionTextComponent } fr
 
       <ion-item>
         <ion-label position="stacked">Text:</ion-label>
-        <ion-textarea rows="3"></ion-textarea>
+        <ion-textarea label="" rows="3"></ion-textarea>
       </ion-item>
     </ion-list>
   `,

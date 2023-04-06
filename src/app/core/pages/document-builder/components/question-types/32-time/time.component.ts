@@ -14,13 +14,7 @@ import { QuestionTextComponent } from "../extras";
       </ion-item>
 
       <ion-item>
-        <ion-datetime-button [datetime]="id"></ion-datetime-button>
 
-        <ion-modal [keepContentsMounted]="true">
-          <ng-template>
-            <ion-datetime [id]="id" presentation="time"></ion-datetime>
-          </ng-template>
-        </ion-modal>
       </ion-item>
     </ion-list>
   `,

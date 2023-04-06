@@ -2,9 +2,9 @@ import { HttpClient } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
 import { createStore, propsFactory } from "@ngneat/elf";
 import { localStorageStrategy, persistState } from "@ngneat/elf-persist-state";
-import { combineLatest, map, switchMap, tap, pipe, Subject, Observable } from "rxjs";
+import { combineLatest, Observable, switchMap } from "rxjs";
 import { getDeviceString, getDeviceUuid } from "src/app/shared/plugins/device.plugin";
-import { actionPipe, effect, selector } from "src/app/shared/rxjs";
+import { pipeTap, selector } from "src/app/shared/rxjs";
 import { environment } from "src/environments/environment";
 
 export interface User {
@@ -93,7 +93,7 @@ const store = createStore(
 const userSelector = selector(store.pipe(selectAppUser()));
 const sites$ = userSelector(user => user?.UserSites || []);
 
-const setAppUserUpdate = actionPipe<User>(user => store.update(setAppUser(user)));
+const setAppUserUpdate = pipeTap<User>(user => store.update(setAppUser(user)));
 
 persistState(store, {
   key: "user",
@@ -107,8 +107,8 @@ export class UserStore {
   user$ = store.pipe(selectAppUser());
   sites$ = sites$;
 
-  getUser$ = effect<{ token: string, pin: string }>($ => combineLatest({
-    login: $,
+  getUserRequest$ = (action$: Observable<{ token: string, pin: string }>) => combineLatest({
+    login: action$,
     deviceId: getDeviceUuid(),
     deviceString: getDeviceString() 
   }).pipe(
@@ -122,5 +122,5 @@ export class UserStore {
       }
     })),
     setAppUserUpdate()
-  ));
+  );
 }

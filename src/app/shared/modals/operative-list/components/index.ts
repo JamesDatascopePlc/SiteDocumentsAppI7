@@ -1,0 +1,2 @@
+export { LocalOperativeSearchComponent } from "./local-operative-search/local-operative-search.component";
+export { OnlineOperativeSearchComponent } from "./online-operative-search/online-operative-search.component";

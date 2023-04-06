@@ -16,7 +16,7 @@ import { CameraCaptureComponent, FileUploadComponent, QuestionTextComponent } fr
         <file-upload *rxIf="question.CanHaveFiles" class="ion-no-margin" slot="end"></file-upload>
       </ion-item>
       <ion-item class="ion-padding-horizontal">
-        <ion-textarea rows="6"></ion-textarea>
+        <ion-textarea label="" rows="6"></ion-textarea>
       </ion-item>
     </ion-list>
   `,

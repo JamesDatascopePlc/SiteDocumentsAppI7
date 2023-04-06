@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input } from "@angular/core";
 import { IonicModule } from "@ionic/angular";
 import { Question } from "src/app/core/stores/site-document/site-document.store";
+import { importRxTemplate } from "src/app/shared/imports";
 import { CameraCaptureComponent, FileUploadComponent, QuestionTextComponent } from "../extras";
 
 @Component({
@@ -16,6 +17,7 @@ import { CameraCaptureComponent, FileUploadComponent, QuestionTextComponent } fr
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     IonicModule,
+    ...importRxTemplate(),
     QuestionTextComponent,
     CameraCaptureComponent,
     FileUploadComponent

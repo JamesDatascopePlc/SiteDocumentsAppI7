@@ -14,13 +14,13 @@ import { CameraCaptureComponent, FileUploadComponent, QuestionTextComponent } fr
       </ion-col>
       <ion-radio-group class="contents">
         <ion-col class="flex justify-center items-center" size="1">
-          <ion-radio color="success" [value]="true"></ion-radio>
+          <ion-radio aria-label="" color="success" [value]="true"></ion-radio>
         </ion-col>
         <ion-col class="flex justify-center items-center" size="1">
-          <ion-radio color="danger" [value]="false"></ion-radio>
+          <ion-radio aria-label="" color="danger" [value]="false"></ion-radio>
         </ion-col>
         <ion-col class="flex justify-center items-center" size="1">
-          <ion-radio [value]="null"></ion-radio>
+          <ion-radio aria-label="" [value]="null"></ion-radio>
         </ion-col>
       </ion-radio-group>
       <ion-col size="1">

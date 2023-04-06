@@ -1,18 +1,40 @@
 import { Injectable } from "@angular/core";
 import { createStore } from "@ngneat/elf";
-import { withEntities } from "@ngneat/elf-entities";
-import { selectAllEntities } from "@ngneat/elf-entities/src/lib/all.query";
-import { effect } from "src/app/shared/rxjs";
+import { selectAllEntities, withEntities } from "@ngneat/elf-entities";
 
 export interface SiteDocument {
   DocumentID: number;
   DocumentTitle: string;
   Pinned: boolean;
   Pages: Page[];
+  AllowAnon: boolean;
+  RemainAnon: boolean;
+  Queues: { Key: string, Value: string }[],
   DocumentGroup: string;
-  CanAddAsset: boolean;
-  CanAddOperative: boolean;
   CanCreateHotspot: boolean;
+  CanBeAddedToHotspot?: boolean;
+  CanBeSavedAsDraft?: boolean;
+  CanAddActionerFromApp: boolean;
+  CanAddCategoryActioner: boolean;
+  CanCreateAssetsFromDocument: boolean;
+  CanHaveQueueDuration: boolean;
+  CanHaveDocumentLevelImages: boolean;
+  CanHaveDocLevelPhotoRoll: boolean;
+  ShowDocLevelPhotoButtonAtStartOfDoc: boolean;
+  CanAddAsset?: boolean;
+  CanAddOperative?: boolean;
+  CanHaveCompanyActioner: boolean;
+  MetaData: Partial<SiteDocumentMetaData>;
+}
+
+export interface SiteDocumentMetaData {
+  ActionerText: string;
+  CanBeEditableDocument: boolean;
+  CannotAddSelfAsActioner: boolean;
+  ColourHex: string;
+  QueueSelectorTitle: string;
+  HasSiteList: boolean;
+  UsesRadioGroupTable: boolean;
 }
 
 export interface SiteDocumentAsset {

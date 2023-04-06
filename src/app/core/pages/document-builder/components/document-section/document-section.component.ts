@@ -20,15 +20,15 @@ export class QuestionTemplateDirective {
 @Component({
   selector: "document-section[section]",
   template: `
-    <ion-item lines="none">
-      <ion-label>{{ section.SectionTitle }}</ion-label>
-      <ion-button *rxIf="section.IsRepeatable" color="secondary" fill="clear">
+    <ion-label>{{ section.SectionTitle }}</ion-label>
+    <ng-container *rxIf="section.IsRepeatable">
+      <ion-button color="secondary" fill="clear">
         <ion-icon name="duplicate-outline"></ion-icon>
       </ion-button>
       <ion-button color="secondary" fill="clear">
         <ion-icon name="remove-circle-outline"></ion-icon>
       </ion-button>
-    </ion-item>
+    </ng-container>
 
     <ng-container *rxFor="let question of section.Questions">
       <ng-container *ngTemplateOutlet="questions; context: { $implicit: question }"></ng-container>

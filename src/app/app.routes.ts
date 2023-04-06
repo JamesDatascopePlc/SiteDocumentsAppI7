@@ -10,4 +10,8 @@ export const routes: Routes = [
     path: "Registration",
     loadComponent: () => import("./core/pages/registration/registration.page").then(m => m.RegistrationPage)
   },
+  {
+    path: "Form-Filler",
+    loadComponent: () => import("./core/pages/document-builder/document-builder.page").then(m => m.DocumentBuilderPage)
+  }
 ];

@@ -4,7 +4,7 @@ import { Question } from "src/app/core/stores/site-document/site-document.store"
 import { QuestionTextComponent } from "../extras";
 
 @Component({
-  selector: "radio-table-textbox[question]",
+  selector: "radio-table-textbox-question[question]",
   template: `
     <ion-row>
       <ion-col class="flex items-center" size="2">
@@ -14,18 +14,18 @@ import { QuestionTextComponent } from "../extras";
       </ion-col>
       <ion-radio-group class="contents">
         <ion-col class="flex justify-center items-center" size="1">
-          <ion-radio color="success" [value]="true"></ion-radio>
+          <ion-radio aria-label="" color="success" [value]="true"></ion-radio>
         </ion-col>
         <ion-col class="flex justify-center items-center" size="1">
-          <ion-radio color="danger" [value]="false"></ion-radio>
+          <ion-radio aria-label="" color="danger" [value]="false"></ion-radio>
         </ion-col>
         <ion-col class="flex justify-center items-center" size="1">
-          <ion-radio [value]="null"></ion-radio>
+          <ion-radio aria-label="" [value]="null"></ion-radio>
         </ion-col>
       </ion-radio-group>
       <ion-col size="2">
         <ion-item>
-          <ion-textarea rows="4"></ion-textarea>
+          <ion-textarea label="" rows="4"></ion-textarea>
         </ion-item>
       </ion-col>
     </ion-row>

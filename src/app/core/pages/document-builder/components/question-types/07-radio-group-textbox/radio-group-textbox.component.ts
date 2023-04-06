@@ -4,13 +4,13 @@ import { Question, Section } from "src/app/core/stores/site-document/site-docume
 import { RadioGroupComponent } from "../02-radio-group/radio-group.component";
 
 @Component({
-  selector: "radio-group-textbox[question]",
+  selector: "radio-group-textbox-question[question]",
   template: `
     <radio-group-question [section]="section" [question]="question"></radio-group-question>
 
     <ion-list>
       <ion-item>
-        <ion-textarea rows="4"></ion-textarea>
+        <ion-textarea label="" rows="4"></ion-textarea>
       </ion-item>
     </ion-list>
   `,

@@ -5,6 +5,8 @@ import { RadioTableComponent } from "./02-radio-table/radio-table.component";
 import { TextboxComponent } from "./03-textbox/textbox.component";
 import { TextareaComponent } from "./04-textarea/textarea.component";
 import { SelectComponent } from "./05-select/select.component";
+import { RadioGroupTextboxComponent } from "./07-radio-group-textbox/radio-group-textbox.component";
+import { RadioTableTextboxComponent } from "./07-radio-table-textbox/radio-table-textbox.component";
 import { DateComponent } from "./08-date/date.component";
 import { DatetimeComponent } from "./09-datetime/datetime.component";
 import { OperativeListComponent } from "./10-operative-list/operative-list.component";
@@ -12,6 +14,7 @@ import { NumberComponent } from "./12-number/number.component";
 import { AssetListComponent } from "./17-asset-list/asset-list.component";
 import { LinkedDatesComponent } from "./18-linked-dates/linked-dates.component";
 import { SignatureComponent } from "./19-signature/signature.component";
+import { SelectTextComponent } from "./29-select-text/select-text.component";
 import { TimeComponent } from "./32-time/time.component";
 
 export function importQuestionTypes() {
@@ -23,6 +26,8 @@ export function importQuestionTypes() {
     TextboxComponent,
     TextareaComponent,
     SelectComponent,
+    RadioGroupTextboxComponent,
+    RadioTableTextboxComponent,
     DateComponent,
     DatetimeComponent,
     OperativeListComponent,
@@ -30,6 +35,7 @@ export function importQuestionTypes() {
     AssetListComponent,
     LinkedDatesComponent,
     SignatureComponent,
+    SelectTextComponent,
     TimeComponent,
   ]
 }

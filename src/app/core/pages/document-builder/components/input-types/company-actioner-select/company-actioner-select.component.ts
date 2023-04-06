@@ -5,12 +5,7 @@ import { SelectableComponent } from "src/app/shared/components/selectable/select
 @Component({
   selector: "company-actioner-select",
   template: `
-    <ion-list>
-      <ion-item>
-        <ion-label>Actioners<span class="required">*</span></ion-label>
-        <selectable></selectable>
-      </ion-item>
-    </ion-list>
+    <selectable placeholder="Actioners"></selectable>
   `,
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,

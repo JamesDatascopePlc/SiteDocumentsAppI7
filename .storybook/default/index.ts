@@ -1,1 +1,1 @@
-export { defaultQuestion } from "./question";
+export { defaultSiteDocument, defaultSection, defaultQuestion } from "./site-document";

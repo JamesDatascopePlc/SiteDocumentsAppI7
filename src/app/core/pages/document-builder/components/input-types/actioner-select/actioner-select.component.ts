@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from "@angular/core";
 import { IonicModule } from "@ionic/angular";
-import { Operative } from "src/app/core/stores/operative/operative.store";
+import { Operative } from "src/app/core/stores/operative/operatives.store";
 
 @Component({
   selector: "actioner-select",

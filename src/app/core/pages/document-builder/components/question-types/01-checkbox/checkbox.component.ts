@@ -8,7 +8,7 @@ import { CameraCaptureComponent, FileUploadComponent, QuestionTextComponent } fr
   selector: 'checkbox-question[question]',
   template: `
     <ion-item lines="none">
-      <ion-checkbox slot="start"></ion-checkbox>
+      <ion-checkbox aria-label="" slot="start"></ion-checkbox>
       <question-text [required]="question.Required">
         {{ question.QuestionText }}
       </question-text>

@@ -1,0 +1,1 @@
+export { withWritingDocument, writingDocumentActions } from "./writing-document.props";

@@ -16,18 +16,15 @@ import { CameraCaptureComponent, FileUploadComponent, QuestionTextComponent } fr
     <ion-radio-group>
       <ion-list>
         <ion-item>
-          <ion-label>{{ section.TableTitles[0] }}</ion-label>
-          <ion-radio color="success" [value]="true"></ion-radio>
+          <ion-radio aria-label="" color="success" [value]="true">{{ section.TableTitles[0] }}</ion-radio>
         </ion-item>
 
         <ion-item>
-          <ion-label>{{ section.TableTitles[1] }}</ion-label>
-          <ion-radio color="danger" [value]="false"></ion-radio>
+          <ion-radio aria-label="" color="danger" [value]="false">{{ section.TableTitles[1] }}</ion-radio>
         </ion-item>
 
         <ion-item>
-          <ion-label>{{ section.TableTitles[2] }}</ion-label>
-          <ion-radio [value]="null"></ion-radio>
+          <ion-radio aria-label="" [value]="null">{{ section.TableTitles[2] }}</ion-radio>
         </ion-item>
       </ion-list>
     </ion-radio-group>

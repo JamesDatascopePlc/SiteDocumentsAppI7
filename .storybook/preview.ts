@@ -1,8 +1,7 @@
-import { componentWrapperDecorator, moduleMetadata, Preview } from "@storybook/angular";
-import { setCompodocJson } from "@storybook/addon-docs/angular";
-import docJson from "../documentation.json";
+import { componentWrapperDecorator, applicationConfig, Preview } from "@storybook/angular";
 import { IonicModule } from "@ionic/angular";
-import { HttpClientModule } from "@angular/common/http";
+import { importProvidersFrom } from "@angular/core";
+import { provideHttpClient } from "@angular/common/http";
 
 const preview: Preview = {
   parameters: {
@@ -15,10 +14,13 @@ const preview: Preview = {
     },
   },
   decorators: [
-    moduleMetadata({
-      imports: [IonicModule.forRoot(), HttpClientModule]
+    applicationConfig({
+      providers: [
+        importProvidersFrom(IonicModule.forRoot({})),
+        provideHttpClient()
+      ]
     }),
-    componentWrapperDecorator(story => `<ion-app class='ion-padding'>${story}</ion-app>`)
+    componentWrapperDecorator(story => `<ion-app>${story}</ion-app>`)
   ]
 };
 
