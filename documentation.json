@@ -5188,17 +5188,7 @@
                 "name": "Default",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/core/pages/document-builder/components/input-types/remain-anonymous/remain-anonymous.component.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "",
-                "defaultValue": "Template.bind({})"
-            },
-            {
-                "name": "Default",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "src/app/core/pages/document-builder/components/question-types/01-checkbox/checkbox.component.stories.ts",
+                "file": "src/app/core/pages/document-builder/components/input-types/queue-select/queue-select.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -5228,6 +5218,26 @@
                 "name": "Default",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "src/app/core/pages/document-builder/components/question-types/01-checkbox/checkbox.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "Default",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/core/pages/document-builder/components/question-types/05-select/select.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "Default",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "src/app/core/pages/document-builder/components/question-types/03-textbox/textbox.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -5248,17 +5258,7 @@
                 "name": "Default",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/core/pages/document-builder/components/question-types/05-select/select.component.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "",
-                "defaultValue": "Template.bind({})"
-            },
-            {
-                "name": "Default",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "src/app/core/pages/document-builder/components/question-types/06-checkbox-textbox/checkbox-textbox.component.stories.ts",
+                "file": "src/app/core/pages/document-builder/components/question-types/07-radio-table-textbox/radio-table-textbox.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -5308,7 +5308,7 @@
                 "name": "Default",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/core/pages/document-builder/components/question-types/12-number/number.component.stories.ts",
+                "file": "src/app/core/pages/document-builder/components/question-types/06-checkbox-textbox/checkbox-textbox.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -5348,7 +5348,7 @@
                 "name": "Default",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/core/pages/document-builder/components/question-types/extras/camera-capture/camera-capture.component.stories.ts",
+                "file": "src/app/core/pages/document-builder/components/question-types/extras/file-upload/file-upload.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -5358,7 +5358,7 @@
                 "name": "Default",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/core/pages/document-builder/components/question-types/extras/file-upload/file-upload.component.stories.ts",
+                "file": "src/app/core/pages/document-builder/components/question-types/extras/camera-capture/camera-capture.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -5628,21 +5628,21 @@
                 "name": "Template",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/shared/components/multi-selectable/multi-selectable.component.stories.ts",
+                "file": "src/app/core/pages/registration/registration.page.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
-                "type": "StoryFn<MultiSelectableComponent>",
-                "defaultValue": "(args: MultiSelectableComponent) => ({\r\n  props: args\r\n})"
+                "type": "StoryFn<RegistrationPage>",
+                "defaultValue": "(args: RegistrationPage) => ({\r\n  props: args\r\n})"
             },
             {
                 "name": "Template",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/shared/components/selectable/selectable.component.stories.ts",
+                "file": "src/app/shared/components/multi-selectable/multi-selectable.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
-                "type": "StoryFn<SelectableComponent>",
-                "defaultValue": "(args: SelectableComponent) => ({\r\n  props: args\r\n})"
+                "type": "StoryFn<MultiSelectableComponent>",
+                "defaultValue": "(args: MultiSelectableComponent) => ({\r\n  props: args\r\n})"
             },
             {
                 "name": "Template",
@@ -5688,11 +5688,11 @@
                 "name": "Template",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/core/pages/document-builder/components/question-types/01-checkbox/checkbox.component.stories.ts",
+                "file": "src/app/core/pages/document-builder/components/input-types/queue-select/queue-select.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
-                "type": "StoryFn<CheckboxComponent>",
-                "defaultValue": "(args: CheckboxComponent) => ({\r\n  props: args\r\n})"
+                "type": "StoryFn<QueueSelectComponent>",
+                "defaultValue": "(args: QueueSelectComponent) => ({\r\n  props: args\r\n})"
             },
             {
                 "name": "Template",
@@ -5718,6 +5718,26 @@
                 "name": "Template",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "src/app/core/pages/document-builder/components/question-types/01-checkbox/checkbox.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "StoryFn<CheckboxComponent>",
+                "defaultValue": "(args: CheckboxComponent) => ({\r\n  props: args\r\n})"
+            },
+            {
+                "name": "Template",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/core/pages/document-builder/components/question-types/05-select/select.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "StoryFn<SelectComponent>",
+                "defaultValue": "(args: SelectComponent) => ({\r\n  props: args\r\n})"
+            },
+            {
+                "name": "Template",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "src/app/core/pages/document-builder/components/question-types/03-textbox/textbox.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -5738,31 +5758,11 @@
                 "name": "Template",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/core/pages/document-builder/components/question-types/05-select/select.component.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "StoryFn<SelectComponent>",
-                "defaultValue": "(args: SelectComponent) => ({\r\n  props: args\r\n})"
-            },
-            {
-                "name": "Template",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "src/app/core/pages/document-builder/components/question-types/06-checkbox-textbox/checkbox-textbox.component.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "StoryFn<CheckboxTextboxComponent>",
-                "defaultValue": "(args: CheckboxTextboxComponent) => ({\r\n  props: args\r\n})"
-            },
-            {
-                "name": "Template",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "src/app/core/pages/document-builder/components/question-types/07-radio-table-textbox/radio-table-textbox.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
-                "type": "StoryFn<RadioTableTextboxComponent>",
-                "defaultValue": "(args: RadioTableTextboxComponent) => ({\r\n  props: args\r\n})"
+                "type": "StoryFn<RadioGroupTextboxComponent>",
+                "defaultValue": "(args: RadioGroupTextboxComponent) => ({\r\n  props: args\r\n})"
             },
             {
                 "name": "Template",
@@ -5773,6 +5773,16 @@
                 "deprecationMessage": "",
                 "type": "StoryFn<DateComponent>",
                 "defaultValue": "(args: DateComponent) => ({\r\n  props: args\r\n})"
+            },
+            {
+                "name": "Template",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/core/pages/document-builder/components/question-types/10-operative-list/operative-list.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "StoryFn<OperativeListComponent>",
+                "defaultValue": "(args: OperativeListComponent) => ({\r\n  props: args\r\n})"
             },
             {
                 "name": "Template",
@@ -5841,18 +5851,18 @@
                 "file": "src/app/core/pages/document-builder/components/question-types/extras/camera-capture/camera-capture.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
-                "type": "StoryFn<CameraCaptureComponent>",
-                "defaultValue": "(args: CameraCaptureComponent) => ({\r\n  props: args\r\n})"
+                "type": "StoryFn<FileUploadComponent>",
+                "defaultValue": "(args: FileUploadComponent) => ({\r\n  props: args\r\n})"
             },
             {
                 "name": "Template",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/core/pages/document-builder/components/question-types/extras/file-upload/file-upload.component.stories.ts",
+                "file": "src/app/core/pages/document-builder/components/question-types/extras/camera-capture/camera-capture.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
-                "type": "StoryFn<FileUploadComponent>",
-                "defaultValue": "(args: FileUploadComponent) => ({\r\n  props: args\r\n})"
+                "type": "StoryFn<CameraCaptureComponent>",
+                "defaultValue": "(args: CameraCaptureComponent) => ({\r\n  props: args\r\n})"
             },
             {
                 "name": "toggleHideEmptyQueues",
@@ -7508,6 +7518,28 @@
                     "defaultValue": "(args: CameraComponent) => ({\r\n  props: args,\r\n  template: `\r\n    <camera [fill]=\"fill\" [expand]=\"expand\" [color]=\"color\">\r\n      Add Image\r\n    </camera>\r\n  `\r\n})"
                 }
             ],
+            "src/app/core/pages/registration/registration.page.stories.ts": [
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/core/pages/registration/registration.page.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/core/pages/registration/registration.page.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "StoryFn<RegistrationPage>",
+                    "defaultValue": "(args: RegistrationPage) => ({\r\n  props: args\r\n})"
+                }
+            ],
             "src/app/shared/components/multi-selectable/multi-selectable.component.stories.ts": [
                 {
                     "name": "Default",
@@ -7658,50 +7690,6 @@
                     "defaultValue": "(args: QueueSelectComponent) => ({\r\n  props: args\r\n})"
                 }
             ],
-            "src/app/core/pages/document-builder/components/input-types/remain-anonymous/remain-anonymous.component.stories.ts": [
-                {
-                    "name": "Default",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/core/pages/document-builder/components/input-types/remain-anonymous/remain-anonymous.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "Template.bind({})"
-                },
-                {
-                    "name": "Template",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/core/pages/document-builder/components/input-types/remain-anonymous/remain-anonymous.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "StoryFn<RemainAnonymousComponent>",
-                    "defaultValue": "(args: RemainAnonymousComponent) => ({\r\n  props: args\r\n})"
-                }
-            ],
-            "src/app/core/pages/document-builder/components/question-types/01-checkbox/checkbox.component.stories.ts": [
-                {
-                    "name": "Default",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/core/pages/document-builder/components/question-types/01-checkbox/checkbox.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "Template.bind({})"
-                },
-                {
-                    "name": "Template",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/core/pages/document-builder/components/question-types/01-checkbox/checkbox.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "StoryFn<CheckboxComponent>",
-                    "defaultValue": "(args: CheckboxComponent) => ({\r\n  props: args\r\n})"
-                }
-            ],
             "src/app/core/pages/document-builder/components/question-types/02-radio-group/radio-group.component.stories.ts": [
                 {
                     "name": "Default",
@@ -7744,6 +7732,50 @@
                     "deprecationMessage": "",
                     "type": "StoryFn<RadioTableComponent>",
                     "defaultValue": "(args: RadioTableComponent) => ({\r\n  props: args\r\n})"
+                }
+            ],
+            "src/app/core/pages/document-builder/components/question-types/01-checkbox/checkbox.component.stories.ts": [
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/core/pages/document-builder/components/question-types/01-checkbox/checkbox.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/core/pages/document-builder/components/question-types/01-checkbox/checkbox.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "StoryFn<CheckboxComponent>",
+                    "defaultValue": "(args: CheckboxComponent) => ({\r\n  props: args\r\n})"
+                }
+            ],
+            "src/app/core/pages/document-builder/components/question-types/05-select/select.component.stories.ts": [
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/core/pages/document-builder/components/question-types/05-select/select.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/core/pages/document-builder/components/question-types/05-select/select.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "StoryFn<SelectComponent>",
+                    "defaultValue": "(args: SelectComponent) => ({\r\n  props: args\r\n})"
                 }
             ],
             "src/app/core/pages/document-builder/components/question-types/03-textbox/textbox.component.stories.ts": [
@@ -7790,12 +7822,12 @@
                     "defaultValue": "(args: TextareaComponent) => ({\r\n  props: args\r\n})"
                 }
             ],
-            "src/app/core/pages/document-builder/components/question-types/05-select/select.component.stories.ts": [
+            "src/app/core/pages/document-builder/components/question-types/07-radio-table-textbox/radio-table-textbox.component.stories.ts": [
                 {
                     "name": "Default",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "src/app/core/pages/document-builder/components/question-types/05-select/select.component.stories.ts",
+                    "file": "src/app/core/pages/document-builder/components/question-types/07-radio-table-textbox/radio-table-textbox.component.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "",
@@ -7805,11 +7837,11 @@
                     "name": "Template",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "src/app/core/pages/document-builder/components/question-types/05-select/select.component.stories.ts",
+                    "file": "src/app/core/pages/document-builder/components/question-types/07-radio-table-textbox/radio-table-textbox.component.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "type": "StoryFn<SelectComponent>",
-                    "defaultValue": "(args: SelectComponent) => ({\r\n  props: args\r\n})"
+                    "type": "StoryFn<RadioTableTextboxComponent>",
+                    "defaultValue": "(args: RadioTableTextboxComponent) => ({\r\n  props: args\r\n})"
                 }
             ],
             "src/app/core/pages/document-builder/components/question-types/06-checkbox-textbox/checkbox-textbox.component.stories.ts": [
@@ -7839,28 +7871,6 @@
                     "name": "Default",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "src/app/core/pages/document-builder/components/question-types/07-radio-table-textbox/radio-table-textbox.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "Template.bind({})"
-                },
-                {
-                    "name": "Template",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/core/pages/document-builder/components/question-types/07-radio-table-textbox/radio-table-textbox.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "StoryFn<RadioTableTextboxComponent>",
-                    "defaultValue": "(args: RadioTableTextboxComponent) => ({\r\n  props: args\r\n})"
-                }
-            ],
-            "src/app/core/pages/document-builder/components/question-types/08-date/date.component.stories.ts": [
-                {
-                    "name": "Default",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
                     "file": "src/app/core/pages/document-builder/components/question-types/08-date/date.component.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
@@ -7876,6 +7886,28 @@
                     "deprecationMessage": "",
                     "type": "StoryFn<DateComponent>",
                     "defaultValue": "(args: DateComponent) => ({\r\n  props: args\r\n})"
+                }
+            ],
+            "src/app/core/pages/document-builder/components/question-types/10-operative-list/operative-list.component.stories.ts": [
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/core/pages/document-builder/components/question-types/10-operative-list/operative-list.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/core/pages/document-builder/components/question-types/10-operative-list/operative-list.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "StoryFn<OperativeListComponent>",
+                    "defaultValue": "(args: OperativeListComponent) => ({\r\n  props: args\r\n})"
                 }
             ],
             "src/app/core/pages/document-builder/components/question-types/09-datetime/datetime.component.stories.ts": [
@@ -8015,28 +8047,6 @@
                     "name": "Default",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "src/app/core/pages/document-builder/components/question-types/extras/camera-capture/camera-capture.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "Template.bind({})"
-                },
-                {
-                    "name": "Template",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/core/pages/document-builder/components/question-types/extras/camera-capture/camera-capture.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "StoryFn<CameraCaptureComponent>",
-                    "defaultValue": "(args: CameraCaptureComponent) => ({\r\n  props: args\r\n})"
-                }
-            ],
-            "src/app/core/pages/document-builder/components/question-types/extras/file-upload/file-upload.component.stories.ts": [
-                {
-                    "name": "Default",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
                     "file": "src/app/core/pages/document-builder/components/question-types/extras/file-upload/file-upload.component.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
@@ -8052,6 +8062,28 @@
                     "deprecationMessage": "",
                     "type": "StoryFn<FileUploadComponent>",
                     "defaultValue": "(args: FileUploadComponent) => ({\r\n  props: args\r\n})"
+                }
+            ],
+            "src/app/core/pages/document-builder/components/question-types/extras/camera-capture/camera-capture.component.stories.ts": [
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/core/pages/document-builder/components/question-types/extras/camera-capture/camera-capture.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/core/pages/document-builder/components/question-types/extras/camera-capture/camera-capture.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "StoryFn<CameraCaptureComponent>",
+                    "defaultValue": "(args: CameraCaptureComponent) => ({\r\n  props: args\r\n})"
                 }
             ],
             "src/environments/environment.prod.ts": [
