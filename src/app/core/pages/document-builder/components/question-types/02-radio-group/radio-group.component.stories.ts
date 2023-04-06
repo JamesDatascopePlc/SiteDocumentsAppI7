@@ -1,8 +1,8 @@
 import { defaultQuestion } from ".storybook/default";
 import { IonicModule } from "@ionic/angular";
 import { moduleMetadata, StoryFn } from "@storybook/angular";
-import { QuestionType } from "src/app/core/stores/site-document/site-document.store";
 import { RadioGroupComponent } from "./radio-group.component";
+import { QuestionType } from "src/app/core/stores/site-document/models/site-document.model";
 
 export default {
   title: "Pages/Document-Builder/Question-Types/02-Radio-Group",

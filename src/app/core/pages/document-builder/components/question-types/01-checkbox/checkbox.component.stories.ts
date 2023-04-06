@@ -1,9 +1,10 @@
 import { IonicModule } from "@ionic/angular";
 import { Meta, moduleMetadata, StoryFn } from "@storybook/angular";
 import { CheckboxComponent } from "./checkbox.component";
-import { StorybookArgTypes, Prefix } from ".storybook/controls/question.controls";
 import { defaultQuestion } from ".storybook/default";
+import { StorybookArgTypes } from ".storybook/storybook.typings";
 import { Question } from "src/app/core/stores/site-document/models";
+import { Prefix } from "src/app/shared/types/prefix.type";
 
 export default {
   title: "Pages/Document-Builder/Question-Types/01-Checkbox",

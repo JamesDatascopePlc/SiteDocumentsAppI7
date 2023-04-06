@@ -1,7 +1,7 @@
 import { defaultQuestion } from ".storybook/default";
 import { Meta, StoryFn } from "@storybook/angular";
-import { QuestionType } from "src/app/core/stores/site-document/site-document.store";
 import { RadioGroupTextboxComponent } from "./radio-group-textbox.component";
+import { QuestionType } from "src/app/core/stores/site-document/models";
 
 export default {
   title: "Pages/Document-Builder/Question-Types/07-Radio-Group-Textbox",

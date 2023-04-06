@@ -1,5 +1,5 @@
 import { faker } from "@faker-js/faker";
-import { Question, QuestionType, Section, SiteDocument } from "src/app/core/stores/site-document/site-document.store";
+import { Question, QuestionType, Section, SiteDocument } from "src/app/core/stores/site-document/models";
 
 export const defaultSiteDocument: SiteDocument = {
   DocumentID: 1,

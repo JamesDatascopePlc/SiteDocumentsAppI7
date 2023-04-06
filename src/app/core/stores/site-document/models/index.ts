@@ -1,1 +1,1 @@
-export { SiteDocument, Page, Section, Question } from "./site-document.model"
+export { SiteDocument, Page, Section, Question, QuestionType } from "./site-document.model"

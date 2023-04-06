@@ -13,21 +13,21 @@ import { Question, Section } from "src/app/core/stores/site-document/models";
       <file-upload *rxIf="question.CanHaveFiles" class="ion-no-margin" slot="end"></file-upload>
     </ion-item>
 
-    <ion-radio-group>
-      <ion-list>
+    <ion-list>
+      <ion-radio-group>
         <ion-item>
-          <ion-radio aria-label="" color="success" [value]="true">{{ section.TableTitles[0] }}</ion-radio>
+          <ion-radio color="success" [value]="true">{{ section.TableTitles[0] }}</ion-radio>
         </ion-item>
 
         <ion-item>
-          <ion-radio aria-label="" color="danger" [value]="false">{{ section.TableTitles[1] }}</ion-radio>
+          <ion-radio color="danger" [value]="false">{{ section.TableTitles[1] }}</ion-radio>
         </ion-item>
 
         <ion-item>
-          <ion-radio aria-label="" [value]="null">{{ section.TableTitles[2] }}</ion-radio>
+          <ion-radio [value]="null">{{ section.TableTitles[2] }}</ion-radio>
         </ion-item>
-      </ion-list>
-    </ion-radio-group>
+      </ion-radio-group>
+    </ion-list>
   `,
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -3,9 +3,10 @@ import { faker } from "@faker-js/faker";
 import { applicationConfig, Meta, StoryFn } from "@storybook/angular";
 import { Observable, of, Subject } from "rxjs";
 import { FormFillerStore } from "../../stores/site-document/form-filler/form-filler.store";
-import { QuestionType, SiteDocument } from "../../stores/site-document/site-document.store";
 import { DocumentBuilderPage } from "./document-builder.page";
 import { FormFillerRoute } from "./routes";
+import { SiteDocument } from "../../stores/site-document/models";
+import { QuestionType } from "../../stores/site-document/models/site-document.model";
 
 const formFillerRouteMock: Partial<FormFillerRoute> = {
   documentIds$: of([29]),
@@ -15,8 +16,7 @@ const formFillerRouteMock: Partial<FormFillerRoute> = {
 const formFillerStoreMock: Partial<FormFillerStore> = {
   writingDocument$: new Subject<SiteDocument>(),
   submitDocument$: (action$: Observable<SiteDocument>) => of(),
-  getTemplateRequest$: (action$: Observable<number>) => of(),
-  getTemplatesRequest$: <T>(action$: Observable<T>) => of()
+  getTemplateRequest$: (action$: Observable<number>) => of()
 }
 
 export default {

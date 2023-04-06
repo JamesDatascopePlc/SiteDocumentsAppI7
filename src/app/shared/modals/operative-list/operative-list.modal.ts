@@ -1,7 +1,8 @@
 import { ChangeDetectionStrategy, Component, Input } from "@angular/core";
 import { IonicModule } from "@ionic/angular";
-import { importRxTemplate } from "../../imports";
+import { importNgSwitch, importRxTemplate } from "../../imports";
 import { LocalOperativeSearchComponent, OnlineOperativeSearchComponent } from "./components";
+import { FormsModule } from "@angular/forms";
 
 @Component({
   selector: "operative-search-modal[trigger]",
@@ -19,7 +20,7 @@ import { LocalOperativeSearchComponent, OnlineOperativeSearchComponent } from ".
           </ion-toolbar>
 
           <ion-toolbar>
-            <ion-segment class="w-full">
+            <ion-segment [(ngModel)]="segment" class="w-full">
               <ion-segment-button value="local">
                 <ion-icon name="phone-portrait-outline"></ion-icon>
               </ion-segment-button>
@@ -30,9 +31,9 @@ import { LocalOperativeSearchComponent, OnlineOperativeSearchComponent } from ".
           </ion-toolbar>
         </ion-header>
       
-        <ion-content class="ion-padding">
-          <local-operative-search></local-operative-search>
-          <online-operative-search></online-operative-search>
+        <ion-content [ngSwitch]="segment" class="ion-padding">
+          <local-operative-search *ngSwitchCase="'local'"></local-operative-search>
+          <online-operative-search *ngSwitchCase="'online'"></online-operative-search>
         </ion-content>
       </ng-template>
     </ion-modal>
@@ -41,7 +42,9 @@ import { LocalOperativeSearchComponent, OnlineOperativeSearchComponent } from ".
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     IonicModule,
+    FormsModule,
     ...importRxTemplate(),
+    ...importNgSwitch(),
     LocalOperativeSearchComponent,
     OnlineOperativeSearchComponent
   ]
@@ -52,4 +55,6 @@ export class OperativeListModal {
   
   @Input()
   isOpen: boolean = false;
+
+  segment: "local" | "online" = "local"
 }

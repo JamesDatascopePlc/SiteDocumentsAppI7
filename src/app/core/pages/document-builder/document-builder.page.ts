@@ -9,7 +9,8 @@ import { DocumentPageComponent, DocumentSectionComponent, QuestionTemplateDirect
 import { FormFillerRoute } from "./routes";
 import { clickReaction, reaction } from "src/app/shared/reactions";
 import { TemplateMenuModal } from "./modals";
-import { QuestionType, SiteDocument } from "../../stores/site-document/models/site-document.model";
+import { QuestionType, SiteDocument } from "../../stores/site-document/models";
+import { isMobileApp } from "src/app/shared/plugins/platform.plugin";
 
 @Component({
   selector: 'app-document-builder',
@@ -19,7 +20,7 @@ import { QuestionType, SiteDocument } from "../../stores/site-document/models/si
         <ion-title class="ion-text-center ion-text-wrap">
           {{ document.DocumentTitle }}
         </ion-title>
-        <ion-buttons slot="end">
+        <ion-buttons *rxIf="isMobileApp" slot="end">
           <if [condition]="document.Pinned">
             <ion-button [unpatch] show color="primary">
               <ion-icon name="bookmark"></ion-icon>
@@ -106,13 +107,12 @@ import { QuestionType, SiteDocument } from "../../stores/site-document/models/si
     TemplateMenuModal
   ]
 })
-export class DocumentBuilderPage extends AngularComponent() {  
+export class DocumentBuilderPage extends AngularComponent() {
   protected readonly formFillerRoute = inject(FormFillerRoute);
   protected readonly formFillerStore = inject(FormFillerStore);
 
   QuestionType = QuestionType;
-
-  templates$ = this.formFillerStore.getTemplatesRequest$()
+  isMobileApp = isMobileApp();
 
   document$ = merge(
     this.formFillerStore.getTemplateRequest$(this.formFillerRoute.lastDocumentId$),
