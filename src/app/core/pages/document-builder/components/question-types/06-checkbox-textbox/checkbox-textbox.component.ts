@@ -3,23 +3,21 @@ import { IonicModule } from "@ionic/angular";
 import { Question } from "src/app/core/stores/site-document/models";
 import { importRxTemplate } from "src/app/shared/imports";
 import { CameraCaptureComponent, FileUploadComponent, QuestionTextComponent } from "../extras";
+import { FormsModule } from "@angular/forms";
 
 @Component({
   selector: "checkbox-question-question[question]",
   template: `
     <ion-list>
       <ion-item lines="none">
-        <ion-checkbox aria-label="" slot="start"></ion-checkbox>
-        <question-text [required]="question.Required">
-          {{ question.QuestionText }}
-        </question-text>
+        <ion-checkbox [(ngModel)]="question.YesNoNA" aria-label="" slot="start"></ion-checkbox>
+        <question-text [required]="question.Required">{{ question.QuestionText }}</question-text>
         <camera-capture *rxIf="question.CanHaveImg" class="ion-no-margin" slot="end"></camera-capture>
         <file-upload *rxIf="question.CanHaveFiles" class="ion-no-margin" slot="end"></file-upload>
       </ion-item>
 
       <ion-item>
-        <ion-label position="stacked">Text:</ion-label>
-        <ion-textarea label="" rows="3"></ion-textarea>
+        <ion-textarea [(ngModel)]="question.AnswerText" label="text:" labelPlacement="stacked" rows="3"></ion-textarea>
       </ion-item>
     </ion-list>
   `,
@@ -28,6 +26,7 @@ import { CameraCaptureComponent, FileUploadComponent, QuestionTextComponent } fr
   imports: [
     IonicModule,
     ...importRxTemplate(),
+    FormsModule,
     QuestionTextComponent,
     CameraCaptureComponent,
     FileUploadComponent,

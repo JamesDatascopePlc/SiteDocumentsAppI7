@@ -6,7 +6,7 @@ export default {
   component: OnlineOperativeSearchComponent
 } as Meta;
 
-const Template: StoryFn<OnlineOperativeSearchComponent> = (args: OnlineOperativeSearchComponent) => ({
+const Template: StoryFn<OnlineOperativeSearchComponent> = args => ({
   props: args
 })
 

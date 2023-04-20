@@ -8,7 +8,7 @@ import { CameraCaptureComponent, FileUploadComponent, QuestionTextComponent } fr
   selector: 'label-question[question]',
   template: `
     <ion-item lines="none">
-      <question-text>{{ question.QuestionText }}</question-text>
+      <question-text [required]="question.Required">{{ question.QuestionText }}</question-text>
       <camera-capture *rxIf="question.CanHaveImg" class="ion-no-margin" slot="end"></camera-capture>
       <file-upload *rxIf="question.CanHaveFiles" class="ion-no-margin" slot="end"></file-upload>
     </ion-item>

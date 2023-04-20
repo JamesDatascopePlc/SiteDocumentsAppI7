@@ -3,6 +3,7 @@ import { IonicModule } from "@ionic/angular";
 import { Question } from "src/app/core/stores/site-document/models";
 import { importRxTemplate } from "src/app/shared/imports";
 import { CameraCaptureComponent, FileUploadComponent, QuestionTextComponent } from "../extras";
+import { FormsModule } from "@angular/forms";
 
 @Component({
   selector: "textbox-question[question]",
@@ -14,7 +15,7 @@ import { CameraCaptureComponent, FileUploadComponent, QuestionTextComponent } fr
         <file-upload *rxIf="question.CanHaveFiles" class="ion-no-margin" slot="end"></file-upload>
       </ion-item>
       <ion-item>
-        <ion-input label="" type="text"></ion-input>
+        <ion-input label="" type="text" [(ngModel)]="question.AnswerText"></ion-input>
       </ion-item>
     </ion-list>
   `,
@@ -23,6 +24,7 @@ import { CameraCaptureComponent, FileUploadComponent, QuestionTextComponent } fr
   imports: [
     IonicModule,
     ...importRxTemplate(),
+    FormsModule,
     QuestionTextComponent,
     CameraCaptureComponent,
     FileUploadComponent

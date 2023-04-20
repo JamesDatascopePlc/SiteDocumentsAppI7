@@ -1,5 +1,7 @@
+import { Meta } from "@storybook/angular";
 import { InputType } from "@storybook/types";
 
+// https://storybook.js.org/docs/react/essentials/controls#annotation
 export type StorybookArgTypes<TArg> = {
   [name in keyof Partial<TArg>]: InputType 
     & { control?: "boolean" }
@@ -11,3 +13,5 @@ export type StorybookArgTypes<TArg> = {
     | { control?: { type: "color", presetColors: string[] } }
     | { control?: "date" }
 }
+
+export type StorybookMeta<TArgTypes> = Meta & { argTypes: StorybookArgTypes<TArgTypes> }

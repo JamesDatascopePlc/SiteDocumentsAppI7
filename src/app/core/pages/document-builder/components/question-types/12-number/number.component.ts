@@ -3,6 +3,7 @@ import { IonicModule } from "@ionic/angular";
 import { Question } from "src/app/core/stores/site-document/models";
 import { importRxTemplate } from "src/app/shared/imports";
 import { CameraCaptureComponent, FileUploadComponent, QuestionTextComponent } from "../extras";
+import { FormsModule } from "@angular/forms";
 
 @Component({
   selector: "number-question[question]",
@@ -15,7 +16,7 @@ import { CameraCaptureComponent, FileUploadComponent, QuestionTextComponent } fr
       </ion-item>
 
       <ion-item>
-        <ion-input label="" type="number"></ion-input>
+        <ion-input label="" type="number" [(ngModel)]="question.NumberVal"></ion-input>
       </ion-item>
     </ion-list>
   `,
@@ -24,6 +25,7 @@ import { CameraCaptureComponent, FileUploadComponent, QuestionTextComponent } fr
   imports: [
     IonicModule,
     ...importRxTemplate(),
+    FormsModule,
     QuestionTextComponent,
     CameraCaptureComponent,
     FileUploadComponent

@@ -5,7 +5,7 @@ import { LocalOperativeSearchComponent, OnlineOperativeSearchComponent } from ".
 import { FormsModule } from "@angular/forms";
 
 @Component({
-  selector: "operative-search-modal[trigger]",
+  selector: "operative-list-modal[trigger]",
   template: `
     <ion-modal #modal [trigger]="trigger" [isOpen]="isOpen">
       <ng-template>

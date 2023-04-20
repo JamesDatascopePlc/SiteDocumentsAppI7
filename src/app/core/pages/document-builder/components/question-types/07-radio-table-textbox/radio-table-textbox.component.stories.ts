@@ -1,24 +1,55 @@
 import { defaultQuestion } from ".storybook/default";
-import { Meta, StoryFn } from "@storybook/angular";
+import { StoryFn } from "@storybook/angular";
 import { RadioTableTextboxComponent } from "./radio-table-textbox.component";
+import { Prefix } from "src/app/shared/types";
+import { Question } from "src/app/core/stores/site-document/models";
+import { StorybookMeta } from ".storybook/storybook.typings";
+
+type Story = RadioTableTextboxComponent & Prefix<Omit<Question, "YesNoNA"> & { YesNoNA: "Yes" | "No" | "NA" | boolean | null }, "question">;
 
 export default {
   title: "Pages/Document-Builder/Question-Types/07-Radio-Table-Textbox",
   component: RadioTableTextboxComponent,
   argTypes: {
-    question: { control: "object" }
+    question: { table: { disable: true } },
+    "question.QuestionText": { name: "QuestionText", control: "text" },
+    "question.Required": { name: "Required", control: "boolean" },
+    "question.YesNoNA": { name: "YesNoNA", control: "select", options: ["Yes", "No", "NA"] },
+    "question.AnswerText": { name: "AnswerText", control: "text" },
+    "question.CanHaveImg": { name: "CanHaveImg", control: "boolean" },
+    "question.CanHaveFiles": { name: "CanHaveFiles", control: "boolean" }
   }
-} as Meta;
+} as StorybookMeta<Story>;
 
-const Template: StoryFn<RadioTableTextboxComponent> = (args: RadioTableTextboxComponent) => ({
-  props: args
+const Template: StoryFn<Story> = args => ({
+  props: {
+    ...args,
+    question: {
+      ...defaultQuestion,
+      QuestionText: args["question.QuestionText"],
+      Required: args["question.Required"],
+      YesNoNA: args["question.YesNoNA"] === "Yes" ? true 
+        : args["question.YesNoNA"] === "No" ? false
+        : args["question.YesNoNA"] === "NA" ? null
+        : args["question.YesNoNA"],
+      AnswerText: args["question.AnswerText"],
+      CanHaveImg: args["question.CanHaveImg"],
+      CanHaveFiles: args["question.CanHaveFiles"]
+    }
+  }
 });
 
 export const Default = Template.bind({});
 
 Default.args = {
-  question: {
-    ...defaultQuestion,
-    QuestionText: "Radio Table Question with textbox"
-  }
+  "question.QuestionText": "Radio Table Question with textbox",
+  "question.Required": true,
+  "question.YesNoNA": null,
+  "question.AnswerText": "",
+  "question.CanHaveImg": true,
+  "question.CanHaveFiles": true,
+  // question: {
+  //   ...defaultQuestion,
+  //   QuestionText: "Radio Table Question with textbox"
+  // }
 }

@@ -5,6 +5,7 @@ import { BarcodeScannerDirective } from "src/app/shared/directives";
 import { importRxTemplate } from "src/app/shared/imports";
 import { isMobileApp } from "src/app/shared/plugins/platform.plugin";
 import { QuestionTextComponent } from "../extras";
+import { OperativeListModal } from "src/app/shared/modals/operative-list/operative-list.modal";
 
 @Component({
   selector: "operative-list-question[question]",
@@ -15,9 +16,11 @@ import { QuestionTextComponent } from "../extras";
         <ion-button *rxIf="isMobileApp" fill="clear" slot="end">
           <ion-icon name="scan-outline" slot="icon-only"></ion-icon>
         </ion-button>
-        <ion-button fill="clear" slot="end">
+        <ion-button [id]="id" fill="clear" color="secondary" slot="end">
           <ion-icon name="search-outline" slot="icon-only"></ion-icon>
         </ion-button>
+
+        <operative-list-modal [trigger]="id"></operative-list-modal>
       </ion-item>
     </ion-list>
 
@@ -40,11 +43,14 @@ import { QuestionTextComponent } from "../extras";
   imports: [
     IonicModule, 
     ...importRxTemplate(),
+    OperativeListModal,
     BarcodeScannerDirective,
     QuestionTextComponent
   ]
 })
 export class OperativeListComponent {
+  id = crypto.randomUUID();
+
   @Input()
   question!: Question;
 

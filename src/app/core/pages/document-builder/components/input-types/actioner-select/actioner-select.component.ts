@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from "@angular/core";
 import { IonicModule } from "@ionic/angular";
 import { Operative } from "src/app/core/stores/operative/operatives.store";
+import { OperativeListModal } from "src/app/shared/modals/operative-list/operative-list.modal";
 
 @Component({
   selector: "actioner-select",
@@ -11,11 +12,11 @@ import { Operative } from "src/app/core/stores/operative/operatives.store";
       </ion-card-header>
       <ion-card-content>
         <ion-list>
-          <ion-item [id]="operativeSearchId" button>
+          <ion-item [id]="id" button>
             <ion-label class="ion-text-wrap">{{ actioner?.Name || "Select an Actioner" }}</ion-label>
             <ion-icon name="person-outline" slot="start"></ion-icon>
           </ion-item>
-          <!-- <operative-search-modal [trigger]="operativeSearchId"></operative-search-modal> -->
+          <operative-list-modal [trigger]="id"></operative-list-modal>
         </ion-list>
       </ion-card-content>
     </ion-card>
@@ -24,11 +25,11 @@ import { Operative } from "src/app/core/stores/operative/operatives.store";
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     IonicModule,
-    //OperativeSearchModal
+    OperativeListModal
   ]
 })
 export class ActionerSelectComponent {
-  operativeSearchId = crypto.randomUUID();
+  id = crypto.randomUUID();
 
   @Input()
   title: string = "To Action / Attention Of";

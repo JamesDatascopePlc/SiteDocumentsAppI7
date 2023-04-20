@@ -20,6 +20,7 @@ function searchResultsAdapt<TResult, TState extends SearchEntitiesType<TResult>>
 
 export function searchResultsAdapter() {
   return {
+    SearchResultEntitiesRef,
     withSearchResultEntities,
     searchResultsAdapt
   }

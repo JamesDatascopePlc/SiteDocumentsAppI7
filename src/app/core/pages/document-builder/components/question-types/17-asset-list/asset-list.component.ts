@@ -11,7 +11,7 @@ import { QuestionTextComponent } from "../extras";
     <ion-list>
       <ion-item lines="none">
         <question-text>{{ question.QuestionText }}</question-text>
-        <ion-button fill="clear" slot="end">
+        <ion-button *rxIf="isMobileApp" fill="clear" slot="end">
           <ion-icon name="scan-outline" slots="icon-only"></ion-icon>
         </ion-button>
         <ion-button fill="clear" slot="end">

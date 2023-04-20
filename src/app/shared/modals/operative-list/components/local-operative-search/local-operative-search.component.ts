@@ -14,14 +14,11 @@ import { AngularComponent } from "src/app/shared/lifecycles";
       <ion-item 
         *rxIf="user$; let user"
         (click)="select.emit({ ID: user.Id, Name: user.FirstName + ' ' + user.LastName })"
-        class="animate__animated animate__flipInX animate__faster" 
         button>
           {{ user.Id }} - {{ user.FirstName }} {{ user.LastName }}
       </ion-item>
       <ion-item-sliding *rxFor="let op of operatives$; last as isLast">
-        <ion-item 
-          class="animate__animated animate__flipInX animate__faster" 
-          button>
+        <ion-item button>
           {{ op.ID }} - {{ op.Name }}
         </ion-item>
         <ion-item-options side="end">

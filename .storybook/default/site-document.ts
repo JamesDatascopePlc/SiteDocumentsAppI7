@@ -69,6 +69,8 @@ export const defaultQuestion: Question = {
   CanHaveImg: true,
   CanHaveFiles: true,
   AnswerText: "",
+  DateAndTime: new Date(),
+  DateAndTime2: new Date(),
+  Options: [],
   YesNoNA: null
 }
-

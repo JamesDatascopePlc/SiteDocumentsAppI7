@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, Input } from "@angular/core";
 import { IonicModule } from "@ionic/angular";
 import { Question } from "src/app/core/stores/site-document/models";
 import { QuestionTextComponent } from "../extras";
+import { FormsModule } from "@angular/forms";
 
 @Component({
   selector: "signature-question[question]",
@@ -12,7 +13,7 @@ import { QuestionTextComponent } from "../extras";
       </ion-item>
 
       <ion-item>
-        <ion-input label="Print" labelPlacement="floating" type="text"></ion-input>
+        <ion-input label="Print" labelPlacement="floating" [(ngModel)]="question.AnswerText" type="text"></ion-input>
         <ion-button fill="clear" slot="end">
           <ion-icon name="create-outline" slot="icon-only"></ion-icon>
         </ion-button>
@@ -23,6 +24,7 @@ import { QuestionTextComponent } from "../extras";
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     IonicModule,
+    FormsModule,
     QuestionTextComponent
   ]
 })

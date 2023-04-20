@@ -106,7 +106,24 @@ export interface Question {
   Operatives: SiteDocumentOperative[];
   Required: boolean;
   AnswerText: string;
+  DateAndTime: Date;
+  DateAndTime2: Date;
+  NumberVal?: number;
+  OptionVal?: string;
+  Options: SelectOption[];
   YesNoNA: boolean | null;
   CanHaveImg: boolean;
   CanHaveFiles: boolean;
+}
+
+export interface SelectOption {
+  Active?: boolean;
+  Text: string;
+  Val: string;
+  MetaData?: any;
+  OptionsMetadataJson?: string;
+}
+
+export interface SelectOptionMetaData {
+  ColourHex?: string;
 }
