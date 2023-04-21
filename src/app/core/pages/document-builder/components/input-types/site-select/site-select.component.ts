@@ -9,8 +9,8 @@ import { isMobileApp } from "src/app/shared/plugins/platform.plugin";
   template: `
     <ion-card>
       <ion-card-header>
-        <ion-card-title>{{ title }}</ion-card-title>
-        <p *rxIf="isMobileApp" class="ion-text-center">
+        <ion-card-title class="text-center">{{ title }}</ion-card-title>
+        <p *rxIf="isMobileApp" class="text-center">
           <b>Setting site only attaches site on to this document and does not change site in settings</b>
         </p>
       </ion-card-header>

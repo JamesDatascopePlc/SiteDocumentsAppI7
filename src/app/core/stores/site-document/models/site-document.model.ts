@@ -102,6 +102,7 @@ export interface Question {
   QuestionID: number;
   QuestionText: string;
   CascadeOptionsText: string;
+  CommentsText: string;
   Assets: SiteDocumentAsset[];
   Operatives: SiteDocumentOperative[];
   Required: boolean;
@@ -109,8 +110,10 @@ export interface Question {
   DateAndTime: Date;
   DateAndTime2: Date;
   NumberVal?: number;
-  OptionVal?: string;
+  OptionVal?: string | null;
   Options: SelectOption[];
+  CascadeOptions: CascadeOption[];
+  CascadeOptionVal?: string | null;
   YesNoNA: boolean | null;
   CanHaveImg: boolean;
   CanHaveFiles: boolean;
@@ -126,4 +129,10 @@ export interface SelectOption {
 
 export interface SelectOptionMetaData {
   ColourHex?: string;
+}
+
+export interface CascadeOption { 
+  ParentVal: string, 
+  Text: string, 
+  Val: string 
 }

@@ -1,3 +1,3 @@
-export interface DataUrlFile extends File {
+export interface DataUrlFile extends Pick<File, "name" | "lastModified" | "size" | "type"> {
   dataUrl: string
 }

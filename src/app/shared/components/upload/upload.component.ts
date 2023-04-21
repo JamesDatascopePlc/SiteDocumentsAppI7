@@ -11,7 +11,13 @@ function fileReader(): FileReader {
 function fileToDataUrlFile(file: File): Promise<DataUrlFile> {
   const reader = fileReader();
   return new Promise(resolve => {
-    reader.onload = (event) => resolve({ ...file, dataUrl: event.target!.result as string })//resolve(event.target!.result as string);
+    reader.onload = (event) => resolve({ 
+      name: file.name, 
+      lastModified: file.lastModified, 
+      size: file.size, 
+      type: file.type, 
+      dataUrl: event.target!.result as string 
+    })//resolve(event.target!.result as string);
     reader.readAsDataURL(file);
   });
 }
@@ -35,13 +41,14 @@ export class UploadComponent {
   accept?: string;
 
   @Output()
-  uploadFile = new EventEmitter<DataUrlFile[]>();
+  uploadFiles = new EventEmitter<DataUrlFile[]>();
 
   async take(ev: unknown) {
-    const event = ev as TargetEvent<{ files: File[] }>;
+    const event = ev as TargetEvent<{ files: File[], value: null }>;
     const files: File[] = [...event.target.files];
 
     const dataUrlFiles = await Promise.all(files.map(fileToDataUrlFile));
-    this.uploadFile.emit(dataUrlFiles);
+    this.uploadFiles.emit(dataUrlFiles);
+    event.target.value = null;
   }
 }

@@ -10,13 +10,14 @@ import { AngularComponent, withAfterViewInit, withOnChanges } from "src/app/shar
   selector: "queue-select",
   template: `
     <ion-card>
-      <ion-card-header class="ion-text-center">
-        {{ title }}
+      <ion-card-header>
+        <ion-card-title class="text-center">{{ title }}</ion-card-title>
       </ion-card-header>
 
       <ion-card-content>
         <ion-list>
           <selectable 
+            [title]="title"
             placeholder="Queues"
             [value]="value$ | push"
             (valueChange)="queueIdChange.emit($event!.id)"

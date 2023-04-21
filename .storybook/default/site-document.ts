@@ -44,6 +44,7 @@ export const defaultSection: Section = {
 export const defaultQuestion: Question = {
   QuestionID: 1,
   QuestionText: faker.lorem.word(),
+  CommentsText: "",
   CascadeOptionsText: faker.lorem.word(),
   Required: true,
   Assets: Array
@@ -72,5 +73,6 @@ export const defaultQuestion: Question = {
   DateAndTime: new Date(),
   DateAndTime2: new Date(),
   Options: [],
+  CascadeOptions: [],
   YesNoNA: null
 }

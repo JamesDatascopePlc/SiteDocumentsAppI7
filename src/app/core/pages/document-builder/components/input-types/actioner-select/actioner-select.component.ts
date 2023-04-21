@@ -8,7 +8,7 @@ import { OperativeListModal } from "src/app/shared/modals/operative-list/operati
   template: `
     <ion-card>
       <ion-card-header>
-        <h2 class="ion-text-center ion-text-wrap">{{ title }}</h2>
+        <ion-card-title class="text-center">{{ title }}</ion-card-title>
       </ion-card-header>
       <ion-card-content>
         <ion-list>

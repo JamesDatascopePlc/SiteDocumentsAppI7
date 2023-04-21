@@ -1,7 +1,7 @@
 import { ScrollingModule } from "@angular/cdk/scrolling";
-import { Component, EventEmitter, inject, Input, Output } from "@angular/core";
+import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { FormsModule } from "@angular/forms";
-import { IonicModule, ModalController } from "@ionic/angular";
+import { IonicModule } from "@ionic/angular";
 import { importRxTemplate } from "../../imports";
 import { FusePipe } from "../../pipes";
 
