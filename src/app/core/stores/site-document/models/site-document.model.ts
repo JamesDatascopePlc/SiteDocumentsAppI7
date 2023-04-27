@@ -23,6 +23,13 @@ export interface SiteDocument {
   MetaData: Partial<SiteDocumentMetaData>;
 }
 
+export interface SiteDocumentImage {
+  DocumentId: number,
+  DocumentSubmissionId: number,
+  Base64: string,
+  ImageNo: number
+}
+
 export interface SiteDocumentMetaData {
   ActionerText: string;
   CanBeEditableDocument: boolean;

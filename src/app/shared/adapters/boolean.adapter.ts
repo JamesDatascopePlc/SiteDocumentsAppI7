@@ -1,9 +1,22 @@
-import { Store, StoreDef } from "@ngneat/elf";
+import { createStore, propsFactory } from "@ngneat/elf";
 
-export function booleanAdapter<TState, TProp extends keyof TState & string>(store: Store<StoreDef<TState>>, key: TProp) {
+export function booleanAdapter(name: string, initialValue: boolean) {
+  const { 
+    withBoolean,
+    selectBoolean,
+    setBoolean
+  } = propsFactory("boolean", {
+    initialValue
+  });
+
+  const store = createStore(
+    { name }, 
+    withBoolean()
+  );
+
   return {
-    // toggle: () => store.update(
-    //   setProp(key, (prop: TValue) => !prop)
-    // )
+    value: store.pipe(selectBoolean()),
+    toggle: () => store.update(setBoolean(state => !state.boolean)),
+    set: (val: boolean) => store.update(setBoolean(val))
   };
 }

@@ -15,6 +15,7 @@ export const defaultUser: User = {
   SelectedSite: { Id: 1, Name: "Site Somewhere" },
   UseFingerReader: true,
   UserSites: [],
+  UserCompanies: [],
   ShowWeightingsOnApp: true,
   CompanyName: faker.company.name(),
   CanAddAsssetsToDocsByName: true,

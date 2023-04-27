@@ -5,8 +5,8 @@ const config: StorybookConfig = {
     "@storybook/addon-links", 
     "@storybook/addon-essentials", 
     "@storybook/addon-interactions", 
-    "@storybook/addon-mdx-gfm",
-    "storybook-addon-angular-router"
+    "storybook-addon-angular-router",
+    "./preset.ts"
   ],
   framework: {
     name: "@storybook/angular",

@@ -2,6 +2,8 @@ import { componentWrapperDecorator, applicationConfig, Preview } from "@storyboo
 import { IonicModule } from "@ionic/angular";
 import { importProvidersFrom } from "@angular/core";
 import { provideHttpClient } from "@angular/common/http";
+import { provideHttpClientTesting } from "@angular/common/http/testing";
+import { devTools } from "@ngneat/elf-devtools";
 
 const preview: Preview = {
   parameters: {
@@ -17,11 +19,14 @@ const preview: Preview = {
     applicationConfig({
       providers: [
         importProvidersFrom(IonicModule.forRoot({})),
-        provideHttpClient()
+        provideHttpClient(),
+        provideHttpClientTesting()
       ]
     }),
     componentWrapperDecorator(story => `<ion-app>${story}</ion-app>`)
   ]
 };
+
+devTools();
 
 export default preview;

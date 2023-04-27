@@ -148,3 +148,38 @@ export const DocumentWithAllPermissionsTurnedOn = Template.bind({});
 DocumentWithAllPermissionsTurnedOn.args = {
   document$: of<SiteDocument>(docWithAllPermissionsOn)
 }
+
+const docWithMultiplePages: SiteDocument = {
+  ...defaultSiteDocument,
+  DocumentTitle: faker.lorem.word(),
+  Pages: Object
+    .values(QuestionType)
+    .filter(qt => typeof qt === "number")
+    .map((qt, idx) => 
+      ({
+        PageID: idx,
+        PageTitle: "",
+        Sections: [
+          {
+            ...defaultSection,
+            SectionID: idx,
+            SectionNo: idx,
+            SectionTitle: "",
+            SectionQuestiontype: qt as QuestionType,
+            Questions: [
+              {
+                ...defaultQuestion,
+                QuestionText: QuestionType[qt as number].toString()
+              }
+            ]
+          }
+        ]
+      })
+  )
+}
+
+export const DocumentWithMultiplePages = Template.bind({});
+
+DocumentWithMultiplePages.args = {
+  document$: of<SiteDocument>(docWithMultiplePages)
+}

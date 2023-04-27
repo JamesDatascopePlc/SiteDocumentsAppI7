@@ -32,7 +32,7 @@ export interface User {
   HasQueueSupervisors: boolean,
   HasCategoryActioners: boolean,
   UserSites: Site[],
-  //UserCompanies: Company[],
+  UserCompanies: Company[],
   HasPlanningMeeting: boolean,
   HasReviewMeeting: boolean,
   HasCollabPlanning: boolean,
@@ -77,6 +77,11 @@ export interface Site {
   Name: string
 }
 
+export interface Company {
+  Id: number,
+  Text: string
+}
+
 const {
   withAppUser, 
   selectAppUser, 
@@ -104,6 +109,7 @@ export class UserStore {
 
   user$ = store.pipe(selectAppUser());
   sites$ = sites$;
+  companies$ = userSelector(user => user?.UserCompanies || []);
 
   getUserRequest$ = (action$: Observable<{ token: string, pin: string }>) => combineLatest({
     login: action$,

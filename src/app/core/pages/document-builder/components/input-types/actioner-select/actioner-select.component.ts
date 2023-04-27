@@ -1,6 +1,9 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from "@angular/core";
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, inject } from "@angular/core";
 import { IonicModule } from "@ionic/angular";
-import { Operative } from "src/app/core/stores/operative/operatives.store";
+import { Observable, map, merge, switchMap } from "rxjs";
+import { Operative, OperativesStore } from "src/app/core/stores/operative/operatives.store";
+import { importRxTemplate } from "src/app/shared/imports";
+import { AngularComponent, withAfterViewInit, withOnChanges } from "src/app/shared/lifecycles";
 import { OperativeListModal } from "src/app/shared/modals/operative-list/operative-list.modal";
 
 @Component({
@@ -13,7 +16,7 @@ import { OperativeListModal } from "src/app/shared/modals/operative-list/operati
       <ion-card-content>
         <ion-list>
           <ion-item [id]="id" button>
-            <ion-label class="ion-text-wrap">{{ actioner?.Name || "Select an Actioner" }}</ion-label>
+            <ion-label *rxLet="selectedActioner$; let actioner" class="ion-text-wrap">{{ actioner?.Name || "Select an Actioner" }}</ion-label>
             <ion-icon name="person-outline" slot="start"></ion-icon>
           </ion-item>
           <operative-list-modal [trigger]="id"></operative-list-modal>
@@ -25,18 +28,32 @@ import { OperativeListModal } from "src/app/shared/modals/operative-list/operati
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     IonicModule,
+    ...importRxTemplate(),
     OperativeListModal
   ]
 })
-export class ActionerSelectComponent {
+export class ActionerSelectComponent extends AngularComponent(withAfterViewInit, withOnChanges) {
+  operativesStore = inject(OperativesStore);
+
+  operatives$ = this.operativesStore.operatives$;
+
   id = crypto.randomUUID();
 
   @Input()
   title: string = "To Action / Attention Of";
 
   @Input()
-  actioner?: Operative;
+  actionerId?: number;
 
   @Output()
-  actionerChange = new EventEmitter<Operative>();
+  actionerIdChange = new EventEmitter<number>();
+
+  selectedActioner$: Observable<Operative | null> = merge(
+    this.afterViewInit$, 
+    this.input$("actionerId"), 
+    this.actionerIdChange
+  ).pipe(
+    switchMap(() => this.operatives$),
+    map(operatives => operatives.find(o => o.ID === this.actionerId) || null)
+  );
 }

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject } from "@angular/core";
 import { IonicModule } from "@ionic/angular";
-import { merge, shareReplay, switchMap } from "rxjs";
+import { filter, merge, shareReplay, switchMap } from "rxjs";
 import { IfComponent } from "src/app/shared/components";
 import { importNgSwitch, importRxTemplate } from "src/app/shared/imports";
 import { AngularComponent } from "src/app/shared/lifecycles";
@@ -11,6 +11,7 @@ import { clickReaction, reaction } from "src/app/shared/reactions";
 import { TemplateMenuModal } from "./modals";
 import { QuestionType, SiteDocument } from "../../stores/site-document/models";
 import { isMobileApp } from "src/app/shared/plugins/platform.plugin";
+import { numberAdapter } from "src/app/shared/adapters/number.adapter";
 
 @Component({
   selector: 'app-document-builder',
@@ -40,7 +41,7 @@ import { isMobileApp } from "src/app/shared/plugins/platform.plugin";
       <queue-select *rxIf="document.Queues && document.Queues.length > 0"></queue-select>
       <queue-duration *rxIf="document.CanHaveQueueDuration"></queue-duration>
 
-      <document-page *rxFor="let page of document.Pages; index as idx" [page]="page">
+      <document-page *rxFor="let page of document.Pages; index as idx" [page]="page" [hidden]="pageIndex.isNotNumber$(idx) | push">
         <document-section *rxFor="let section of page.Sections" [section]="section">
           <ng-template [ngSwitch]="section.SectionQuestiontype" [questions]="section.Questions" let-question>
             <label-question *ngSwitchCase="QuestionType.Label" [question]="question"></label-question>
@@ -53,7 +54,7 @@ import { isMobileApp } from "src/app/shared/plugins/platform.plugin";
             <textarea-question *ngSwitchCase="QuestionType.TextArea" [question]="question"></textarea-question>
             <select-question *ngSwitchCase="QuestionType.Select" [question]="question"></select-question>
             <checkbox-question *ngSwitchCase="QuestionType.CheckboxTextbox" [question]="question"></checkbox-question>
-            <radio-group-textbox-question *ngSwitchCase="QuestionType.RadioGroupTextbox" [question]="question"></radio-group-textbox-question>
+            <radio-group-textbox-question *ngSwitchCase="QuestionType.RadioGroupTextbox" [question]="question" [section]="section"></radio-group-textbox-question>
             <radio-table-textbox-question 
               *rxIf="section.SectionQuestiontype === QuestionType.RadioGroupTextbox && document.MetaData.UsesRadioGroupTable" 
               [question]="question">
@@ -86,9 +87,19 @@ import { isMobileApp } from "src/app/shared/plugins/platform.plugin";
     </ion-content>
 
     <ng-container *rxIf="document$; let document">
-      <ion-footer *rxIf="document.Pages.length > 1">
-        <ion-button [unpatch] class="float-left">Back</ion-button>
-        <ion-button [unpatch] class="float-right">Next</ion-button>
+      <ion-footer *rxLet="pageIndex.value$; let idx">
+        <ion-button 
+          *rxIf="idx > 0" 
+          (click)="pageIndex.decrement()"
+          class="float-left">
+          Back
+        </ion-button>
+        <ion-button 
+          *rxIf="idx < document.Pages.length" 
+          (click)="pageIndex.increment()"
+          class="float-right">
+          Next
+        </ion-button>
       </ion-footer>
     </ng-container>
   `,
@@ -125,4 +136,14 @@ export class DocumentBuilderPage extends AngularComponent() {
     this.takeUntilDestroyed(),
     clickReaction()
   ));
+
+  pageIndex = {
+    ...numberAdapter("PageIndex", 0),
+    isNotNumber$: (page: number) => this.pageIndex.is$(idx => idx !== page),
+    isGreaterThan0$: () => this.pageIndex.is$(idx => idx > 0),
+    isLessThanDocumentLength$: () => this.document$.pipe(
+      filter(doc => doc != null),
+      switchMap(doc => this.pageIndex.is$(idx => idx < doc!.Pages.length))
+    )
+  };
 }

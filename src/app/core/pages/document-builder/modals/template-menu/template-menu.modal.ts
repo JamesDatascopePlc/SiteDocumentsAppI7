@@ -11,7 +11,7 @@ import { IonicModule } from "@ionic/angular";
           <ion-toolbar>
             <ion-title class="text-center">Templates</ion-title>
             <ion-buttons slot="end">
-              <ion-button>
+              <ion-button (click)="modal.dismiss()">
                 <ion-icon name="close-outline" slot="icon-only"></ion-icon>
               </ion-button>
             </ion-buttons>

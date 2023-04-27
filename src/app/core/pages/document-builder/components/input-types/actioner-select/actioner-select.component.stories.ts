@@ -1,5 +1,6 @@
 import { StoryFn } from "@storybook/angular";
 import { ActionerSelectComponent } from "./actioner-select.component";
+import { StorybookMeta } from ".storybook/storybook.typings";
 
 export default {
   title: "Pages/Document-Builder/Input-Types/Actioner-Select",
@@ -9,7 +10,7 @@ export default {
     actioner: { control: "object" },
     actionerChange: { action: "actionerChange" }
   }
-}
+} as StorybookMeta<ActionerSelectComponent>;
 
 const Template: StoryFn<ActionerSelectComponent> = (args: ActionerSelectComponent) => ({
   props: args

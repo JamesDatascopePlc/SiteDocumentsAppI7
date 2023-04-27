@@ -1,8 +1,9 @@
-import { ChangeDetectionStrategy, Component, Input } from "@angular/core";
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from "@angular/core";
 import { IonicModule } from "@ionic/angular";
 import { importNgSwitch, importRxTemplate } from "../../imports";
 import { LocalOperativeSearchComponent, OnlineOperativeSearchComponent } from "./components";
 import { FormsModule } from "@angular/forms";
+import { Operative } from "src/app/core/stores/operative/operatives.store";
 
 @Component({
   selector: "operative-list-modal[trigger]",
@@ -57,4 +58,7 @@ export class OperativeListModal {
   isOpen: boolean = false;
 
   segment: "local" | "online" = "local"
+
+  @Output()
+  operativeChange = new EventEmitter<Operative>();
 }
