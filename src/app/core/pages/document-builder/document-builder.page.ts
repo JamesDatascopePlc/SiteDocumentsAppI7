@@ -37,8 +37,14 @@ import { numberAdapter } from "src/app/shared/adapters/number.adapter";
 
     <ion-content *rxIf="document$; let document" class="ion-padding">
       <actioner-select *rxIf="document.CanAddActionerFromApp"></actioner-select>
+      <category-actioner-select [categoryId]="document.DocumentCategory"></category-actioner-select>
       <company-actioner-select *rxIf="document.CanHaveCompanyActioner"></company-actioner-select>
       <queue-select *rxIf="document.Queues && document.Queues.length > 0"></queue-select>
+      <site-select 
+        *rxIf="document.MetaData?.HasSiteList"
+        [title]="document.MetaData.SiteListTitle"
+        [(siteId)]="document.SiteId">
+      </site-select>
       <queue-duration *rxIf="document.CanHaveQueueDuration"></queue-duration>
 
       <document-page *rxFor="let page of document.Pages; index as idx" [page]="page" [hidden]="pageIndex.isNotNumber$(idx) | push">

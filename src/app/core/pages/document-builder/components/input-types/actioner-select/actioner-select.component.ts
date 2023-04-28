@@ -11,7 +11,7 @@ import { OperativeListModal } from "src/app/shared/modals/operative-list/operati
   template: `
     <ion-card>
       <ion-card-header>
-        <ion-card-title class="text-center">{{ title }}</ion-card-title>
+        <ion-card-title class="text-center">{{ title || "To Action / Attention Of" }}</ion-card-title>
       </ion-card-header>
       <ion-card-content>
         <ion-list>
@@ -40,7 +40,10 @@ export class ActionerSelectComponent extends AngularComponent(withAfterViewInit,
   id = crypto.randomUUID();
 
   @Input()
-  title: string = "To Action / Attention Of";
+  title?: string;
+
+  @Input()
+  hideMyself: boolean = false;
 
   @Input()
   actionerId?: number;

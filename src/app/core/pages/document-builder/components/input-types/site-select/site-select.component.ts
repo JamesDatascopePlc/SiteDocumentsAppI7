@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, inject } from "@angular/core";
 import { IonicModule } from "@ionic/angular";
-import { map } from "rxjs";
+import { Observable, map, merge, switchMap } from "rxjs";
 import { Site, UserStore } from "src/app/core/stores/user/user.store";
 import { SelectableComponent } from "src/app/shared/components";
 import { importRxTemplate } from "src/app/shared/imports";
-import { AngularComponent, withAfterViewInit } from "src/app/shared/lifecycles";
+import { AngularComponent, withAfterViewInit, withOnChanges } from "src/app/shared/lifecycles";
 import { isMobileApp } from "src/app/shared/plugins/platform.plugin";
 
 @Component({
@@ -38,7 +38,7 @@ import { isMobileApp } from "src/app/shared/plugins/platform.plugin";
     SelectableComponent
   ]
 })
-export class SiteSelectComponent extends AngularComponent(withAfterViewInit) {
+export class SiteSelectComponent extends AngularComponent(withAfterViewInit, withOnChanges) {
   userStore = inject(UserStore);
 
   isMobileApp = isMobileApp();
@@ -47,19 +47,20 @@ export class SiteSelectComponent extends AngularComponent(withAfterViewInit) {
   title?: string;
 
   @Input()
-  value?: number;
+  siteId?: number;
 
   @Output()
-  valueChange = new EventEmitter<number>();
+  siteIdChange = new EventEmitter<number>();
 
   sites$ = this.userStore.sites$;
 
-  selectedSite$ = this.sites$.pipe(
-    map(sites => sites.find(s => s.Id === this.value) || null)
+  selectedSite$: Observable<Site | null> = merge(this.afterViewInit$, this.input$("siteId")).pipe(
+    switchMap(() => this.sites$),
+    map(sites => sites.find(s => s.Id === this.siteId) || null)
   );
 
   siteChange(site: Site | null) {
-    this.value = site!.Id;
-    this.valueChange.emit(this.value);
+    this.siteId = site!.Id;
+    this.siteIdChange.emit(this.siteId);
   }
 }

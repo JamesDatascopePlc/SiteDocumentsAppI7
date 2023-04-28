@@ -7,6 +7,7 @@ export interface SiteDocument {
   RemainAnon: boolean;
   Queues: { Key: string, Value: string }[],
   DocumentGroup: string;
+  DocumentCategory?: number;
   CanCreateHotspot: boolean;
   CanBeAddedToHotspot?: boolean;
   CanBeSavedAsDraft?: boolean;
@@ -21,6 +22,8 @@ export interface SiteDocument {
   CanAddOperative?: boolean;
   CanHaveCompanyActioner: boolean;
   MetaData: Partial<SiteDocumentMetaData>;
+  SiteId?: number;
+  AutoQueueID?: number;
 }
 
 export interface SiteDocumentImage {
@@ -37,6 +40,7 @@ export interface SiteDocumentMetaData {
   ColourHex: string;
   QueueSelectorTitle: string;
   HasSiteList: boolean;
+  SiteListTitle: string;
   UsesRadioGroupTable: boolean;
 }
 

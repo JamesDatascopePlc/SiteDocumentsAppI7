@@ -33,7 +33,7 @@ import { Operative } from "src/app/core/stores/operative/operatives.store";
         </ion-header>
       
         <ion-content [ngSwitch]="segment" class="ion-padding">
-          <local-operative-search *ngSwitchCase="'local'"></local-operative-search>
+          <local-operative-search *ngSwitchCase="'local'" [hideMyself]="hideMyself"></local-operative-search>
           <online-operative-search *ngSwitchCase="'online'"></online-operative-search>
         </ion-content>
       </ng-template>
@@ -56,6 +56,9 @@ export class OperativeListModal {
   
   @Input()
   isOpen: boolean = false;
+
+  @Input()
+  hideMyself: boolean = false;
 
   segment: "local" | "online" = "local"
 

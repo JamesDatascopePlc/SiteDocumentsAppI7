@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, inject, Output } from "@angular/core";
+import { ChangeDetectionStrategy, Component, EventEmitter, inject, Input, Output } from "@angular/core";
 import { IonicModule } from "@ionic/angular";
 import { Operative, OperativesStore } from "src/app/core/stores/operative/operatives.store";
 import { UserStore } from "src/app/core/stores/user/user.store";
@@ -10,9 +10,9 @@ import { AngularComponent } from "src/app/shared/lifecycles";
   template: `
     <ion-searchbar class="animate__animated animate__fadeIn"></ion-searchbar>
 
-    <ion-list>
+    <ion-list *rxLet="user$; let user">
       <ion-item 
-        *rxIf="user$; let user"
+        *rxIf="!hideMyself && user != null"
         (click)="select.emit({ ID: user.Id, Name: user.FirstName + ' ' + user.LastName })"
         button>
           {{ user.Id }} - {{ user.FirstName }} {{ user.LastName }}
@@ -42,6 +42,9 @@ export class LocalOperativeSearchComponent extends AngularComponent() {
 
   @Output()
   select = new EventEmitter<Operative>();
+
+  @Input()
+  hideMyself: boolean = false;
 
   user$ = this.userStore.user$;
   operatives$ = this.operativesStore.operatives$;

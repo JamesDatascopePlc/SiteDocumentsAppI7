@@ -48,5 +48,5 @@ Default.args = {
 export const PrepopulatedSite = Template.bind({});
 
 PrepopulatedSite.args = {
-  value: +faker.random.numeric(1)
+  siteId: +faker.random.numeric(1)
 }

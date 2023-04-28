@@ -7,15 +7,15 @@ import { useGlobals } from '@storybook/manager-api';
 const ExampleToolbar = () => {
   const [globals, updateGlobals] = useGlobals();
 
-  const isActive = globals['my-param-key'] || false;
+  const isActive: boolean = globals['my-param-key'] || false;
 
   // Function that will update the global value and trigger a UI refresh.
   const refreshAndUpdateGlobal = () => {
     updateGlobals({
       ['my-param-key']: !isActive,
     }),
-      // Invokes Storybook's addon API method (with the FORCE_RE_RENDER) event to trigger a UI refresh
-      addons.getChannel().emit(FORCE_RE_RENDER);
+    // Invokes Storybook's addon API method (with the FORCE_RE_RENDER) event to trigger a UI refresh
+    addons.getChannel().emit(FORCE_RE_RENDER);
   };
 
   const toggleIosMode = useCallback(() => refreshAndUpdateGlobal(), [isActive]);

@@ -1,5 +1,6 @@
-import { Meta, StoryFn } from "@storybook/angular";
+import { StoryFn } from "@storybook/angular";
 import { RemainAnonymousComponent } from "./remain-anonymous.component";
+import { StorybookMeta } from ".storybook/storybook.typings";
 
 export default {
   title: "Pages/Document-Builder/Input-Types/Remain-Anonymous",
@@ -8,7 +9,7 @@ export default {
     isTicked: { control: "boolean" },
     isTickedChange: { action: "isTickedChange" }
   }
-} as Meta;
+} as StorybookMeta<RemainAnonymousComponent>;
 
 const Template: StoryFn<RemainAnonymousComponent> = (args: RemainAnonymousComponent) => ({
   props: args
