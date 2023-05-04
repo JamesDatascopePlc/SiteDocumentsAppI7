@@ -18,6 +18,7 @@
     "strictPropertyInitialization": true,
     "useUnknownInCatchVariables": true,
     "noFallthroughCasesInSwitch": true,
+    "skipLibCheck": true,
     "sourceMap": true,
     "declaration": false,
     "downlevelIteration": true,

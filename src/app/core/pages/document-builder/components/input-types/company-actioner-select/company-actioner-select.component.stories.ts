@@ -48,5 +48,5 @@ Default.args = {
 export const PrepopulatedCompany = Template.bind({});
 
 PrepopulatedCompany.args = {
-  value: +faker.random.numeric(1)
+  companyId: +faker.random.numeric(1)
 }
