@@ -19,7 +19,7 @@ import { AngularComponent, withAfterViewInit, withOnChanges } from "src/app/shar
           <selectable 
             [title]="title"
             placeholder="Queues"
-            [value]="value$ | push"
+            [value]="queue$ | push"
             (valueChange)="queueIdChange.emit($event!.id)"
             [items]="queues" 
             itemText="name"
@@ -47,12 +47,12 @@ export class QueueSelectComponent extends AngularComponent(withAfterViewInit, wi
   queues: Array<{ id: number, name: string }> = [];
 
   @Input()
-  queueId: number | null = null;
+  queueId?: number;
 
   @Output()
   queueIdChange = new EventEmitter<number>();
 
-  value$: Observable<{ id: number, name: string } | null> = merge(
+  queue$: Observable<{ id: number, name: string } | null> = merge(
     this.afterViewInit$,
     this.input$("queueId")
   ).pipe(

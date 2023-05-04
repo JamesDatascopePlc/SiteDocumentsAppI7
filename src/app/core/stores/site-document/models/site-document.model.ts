@@ -17,6 +17,8 @@ export interface SiteDocument {
   CanHaveQueueDuration: boolean;
   CanHaveDocumentLevelImages: boolean;
   CanHaveDocLevelPhotoRoll: boolean;
+  CurrentActionerOperativeID?: number;
+  CompanyActionerId?: number;
   ShowDocLevelPhotoButtonAtStartOfDoc: boolean;
   CanAddAsset?: boolean;
   CanAddOperative?: boolean;

@@ -36,10 +36,28 @@ import { numberAdapter } from "src/app/shared/adapters/number.adapter";
     </ion-header>
 
     <ion-content *rxIf="document$; let document" class="ion-padding">
-      <actioner-select *rxIf="document.CanAddActionerFromApp"></actioner-select>
-      <category-actioner-select [categoryId]="document.DocumentCategory"></category-actioner-select>
-      <company-actioner-select *rxIf="document.CanHaveCompanyActioner"></company-actioner-select>
-      <queue-select *rxIf="document.Queues && document.Queues.length > 0"></queue-select>
+      <actioner-select
+         *rxIf="document.CanAddActionerFromApp"
+         [(actionerId)]="document.CurrentActionerOperativeID"
+         [title]="document.MetaData.ActionerText"
+         [hideMyself]="document.MetaData.CannotAddSelfAsActioner || false">
+      </actioner-select>
+      <category-actioner-select 
+        *rxIf="document.CanAddCategoryActioner && document.DocumentCategory != null" 
+        [title]="document.MetaData.ActionerText"
+        [(actionerId)]="document.CurrentActionerOperativeID"
+        [categoryId]="document.DocumentCategory"
+        [hideMyself]="document.MetaData.CannotAddSelfAsActioner || false">
+      </category-actioner-select>
+      <company-actioner-select 
+        *rxIf="document.CanHaveCompanyActioner"
+        [title]="document.MetaData.ActionerText"
+        [(companyId)]="document.CompanyActionerId">
+      </company-actioner-select>
+      <queue-select 
+        *rxIf="document.Queues && document.Queues.length > 0"
+        [queueId]="document.AutoQueueID">
+      </queue-select>
       <site-select 
         *rxIf="document.MetaData?.HasSiteList"
         [title]="document.MetaData.SiteListTitle"

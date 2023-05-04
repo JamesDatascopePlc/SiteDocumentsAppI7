@@ -6,6 +6,7 @@ const config: StorybookConfig = {
     "@storybook/addon-essentials", 
     "@storybook/addon-interactions", 
     "storybook-addon-angular-router",
+    "storybook-dark-mode",
     "./preset.ts"
   ],
   framework: {

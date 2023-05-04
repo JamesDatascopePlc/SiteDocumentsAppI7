@@ -5,7 +5,15 @@ import { provideHttpClient } from "@angular/common/http";
 import { provideHttpClientTesting } from "@angular/common/http/testing";
 import { devTools } from "@ngneat/elf-devtools";
 
+devTools();
+
 const preview: Preview = {
+  globalTypes: {
+    iosMode: {
+      name: "IOS Mode",
+      defaultValue: false
+    }
+  },
   parameters: {
     actions: { argTypesRegex: "^on[A-Z].*" },
     controls: {
@@ -26,7 +34,5 @@ const preview: Preview = {
     componentWrapperDecorator(story => `<ion-app>${story}</ion-app>`)
   ]
 };
-
-devTools();
 
 export default preview;

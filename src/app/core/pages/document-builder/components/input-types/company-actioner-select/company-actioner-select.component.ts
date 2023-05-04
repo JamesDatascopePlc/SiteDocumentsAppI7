@@ -45,18 +45,18 @@ export class CompanyActionerSelectComponent extends AngularComponent(withAfterVi
   title?: string;
 
   @Input()
-  value?: number;
+  companyId?: number;
 
   @Output()
-  valueChange = new EventEmitter<number>();
+  companyIdChange = new EventEmitter<number>();
 
-  selectedCompany$: Observable<Company | null> = merge(this.afterViewInit$, this.input$("value")).pipe(
+  selectedCompany$: Observable<Company | null> = merge(this.afterViewInit$, this.input$("companyId")).pipe(
     switchMap(() => this.companies$),
-    map(companies => companies.find(c => c.Id === this.value) || null)
+    map(companies => companies.find(c => c.Id === this.companyId) || null)
   );
 
   companyChange(company: Company | null) {
-    this.value = company!.Id;
-    this.valueChange.emit(this.value);
+    this.companyId = company!.Id;
+    this.companyIdChange.emit(this.companyId);
   }
 }

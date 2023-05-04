@@ -223,12 +223,12 @@
         },
         {
             "name": "CategoryActioner",
-            "id": "interface-CategoryActioner-f00e25b1b0963845698122b3806fb5aef12fef89fe0c9637431e3a594265277add13ffdbad2658e396e5f4adfd275942492f8780d48053a68fe8c4aa55b824e2",
+            "id": "interface-CategoryActioner-42f16afc6748431c0a69b740335336a0f23d0c571b1bc3521bef9b27932b93f2ff8f2f0b9fc2e210b44b0585b64faeac40950e5e9a9fac61b7bfb6c4642715ff",
             "file": "src/app/core/stores/category-actioners/category-actioners.store.ts",
             "deprecated": false,
             "deprecationMessage": "",
             "type": "interface",
-            "sourceCode": "import { HttpClient } from \"@angular/common/http\";\nimport { Injectable, inject } from \"@angular/core\";\nimport { createStore } from \"@ngneat/elf\";\nimport { selectAllEntities, withEntities } from \"@ngneat/elf-entities\";\nimport { map } from \"rxjs\";\n\nexport interface CategoryActioner {\n  Id: number,\n  Name: string,\n  CategoryId: number\n}\n\nconst store = createStore(\n  { name: \"site-documents\" },\n  withEntities<CategoryActioner, \"Id\">({ idKey: \"Id\" })\n);\n\n@Injectable({ providedIn: \"root\" })\nexport class CategoryActionersStore {\n  http = inject(HttpClient);\n\n  categoryActioners$ = store.pipe(selectAllEntities());\n  categoryActionersById$ = (categoryId: number) => this.categoryActioners$.pipe(\n    map(catActioners => catActioners.filter(ca => ca.CategoryId === categoryId))\n  );\n\n  downloadCategoryActioners$ = (siteId: number) => this.http.get<CategoryActioner[]>(\"api/LoginApi/GetCategoryActioners\", {\n    params: {\n      siteId: siteId.toString()\n    }\n  });\n}\n",
+            "sourceCode": "import { HttpClient } from \"@angular/common/http\";\r\nimport { Injectable, inject } from \"@angular/core\";\r\nimport { createStore } from \"@ngneat/elf\";\r\nimport { selectAllEntities, withEntities } from \"@ngneat/elf-entities\";\r\nimport { map } from \"rxjs\";\r\n\r\nexport interface CategoryActioner {\r\n  Id: number,\r\n  Name: string,\r\n  CategoryId: number\r\n}\r\n\r\nconst store = createStore(\r\n  { name: \"site-documents\" },\r\n  withEntities<CategoryActioner, \"Id\">({ idKey: \"Id\" })\r\n);\r\n\r\n@Injectable({ providedIn: \"root\" })\r\nexport class CategoryActionersStore {\r\n  http = inject(HttpClient);\r\n\r\n  categoryActioners$ = store.pipe(selectAllEntities());\r\n  categoryActionersById$ = (categoryId: number) => this.categoryActioners$.pipe(\r\n    map(catActioners => catActioners.filter(ca => ca.CategoryId === categoryId))\r\n  );\r\n\r\n  downloadCategoryActioners$ = (siteId: number) => this.http.get<CategoryActioner[]>(\"api/LoginApi/GetCategoryActioners\", {\r\n    params: {\r\n      siteId: siteId.toString()\r\n    }\r\n  });\r\n}\r\n",
             "properties": [
                 {
                     "name": "CategoryId",
@@ -734,12 +734,12 @@
         },
         {
             "name": "ResponsibilityArea",
-            "id": "interface-ResponsibilityArea-617b4801fa08a8e08bf98e552c0e7fad70edfa4f661170432e41b2a0de0233527ebb03bcf87a177e832f9b057238fef606b23964cff87ae7f1ea0081f82689fd",
+            "id": "interface-ResponsibilityArea-939de3da069ba66b6240a9296476df2f670a51cbe802dc1846bbf6fbfea2389c84b5753e87e9023e3428fa08653289eeb418e48939e792a252b3ed0722c45877",
             "file": "src/app/core/stores/responsibility-area-types/responsibility-area-types.store.ts",
             "deprecated": false,
             "deprecationMessage": "",
             "type": "interface",
-            "sourceCode": "import { Injectable } from \"@angular/core\";\nimport { createStore } from \"@ngneat/elf\";\nimport { selectAllEntities, withEntities } from \"@ngneat/elf-entities\";\nimport { map } from \"rxjs\";\n\nexport interface ResponsibilityArea {\n  Id: number,\n  Name: string,\n  DocResAreaTypeId: number,\n  SiteId?: number\n}\n\nexport interface ResponsibilityAreaType {\n  Id: number,\n  TypeName: string,\n  AppQuestionText: string,\n  Areas: ResponsibilityArea[]\n}\n\nconst store = createStore(\n  { name: \"responsibility-area-types\" },\n  withEntities<ResponsibilityAreaType, \"Id\">({ idKey: \"Id\" })\n);\n\n@Injectable({ providedIn: \"root\" })\nexport class ResponsibilityAreaTypesStore {\n  responsibilityAreaTypes$ = store.pipe(selectAllEntities());\n  responsibilityAreaTypeById$ = (id: number) => this.responsibilityAreaTypes$.pipe(\n    map(resAreaTypes => resAreaTypes.find(t => t.Id === id))\n  );\n}\n",
+            "sourceCode": "import { Injectable } from \"@angular/core\";\r\nimport { createStore } from \"@ngneat/elf\";\r\nimport { selectAllEntities, withEntities } from \"@ngneat/elf-entities\";\r\nimport { map } from \"rxjs\";\r\n\r\nexport interface ResponsibilityArea {\r\n  Id: number,\r\n  Name: string,\r\n  DocResAreaTypeId: number,\r\n  SiteId?: number\r\n}\r\n\r\nexport interface ResponsibilityAreaType {\r\n  Id: number,\r\n  TypeName: string,\r\n  AppQuestionText: string,\r\n  Areas: ResponsibilityArea[]\r\n}\r\n\r\nconst store = createStore(\r\n  { name: \"responsibility-area-types\" },\r\n  withEntities<ResponsibilityAreaType, \"Id\">({ idKey: \"Id\" })\r\n);\r\n\r\n@Injectable({ providedIn: \"root\" })\r\nexport class ResponsibilityAreaTypesStore {\r\n  responsibilityAreaTypes$ = store.pipe(selectAllEntities());\r\n  responsibilityAreaTypeById$ = (id: number) => this.responsibilityAreaTypes$.pipe(\r\n    map(resAreaTypes => resAreaTypes.find(t => t.Id === id))\r\n  );\r\n}\r\n",
             "properties": [
                 {
                     "name": "DocResAreaTypeId",
@@ -784,12 +784,12 @@
         },
         {
             "name": "ResponsibilityAreaType",
-            "id": "interface-ResponsibilityAreaType-617b4801fa08a8e08bf98e552c0e7fad70edfa4f661170432e41b2a0de0233527ebb03bcf87a177e832f9b057238fef606b23964cff87ae7f1ea0081f82689fd",
+            "id": "interface-ResponsibilityAreaType-939de3da069ba66b6240a9296476df2f670a51cbe802dc1846bbf6fbfea2389c84b5753e87e9023e3428fa08653289eeb418e48939e792a252b3ed0722c45877",
             "file": "src/app/core/stores/responsibility-area-types/responsibility-area-types.store.ts",
             "deprecated": false,
             "deprecationMessage": "",
             "type": "interface",
-            "sourceCode": "import { Injectable } from \"@angular/core\";\nimport { createStore } from \"@ngneat/elf\";\nimport { selectAllEntities, withEntities } from \"@ngneat/elf-entities\";\nimport { map } from \"rxjs\";\n\nexport interface ResponsibilityArea {\n  Id: number,\n  Name: string,\n  DocResAreaTypeId: number,\n  SiteId?: number\n}\n\nexport interface ResponsibilityAreaType {\n  Id: number,\n  TypeName: string,\n  AppQuestionText: string,\n  Areas: ResponsibilityArea[]\n}\n\nconst store = createStore(\n  { name: \"responsibility-area-types\" },\n  withEntities<ResponsibilityAreaType, \"Id\">({ idKey: \"Id\" })\n);\n\n@Injectable({ providedIn: \"root\" })\nexport class ResponsibilityAreaTypesStore {\n  responsibilityAreaTypes$ = store.pipe(selectAllEntities());\n  responsibilityAreaTypeById$ = (id: number) => this.responsibilityAreaTypes$.pipe(\n    map(resAreaTypes => resAreaTypes.find(t => t.Id === id))\n  );\n}\n",
+            "sourceCode": "import { Injectable } from \"@angular/core\";\r\nimport { createStore } from \"@ngneat/elf\";\r\nimport { selectAllEntities, withEntities } from \"@ngneat/elf-entities\";\r\nimport { map } from \"rxjs\";\r\n\r\nexport interface ResponsibilityArea {\r\n  Id: number,\r\n  Name: string,\r\n  DocResAreaTypeId: number,\r\n  SiteId?: number\r\n}\r\n\r\nexport interface ResponsibilityAreaType {\r\n  Id: number,\r\n  TypeName: string,\r\n  AppQuestionText: string,\r\n  Areas: ResponsibilityArea[]\r\n}\r\n\r\nconst store = createStore(\r\n  { name: \"responsibility-area-types\" },\r\n  withEntities<ResponsibilityAreaType, \"Id\">({ idKey: \"Id\" })\r\n);\r\n\r\n@Injectable({ providedIn: \"root\" })\r\nexport class ResponsibilityAreaTypesStore {\r\n  responsibilityAreaTypes$ = store.pipe(selectAllEntities());\r\n  responsibilityAreaTypeById$ = (id: number) => this.responsibilityAreaTypes$.pipe(\r\n    map(resAreaTypes => resAreaTypes.find(t => t.Id === id))\r\n  );\r\n}\r\n",
             "properties": [
                 {
                     "name": "AppQuestionText",
@@ -2258,7 +2258,7 @@
     "injectables": [
         {
             "name": "CategoryActionersStore",
-            "id": "injectable-CategoryActionersStore-f00e25b1b0963845698122b3806fb5aef12fef89fe0c9637431e3a594265277add13ffdbad2658e396e5f4adfd275942492f8780d48053a68fe8c4aa55b824e2",
+            "id": "injectable-CategoryActionersStore-42f16afc6748431c0a69b740335336a0f23d0c571b1bc3521bef9b27932b93f2ff8f2f0b9fc2e210b44b0585b64faeac40950e5e9a9fac61b7bfb6c4642715ff",
             "file": "src/app/core/stores/category-actioners/category-actioners.store.ts",
             "properties": [
                 {
@@ -2307,7 +2307,7 @@
             "deprecationMessage": "",
             "description": "",
             "rawdescription": "\n",
-            "sourceCode": "import { HttpClient } from \"@angular/common/http\";\nimport { Injectable, inject } from \"@angular/core\";\nimport { createStore } from \"@ngneat/elf\";\nimport { selectAllEntities, withEntities } from \"@ngneat/elf-entities\";\nimport { map } from \"rxjs\";\n\nexport interface CategoryActioner {\n  Id: number,\n  Name: string,\n  CategoryId: number\n}\n\nconst store = createStore(\n  { name: \"site-documents\" },\n  withEntities<CategoryActioner, \"Id\">({ idKey: \"Id\" })\n);\n\n@Injectable({ providedIn: \"root\" })\nexport class CategoryActionersStore {\n  http = inject(HttpClient);\n\n  categoryActioners$ = store.pipe(selectAllEntities());\n  categoryActionersById$ = (categoryId: number) => this.categoryActioners$.pipe(\n    map(catActioners => catActioners.filter(ca => ca.CategoryId === categoryId))\n  );\n\n  downloadCategoryActioners$ = (siteId: number) => this.http.get<CategoryActioner[]>(\"api/LoginApi/GetCategoryActioners\", {\n    params: {\n      siteId: siteId.toString()\n    }\n  });\n}\n",
+            "sourceCode": "import { HttpClient } from \"@angular/common/http\";\r\nimport { Injectable, inject } from \"@angular/core\";\r\nimport { createStore } from \"@ngneat/elf\";\r\nimport { selectAllEntities, withEntities } from \"@ngneat/elf-entities\";\r\nimport { map } from \"rxjs\";\r\n\r\nexport interface CategoryActioner {\r\n  Id: number,\r\n  Name: string,\r\n  CategoryId: number\r\n}\r\n\r\nconst store = createStore(\r\n  { name: \"site-documents\" },\r\n  withEntities<CategoryActioner, \"Id\">({ idKey: \"Id\" })\r\n);\r\n\r\n@Injectable({ providedIn: \"root\" })\r\nexport class CategoryActionersStore {\r\n  http = inject(HttpClient);\r\n\r\n  categoryActioners$ = store.pipe(selectAllEntities());\r\n  categoryActionersById$ = (categoryId: number) => this.categoryActioners$.pipe(\r\n    map(catActioners => catActioners.filter(ca => ca.CategoryId === categoryId))\r\n  );\r\n\r\n  downloadCategoryActioners$ = (siteId: number) => this.http.get<CategoryActioner[]>(\"api/LoginApi/GetCategoryActioners\", {\r\n    params: {\r\n      siteId: siteId.toString()\r\n    }\r\n  });\r\n}\r\n",
             "type": "injectable"
         },
         {
@@ -2439,7 +2439,7 @@
         },
         {
             "name": "OneSignalService",
-            "id": "injectable-OneSignalService-ea68c9c0cbdeea4638925ea4c6f542f26605cc6684bd432b725a6362ea03eab9ca020d4399509462c67d478eb4ea62925b2cf3b9c12c759b8bdbe70ef4684338",
+            "id": "injectable-OneSignalService-46c025d481e6a4ace2167dfff7f2c154709c9de0f0250d36c02ff704af5c0a183ac99699a5c6a67f74957ffe71ee3d543e2844ff238727205c0b77d88c35213f",
             "file": "src/app/shared/services/onesignal/onesignal.service.ts",
             "properties": [
                 {
@@ -2488,7 +2488,7 @@
             "deprecationMessage": "",
             "description": "",
             "rawdescription": "\n",
-            "sourceCode": "import { inject, Injectable } from \"@angular/core\";\nimport { Device } from \"@capacitor/device\";\nimport { ToastController } from \"@ionic/angular\";\nimport OneSignal from \"onesignal-cordova-plugin\";\nimport NotificationReceivedEvent from \"onesignal-cordova-plugin/dist/NotificationReceivedEvent\";\nimport { map, Subject, switchMap, tap } from \"rxjs\";\n\n@Injectable({\n  providedIn: \"root\"\n})\nexport class OneSignalService {\n  protected toastCtrl = inject(ToastController);\n  protected notificationReceived$ = new Subject<NotificationReceivedEvent>();\n\n  async startup() {\n    const device = await Device.getInfo();\n\n    if (device.platform === \"web\")\n      return;\n\n    this.notificationReceived$.pipe(\n      map(nr => nr.getNotification()),\n      switchMap(notification => this.toastCtrl.create({\n        header: notification.title,\n        message: notification.body,\n        duration: 5000,\n        position: \"top\"\n      })),\n      tap(toast => toast.present())\n    )\n    .subscribe();\n\n    OneSignal.setAppId(\"\");\n\n    OneSignal.promptForPushNotificationsWithUserResponse(() => \n      OneSignal.setNotificationWillShowInForegroundHandler(notification => this.notificationReceived$.next(notification))\n    );\n  }\n}\n",
+            "sourceCode": "import { inject, Injectable } from \"@angular/core\";\r\nimport { Device } from \"@capacitor/device\";\r\nimport { ToastController } from \"@ionic/angular\";\r\nimport OneSignal from \"onesignal-cordova-plugin\";\r\nimport NotificationReceivedEvent from \"onesignal-cordova-plugin/dist/NotificationReceivedEvent\";\r\nimport { map, Subject, switchMap, tap } from \"rxjs\";\r\n\r\n@Injectable({\r\n  providedIn: \"root\"\r\n})\r\nexport class OneSignalService {\r\n  protected toastCtrl = inject(ToastController);\r\n  protected notificationReceived$ = new Subject<NotificationReceivedEvent>();\r\n\r\n  async startup() {\r\n    const device = await Device.getInfo();\r\n\r\n    if (device.platform === \"web\")\r\n      return;\r\n\r\n    this.notificationReceived$.pipe(\r\n      map(nr => nr.getNotification()),\r\n      switchMap(notification => this.toastCtrl.create({\r\n        header: notification.title,\r\n        message: notification.body,\r\n        duration: 5000,\r\n        position: \"top\"\r\n      })),\r\n      tap(toast => toast.present())\r\n    )\r\n    .subscribe();\r\n\r\n    OneSignal.setAppId(\"\");\r\n\r\n    OneSignal.promptForPushNotificationsWithUserResponse(() => \r\n      OneSignal.setNotificationWillShowInForegroundHandler(notification => this.notificationReceived$.next(notification))\r\n    );\r\n  }\r\n}\r\n",
             "type": "injectable"
         },
         {
@@ -2577,7 +2577,7 @@
         },
         {
             "name": "ResponsibilityAreaTypesStore",
-            "id": "injectable-ResponsibilityAreaTypesStore-617b4801fa08a8e08bf98e552c0e7fad70edfa4f661170432e41b2a0de0233527ebb03bcf87a177e832f9b057238fef606b23964cff87ae7f1ea0081f82689fd",
+            "id": "injectable-ResponsibilityAreaTypesStore-939de3da069ba66b6240a9296476df2f670a51cbe802dc1846bbf6fbfea2389c84b5753e87e9023e3428fa08653289eeb418e48939e792a252b3ed0722c45877",
             "file": "src/app/core/stores/responsibility-area-types/responsibility-area-types.store.ts",
             "properties": [
                 {
@@ -2606,12 +2606,12 @@
             "deprecationMessage": "",
             "description": "",
             "rawdescription": "\n",
-            "sourceCode": "import { Injectable } from \"@angular/core\";\nimport { createStore } from \"@ngneat/elf\";\nimport { selectAllEntities, withEntities } from \"@ngneat/elf-entities\";\nimport { map } from \"rxjs\";\n\nexport interface ResponsibilityArea {\n  Id: number,\n  Name: string,\n  DocResAreaTypeId: number,\n  SiteId?: number\n}\n\nexport interface ResponsibilityAreaType {\n  Id: number,\n  TypeName: string,\n  AppQuestionText: string,\n  Areas: ResponsibilityArea[]\n}\n\nconst store = createStore(\n  { name: \"responsibility-area-types\" },\n  withEntities<ResponsibilityAreaType, \"Id\">({ idKey: \"Id\" })\n);\n\n@Injectable({ providedIn: \"root\" })\nexport class ResponsibilityAreaTypesStore {\n  responsibilityAreaTypes$ = store.pipe(selectAllEntities());\n  responsibilityAreaTypeById$ = (id: number) => this.responsibilityAreaTypes$.pipe(\n    map(resAreaTypes => resAreaTypes.find(t => t.Id === id))\n  );\n}\n",
+            "sourceCode": "import { Injectable } from \"@angular/core\";\r\nimport { createStore } from \"@ngneat/elf\";\r\nimport { selectAllEntities, withEntities } from \"@ngneat/elf-entities\";\r\nimport { map } from \"rxjs\";\r\n\r\nexport interface ResponsibilityArea {\r\n  Id: number,\r\n  Name: string,\r\n  DocResAreaTypeId: number,\r\n  SiteId?: number\r\n}\r\n\r\nexport interface ResponsibilityAreaType {\r\n  Id: number,\r\n  TypeName: string,\r\n  AppQuestionText: string,\r\n  Areas: ResponsibilityArea[]\r\n}\r\n\r\nconst store = createStore(\r\n  { name: \"responsibility-area-types\" },\r\n  withEntities<ResponsibilityAreaType, \"Id\">({ idKey: \"Id\" })\r\n);\r\n\r\n@Injectable({ providedIn: \"root\" })\r\nexport class ResponsibilityAreaTypesStore {\r\n  responsibilityAreaTypes$ = store.pipe(selectAllEntities());\r\n  responsibilityAreaTypeById$ = (id: number) => this.responsibilityAreaTypes$.pipe(\r\n    map(resAreaTypes => resAreaTypes.find(t => t.Id === id))\r\n  );\r\n}\r\n",
             "type": "injectable"
         },
         {
             "name": "SiteDocumentImageStore",
-            "id": "injectable-SiteDocumentImageStore-4fd102b627a08f3daf343ec9e1671ced7a924c711e0f0c352f4a5968af753a737cb68d1dc539cbd987bbabc60134200ea82ee42d1e386cfc315a492f37d6d269",
+            "id": "injectable-SiteDocumentImageStore-5e3bce50f5da91d19f468f57c0510bc0c96ddb8bd6bc9a2b6d3258d722107c267ee5f013f4ce297f8258c0da0d91e2a2f8102fc9389fe0d4a9acf128aed2ab4f",
             "file": "src/app/core/stores/site-document-image/site-document-image.store.ts",
             "properties": [],
             "methods": [
@@ -2648,7 +2648,7 @@
             "deprecationMessage": "",
             "description": "",
             "rawdescription": "\n",
-            "sourceCode": "import { Injectable } from \"@angular/core\";\r\nimport { createStore } from \"@ngneat/elf\";\r\nimport { addEntities, deleteEntitiesByPredicate, selectAllEntitiesApply, withEntities } from \"@ngneat/elf-entities\";\r\nimport { SiteDocument, SiteDocumentImage } from \"../site-document/models/site-document.model\";\r\n\r\nconst store = createStore(\r\n  { name: \"site-document-image\" }, \r\n  withEntities<SiteDocumentImage, \"DocumentId\">({ idKey: \"DocumentId\" })\r\n);\r\n\r\n@Injectable({ providedIn: \"root\" })\r\nexport class SiteDocumentImageStore {\r\n  useImages(document: SiteDocument) {\r\n    return [\r\n      store.pipe(\r\n        selectAllEntitiesApply({\r\n          filterEntity: e => e.DocumentId === document.DocumentID\r\n        })\r\n      ),\r\n      \r\n      (images: string[]) => store.update(\r\n        deleteEntitiesByPredicate(e => e.DocumentId === document.DocumentID),\r\n        addEntities(images.map((img, idx) => \r\n          ({\r\n            DocumentId: document.DocumentID,\r\n            DocumentSubmissionId: 1,\r\n            Base64: img,\r\n            ImageNo: idx\r\n          })\r\n        ))\r\n      )\r\n    ]\r\n  }\r\n}\r\n",
+            "sourceCode": "import { Injectable } from \"@angular/core\";\nimport { createStore } from \"@ngneat/elf\";\nimport { addEntities, deleteEntitiesByPredicate, selectAllEntitiesApply, withEntities } from \"@ngneat/elf-entities\";\nimport { SiteDocument, SiteDocumentImage } from \"../site-document/models/site-document.model\";\n\nconst store = createStore(\n  { name: \"site-document-image\" }, \n  withEntities<SiteDocumentImage, \"DocumentId\">({ idKey: \"DocumentId\" })\n);\n\n@Injectable({ providedIn: \"root\" })\nexport class SiteDocumentImageStore {\n  useImages(document: SiteDocument) {\n    return [\n      store.pipe(\n        selectAllEntitiesApply({\n          filterEntity: e => e.DocumentId === document.DocumentID\n        })\n      ),\n      \n      (images: string[]) => store.update(\n        deleteEntitiesByPredicate(e => e.DocumentId === document.DocumentID),\n        addEntities(images.map((img, idx) => \n          ({\n            DocumentId: document.DocumentID,\n            DocumentSubmissionId: 1,\n            Base64: img,\n            ImageNo: idx\n          })\n        ))\n      )\n    ]\n  }\n}\n",
             "type": "injectable"
         },
         {
@@ -2745,12 +2745,12 @@
     "classes": [
         {
             "name": "AssetListModal",
-            "id": "class-AssetListModal-6afe7b5a3f66b3a856573947b2509f8ef3ecd451897623f684ea99121a3694d03502b514cb6980506ba0f59f9187d4b0e0f724755022e6b696f5670a665dfbbc",
+            "id": "class-AssetListModal-14805cf960a48aaf1ed4576f6dccf31898e6feed343e85b9d8b25a9baea7b23723aa122bb76ed194b2f4665cddf8b6b0adaf2c4bc788f813d54cb03745063c77",
             "file": "src/app/shared/modals/asset-list/asset-list.modal.ts",
             "deprecated": false,
             "deprecationMessage": "",
             "type": "class",
-            "sourceCode": "export class AssetListModal {\r\n}\r\n",
+            "sourceCode": "export class AssetListModal {\n}\n",
             "properties": [],
             "methods": [],
             "indexSignatures": [],
@@ -2779,12 +2779,12 @@
     "directives": [
         {
             "name": "BarcodeScannerDirective",
-            "id": "directive-BarcodeScannerDirective-e7ab6e64f44fc426c4d8d715ee139a730b17b8b0304d2ed60c9bd1963305c222b91562838f03e7d909258d5d1b915ddc777b6614fa4103b28777a1fefaa3e26b",
+            "id": "directive-BarcodeScannerDirective-2090b1d2d924f19a05479ab3d246af7c86f50045098dc549f9e2c808faee7a81e5eca4f1374938fec331f42702743a3ad29903ae67ac4a0e9c689e5d6e91c260",
             "file": "src/app/shared/directives/barcode-scanner/barcode-scanner.directive.ts",
             "type": "directive",
             "description": "",
             "rawdescription": "\n",
-            "sourceCode": "import { Directive, EventEmitter, HostListener, Input, Output } from \"@angular/core\";\nimport { BarcodeScanner, ScanOptions } from \"@capacitor-community/barcode-scanner\";\n\n@Directive({\n  selector: \"[barcode-scanner]\",\n  standalone: true\n})\nexport class BarcodeScannerDirective {\n  @Input(\"barcode-scanner\")\n  options: ScanOptions = {}\n\n  @Output(\"scan\") \n  scan = new EventEmitter<string>();\n\n  @HostListener(\"click\")\n  async scanCode() {\n    await BarcodeScanner.hideBackground();\n    const res = await BarcodeScanner.startScan({ targetedFormats: [] });\n    \n    if (res.hasContent)\n      this.scan.emit(res.content);\n  }\n}\n",
+            "sourceCode": "import { Directive, EventEmitter, HostListener, Input, Output } from \"@angular/core\";\r\nimport { BarcodeScanner, ScanOptions } from \"@capacitor-community/barcode-scanner\";\r\n\r\n@Directive({\r\n  selector: \"[barcode-scanner]\",\r\n  standalone: true\r\n})\r\nexport class BarcodeScannerDirective {\r\n  @Input(\"barcode-scanner\")\r\n  options: ScanOptions = {}\r\n\r\n  @Output(\"scan\") \r\n  scan = new EventEmitter<string>();\r\n\r\n  @HostListener(\"click\")\r\n  async scanCode() {\r\n    await BarcodeScanner.hideBackground();\r\n    const res = await BarcodeScanner.startScan({ targetedFormats: [] });\r\n    \r\n    if (res.hasContent)\r\n      this.scan.emit(res.content);\r\n  }\r\n}\r\n",
             "selector": "[barcode-scanner]",
             "providers": [],
             "inputsClass": [
@@ -2846,18 +2846,18 @@
         },
         {
             "name": "CameraDirective",
-            "id": "directive-CameraDirective-f10927f7df2eb3c81832d7b42583e586499c7f0ddb1106034e3c715ac18c83dd59604204487614b6d0fa286aac7ca15a8e32f94cb28e5087c15ac956f206ec92",
+            "id": "directive-CameraDirective-637db5314fa9eef57df799c7f8e7e0a437194d3710096ceac8d6b475feac7693a8a247268000989ab19ddba736ec18271c19b62d59c2e4d81bdb5d1115764f09",
             "file": "src/app/shared/directives/camera/camera.directive.ts",
             "type": "directive",
             "description": "",
             "rawdescription": "\n",
-            "sourceCode": "import { Directive, EventEmitter, HostBinding, Input, Output } from \"@angular/core\";\nimport { Camera, ImageOptions } from \"@capacitor/camera\";\nimport { CameraResultType, Photo } from \"@capacitor/camera/dist/esm/definitions\";\n\n@Directive({\n  selector: \"[camera]\",\n  standalone: true\n})\nexport class CameraDirective {\n  @Input(\"camera\")\n  options: ImageOptions = {\n    resultType: CameraResultType.Base64\n  };\n\n  @Output()\n  takePhoto = new EventEmitter<Photo>();\n\n  @HostBinding(\"click\")\n  async take() {\n    const photo = await Camera.getPhoto(this.options);\n    this.takePhoto.emit(photo);\n  }\n}\n",
+            "sourceCode": "import { Directive, EventEmitter, HostBinding, Input, Output } from \"@angular/core\";\r\nimport { Camera, ImageOptions } from \"@capacitor/camera\";\r\nimport { CameraResultType, Photo } from \"@capacitor/camera/dist/esm/definitions\";\r\n\r\n@Directive({\r\n  selector: \"[camera]\",\r\n  standalone: true\r\n})\r\nexport class CameraDirective {\r\n  @Input(\"camera\")\r\n  options: ImageOptions = {\r\n    resultType: CameraResultType.Base64\r\n  };\r\n\r\n  @Output()\r\n  takePhoto = new EventEmitter<Photo>();\r\n\r\n  @HostBinding(\"click\")\r\n  async take() {\r\n    const photo = await Camera.getPhoto(this.options);\r\n    this.takePhoto.emit(photo);\r\n  }\r\n}\r\n",
             "selector": "[camera]",
             "providers": [],
             "inputsClass": [
                 {
                     "name": "camera",
-                    "defaultValue": "{\n    resultType: CameraResultType.Base64\n  }",
+                    "defaultValue": "{\r\n    resultType: CameraResultType.Base64\r\n  }",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "line": 11,
@@ -3251,7 +3251,7 @@
         },
         {
             "name": "AppComponent",
-            "id": "component-AppComponent-d41cfd42d13923078762ea410fbe2dca1567b4115e79eed159cf8ddb724e841d83ae01cc29a79701af47deae4a91fa8962e9322fcc26c1f1cbe8126ef1638a0c",
+            "id": "component-AppComponent-1ec040a91f41102ea933f46462e206d3a941e35a0d50f1652261905e96af137ae536ab5179c199c7069e97e9ab1b58a16b836b6235b5b11f562d4a0515565fb7",
             "file": "src/app/app.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -3275,7 +3275,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component } from '@angular/core';\nimport { IonicModule } from '@ionic/angular';\n\n@Component({\n  selector: 'app-root',\n  template: `\n    <ion-app>\n      <ion-router-outlet></ion-router-outlet>\n    </ion-app>\n  `,\n  standalone: true,\n  imports: [IonicModule],\n})\nexport class AppComponent {\n  constructor() {}\n}\n",
+            "sourceCode": "import { Component } from '@angular/core';\r\nimport { IonicModule } from '@ionic/angular';\r\n\r\n@Component({\r\n  selector: 'app-root',\r\n  template: `\r\n    <ion-app>\r\n      <ion-router-outlet></ion-router-outlet>\r\n    </ion-app>\r\n  `,\r\n  standalone: true,\r\n  imports: [IonicModule],\r\n})\r\nexport class AppComponent {\r\n  constructor() {}\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
@@ -3576,7 +3576,7 @@
         },
         {
             "name": "CascadeSelectComponent",
-            "id": "component-CascadeSelectComponent-695e8f5de9ed9ac676f03a3691e3c9bc6f474941fa47aeae21dc37781dd946656dfc74b1990e44c7cb42b40bfba6f21d8dc69f2334fd77dd134da6ebc85b074b",
+            "id": "component-CascadeSelectComponent-48240e69ec079de014ec344555a4af4d31ca765ef9c6e49ffcee0919a739d08a6321d329e324c58543f8aa2ee4f6cfa7bf15d533ac821c3300678a7b9e9791c1",
             "file": "src/app/core/pages/document-builder/components/question-types/13-cascade-select/cascade-select.component.ts",
             "changeDetection": "ChangeDetectionStrategy.OnPush",
             "encapsulation": [],
@@ -3610,14 +3610,14 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { ChangeDetectionStrategy, Component, Input } from \"@angular/core\";\nimport { IonicModule } from \"@ionic/angular\";\nimport { importRxTemplate } from \"src/app/shared/imports\";\nimport { CameraCaptureComponent, FileUploadComponent, QuestionTextComponent } from \"../extras\";\nimport { SelectableComponent } from \"src/app/shared/components\";\nimport { Question } from \"src/app/core/stores/site-document/models\";\n\n@Component({\n  selector: \"cascade-select-question[question]\",\n  template: `\n    <ion-list>\n      <ion-item lines=\"none\">\n        <question-text [required]=\"question.Required\">{{ question.QuestionText }}</question-text>\n        <camera-capture *rxIf=\"question.CanHaveImg\" class=\"ion-no-margin\" slot=\"end\"></camera-capture>\n        <file-upload *rxIf=\"question.CanHaveFiles\" class=\"ion-no-margin\" slot=\"end\"></file-upload>\n      </ion-item>\n      <selectable \n        placeholder=\"Select\"\n        [title]=\"question.QuestionText\"\n        [items]=\"question.Options\"\n        itemText=\"Text\"\n        [canClear]=\"!question.Required\">\n      </selectable>\n      <ion-item lines=\"none\">\n        <question-text [required]=\"question.Required\">{{ question.CascadeOptionsText }}</question-text>\n      </ion-item>\n      <selectable\n        placeholder=\"Select\"\n        [title]=\"question.CascadeOptionsText\"\n        [items]=\"question.CascadeOptions\"\n        itemText=\"Text\"\n        [canClear]=\"!question.Required\">\n      </selectable>\n    </ion-list>\n  `,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  standalone: true,\n  imports: [\n    IonicModule,\n    ...importRxTemplate(),\n    QuestionTextComponent,\n    SelectableComponent,\n    CameraCaptureComponent,\n    FileUploadComponent\n  ]\n})\nexport class CascadeSelectComponent {\n  @Input()\n  question!: Question;\n}\n",
+            "sourceCode": "import { ChangeDetectionStrategy, Component, Input } from \"@angular/core\";\r\nimport { IonicModule } from \"@ionic/angular\";\r\nimport { importRxTemplate } from \"src/app/shared/imports\";\r\nimport { CameraCaptureComponent, FileUploadComponent, QuestionTextComponent } from \"../extras\";\r\nimport { SelectableComponent } from \"src/app/shared/components\";\r\nimport { Question } from \"src/app/core/stores/site-document/models\";\r\n\r\n@Component({\r\n  selector: \"cascade-select-question[question]\",\r\n  template: `\r\n    <ion-list>\r\n      <ion-item lines=\"none\">\r\n        <question-text [required]=\"question.Required\">{{ question.QuestionText }}</question-text>\r\n        <camera-capture *rxIf=\"question.CanHaveImg\" class=\"ion-no-margin\" slot=\"end\"></camera-capture>\r\n        <file-upload *rxIf=\"question.CanHaveFiles\" class=\"ion-no-margin\" slot=\"end\"></file-upload>\r\n      </ion-item>\r\n      <selectable \r\n        placeholder=\"Select\"\r\n        [title]=\"question.QuestionText\"\r\n        [items]=\"question.Options\"\r\n        itemText=\"Text\"\r\n        [canClear]=\"!question.Required\">\r\n      </selectable>\r\n      <ion-item lines=\"none\">\r\n        <question-text [required]=\"question.Required\">{{ question.CascadeOptionsText }}</question-text>\r\n      </ion-item>\r\n      <selectable\r\n        placeholder=\"Select\"\r\n        [title]=\"question.CascadeOptionsText\"\r\n        [items]=\"question.CascadeOptions\"\r\n        itemText=\"Text\"\r\n        [canClear]=\"!question.Required\">\r\n      </selectable>\r\n    </ion-list>\r\n  `,\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  standalone: true,\r\n  imports: [\r\n    IonicModule,\r\n    ...importRxTemplate(),\r\n    QuestionTextComponent,\r\n    SelectableComponent,\r\n    CameraCaptureComponent,\r\n    FileUploadComponent\r\n  ]\r\n})\r\nexport class CascadeSelectComponent {\r\n  @Input()\r\n  question!: Question;\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": ""
         },
         {
             "name": "CascadeSelectTextComponent",
-            "id": "component-CascadeSelectTextComponent-77ad4adfa3ccfb5e863affcbddf6d61cd5a84454ae912a5f18b0c2742a03385ec55a266b7cf8fab9d7a4b2950895d6cd63635914e6d5d292e6e85378ffad34e7",
+            "id": "component-CascadeSelectTextComponent-8fd639c8944d81415be6e81111b0eff32ef9c98bd404b8d8d322be4d72b6c778b7dc3efd670651a8a604b5447bc9b4c07718770ab738c200f60d4aac90d4c5e7",
             "file": "src/app/core/pages/document-builder/components/question-types/30-cascade-select-text/cascade-select-text.component.ts",
             "changeDetection": "ChangeDetectionStrategy.OnPush",
             "encapsulation": [],
@@ -3651,14 +3651,14 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { ChangeDetectionStrategy, Component, Input } from \"@angular/core\";\nimport { IonicModule } from \"@ionic/angular\";\nimport { importRxTemplate } from \"src/app/shared/imports\";\nimport { CameraCaptureComponent, FileUploadComponent, QuestionTextComponent } from \"../extras\";\nimport { SelectableComponent } from \"src/app/shared/components\";\nimport { Question } from \"src/app/core/stores/site-document/models\";\n\n@Component({\n  selector: \"cascade-select-text-question[question]\",\n  template: `\n    <ion-list>\n      <ion-item lines=\"none\">\n        <question-text [required]=\"question.Required\">{{ question.QuestionText }}</question-text>\n        <camera-capture *rxIf=\"question.CanHaveImg\" class=\"ion-no-margin\" slot=\"end\"></camera-capture>\n        <file-upload *rxIf=\"question.CanHaveFiles\" class=\"ion-no-margin\" slot=\"end\"></file-upload>\n      </ion-item>\n      <selectable \n        placeholder=\"Select\"\n        [title]=\"question.QuestionText\"\n        [items]=\"question.Options\"\n        itemText=\"Text\"\n        [canClear]=\"!question.Required\">\n      </selectable>\n      <ion-item lines=\"none\">\n        <question-text [required]=\"question.Required\">{{ question.CascadeOptionsText }}</question-text>\n      </ion-item>\n      <selectable\n        placeholder=\"Select\"\n        [title]=\"question.CascadeOptionsText\"\n        [items]=\"question.CascadeOptions\"\n        itemText=\"Text\"\n        [canClear]=\"!question.Required\">\n      </selectable>\n      <ion-item>\n        <ion-input \n          [label]=\"question.CommentsText || 'Comments'\" \n          labelPlacement=\"floating\" \n          type=\"text\">\n        </ion-input>\n      </ion-item>\n    </ion-list>\n  `,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  standalone: true,\n  imports: [\n    IonicModule,\n    ...importRxTemplate(),\n    QuestionTextComponent,\n    SelectableComponent,\n    CameraCaptureComponent,\n    FileUploadComponent\n  ]\n})\nexport class CascadeSelectTextComponent {\n  @Input()\n  question!: Question;\n}\n",
+            "sourceCode": "import { ChangeDetectionStrategy, Component, Input } from \"@angular/core\";\r\nimport { IonicModule } from \"@ionic/angular\";\r\nimport { importRxTemplate } from \"src/app/shared/imports\";\r\nimport { CameraCaptureComponent, FileUploadComponent, QuestionTextComponent } from \"../extras\";\r\nimport { SelectableComponent } from \"src/app/shared/components\";\r\nimport { Question } from \"src/app/core/stores/site-document/models\";\r\n\r\n@Component({\r\n  selector: \"cascade-select-text-question[question]\",\r\n  template: `\r\n    <ion-list>\r\n      <ion-item lines=\"none\">\r\n        <question-text [required]=\"question.Required\">{{ question.QuestionText }}</question-text>\r\n        <camera-capture *rxIf=\"question.CanHaveImg\" class=\"ion-no-margin\" slot=\"end\"></camera-capture>\r\n        <file-upload *rxIf=\"question.CanHaveFiles\" class=\"ion-no-margin\" slot=\"end\"></file-upload>\r\n      </ion-item>\r\n      <selectable \r\n        placeholder=\"Select\"\r\n        [title]=\"question.QuestionText\"\r\n        [items]=\"question.Options\"\r\n        itemText=\"Text\"\r\n        [canClear]=\"!question.Required\">\r\n      </selectable>\r\n      <ion-item lines=\"none\">\r\n        <question-text [required]=\"question.Required\">{{ question.CascadeOptionsText }}</question-text>\r\n      </ion-item>\r\n      <selectable\r\n        placeholder=\"Select\"\r\n        [title]=\"question.CascadeOptionsText\"\r\n        [items]=\"question.CascadeOptions\"\r\n        itemText=\"Text\"\r\n        [canClear]=\"!question.Required\">\r\n      </selectable>\r\n      <ion-item>\r\n        <ion-input \r\n          [label]=\"question.CommentsText || 'Comments'\" \r\n          labelPlacement=\"floating\" \r\n          type=\"text\">\r\n        </ion-input>\r\n      </ion-item>\r\n    </ion-list>\r\n  `,\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  standalone: true,\r\n  imports: [\r\n    IonicModule,\r\n    ...importRxTemplate(),\r\n    QuestionTextComponent,\r\n    SelectableComponent,\r\n    CameraCaptureComponent,\r\n    FileUploadComponent\r\n  ]\r\n})\r\nexport class CascadeSelectTextComponent {\r\n  @Input()\r\n  question!: Question;\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": ""
         },
         {
             "name": "CategoryActionerSelectComponent",
-            "id": "component-CategoryActionerSelectComponent-d0e164bceea1709a9f211f55efc16129b18559a6e62d1c2e8b1679930b992b0a5a00351dba3b204c8b083d6d405843274bd03dd62f10be0b0c792d82cee9c2dc",
+            "id": "component-CategoryActionerSelectComponent-021ffc22d83e88c2c85c5bd5f97fecf8740a25d80c49d80a041f5c0a566b720d8c12f5ee35c53915f3bf547545ab2187005dc398225a97a3699addd964f8d044",
             "file": "src/app/core/pages/document-builder/components/input-types/category-actioner-select/category-actioner-select.component.ts",
             "changeDetection": "ChangeDetectionStrategy.OnPush",
             "encapsulation": [],
@@ -3720,7 +3720,7 @@
             "propertiesClass": [
                 {
                     "name": "categoryActioners$",
-                    "defaultValue": "merge(\n    this.afterViewInit$, \n    this.input$(\"categoryId\")\n  ).pipe(\n    switchMap(() => this.categoryActionersStore.categoryActionersById$(this.categoryId))\n  )",
+                    "defaultValue": "merge(\r\n    this.afterViewInit$, \r\n    this.input$(\"categoryId\")\r\n  ).pipe(\r\n    switchMap(() => this.categoryActionersStore.categoryActionersById$(this.categoryId))\r\n  )",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Observable<CategoryActioner[]>",
@@ -3740,7 +3740,7 @@
                 },
                 {
                     "name": "selectedActioner$",
-                    "defaultValue": "merge(this.afterViewInit$, this.input$(\"actionerId\")).pipe(\n    switchMap(() => this.categoryActioners$),\n    map(catActioners => catActioners.find(ca => ca.Id === this.actionerId) || null)\n  )",
+                    "defaultValue": "merge(this.afterViewInit$, this.input$(\"actionerId\")).pipe(\r\n    switchMap(() => this.categoryActioners$),\r\n    map(catActioners => catActioners.find(ca => ca.Id === this.actionerId) || null)\r\n  )",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Observable<CategoryActioner | null>",
@@ -3770,7 +3770,7 @@
                 },
                 {
                     "name": "visibleCatActioners$",
-                    "defaultValue": "merge(\n    this.afterViewInit$,\n    this.input$(\"hideMyself\")\n  ).pipe(\n    switchMap(() => combineLatest({\n      user: this.user$,\n      catActioners: this.categoryActioners$\n    })),\n    map(({ user, catActioners }) => this.hideMyself \n      ? catActioners.filter(ca => ca.Id === user!.Id)\n      : catActioners\n    )\n  )",
+                    "defaultValue": "merge(\r\n    this.afterViewInit$,\r\n    this.input$(\"hideMyself\")\r\n  ).pipe(\r\n    switchMap(() => combineLatest({\r\n      user: this.user$,\r\n      catActioners: this.categoryActioners$\r\n    })),\r\n    map(({ user, catActioners }) => this.hideMyself \r\n      ? catActioners.filter(ca => ca.Id === user!.Id)\r\n      : catActioners\r\n    )\r\n  )",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Observable<CategoryActioner[]>",
@@ -3787,7 +3787,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, inject } from \"@angular/core\";\nimport { IonicModule } from \"@ionic/angular\";\nimport { Observable, combineLatest, map, merge, switchMap } from \"rxjs\";\nimport { CategoryActioner, CategoryActionersStore } from \"src/app/core/stores/category-actioners/category-actioners.store\";\nimport { UserStore } from \"src/app/core/stores/user/user.store\";\nimport { SelectableComponent } from \"src/app/shared/components\";\nimport { importRxTemplate } from \"src/app/shared/imports\";\nimport { AngularComponent, withAfterViewInit, withOnChanges } from \"src/app/shared/lifecycles\";\n\n@Component({\n  selector: \"category-actioner-select[categoryId]\",\n  template: `\n    <ion-card>\n      <ion-card-header>\n        <ion-card-title class=\"text-center\">{{ title || \"Category Actioner\" }}</ion-card-title>\n      </ion-card-header>\n      <ion-card-content>\n        <ion-list>\n          <selectable \n            [title]=\"title || 'Category Actioner'\"\n            placeholder=\"Actioner\"\n            [value]=\"selectedActioner$ | push\"\n            [items]=\"visibleCatActioners$ | push\"\n            itemText=\"Name\">\n          </selectable>\n        </ion-list>\n      </ion-card-content>\n    </ion-card>\n  `,\n  standalone: true,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  imports: [\n    IonicModule,\n    ...importRxTemplate(),\n    SelectableComponent\n  ]\n})\nexport class CategoryActionerSelectComponent extends AngularComponent(withAfterViewInit, withOnChanges) {\n  userStore = inject(UserStore);\n  categoryActionersStore = inject(CategoryActionersStore);\n  \n  @Input()\n  title?: string;\n\n  @Input()\n  hideMyself: boolean = false;\n\n  @Input()\n  categoryId!: number;\n\n  @Input()\n  actionerId?: number;\n\n  @Output()\n  actionerIdChange = new EventEmitter<number>();\n\n  user$ = this.userStore.user$;\n\n  categoryActioners$: Observable<CategoryActioner[]> = merge(\n    this.afterViewInit$, \n    this.input$(\"categoryId\")\n  ).pipe(\n    switchMap(() => this.categoryActionersStore.categoryActionersById$(this.categoryId))\n  );\n\n  visibleCatActioners$: Observable<CategoryActioner[]> = merge(\n    this.afterViewInit$,\n    this.input$(\"hideMyself\")\n  ).pipe(\n    switchMap(() => combineLatest({\n      user: this.user$,\n      catActioners: this.categoryActioners$\n    })),\n    map(({ user, catActioners }) => this.hideMyself \n      ? catActioners.filter(ca => ca.Id === user!.Id)\n      : catActioners\n    )\n  );\n\n  selectedActioner$: Observable<CategoryActioner | null> = merge(this.afterViewInit$, this.input$(\"actionerId\")).pipe(\n    switchMap(() => this.categoryActioners$),\n    map(catActioners => catActioners.find(ca => ca.Id === this.actionerId) || null)\n  );\n}\n",
+            "sourceCode": "import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, inject } from \"@angular/core\";\r\nimport { IonicModule } from \"@ionic/angular\";\r\nimport { Observable, combineLatest, map, merge, switchMap } from \"rxjs\";\r\nimport { CategoryActioner, CategoryActionersStore } from \"src/app/core/stores/category-actioners/category-actioners.store\";\r\nimport { UserStore } from \"src/app/core/stores/user/user.store\";\r\nimport { SelectableComponent } from \"src/app/shared/components\";\r\nimport { importRxTemplate } from \"src/app/shared/imports\";\r\nimport { AngularComponent, withAfterViewInit, withOnChanges } from \"src/app/shared/lifecycles\";\r\n\r\n@Component({\r\n  selector: \"category-actioner-select[categoryId]\",\r\n  template: `\r\n    <ion-card>\r\n      <ion-card-header>\r\n        <ion-card-title class=\"text-center\">{{ title || \"Category Actioner\" }}</ion-card-title>\r\n      </ion-card-header>\r\n      <ion-card-content>\r\n        <ion-list>\r\n          <selectable \r\n            [title]=\"title || 'Category Actioner'\"\r\n            placeholder=\"Actioner\"\r\n            [value]=\"selectedActioner$ | push\"\r\n            [items]=\"visibleCatActioners$ | push\"\r\n            itemText=\"Name\">\r\n          </selectable>\r\n        </ion-list>\r\n      </ion-card-content>\r\n    </ion-card>\r\n  `,\r\n  standalone: true,\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  imports: [\r\n    IonicModule,\r\n    ...importRxTemplate(),\r\n    SelectableComponent\r\n  ]\r\n})\r\nexport class CategoryActionerSelectComponent extends AngularComponent(withAfterViewInit, withOnChanges) {\r\n  userStore = inject(UserStore);\r\n  categoryActionersStore = inject(CategoryActionersStore);\r\n  \r\n  @Input()\r\n  title?: string;\r\n\r\n  @Input()\r\n  hideMyself: boolean = false;\r\n\r\n  @Input()\r\n  categoryId!: number;\r\n\r\n  @Input()\r\n  actionerId?: number;\r\n\r\n  @Output()\r\n  actionerIdChange = new EventEmitter<number>();\r\n\r\n  user$ = this.userStore.user$;\r\n\r\n  categoryActioners$: Observable<CategoryActioner[]> = merge(\r\n    this.afterViewInit$, \r\n    this.input$(\"categoryId\")\r\n  ).pipe(\r\n    switchMap(() => this.categoryActionersStore.categoryActionersById$(this.categoryId))\r\n  );\r\n\r\n  visibleCatActioners$: Observable<CategoryActioner[]> = merge(\r\n    this.afterViewInit$,\r\n    this.input$(\"hideMyself\")\r\n  ).pipe(\r\n    switchMap(() => combineLatest({\r\n      user: this.user$,\r\n      catActioners: this.categoryActioners$\r\n    })),\r\n    map(({ user, catActioners }) => this.hideMyself \r\n      ? catActioners.filter(ca => ca.Id === user!.Id)\r\n      : catActioners\r\n    )\r\n  );\r\n\r\n  selectedActioner$: Observable<CategoryActioner | null> = merge(this.afterViewInit$, this.input$(\"actionerId\")).pipe(\r\n    switchMap(() => this.categoryActioners$),\r\n    map(catActioners => catActioners.find(ca => ca.Id === this.actionerId) || null)\r\n  );\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": ""
@@ -3876,7 +3876,7 @@
         },
         {
             "name": "ChildDocumentCardComponent",
-            "id": "component-ChildDocumentCardComponent-efce43523e18da0db1fede17efdb921184e2e70d997f23adc1bcebc5876c86f35aa7e494998b3c2a6fda4e582fb2d8c76757b457759738daeccf66977d610780",
+            "id": "component-ChildDocumentCardComponent-b1ee1c7e99c397ab011102f8e74d56d99f3fa53e2db86f47cd43ee082b49077b804b6efa743680da5dd83cd377382f03558846b462b76233ae6404e05cc97bbf",
             "file": "src/app/core/pages/document-builder/components/child-document-card/child-document-card.component.ts",
             "changeDetection": "ChangeDetectionStrategy.OnPush",
             "encapsulation": [],
@@ -3901,7 +3901,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { ChangeDetectionStrategy, Component } from \"@angular/core\";\nimport { IonicModule } from \"@ionic/angular\";\n\n@Component({\n  selector: \"child-document-card[document]\",\n  template: `\n    <ion-list>\n      <ion-list-header>Action Document</ion-list-header>\n      <ion-item lines=\"none\">\n        <ion-label class=\"ion-text-wrap\">\n          \n        </ion-label>\n        <ion-button>\n          <ion-icon name=\"pencil-outline\" slot=\"icon-only\"></ion-icon>\n        </ion-button>\n      </ion-item>\n    </ion-list>\n  `,\n  standalone: true,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  imports: [IonicModule]\n})\nexport class ChildDocumentCardComponent {\n}\n",
+            "sourceCode": "import { ChangeDetectionStrategy, Component } from \"@angular/core\";\r\nimport { IonicModule } from \"@ionic/angular\";\r\n\r\n@Component({\r\n  selector: \"child-document-card[document]\",\r\n  template: `\r\n    <ion-list>\r\n      <ion-list-header>Action Document</ion-list-header>\r\n      <ion-item lines=\"none\">\r\n        <ion-label class=\"ion-text-wrap\">\r\n          \r\n        </ion-label>\r\n        <ion-button>\r\n          <ion-icon name=\"pencil-outline\" slot=\"icon-only\"></ion-icon>\r\n        </ion-button>\r\n      </ion-item>\r\n    </ion-list>\r\n  `,\r\n  standalone: true,\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  imports: [IonicModule]\r\n})\r\nexport class ChildDocumentCardComponent {\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": ""
@@ -4179,7 +4179,7 @@
         },
         {
             "name": "DocumentBuilderPage",
-            "id": "component-DocumentBuilderPage-460ef66508c16a06c57cb12f65d88f64674cc00088643b92fdab178b2a1d696192d1b97acd59662262a14b80fcf796bbaef6ff8530cc36b3041db837ec49e79e",
+            "id": "component-DocumentBuilderPage-8cf5eb1bd725539b096861aa03032be9351971ea5052da0b3a23889177f4fbc711886c177ac485294252409f8cd0a0f9859e3bcbed599caeea61a7b208d13c83",
             "file": "src/app/core/pages/document-builder/document-builder.page.ts",
             "changeDetection": "ChangeDetectionStrategy.OnPush",
             "encapsulation": [],
@@ -4190,7 +4190,7 @@
             "selector": "app-document-builder",
             "styleUrls": [],
             "styles": [],
-            "template": "<ion-header>\n  <ion-toolbar *rxIf=\"document$; let document\">\n    <ion-title class=\"ion-text-center ion-text-wrap\">\n      {{ document.DocumentTitle }}\n    </ion-title>\n    <ion-buttons *rxIf=\"isMobileApp\" slot=\"end\">\n      <if [condition]=\"document.Pinned\">\n        <ion-button [unpatch] show color=\"primary\">\n          <ion-icon name=\"bookmark\"></ion-icon>\n        </ion-button>\n\n        <ion-button [unpatch] else>\n          <ion-icon name=\"bookmark-outline\"></ion-icon>\n        </ion-button>\n      </if>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content *rxIf=\"document$; let document\" class=\"ion-padding\">\n  <actioner-select *rxIf=\"document.CanAddActionerFromApp\"></actioner-select>\n  <category-actioner-select [categoryId]=\"document.DocumentCategory\"></category-actioner-select>\n  <company-actioner-select *rxIf=\"document.CanHaveCompanyActioner\"></company-actioner-select>\n  <queue-select *rxIf=\"document.Queues && document.Queues.length > 0\"></queue-select>\n  <site-select\n    *rxIf=\"document.MetaData?.HasSiteList\"\n    [title]=\"document.MetaData.SiteListTitle\"\n    [(siteId)]=\"document.SiteId\">\n  </site-select>\n  <queue-duration *rxIf=\"document.CanHaveQueueDuration\"></queue-duration>\n\n  <document-page *rxFor=\"let page of document.Pages; index as idx\" [page]=\"page\" [hidden]=\"pageIndex.isNotNumber$(idx) | push\">\n    <document-section *rxFor=\"let section of page.Sections\" [section]=\"section\">\n      <ng-template [ngSwitch]=\"section.SectionQuestiontype\" [questions]=\"section.Questions\" let-question>\n        <label-question *ngSwitchCase=\"QuestionType.Label\" [question]=\"question\"></label-question>\n        <checkbox-question *ngSwitchCase=\"QuestionType.Checkbox\" [question]=\"question\"></checkbox-question>\n        <radio-group-question *ngSwitchCase=\"QuestionType.RadioGroup\" [section]=\"section\" [question]=\"question\"></radio-group-question>\n        <radio-table-question\n          *rxIf=\"section.SectionQuestiontype === QuestionType.RadioGroup && document.MetaData.UsesRadioGroupTable\"\n          [question]=\"question\">\n        </radio-table-question>\n        <textarea-question *ngSwitchCase=\"QuestionType.TextArea\" [question]=\"question\"></textarea-question>\n        <select-question *ngSwitchCase=\"QuestionType.Select\" [question]=\"question\"></select-question>\n        <checkbox-question *ngSwitchCase=\"QuestionType.CheckboxTextbox\" [question]=\"question\"></checkbox-question>\n        <radio-group-textbox-question *ngSwitchCase=\"QuestionType.RadioGroupTextbox\" [question]=\"question\" [section]=\"section\"></radio-group-textbox-question>\n        <radio-table-textbox-question\n          *rxIf=\"section.SectionQuestiontype === QuestionType.RadioGroupTextbox && document.MetaData.UsesRadioGroupTable\"\n          [question]=\"question\">\n        </radio-table-textbox-question>\n        <date-question *ngSwitchCase=\"QuestionType.Date\" [question]=\"question\"></date-question>\n        <datetime-question *ngSwitchCase=\"QuestionType.DateTime\" [question]=\"question\"></datetime-question>\n        <operative-list-question *ngSwitchCase=\"QuestionType.OperativeList\" [question]=\"question\"></operative-list-question>\n        <number-question *ngSwitchCase=\"QuestionType.Number\" [question]=\"question\"></number-question>\n        <asset-list-question *ngSwitchCase=\"QuestionType.AssetList\" [question]=\"question\"></asset-list-question>\n        <linked-dates-question *ngSwitchCase=\"QuestionType.LinkedDates\" [question]=\"question\"></linked-dates-question>\n        <signature-question *ngSwitchCase=\"QuestionType.Signature\" [question]=\"question\"></signature-question>\n        <select-text-question *ngSwitchCase=\"QuestionType.SelectText\" [question]=\"question\"></select-text-question>\n        <time-question *ngSwitchCase=\"QuestionType.Time\" [question]=\"question\"></time-question>\n      </ng-template>\n    </document-section>\n  </document-page>\n\n  <remain-anonymous\n    *rxIf=\"document.AllowAnon\"\n    [(isTicked)]=\"document.RemainAnon\">\n  </remain-anonymous>\n\n  <ion-button\n    (click)=\"submit(document)\"\n    [unpatch]\n    class=\"ion-margin-vertical\"\n    expand=\"full\">\n    Submit\n  </ion-button>\n</ion-content>\n\n<ng-container *rxIf=\"document$; let document\">\n  <ion-footer *rxLet=\"pageIndex.value$; let idx\">\n    <ion-button\n      *rxIf=\"idx > 0\"\n      (click)=\"pageIndex.decrement()\"\n      class=\"float-left\">\n      Back\n    </ion-button>\n    <ion-button\n      *rxIf=\"idx < document.Pages.length\"\n      (click)=\"pageIndex.increment()\"\n      class=\"float-right\">\n      Next\n    </ion-button>\n  </ion-footer>\n</ng-container>\n",
+            "template": "<ion-header>\n  <ion-toolbar *rxIf=\"document$; let document\">\n    <ion-title class=\"ion-text-center ion-text-wrap\">\n      {{ document.DocumentTitle }}\n    </ion-title>\n    <ion-buttons *rxIf=\"isMobileApp\" slot=\"end\">\n      <if [condition]=\"document.Pinned\">\n        <ion-button [unpatch] show color=\"primary\">\n          <ion-icon name=\"bookmark\"></ion-icon>\n        </ion-button>\n\n        <ion-button [unpatch] else>\n          <ion-icon name=\"bookmark-outline\"></ion-icon>\n        </ion-button>\n      </if>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content *rxIf=\"document$; let document\" class=\"ion-padding\">\n  <actioner-select *rxIf=\"document.CanAddActionerFromApp\"></actioner-select>\n  <category-actioner-select\n    *rxIf=\"document.CanAddCategoryActioner && document.DocumentCategory != null\"\n    [categoryId]=\"document.DocumentCategory\">\n  </category-actioner-select>\n  <company-actioner-select *rxIf=\"document.CanHaveCompanyActioner\"></company-actioner-select>\n  <queue-select *rxIf=\"document.Queues && document.Queues.length > 0\"></queue-select>\n  <site-select\n    *rxIf=\"document.MetaData?.HasSiteList\"\n    [title]=\"document.MetaData.SiteListTitle\"\n    [(siteId)]=\"document.SiteId\">\n  </site-select>\n  <queue-duration *rxIf=\"document.CanHaveQueueDuration\"></queue-duration>\n\n  <document-page *rxFor=\"let page of document.Pages; index as idx\" [page]=\"page\" [hidden]=\"pageIndex.isNotNumber$(idx) | push\">\n    <document-section *rxFor=\"let section of page.Sections\" [section]=\"section\">\n      <ng-template [ngSwitch]=\"section.SectionQuestiontype\" [questions]=\"section.Questions\" let-question>\n        <label-question *ngSwitchCase=\"QuestionType.Label\" [question]=\"question\"></label-question>\n        <checkbox-question *ngSwitchCase=\"QuestionType.Checkbox\" [question]=\"question\"></checkbox-question>\n        <radio-group-question *ngSwitchCase=\"QuestionType.RadioGroup\" [section]=\"section\" [question]=\"question\"></radio-group-question>\n        <radio-table-question\n          *rxIf=\"section.SectionQuestiontype === QuestionType.RadioGroup && document.MetaData.UsesRadioGroupTable\"\n          [question]=\"question\">\n        </radio-table-question>\n        <textarea-question *ngSwitchCase=\"QuestionType.TextArea\" [question]=\"question\"></textarea-question>\n        <select-question *ngSwitchCase=\"QuestionType.Select\" [question]=\"question\"></select-question>\n        <checkbox-question *ngSwitchCase=\"QuestionType.CheckboxTextbox\" [question]=\"question\"></checkbox-question>\n        <radio-group-textbox-question *ngSwitchCase=\"QuestionType.RadioGroupTextbox\" [question]=\"question\" [section]=\"section\"></radio-group-textbox-question>\n        <radio-table-textbox-question\n          *rxIf=\"section.SectionQuestiontype === QuestionType.RadioGroupTextbox && document.MetaData.UsesRadioGroupTable\"\n          [question]=\"question\">\n        </radio-table-textbox-question>\n        <date-question *ngSwitchCase=\"QuestionType.Date\" [question]=\"question\"></date-question>\n        <datetime-question *ngSwitchCase=\"QuestionType.DateTime\" [question]=\"question\"></datetime-question>\n        <operative-list-question *ngSwitchCase=\"QuestionType.OperativeList\" [question]=\"question\"></operative-list-question>\n        <number-question *ngSwitchCase=\"QuestionType.Number\" [question]=\"question\"></number-question>\n        <asset-list-question *ngSwitchCase=\"QuestionType.AssetList\" [question]=\"question\"></asset-list-question>\n        <linked-dates-question *ngSwitchCase=\"QuestionType.LinkedDates\" [question]=\"question\"></linked-dates-question>\n        <signature-question *ngSwitchCase=\"QuestionType.Signature\" [question]=\"question\"></signature-question>\n        <select-text-question *ngSwitchCase=\"QuestionType.SelectText\" [question]=\"question\"></select-text-question>\n        <time-question *ngSwitchCase=\"QuestionType.Time\" [question]=\"question\"></time-question>\n      </ng-template>\n    </document-section>\n  </document-page>\n\n  <remain-anonymous\n    *rxIf=\"document.AllowAnon\"\n    [(isTicked)]=\"document.RemainAnon\">\n  </remain-anonymous>\n\n  <ion-button\n    (click)=\"submit(document)\"\n    [unpatch]\n    class=\"ion-margin-vertical\"\n    expand=\"full\">\n    Submit\n  </ion-button>\n</ion-content>\n\n<ng-container *rxIf=\"document$; let document\">\n  <ion-footer *rxLet=\"pageIndex.value$; let idx\">\n    <ion-button\n      *rxIf=\"idx > 0\"\n      (click)=\"pageIndex.decrement()\"\n      class=\"float-left\">\n      Back\n    </ion-button>\n    <ion-button\n      *rxIf=\"idx < document.Pages.length\"\n      (click)=\"pageIndex.increment()\"\n      class=\"float-right\">\n      Next\n    </ion-button>\n  </ion-footer>\n</ng-container>\n",
             "templateUrl": [],
             "viewProviders": [],
             "inputsClass": [],
@@ -4204,7 +4204,7 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 134
+                    "line": 137
                 },
                 {
                     "name": "formFillerRoute",
@@ -4214,7 +4214,7 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 128,
+                    "line": 131,
                     "modifierKind": [
                         122,
                         144
@@ -4228,7 +4228,7 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 129,
+                    "line": 132,
                     "modifierKind": [
                         122,
                         144
@@ -4242,7 +4242,7 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 132
+                    "line": 135
                 },
                 {
                     "name": "pageIndex",
@@ -4252,7 +4252,7 @@
                     "type": "object",
                     "optional": false,
                     "description": "",
-                    "line": 146
+                    "line": 149
                 },
                 {
                     "name": "QuestionType",
@@ -4262,7 +4262,7 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 131
+                    "line": 134
                 },
                 {
                     "name": "submit",
@@ -4272,7 +4272,7 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 141
+                    "line": 144
                 }
             ],
             "methodsClass": [],
@@ -4283,14 +4283,14 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { ChangeDetectionStrategy, Component, inject } from \"@angular/core\";\r\nimport { IonicModule } from \"@ionic/angular\";\r\nimport { filter, merge, shareReplay, switchMap } from \"rxjs\";\r\nimport { IfComponent } from \"src/app/shared/components\";\r\nimport { importNgSwitch, importRxTemplate } from \"src/app/shared/imports\";\r\nimport { AngularComponent } from \"src/app/shared/lifecycles\";\r\nimport { FormFillerStore } from \"../../stores/site-document/form-filler/form-filler.store\";\r\nimport { DocumentPageComponent, DocumentSectionComponent, QuestionTemplateDirective, importInputTypes, importQuestionTypes } from \"./components\";\r\nimport { FormFillerRoute } from \"./routes\";\r\nimport { clickReaction, reaction } from \"src/app/shared/reactions\";\r\nimport { TemplateMenuModal } from \"./modals\";\r\nimport { QuestionType, SiteDocument } from \"../../stores/site-document/models\";\r\nimport { isMobileApp } from \"src/app/shared/plugins/platform.plugin\";\r\nimport { numberAdapter } from \"src/app/shared/adapters/number.adapter\";\r\n\r\n@Component({\r\n  selector: 'app-document-builder',\r\n  template: `\r\n    <ion-header>\r\n      <ion-toolbar *rxIf=\"document$; let document\">\r\n        <ion-title class=\"ion-text-center ion-text-wrap\">\r\n          {{ document.DocumentTitle }}\r\n        </ion-title>\r\n        <ion-buttons *rxIf=\"isMobileApp\" slot=\"end\">\r\n          <if [condition]=\"document.Pinned\">\r\n            <ion-button [unpatch] show color=\"primary\">\r\n              <ion-icon name=\"bookmark\"></ion-icon>\r\n            </ion-button>\r\n\r\n            <ion-button [unpatch] else>\r\n              <ion-icon name=\"bookmark-outline\"></ion-icon>\r\n            </ion-button>\r\n          </if>\r\n        </ion-buttons>\r\n      </ion-toolbar>\r\n    </ion-header>\r\n\r\n    <ion-content *rxIf=\"document$; let document\" class=\"ion-padding\">\r\n      <actioner-select *rxIf=\"document.CanAddActionerFromApp\"></actioner-select>\r\n      <category-actioner-select [categoryId]=\"document.DocumentCategory\"></category-actioner-select>\r\n      <company-actioner-select *rxIf=\"document.CanHaveCompanyActioner\"></company-actioner-select>\r\n      <queue-select *rxIf=\"document.Queues && document.Queues.length > 0\"></queue-select>\r\n      <site-select \r\n        *rxIf=\"document.MetaData?.HasSiteList\"\r\n        [title]=\"document.MetaData.SiteListTitle\"\r\n        [(siteId)]=\"document.SiteId\">\r\n      </site-select>\r\n      <queue-duration *rxIf=\"document.CanHaveQueueDuration\"></queue-duration>\r\n\r\n      <document-page *rxFor=\"let page of document.Pages; index as idx\" [page]=\"page\" [hidden]=\"pageIndex.isNotNumber$(idx) | push\">\r\n        <document-section *rxFor=\"let section of page.Sections\" [section]=\"section\">\r\n          <ng-template [ngSwitch]=\"section.SectionQuestiontype\" [questions]=\"section.Questions\" let-question>\r\n            <label-question *ngSwitchCase=\"QuestionType.Label\" [question]=\"question\"></label-question>\r\n            <checkbox-question *ngSwitchCase=\"QuestionType.Checkbox\" [question]=\"question\"></checkbox-question>\r\n            <radio-group-question *ngSwitchCase=\"QuestionType.RadioGroup\" [section]=\"section\" [question]=\"question\"></radio-group-question>\r\n            <radio-table-question \r\n              *rxIf=\"section.SectionQuestiontype === QuestionType.RadioGroup && document.MetaData.UsesRadioGroupTable\" \r\n              [question]=\"question\">\r\n            </radio-table-question>\r\n            <textarea-question *ngSwitchCase=\"QuestionType.TextArea\" [question]=\"question\"></textarea-question>\r\n            <select-question *ngSwitchCase=\"QuestionType.Select\" [question]=\"question\"></select-question>\r\n            <checkbox-question *ngSwitchCase=\"QuestionType.CheckboxTextbox\" [question]=\"question\"></checkbox-question>\r\n            <radio-group-textbox-question *ngSwitchCase=\"QuestionType.RadioGroupTextbox\" [question]=\"question\" [section]=\"section\"></radio-group-textbox-question>\r\n            <radio-table-textbox-question \r\n              *rxIf=\"section.SectionQuestiontype === QuestionType.RadioGroupTextbox && document.MetaData.UsesRadioGroupTable\" \r\n              [question]=\"question\">\r\n            </radio-table-textbox-question>\r\n            <date-question *ngSwitchCase=\"QuestionType.Date\" [question]=\"question\"></date-question>\r\n            <datetime-question *ngSwitchCase=\"QuestionType.DateTime\" [question]=\"question\"></datetime-question>\r\n            <operative-list-question *ngSwitchCase=\"QuestionType.OperativeList\" [question]=\"question\"></operative-list-question>\r\n            <number-question *ngSwitchCase=\"QuestionType.Number\" [question]=\"question\"></number-question>\r\n            <asset-list-question *ngSwitchCase=\"QuestionType.AssetList\" [question]=\"question\"></asset-list-question>\r\n            <linked-dates-question *ngSwitchCase=\"QuestionType.LinkedDates\" [question]=\"question\"></linked-dates-question>\r\n            <signature-question *ngSwitchCase=\"QuestionType.Signature\" [question]=\"question\"></signature-question>\r\n            <select-text-question *ngSwitchCase=\"QuestionType.SelectText\" [question]=\"question\"></select-text-question>\r\n            <time-question *ngSwitchCase=\"QuestionType.Time\" [question]=\"question\"></time-question>\r\n          </ng-template>\r\n        </document-section>\r\n      </document-page>\r\n\r\n      <remain-anonymous \r\n        *rxIf=\"document.AllowAnon\"\r\n        [(isTicked)]=\"document.RemainAnon\">\r\n      </remain-anonymous>\r\n\r\n      <ion-button\r\n        (click)=\"submit(document)\"\r\n        [unpatch] \r\n        class=\"ion-margin-vertical\" \r\n        expand=\"full\">\r\n        Submit\r\n      </ion-button>\r\n    </ion-content>\r\n\r\n    <ng-container *rxIf=\"document$; let document\">\r\n      <ion-footer *rxLet=\"pageIndex.value$; let idx\">\r\n        <ion-button \r\n          *rxIf=\"idx > 0\" \r\n          (click)=\"pageIndex.decrement()\"\r\n          class=\"float-left\">\r\n          Back\r\n        </ion-button>\r\n        <ion-button \r\n          *rxIf=\"idx < document.Pages.length\" \r\n          (click)=\"pageIndex.increment()\"\r\n          class=\"float-right\">\r\n          Next\r\n        </ion-button>\r\n      </ion-footer>\r\n    </ng-container>\r\n  `,\r\n  standalone: true,\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  imports: [\r\n    IonicModule,\r\n    ...importRxTemplate(),\r\n    ...importNgSwitch(),\r\n    IfComponent,\r\n    DocumentPageComponent,\r\n    DocumentSectionComponent,\r\n    QuestionTemplateDirective,\r\n    ...importInputTypes(),\r\n    ...importQuestionTypes(),\r\n    TemplateMenuModal\r\n  ]\r\n})\r\nexport class DocumentBuilderPage extends AngularComponent() {\r\n  protected readonly formFillerRoute = inject(FormFillerRoute);\r\n  protected readonly formFillerStore = inject(FormFillerStore);\r\n\r\n  QuestionType = QuestionType;\r\n  isMobileApp = isMobileApp();\r\n\r\n  document$ = merge(\r\n    this.formFillerStore.getTemplateRequest$(this.formFillerRoute.lastDocumentId$),\r\n  ).pipe(\r\n    switchMap(() => this.formFillerStore.writingDocument$),\r\n    shareReplay()\r\n  );\r\n\r\n  submit = reaction<SiteDocument>(document$ => this.formFillerStore.submitDocument$(document$).pipe(\r\n    this.takeUntilDestroyed(),\r\n    clickReaction()\r\n  ));\r\n\r\n  pageIndex = {\r\n    ...numberAdapter(\"PageIndex\", 0),\r\n    isNotNumber$: (page: number) => this.pageIndex.is$(idx => idx !== page),\r\n    isGreaterThan0$: () => this.pageIndex.is$(idx => idx > 0),\r\n    isLessThanDocumentLength$: () => this.document$.pipe(\r\n      filter(doc => doc != null),\r\n      switchMap(doc => this.pageIndex.is$(idx => idx < doc!.Pages.length))\r\n    )\r\n  };\r\n}\r\n",
+            "sourceCode": "import { ChangeDetectionStrategy, Component, inject } from \"@angular/core\";\r\nimport { IonicModule } from \"@ionic/angular\";\r\nimport { filter, merge, shareReplay, switchMap } from \"rxjs\";\r\nimport { IfComponent } from \"src/app/shared/components\";\r\nimport { importNgSwitch, importRxTemplate } from \"src/app/shared/imports\";\r\nimport { AngularComponent } from \"src/app/shared/lifecycles\";\r\nimport { FormFillerStore } from \"../../stores/site-document/form-filler/form-filler.store\";\r\nimport { DocumentPageComponent, DocumentSectionComponent, QuestionTemplateDirective, importInputTypes, importQuestionTypes } from \"./components\";\r\nimport { FormFillerRoute } from \"./routes\";\r\nimport { clickReaction, reaction } from \"src/app/shared/reactions\";\r\nimport { TemplateMenuModal } from \"./modals\";\r\nimport { QuestionType, SiteDocument } from \"../../stores/site-document/models\";\r\nimport { isMobileApp } from \"src/app/shared/plugins/platform.plugin\";\r\nimport { numberAdapter } from \"src/app/shared/adapters/number.adapter\";\r\n\r\n@Component({\r\n  selector: 'app-document-builder',\r\n  template: `\r\n    <ion-header>\r\n      <ion-toolbar *rxIf=\"document$; let document\">\r\n        <ion-title class=\"ion-text-center ion-text-wrap\">\r\n          {{ document.DocumentTitle }}\r\n        </ion-title>\r\n        <ion-buttons *rxIf=\"isMobileApp\" slot=\"end\">\r\n          <if [condition]=\"document.Pinned\">\r\n            <ion-button [unpatch] show color=\"primary\">\r\n              <ion-icon name=\"bookmark\"></ion-icon>\r\n            </ion-button>\r\n\r\n            <ion-button [unpatch] else>\r\n              <ion-icon name=\"bookmark-outline\"></ion-icon>\r\n            </ion-button>\r\n          </if>\r\n        </ion-buttons>\r\n      </ion-toolbar>\r\n    </ion-header>\r\n\r\n    <ion-content *rxIf=\"document$; let document\" class=\"ion-padding\">\r\n      <actioner-select *rxIf=\"document.CanAddActionerFromApp\"></actioner-select>\r\n      <category-actioner-select \r\n        *rxIf=\"document.CanAddCategoryActioner && document.DocumentCategory != null\" \r\n        [categoryId]=\"document.DocumentCategory\">\r\n      </category-actioner-select>\r\n      <company-actioner-select *rxIf=\"document.CanHaveCompanyActioner\"></company-actioner-select>\r\n      <queue-select *rxIf=\"document.Queues && document.Queues.length > 0\"></queue-select>\r\n      <site-select \r\n        *rxIf=\"document.MetaData?.HasSiteList\"\r\n        [title]=\"document.MetaData.SiteListTitle\"\r\n        [(siteId)]=\"document.SiteId\">\r\n      </site-select>\r\n      <queue-duration *rxIf=\"document.CanHaveQueueDuration\"></queue-duration>\r\n\r\n      <document-page *rxFor=\"let page of document.Pages; index as idx\" [page]=\"page\" [hidden]=\"pageIndex.isNotNumber$(idx) | push\">\r\n        <document-section *rxFor=\"let section of page.Sections\" [section]=\"section\">\r\n          <ng-template [ngSwitch]=\"section.SectionQuestiontype\" [questions]=\"section.Questions\" let-question>\r\n            <label-question *ngSwitchCase=\"QuestionType.Label\" [question]=\"question\"></label-question>\r\n            <checkbox-question *ngSwitchCase=\"QuestionType.Checkbox\" [question]=\"question\"></checkbox-question>\r\n            <radio-group-question *ngSwitchCase=\"QuestionType.RadioGroup\" [section]=\"section\" [question]=\"question\"></radio-group-question>\r\n            <radio-table-question \r\n              *rxIf=\"section.SectionQuestiontype === QuestionType.RadioGroup && document.MetaData.UsesRadioGroupTable\" \r\n              [question]=\"question\">\r\n            </radio-table-question>\r\n            <textarea-question *ngSwitchCase=\"QuestionType.TextArea\" [question]=\"question\"></textarea-question>\r\n            <select-question *ngSwitchCase=\"QuestionType.Select\" [question]=\"question\"></select-question>\r\n            <checkbox-question *ngSwitchCase=\"QuestionType.CheckboxTextbox\" [question]=\"question\"></checkbox-question>\r\n            <radio-group-textbox-question *ngSwitchCase=\"QuestionType.RadioGroupTextbox\" [question]=\"question\" [section]=\"section\"></radio-group-textbox-question>\r\n            <radio-table-textbox-question \r\n              *rxIf=\"section.SectionQuestiontype === QuestionType.RadioGroupTextbox && document.MetaData.UsesRadioGroupTable\" \r\n              [question]=\"question\">\r\n            </radio-table-textbox-question>\r\n            <date-question *ngSwitchCase=\"QuestionType.Date\" [question]=\"question\"></date-question>\r\n            <datetime-question *ngSwitchCase=\"QuestionType.DateTime\" [question]=\"question\"></datetime-question>\r\n            <operative-list-question *ngSwitchCase=\"QuestionType.OperativeList\" [question]=\"question\"></operative-list-question>\r\n            <number-question *ngSwitchCase=\"QuestionType.Number\" [question]=\"question\"></number-question>\r\n            <asset-list-question *ngSwitchCase=\"QuestionType.AssetList\" [question]=\"question\"></asset-list-question>\r\n            <linked-dates-question *ngSwitchCase=\"QuestionType.LinkedDates\" [question]=\"question\"></linked-dates-question>\r\n            <signature-question *ngSwitchCase=\"QuestionType.Signature\" [question]=\"question\"></signature-question>\r\n            <select-text-question *ngSwitchCase=\"QuestionType.SelectText\" [question]=\"question\"></select-text-question>\r\n            <time-question *ngSwitchCase=\"QuestionType.Time\" [question]=\"question\"></time-question>\r\n          </ng-template>\r\n        </document-section>\r\n      </document-page>\r\n\r\n      <remain-anonymous \r\n        *rxIf=\"document.AllowAnon\"\r\n        [(isTicked)]=\"document.RemainAnon\">\r\n      </remain-anonymous>\r\n\r\n      <ion-button\r\n        (click)=\"submit(document)\"\r\n        [unpatch] \r\n        class=\"ion-margin-vertical\" \r\n        expand=\"full\">\r\n        Submit\r\n      </ion-button>\r\n    </ion-content>\r\n\r\n    <ng-container *rxIf=\"document$; let document\">\r\n      <ion-footer *rxLet=\"pageIndex.value$; let idx\">\r\n        <ion-button \r\n          *rxIf=\"idx > 0\" \r\n          (click)=\"pageIndex.decrement()\"\r\n          class=\"float-left\">\r\n          Back\r\n        </ion-button>\r\n        <ion-button \r\n          *rxIf=\"idx < document.Pages.length\" \r\n          (click)=\"pageIndex.increment()\"\r\n          class=\"float-right\">\r\n          Next\r\n        </ion-button>\r\n      </ion-footer>\r\n    </ng-container>\r\n  `,\r\n  standalone: true,\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  imports: [\r\n    IonicModule,\r\n    ...importRxTemplate(),\r\n    ...importNgSwitch(),\r\n    IfComponent,\r\n    DocumentPageComponent,\r\n    DocumentSectionComponent,\r\n    QuestionTemplateDirective,\r\n    ...importInputTypes(),\r\n    ...importQuestionTypes(),\r\n    TemplateMenuModal\r\n  ]\r\n})\r\nexport class DocumentBuilderPage extends AngularComponent() {\r\n  protected readonly formFillerRoute = inject(FormFillerRoute);\r\n  protected readonly formFillerStore = inject(FormFillerStore);\r\n\r\n  QuestionType = QuestionType;\r\n  isMobileApp = isMobileApp();\r\n\r\n  document$ = merge(\r\n    this.formFillerStore.getTemplateRequest$(this.formFillerRoute.lastDocumentId$),\r\n  ).pipe(\r\n    switchMap(() => this.formFillerStore.writingDocument$),\r\n    shareReplay()\r\n  );\r\n\r\n  submit = reaction<SiteDocument>(document$ => this.formFillerStore.submitDocument$(document$).pipe(\r\n    this.takeUntilDestroyed(),\r\n    clickReaction()\r\n  ));\r\n\r\n  pageIndex = {\r\n    ...numberAdapter(\"PageIndex\", 0),\r\n    isNotNumber$: (page: number) => this.pageIndex.is$(idx => idx !== page),\r\n    isGreaterThan0$: () => this.pageIndex.is$(idx => idx > 0),\r\n    isLessThanDocumentLength$: () => this.document$.pipe(\r\n      filter(doc => doc != null),\r\n      switchMap(doc => this.pageIndex.is$(idx => idx < doc!.Pages.length))\r\n    )\r\n  };\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": ""
         },
         {
             "name": "DocumentImageUploadComponent",
-            "id": "component-DocumentImageUploadComponent-e8cc0e0204a33fcd8e73d4237bea71337dbb3c9c16a707c76c6068c42e45ae33b425df095b8445ae1db65993e4bed7018abff77b755747593d8382cb05d01d91",
+            "id": "component-DocumentImageUploadComponent-ce99609e069285615021c80e4949cfedc922f96e5774b3690967623ebffba8b1246a3ca721a71caa7e4c482beef8e7d6411344e440272cd2143532d678449ee9",
             "file": "src/app/core/pages/document-builder/components/input-types/document-image-upload/document-image-upload.component.ts",
             "changeDetection": "ChangeDetectionStrategy.OnPush",
             "encapsulation": [],
@@ -4318,7 +4318,7 @@
             "propertiesClass": [
                 {
                     "name": "cameraOptions",
-                    "defaultValue": "{\r\n    resultType: CameraResultType.Base64\r\n  }",
+                    "defaultValue": "{\n    resultType: CameraResultType.Base64\n  }",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "ImageOptions",
@@ -4328,7 +4328,7 @@
                 },
                 {
                     "name": "docImages$",
-                    "defaultValue": "this.input$(\"document\").pipe(\r\n    map(() => this.document.DocumentGroup)\r\n  )",
+                    "defaultValue": "this.input$(\"document\").pipe(\n    map(() => this.document.DocumentGroup)\n  )",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Observable<string>",
@@ -4338,7 +4338,7 @@
                 },
                 {
                     "name": "galleryOptions",
-                    "defaultValue": "{\r\n    resultType: CameraResultType.Base64,\r\n    source: CameraSource.Photos\r\n  }",
+                    "defaultValue": "{\n    resultType: CameraResultType.Base64,\n    source: CameraSource.Photos\n  }",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "ImageOptions",
@@ -4480,7 +4480,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { ChangeDetectionStrategy, Component, Input, inject } from \"@angular/core\";\r\nimport { CameraResultType, CameraSource, ImageOptions, Photo } from \"@capacitor/camera\";\r\nimport { IonicModule } from \"@ionic/angular\";\r\nimport { Observable, map } from \"rxjs\";\r\nimport { SiteDocumentImageStore } from \"src/app/core/stores/site-document-image/site-document-image.store\";\r\nimport { SiteDocument } from \"src/app/core/stores/site-document/models\";\r\nimport { IfComponent, UploadComponent } from \"src/app/shared/components\";\r\nimport { CameraDirective } from \"src/app/shared/directives\";\r\nimport { importRxTemplate } from \"src/app/shared/imports\";\r\nimport { AngularComponent, withOnChanges } from \"src/app/shared/lifecycles\";\r\nimport { DataUrlFile } from \"src/app/shared/models/files/data-url-file.model\";\r\nimport { isMobileApp } from \"src/app/shared/plugins/platform.plugin\";\r\n\r\n@Component({\r\n  selector: \"document-image-upload\",\r\n  template: `\r\n    <ion-button [id]=\"id\" expand=\"block\" fill=\"outline\">\r\n      Document Images\r\n      <if [condition]=\"images.length > 0\">\r\n        <span show>({{ images.length }})</span>\r\n        <ion-icon else name=\"images-outline\" slot=\"end\"></ion-icon>\r\n      </if>\r\n    </ion-button>\r\n\r\n    <ion-modal #modal [trigger]=\"id\">\r\n      <ng-template>\r\n        <ion-header>\r\n          <ion-toolbar>\r\n            <ion-title class=\"text-center\">Images</ion-title>\r\n            <ion-buttons slot=\"end\">\r\n              <ion-button (click)=\"modal.dismiss()\">\r\n                <ion-icon name=\"close-outline\" slot=\"icon-only\"></ion-icon>\r\n              </ion-button>\r\n            </ion-buttons>\r\n          </ion-toolbar>\r\n        </ion-header>\r\n\r\n        <ion-content class=\"ion-padding\">\r\n          <if [condition]=\"images.length === 0\">\r\n            <p show class=\"text-center\">\r\n              Use camera and gallery buttons to add images\r\n            </p>\r\n\r\n            <ion-grid else>\r\n              <ion-row>\r\n                <ion-col *rxFor=\"let img of images\" size=\"6\" sizeMd=\"4\" sizeLg=\"3\">\r\n                  <ion-fab vertical=\"top\" horizontal=\"end\">\r\n                    <ion-fab-button (click)=\"remove(img)\" size=\"small\" color=\"danger\">\r\n                      <ion-icon name=\"close-outline\"></ion-icon>\r\n                    </ion-fab-button>\r\n                  </ion-fab>\r\n\r\n                  <ion-img [src]=\"img\"></ion-img>\r\n                </ion-col>\r\n              </ion-row>\r\n            </ion-grid>\r\n          </if>\r\n\r\n          <ion-fab vertical=\"bottom\" horizontal=\"end\" slot=\"fixed\">\r\n            <if [condition]=\"isMobileApp\">\r\n              <ng-container show>\r\n                <ion-fab-button [camera]=\"cameraOptions\" (takePhoto)=\"addPhoto($event)\" class=\"ion-margin-vertical\">\r\n                  <ion-icon name=\"camera-outline\"></ion-icon>\r\n                </ion-fab-button>\r\n\r\n                <ion-fab-button [camera]=\"galleryOptions\" (takePhoto)=\"addPhoto($event)\" class=\"ion-margin-vertical\">\r\n                  <ion-icon name=\"image-outline\"></ion-icon>\r\n                </ion-fab-button>\r\n              </ng-container>\r\n\r\n              <ion-fab-button else>\r\n                <upload (uploadFiles)=\"uploads($event)\" accept=\"image/*\"></upload>\r\n                <ion-icon name=\"camera-outline\"></ion-icon>\r\n              </ion-fab-button>\r\n            </if>\r\n          </ion-fab>\r\n        </ion-content>\r\n      </ng-template>\r\n    </ion-modal>\r\n  `,\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  standalone: true,\r\n  imports: [\r\n    IonicModule,\r\n    ...importRxTemplate(),\r\n    IfComponent,\r\n    UploadComponent,\r\n    CameraDirective\r\n  ]\r\n})\r\nexport class DocumentImageUploadComponent extends AngularComponent(withOnChanges) {\r\n  siteDocumentImageStore = inject(SiteDocumentImageStore);\r\n\r\n  id = crypto.randomUUID();\r\n  isMobileApp = isMobileApp();\r\n\r\n  images: string[] = [];\r\n\r\n  @Input()\r\n  document!: SiteDocument;\r\n\r\n  cameraOptions: ImageOptions = {\r\n    resultType: CameraResultType.Base64\r\n  }\r\n\r\n  galleryOptions: ImageOptions = {\r\n    resultType: CameraResultType.Base64,\r\n    source: CameraSource.Photos\r\n  }\r\n\r\n  docImages$: Observable<string> = this.input$(\"document\").pipe(\r\n    map(() => this.document.DocumentGroup)\r\n  );\r\n\r\n  addPhoto(photo: Photo) {\r\n    this.images = [\r\n      ...this.images,\r\n      photo.base64String as string\r\n    ]\r\n  }\r\n\r\n  uploads(files: DataUrlFile[]) {\r\n    this.images = [\r\n      ...this.images,\r\n      ...files.map(f => f.dataUrl)\r\n    ];\r\n  }\r\n\r\n  remove(img: string) {\r\n    this.images = this.images.filter(i => i !== img);\r\n  }\r\n}\r\n",
+            "sourceCode": "import { ChangeDetectionStrategy, Component, Input, inject } from \"@angular/core\";\nimport { CameraResultType, CameraSource, ImageOptions, Photo } from \"@capacitor/camera\";\nimport { IonicModule } from \"@ionic/angular\";\nimport { Observable, map } from \"rxjs\";\nimport { SiteDocumentImageStore } from \"src/app/core/stores/site-document-image/site-document-image.store\";\nimport { SiteDocument } from \"src/app/core/stores/site-document/models\";\nimport { IfComponent, UploadComponent } from \"src/app/shared/components\";\nimport { CameraDirective } from \"src/app/shared/directives\";\nimport { importRxTemplate } from \"src/app/shared/imports\";\nimport { AngularComponent, withOnChanges } from \"src/app/shared/lifecycles\";\nimport { DataUrlFile } from \"src/app/shared/models/files/data-url-file.model\";\nimport { isMobileApp } from \"src/app/shared/plugins/platform.plugin\";\n\n@Component({\n  selector: \"document-image-upload\",\n  template: `\n    <ion-button [id]=\"id\" expand=\"block\" fill=\"outline\">\n      Document Images\n      <if [condition]=\"images.length > 0\">\n        <span show>({{ images.length }})</span>\n        <ion-icon else name=\"images-outline\" slot=\"end\"></ion-icon>\n      </if>\n    </ion-button>\n\n    <ion-modal #modal [trigger]=\"id\">\n      <ng-template>\n        <ion-header>\n          <ion-toolbar>\n            <ion-title class=\"text-center\">Images</ion-title>\n            <ion-buttons slot=\"end\">\n              <ion-button (click)=\"modal.dismiss()\">\n                <ion-icon name=\"close-outline\" slot=\"icon-only\"></ion-icon>\n              </ion-button>\n            </ion-buttons>\n          </ion-toolbar>\n        </ion-header>\n\n        <ion-content class=\"ion-padding\">\n          <if [condition]=\"images.length === 0\">\n            <p show class=\"text-center\">\n              Use camera and gallery buttons to add images\n            </p>\n\n            <ion-grid else>\n              <ion-row>\n                <ion-col *rxFor=\"let img of images\" size=\"6\" sizeMd=\"4\" sizeLg=\"3\">\n                  <ion-fab vertical=\"top\" horizontal=\"end\">\n                    <ion-fab-button (click)=\"remove(img)\" size=\"small\" color=\"danger\">\n                      <ion-icon name=\"close-outline\"></ion-icon>\n                    </ion-fab-button>\n                  </ion-fab>\n\n                  <ion-img [src]=\"img\"></ion-img>\n                </ion-col>\n              </ion-row>\n            </ion-grid>\n          </if>\n\n          <ion-fab vertical=\"bottom\" horizontal=\"end\" slot=\"fixed\">\n            <if [condition]=\"isMobileApp\">\n              <ng-container show>\n                <ion-fab-button [camera]=\"cameraOptions\" (takePhoto)=\"addPhoto($event)\" class=\"ion-margin-vertical\">\n                  <ion-icon name=\"camera-outline\"></ion-icon>\n                </ion-fab-button>\n\n                <ion-fab-button [camera]=\"galleryOptions\" (takePhoto)=\"addPhoto($event)\" class=\"ion-margin-vertical\">\n                  <ion-icon name=\"image-outline\"></ion-icon>\n                </ion-fab-button>\n              </ng-container>\n\n              <ion-fab-button else>\n                <upload (uploadFiles)=\"uploads($event)\" accept=\"image/*\"></upload>\n                <ion-icon name=\"camera-outline\"></ion-icon>\n              </ion-fab-button>\n            </if>\n          </ion-fab>\n        </ion-content>\n      </ng-template>\n    </ion-modal>\n  `,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  standalone: true,\n  imports: [\n    IonicModule,\n    ...importRxTemplate(),\n    IfComponent,\n    UploadComponent,\n    CameraDirective\n  ]\n})\nexport class DocumentImageUploadComponent extends AngularComponent(withOnChanges) {\n  siteDocumentImageStore = inject(SiteDocumentImageStore);\n\n  id = crypto.randomUUID();\n  isMobileApp = isMobileApp();\n\n  images: string[] = [];\n\n  @Input()\n  document!: SiteDocument;\n\n  cameraOptions: ImageOptions = {\n    resultType: CameraResultType.Base64\n  }\n\n  galleryOptions: ImageOptions = {\n    resultType: CameraResultType.Base64,\n    source: CameraSource.Photos\n  }\n\n  docImages$: Observable<string> = this.input$(\"document\").pipe(\n    map(() => this.document.DocumentGroup)\n  );\n\n  addPhoto(photo: Photo) {\n    this.images = [\n      ...this.images,\n      photo.base64String as string\n    ]\n  }\n\n  uploads(files: DataUrlFile[]) {\n    this.images = [\n      ...this.images,\n      ...files.map(f => f.dataUrl)\n    ];\n  }\n\n  remove(img: string) {\n    this.images = this.images.filter(i => i !== img);\n  }\n}\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": ""
@@ -4761,7 +4761,7 @@
         },
         {
             "name": "LinkedBoolComponent",
-            "id": "component-LinkedBoolComponent-9a241ccdac01642214618ba1436863d143332a421c5d143b43c3efc253ecde00a5be23108a56a723d1f0712d8208aafda6f21a92c33d5e7fd01a97c9069120fa",
+            "id": "component-LinkedBoolComponent-0759cc10933af9dcf0e55bfb672eb8341bca40a12e2664205f615732839aa9edb1eb1ec0205faf3edf872b67647eb4b7a5e9b700c62aea560f8282c56e3987ba",
             "file": "src/app/core/pages/document-builder/components/question-types/16-linked-bool/linked-bool.component.ts",
             "changeDetection": "ChangeDetectionStrategy.OnPush",
             "encapsulation": [],
@@ -4803,7 +4803,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { ChangeDetectionStrategy, Component, Input } from \"@angular/core\";\nimport { FormsModule } from \"@angular/forms\";\nimport { IonicModule } from \"@ionic/angular\";\nimport { Question, Section } from \"src/app/core/stores/site-document/models\";\nimport { importRxTemplate } from \"src/app/shared/imports\";\nimport { CameraCaptureComponent, FileUploadComponent, QuestionTextComponent } from \"../extras\";\n\n@Component({\n  selector: \"linked-bool-question[question][section]\",\n  template: `\n    <ion-list>\n      <ion-item lines=\"none\">\n        <question-text [required]=\"question.Required\">{{ question.QuestionText }}</question-text>\n        <camera-capture *rxIf=\"question.CanHaveImg\" class=\"ion-no-margin\" slot=\"end\"></camera-capture>\n        <file-upload *rxIf=\"question.CanHaveFiles\" class=\"ion-no-margin\" slot=\"end\"></file-upload>\n      </ion-item>\n\n      <ion-item lines=\"none\">\n        <ion-label>{{ section.TableTitles[1] }}</ion-label>\n        <ion-checkbox [(ngModel)]=\"question.YesNoNA\" slot=\"end\"></ion-checkbox>\n      </ion-item>\n\n      <ion-item>\n        <ion-label>{{ section.TableTitles[2] }}</ion-label>\n        <ion-checkbox [disabled]=\"!question.YesNoNA\" slot=\"end\"></ion-checkbox>\n      </ion-item>\n    </ion-list>\n  `,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  standalone: true,\n  imports: [\n    IonicModule,\n    ...importRxTemplate(),\n    FormsModule,\n    QuestionTextComponent,\n    CameraCaptureComponent,\n    FileUploadComponent\n  ]\n})\nexport class LinkedBoolComponent {\n  @Input()\n  question!: Question;\n\n  @Input()\n  section!: Section;\n}\n",
+            "sourceCode": "import { ChangeDetectionStrategy, Component, Input } from \"@angular/core\";\r\nimport { FormsModule } from \"@angular/forms\";\r\nimport { IonicModule } from \"@ionic/angular\";\r\nimport { Question, Section } from \"src/app/core/stores/site-document/models\";\r\nimport { importRxTemplate } from \"src/app/shared/imports\";\r\nimport { CameraCaptureComponent, FileUploadComponent, QuestionTextComponent } from \"../extras\";\r\n\r\n@Component({\r\n  selector: \"linked-bool-question[question][section]\",\r\n  template: `\r\n    <ion-list>\r\n      <ion-item lines=\"none\">\r\n        <question-text [required]=\"question.Required\">{{ question.QuestionText }}</question-text>\r\n        <camera-capture *rxIf=\"question.CanHaveImg\" class=\"ion-no-margin\" slot=\"end\"></camera-capture>\r\n        <file-upload *rxIf=\"question.CanHaveFiles\" class=\"ion-no-margin\" slot=\"end\"></file-upload>\r\n      </ion-item>\r\n\r\n      <ion-item lines=\"none\">\r\n        <ion-label>{{ section.TableTitles[1] }}</ion-label>\r\n        <ion-checkbox [(ngModel)]=\"question.YesNoNA\" slot=\"end\"></ion-checkbox>\r\n      </ion-item>\r\n\r\n      <ion-item>\r\n        <ion-label>{{ section.TableTitles[2] }}</ion-label>\r\n        <ion-checkbox [disabled]=\"!question.YesNoNA\" slot=\"end\"></ion-checkbox>\r\n      </ion-item>\r\n    </ion-list>\r\n  `,\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  standalone: true,\r\n  imports: [\r\n    IonicModule,\r\n    ...importRxTemplate(),\r\n    FormsModule,\r\n    QuestionTextComponent,\r\n    CameraCaptureComponent,\r\n    FileUploadComponent\r\n  ]\r\n})\r\nexport class LinkedBoolComponent {\r\n  @Input()\r\n  question!: Question;\r\n\r\n  @Input()\r\n  section!: Section;\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": ""
@@ -4886,6 +4886,38 @@
             "rawdescription": "\n",
             "type": "component",
             "sourceCode": "import { ChangeDetectionStrategy, Component, Input } from \"@angular/core\";\r\nimport { IonicModule } from \"@ionic/angular\";\r\nimport { Question } from \"src/app/core/stores/site-document/models\";\r\nimport { QuestionTextComponent } from \"../extras\";\r\n\r\n@Component({\r\n  selector: \"linked-time[question]\",\r\n  template: `\r\n    <ion-list>\r\n      <ion-item lines=\"none\">\r\n        <question-text [required]=\"question.Required\">{{ question.QuestionText }}</question-text>\r\n      </ion-item>\r\n    </ion-list>\r\n  `,\r\n  standalone: true,\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  imports: [IonicModule, QuestionTextComponent]\r\n})\r\nexport class LinkedTimeComponent {\r\n  @Input()\r\n  question!: Question;\r\n}\r\n",
+            "assetsDirs": [],
+            "styleUrlsData": "",
+            "stylesData": ""
+        },
+        {
+            "name": "LocalAssetSearchComponent",
+            "id": "component-LocalAssetSearchComponent-ca87c9225a2c4524eac4f59bf3423adc3c265d935fdc069c959ef7d545733e986fad95d105e21de8971b541132929bc151fc25b6570ce0e28d811c3694993edf",
+            "file": "src/app/shared/modals/asset-list/components/local-asset-search/local-asset-search.component.ts",
+            "changeDetection": "ChangeDetectionStrategy.OnPush",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "local-asset-search",
+            "styleUrls": [],
+            "styles": [],
+            "template": "",
+            "templateUrl": [],
+            "viewProviders": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [],
+            "methodsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { ChangeDetectionStrategy, Component } from \"@angular/core\";\r\nimport { IonicModule } from \"@ionic/angular\";\r\n\r\n@Component({\r\n  selector: \"local-asset-search\",\r\n  template: ``,\r\n  standalone: true,\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  imports: [IonicModule]\r\n})\r\nexport class LocalAssetSearchComponent {\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": ""
@@ -4984,7 +5016,7 @@
         },
         {
             "name": "MultiCheckboxModal",
-            "id": "component-MultiCheckboxModal-9a6ba958df029212c964f6afb98c5c8ac89111a842d0b00df802a944785fba29df5ee4d4370020ca43c3045a5aff1b88c6f162f6a28397d304bf4cf672043c71",
+            "id": "component-MultiCheckboxModal-4c57da4453234157fd62378f9fccea2b491a19b7dcb4d33e13b519ed1c4644dfee0171cc9650838389809708c22111e2f3678a77e9d9b92fa278f22d01021a36",
             "file": "src/app/core/pages/document-builder/modals/multi-checkbox/multi-checkbox.modal.ts",
             "changeDetection": "ChangeDetectionStrategy.OnPush",
             "encapsulation": [],
@@ -5038,7 +5070,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { ScrollingModule } from \"@angular/cdk/scrolling\";\nimport { ChangeDetectionStrategy, Component, Input } from \"@angular/core\";\nimport { FormsModule } from \"@angular/forms\";\nimport { IonicModule } from \"@ionic/angular\";\nimport { Question } from \"src/app/core/stores/site-document/models\";\nimport { importRxTemplate } from \"src/app/shared/imports\";\n\n@Component({\n  selector: \"multi-checkbox-modal[trigger]\",\n  template: `\n    <ion-modal #modal [trigger]=\"trigger\">\n      <ng-template>\n        <ion-header>\n          <ion-toolbar>\n            <ion-title class=\"text-center\">Select Responses</ion-title>\n            <ion-buttons slot=\"end\">\n              <ion-button (click)=\"modal.dismiss()\">\n                <ion-icon name=\"close-outline\" slot=\"icon-only\"></ion-icon>\n              </ion-button>\n            </ion-buttons>\n          </ion-toolbar>\n          <ion-toolbar>\n            <ion-searchbar \n              [(ngModel)]=\"searchValue\"\n              debounce=\"300\" \n              placeholder=\"Search\">\n            </ion-searchbar>\n          </ion-toolbar>\n        </ion-header>\n\n        <ion-content>\n          <cdk-virtual-scroll-viewport itemSize=\"50\" minBufferPx=\"1200\" maxBufferPx=\"1200\">\n            <ion-list>\n              <ion-item *cdkVirtualFor=\"let question of questions\">\n                <ion-checkbox></ion-checkbox>\n              </ion-item>\n            </ion-list>\n          </cdk-virtual-scroll-viewport>\n        </ion-content>\n      </ng-template>\n    </ion-modal>\n  `,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  standalone: true,\n  imports: [\n    IonicModule,\n    ...importRxTemplate(),\n    ScrollingModule,\n    FormsModule\n  ]\n})\nexport class MultiCheckboxModal {\n  @Input()\n  trigger!: string;\n\n  @Input()\n  questions: Question[] = [];\n\n  searchValue: string = \"\";\n}\n",
+            "sourceCode": "import { ScrollingModule } from \"@angular/cdk/scrolling\";\r\nimport { ChangeDetectionStrategy, Component, Input } from \"@angular/core\";\r\nimport { FormsModule } from \"@angular/forms\";\r\nimport { IonicModule } from \"@ionic/angular\";\r\nimport { Question } from \"src/app/core/stores/site-document/models\";\r\nimport { importRxTemplate } from \"src/app/shared/imports\";\r\n\r\n@Component({\r\n  selector: \"multi-checkbox-modal[trigger]\",\r\n  template: `\r\n    <ion-modal #modal [trigger]=\"trigger\">\r\n      <ng-template>\r\n        <ion-header>\r\n          <ion-toolbar>\r\n            <ion-title class=\"text-center\">Select Responses</ion-title>\r\n            <ion-buttons slot=\"end\">\r\n              <ion-button (click)=\"modal.dismiss()\">\r\n                <ion-icon name=\"close-outline\" slot=\"icon-only\"></ion-icon>\r\n              </ion-button>\r\n            </ion-buttons>\r\n          </ion-toolbar>\r\n          <ion-toolbar>\r\n            <ion-searchbar \r\n              [(ngModel)]=\"searchValue\"\r\n              debounce=\"300\" \r\n              placeholder=\"Search\">\r\n            </ion-searchbar>\r\n          </ion-toolbar>\r\n        </ion-header>\r\n\r\n        <ion-content>\r\n          <cdk-virtual-scroll-viewport itemSize=\"50\" minBufferPx=\"1200\" maxBufferPx=\"1200\">\r\n            <ion-list>\r\n              <ion-item *cdkVirtualFor=\"let question of questions\">\r\n                <ion-checkbox></ion-checkbox>\r\n              </ion-item>\r\n            </ion-list>\r\n          </cdk-virtual-scroll-viewport>\r\n        </ion-content>\r\n      </ng-template>\r\n    </ion-modal>\r\n  `,\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  standalone: true,\r\n  imports: [\r\n    IonicModule,\r\n    ...importRxTemplate(),\r\n    ScrollingModule,\r\n    FormsModule\r\n  ]\r\n})\r\nexport class MultiCheckboxModal {\r\n  @Input()\r\n  trigger!: string;\r\n\r\n  @Input()\r\n  questions: Question[] = [];\r\n\r\n  searchValue: string = \"\";\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": ""
@@ -5258,6 +5290,38 @@
             "stylesData": ""
         },
         {
+            "name": "OnlineAssetSearchComponent",
+            "id": "component-OnlineAssetSearchComponent-95e170b0f0e54f3d9b6e99d2e6e028d7c3c2cd461ebbe1977abf5404b1b10b9cd9a5a27b46b85d60535c4a593111f28abd50ab86706b4b85d64801eea2e5b1db",
+            "file": "src/app/shared/modals/asset-list/components/online-asset-search/online-asset-search.component.ts",
+            "changeDetection": "ChangeDetectionStrategy.OnPush",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "online-asset-search",
+            "styleUrls": [],
+            "styles": [],
+            "template": "",
+            "templateUrl": [],
+            "viewProviders": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [],
+            "methodsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { ChangeDetectionStrategy, Component } from \"@angular/core\";\r\nimport { IonicModule } from \"@ionic/angular\";\r\n\r\n@Component({\r\n  selector: \"online-asset-search\",\r\n  template: ``,\r\n  standalone: true,\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  imports: [IonicModule]\r\n})\r\nexport class OnlineAssetSearchComponent {\r\n}\r\n",
+            "assetsDirs": [],
+            "styleUrlsData": "",
+            "stylesData": ""
+        },
+        {
             "name": "OnlineOperativeSearchComponent",
             "id": "component-OnlineOperativeSearchComponent-24ac448e30ee16c709ec038454c28f2c976d40c2bebb69a466303f28cc3b34f160d256b8aa9d5abf844707a56ce7ca124997bf23cce98b2d16a9f113ffb5ccee",
             "file": "src/app/shared/modals/operative-list/components/online-operative-search/online-operative-search.component.ts",
@@ -5425,7 +5489,7 @@
         },
         {
             "name": "OperativeListModal",
-            "id": "component-OperativeListModal-0743609be415de73ae1b49fe3d7d412e01546fbf869c71b9bdc20668921dfae76e6cf2281e331f403824304b0799c5e212ca3a8bf000c26a87ba9a3d64290bed",
+            "id": "component-OperativeListModal-45ccb856aa325f9c27394014e6ec58d740a3970a04022c67853019da742406b02a863e325099d9fc2a9b8a0f78a9f94e50a3457436043966a6be284cca170264",
             "file": "src/app/shared/modals/operative-list/operative-list.modal.ts",
             "changeDetection": "ChangeDetectionStrategy.OnPush",
             "encapsulation": [],
@@ -5436,12 +5500,12 @@
             "selector": "operative-list-modal[trigger]",
             "styleUrls": [],
             "styles": [],
-            "template": "<ion-modal #modal [trigger]=\"trigger\" [isOpen]=\"isOpen\">\n  <ng-template>\n    <ion-header>\n      <ion-toolbar>\n        <ion-title class=\"ion-text-center\">Select an Operative</ion-title>\n        <ion-buttons slot=\"end\">\n          <ion-button (click)=\"modal.dismiss()\" [unpatch]>\n            <ion-icon name=\"close-outline\" slot=\"icon-only\"></ion-icon>\n          </ion-button>\n        </ion-buttons>\n      </ion-toolbar>\n\n      <ion-toolbar>\n        <ion-segment [(ngModel)]=\"segment\" class=\"w-full\">\n          <ion-segment-button value=\"local\">\n            <ion-icon name=\"phone-portrait-outline\"></ion-icon>\n          </ion-segment-button>\n          <ion-segment-button value=\"online\">\n            <ion-icon name=\"wifi-outline\"></ion-icon>\n          </ion-segment-button>\n        </ion-segment>\n      </ion-toolbar>\n    </ion-header>\n\n    <ion-content [ngSwitch]=\"segment\" class=\"ion-padding\">\n      <local-operative-search *ngSwitchCase=\"'local'\"></local-operative-search>\n      <online-operative-search *ngSwitchCase=\"'online'\"></online-operative-search>\n    </ion-content>\n  </ng-template>\n</ion-modal>\n",
+            "template": "<ion-modal #modal [trigger]=\"trigger\" [isOpen]=\"isOpen\">\n  <ng-template>\n    <ion-header>\n      <ion-toolbar>\n        <ion-title class=\"ion-text-center\">Select an Operative</ion-title>\n        <ion-buttons slot=\"end\">\n          <ion-button (click)=\"modal.dismiss()\" [unpatch]>\n            <ion-icon name=\"close-outline\" slot=\"icon-only\"></ion-icon>\n          </ion-button>\n        </ion-buttons>\n      </ion-toolbar>\n\n      <ion-toolbar>\n        <ion-segment [(ngModel)]=\"segment\" class=\"w-full\">\n          <ion-segment-button value=\"local\">\n            <ion-icon name=\"phone-portrait-outline\"></ion-icon>\n          </ion-segment-button>\n          <ion-segment-button value=\"online\">\n            <ion-icon name=\"wifi-outline\"></ion-icon>\n          </ion-segment-button>\n        </ion-segment>\n      </ion-toolbar>\n    </ion-header>\n\n    <ion-content [ngSwitch]=\"segment\" class=\"ion-padding\">\n      <local-operative-search *ngSwitchCase=\"'local'\" [hideMyself]=\"hideMyself\"></local-operative-search>\n      <online-operative-search *ngSwitchCase=\"'online'\"></online-operative-search>\n    </ion-content>\n  </ng-template>\n</ion-modal>\n",
             "templateUrl": [],
             "viewProviders": [],
             "inputsClass": [
                 {
-                    "name": "hideMe",
+                    "name": "hideMyself",
                     "defaultValue": "false",
                     "deprecated": false,
                     "deprecationMessage": "",
@@ -5497,7 +5561,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from \"@angular/core\";\r\nimport { IonicModule } from \"@ionic/angular\";\r\nimport { importNgSwitch, importRxTemplate } from \"../../imports\";\r\nimport { LocalOperativeSearchComponent, OnlineOperativeSearchComponent } from \"./components\";\r\nimport { FormsModule } from \"@angular/forms\";\r\nimport { Operative } from \"src/app/core/stores/operative/operatives.store\";\r\n\r\n@Component({\r\n  selector: \"operative-list-modal[trigger]\",\r\n  template: `\r\n    <ion-modal #modal [trigger]=\"trigger\" [isOpen]=\"isOpen\">\r\n      <ng-template>\r\n        <ion-header>\r\n          <ion-toolbar>\r\n            <ion-title class=\"ion-text-center\">Select an Operative</ion-title>\r\n            <ion-buttons slot=\"end\">\r\n              <ion-button (click)=\"modal.dismiss()\" [unpatch]>\r\n                <ion-icon name=\"close-outline\" slot=\"icon-only\"></ion-icon>\r\n              </ion-button>\r\n            </ion-buttons>\r\n          </ion-toolbar>\r\n\r\n          <ion-toolbar>\r\n            <ion-segment [(ngModel)]=\"segment\" class=\"w-full\">\r\n              <ion-segment-button value=\"local\">\r\n                <ion-icon name=\"phone-portrait-outline\"></ion-icon>\r\n              </ion-segment-button>\r\n              <ion-segment-button value=\"online\">\r\n                <ion-icon name=\"wifi-outline\"></ion-icon>\r\n              </ion-segment-button>\r\n            </ion-segment>\r\n          </ion-toolbar>\r\n        </ion-header>\r\n      \r\n        <ion-content [ngSwitch]=\"segment\" class=\"ion-padding\">\r\n          <local-operative-search *ngSwitchCase=\"'local'\"></local-operative-search>\r\n          <online-operative-search *ngSwitchCase=\"'online'\"></online-operative-search>\r\n        </ion-content>\r\n      </ng-template>\r\n    </ion-modal>\r\n  `,\r\n  standalone: true,\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  imports: [\r\n    IonicModule,\r\n    FormsModule,\r\n    ...importRxTemplate(),\r\n    ...importNgSwitch(),\r\n    LocalOperativeSearchComponent,\r\n    OnlineOperativeSearchComponent\r\n  ]\r\n})\r\nexport class OperativeListModal {\r\n  @Input()\r\n  trigger!: string;\r\n  \r\n  @Input()\r\n  isOpen: boolean = false;\r\n\r\n  @Input()\r\n  hideMe: boolean = false;\r\n\r\n  segment: \"local\" | \"online\" = \"local\"\r\n\r\n  @Output()\r\n  operativeChange = new EventEmitter<Operative>();\r\n}\r\n",
+            "sourceCode": "import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from \"@angular/core\";\r\nimport { IonicModule } from \"@ionic/angular\";\r\nimport { importNgSwitch, importRxTemplate } from \"../../imports\";\r\nimport { LocalOperativeSearchComponent, OnlineOperativeSearchComponent } from \"./components\";\r\nimport { FormsModule } from \"@angular/forms\";\r\nimport { Operative } from \"src/app/core/stores/operative/operatives.store\";\r\n\r\n@Component({\r\n  selector: \"operative-list-modal[trigger]\",\r\n  template: `\r\n    <ion-modal #modal [trigger]=\"trigger\" [isOpen]=\"isOpen\">\r\n      <ng-template>\r\n        <ion-header>\r\n          <ion-toolbar>\r\n            <ion-title class=\"ion-text-center\">Select an Operative</ion-title>\r\n            <ion-buttons slot=\"end\">\r\n              <ion-button (click)=\"modal.dismiss()\" [unpatch]>\r\n                <ion-icon name=\"close-outline\" slot=\"icon-only\"></ion-icon>\r\n              </ion-button>\r\n            </ion-buttons>\r\n          </ion-toolbar>\r\n\r\n          <ion-toolbar>\r\n            <ion-segment [(ngModel)]=\"segment\" class=\"w-full\">\r\n              <ion-segment-button value=\"local\">\r\n                <ion-icon name=\"phone-portrait-outline\"></ion-icon>\r\n              </ion-segment-button>\r\n              <ion-segment-button value=\"online\">\r\n                <ion-icon name=\"wifi-outline\"></ion-icon>\r\n              </ion-segment-button>\r\n            </ion-segment>\r\n          </ion-toolbar>\r\n        </ion-header>\r\n      \r\n        <ion-content [ngSwitch]=\"segment\" class=\"ion-padding\">\r\n          <local-operative-search *ngSwitchCase=\"'local'\" [hideMyself]=\"hideMyself\"></local-operative-search>\r\n          <online-operative-search *ngSwitchCase=\"'online'\"></online-operative-search>\r\n        </ion-content>\r\n      </ng-template>\r\n    </ion-modal>\r\n  `,\r\n  standalone: true,\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  imports: [\r\n    IonicModule,\r\n    FormsModule,\r\n    ...importRxTemplate(),\r\n    ...importNgSwitch(),\r\n    LocalOperativeSearchComponent,\r\n    OnlineOperativeSearchComponent\r\n  ]\r\n})\r\nexport class OperativeListModal {\r\n  @Input()\r\n  trigger!: string;\r\n  \r\n  @Input()\r\n  isOpen: boolean = false;\r\n\r\n  @Input()\r\n  hideMyself: boolean = false;\r\n\r\n  segment: \"local\" | \"online\" = \"local\"\r\n\r\n  @Output()\r\n  operativeChange = new EventEmitter<Operative>();\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": ""
@@ -6067,7 +6131,7 @@
         },
         {
             "name": "ResponsibilityAreaSelectComponent",
-            "id": "component-ResponsibilityAreaSelectComponent-b402515e3ec9dd413ddef3ff1df09671d47621ca367a52834a138ab7186608f81282dd6f06bf4fd4e5f821e6cfcd3bc81c93280be1f53f500d7ec03a82423317",
+            "id": "component-ResponsibilityAreaSelectComponent-b9ca75d69f582739fbc9b4be0a9eef2985d1dec0787e302fa90ea37b2eef5f4f9640cd29a171b3cf5f105a23526f6407b402e5d988d492603aed20308e07065f",
             "file": "src/app/core/pages/document-builder/components/input-types/responsibility-area-select/responsibility-area-select.component.ts",
             "changeDetection": "ChangeDetectionStrategy.OnPush",
             "encapsulation": [],
@@ -6104,7 +6168,7 @@
             "propertiesClass": [
                 {
                     "name": "responsibilityAreaType$",
-                    "defaultValue": "merge(this.afterViewInit$, this.input$(\"responsibilityAreaTypeId\")).pipe(\n    switchMap(() => this.responsibilityAreaTypesStore.responsibilityAreaTypeById$(this.responsibilityAreaTypeId))\n  )",
+                    "defaultValue": "merge(this.afterViewInit$, this.input$(\"responsibilityAreaTypeId\")).pipe(\r\n    switchMap(() => this.responsibilityAreaTypesStore.responsibilityAreaTypeById$(this.responsibilityAreaTypeId))\r\n  )",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Observable<ResponsibilityAreaType | undefined>",
@@ -6131,7 +6195,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, inject } from \"@angular/core\";\nimport { IonicModule } from \"@ionic/angular\";\nimport { Observable, merge, switchMap } from \"rxjs\";\nimport { ResponsibilityAreaType, ResponsibilityAreaTypesStore } from \"src/app/core/stores/responsibility-area-types/responsibility-area-types.store\";\nimport { IfComponent, SelectableComponent } from \"src/app/shared/components\";\nimport { importRxTemplate } from \"src/app/shared/imports\";\nimport { AngularComponent, withAfterViewInit, withOnChanges } from \"src/app/shared/lifecycles\";\n\n@Component({\n  selector: \"responsibility-area-select[resposibilityTypeId]\",\n  template: `\n    <ion-card *rxLet=\"responsibilityAreaType$; let rat\">\n      <ion-card-header *rxIf=\"rat != null\">\n        <ion-card-title class=\"text-center\">\n          {{ rat.AppQuestionText }}\n        </ion-card-title>\n      </ion-card-header>\n      <ion-card-content>\n        <if [condition]=\"rat != null && rat.Areas.length > 0\">\n          <selectable \n            show \n            title=\"Responsibility Types\"\n            placeholder=\"Select\"\n            [items]=\"rat?.Areas || []\"\n            itemText=\"Name\"\n            (valueChange)=\"responsibilityAreaTypeIdChange.emit($event!.Id)\"\n            [canClear]=\"false\">\n          </selectable>\n          <span else>\n            No areas found For Document Responsibility Area Type. \n            Document will not be able to be submitted. Please update lists and try again.\n          </span>\n        </if>\n      </ion-card-content>\n    </ion-card>\n  `,\n  standalone: true,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  imports: [\n    IonicModule,\n    ...importRxTemplate(),\n    SelectableComponent,\n    IfComponent\n  ]\n})\nexport class ResponsibilityAreaSelectComponent extends AngularComponent(withAfterViewInit, withOnChanges) {\n  responsibilityAreaTypesStore = inject(ResponsibilityAreaTypesStore);\n\n  @Input()\n  responsibilityAreaTypeId!: number;\n\n  @Output()\n  responsibilityAreaTypeIdChange = new EventEmitter<number>();\n\n  responsibilityAreaType$: Observable<ResponsibilityAreaType | undefined> = merge(this.afterViewInit$, this.input$(\"responsibilityAreaTypeId\")).pipe(\n    switchMap(() => this.responsibilityAreaTypesStore.responsibilityAreaTypeById$(this.responsibilityAreaTypeId))\n  );\n}\n",
+            "sourceCode": "import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, inject } from \"@angular/core\";\r\nimport { IonicModule } from \"@ionic/angular\";\r\nimport { Observable, merge, switchMap } from \"rxjs\";\r\nimport { ResponsibilityAreaType, ResponsibilityAreaTypesStore } from \"src/app/core/stores/responsibility-area-types/responsibility-area-types.store\";\r\nimport { IfComponent, SelectableComponent } from \"src/app/shared/components\";\r\nimport { importRxTemplate } from \"src/app/shared/imports\";\r\nimport { AngularComponent, withAfterViewInit, withOnChanges } from \"src/app/shared/lifecycles\";\r\n\r\n@Component({\r\n  selector: \"responsibility-area-select[resposibilityTypeId]\",\r\n  template: `\r\n    <ion-card *rxLet=\"responsibilityAreaType$; let rat\">\r\n      <ion-card-header *rxIf=\"rat != null\">\r\n        <ion-card-title class=\"text-center\">\r\n          {{ rat.AppQuestionText }}\r\n        </ion-card-title>\r\n      </ion-card-header>\r\n      <ion-card-content>\r\n        <if [condition]=\"rat != null && rat.Areas.length > 0\">\r\n          <selectable \r\n            show \r\n            title=\"Responsibility Types\"\r\n            placeholder=\"Select\"\r\n            [items]=\"rat?.Areas || []\"\r\n            itemText=\"Name\"\r\n            (valueChange)=\"responsibilityAreaTypeIdChange.emit($event!.Id)\"\r\n            [canClear]=\"false\">\r\n          </selectable>\r\n          <span else>\r\n            No areas found For Document Responsibility Area Type. \r\n            Document will not be able to be submitted. Please update lists and try again.\r\n          </span>\r\n        </if>\r\n      </ion-card-content>\r\n    </ion-card>\r\n  `,\r\n  standalone: true,\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  imports: [\r\n    IonicModule,\r\n    ...importRxTemplate(),\r\n    SelectableComponent,\r\n    IfComponent\r\n  ]\r\n})\r\nexport class ResponsibilityAreaSelectComponent extends AngularComponent(withAfterViewInit, withOnChanges) {\r\n  responsibilityAreaTypesStore = inject(ResponsibilityAreaTypesStore);\r\n\r\n  @Input()\r\n  responsibilityAreaTypeId!: number;\r\n\r\n  @Output()\r\n  responsibilityAreaTypeIdChange = new EventEmitter<number>();\r\n\r\n  responsibilityAreaType$: Observable<ResponsibilityAreaType | undefined> = merge(this.afterViewInit$, this.input$(\"responsibilityAreaTypeId\")).pipe(\r\n    switchMap(() => this.responsibilityAreaTypesStore.responsibilityAreaTypeById$(this.responsibilityAreaTypeId))\r\n  );\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": ""
@@ -6505,7 +6569,7 @@
         },
         {
             "name": "TemplateMenuModal",
-            "id": "component-TemplateMenuModal-9bbe22d25a5dde49d67bdef6650098d437fe74ef222ee08d465f38a0bbce4f5b867ffcff5da7ce756f9d04c912c29487118062f2ac46daf92e6f0939b4117d20",
+            "id": "component-TemplateMenuModal-37ef89c2353a74c556d6f2e9647e14366bde50fc45b7bd1424c515a4f281f2fe66372e6a6b3ec99354a907a8540149671c08a6607536ec6e7c64b3e8fcd797cc",
             "file": "src/app/core/pages/document-builder/modals/template-menu/template-menu.modal.ts",
             "changeDetection": "ChangeDetectionStrategy.OnPush",
             "encapsulation": [],
@@ -6548,7 +6612,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { ScrollingModule } from \"@angular/cdk/scrolling\";\r\nimport { ChangeDetectionStrategy, Component, Input } from \"@angular/core\";\r\nimport { IonicModule } from \"@ionic/angular\";\r\n\r\n@Component({\r\n  selector: \"template-menu-modal[trigger]\",\r\n  template: `\r\n    <ion-modal #modal [trigger]=\"trigger\" [isOpen]=\"isOpen\">\r\n      <ng-template>\r\n        <ion-header>\r\n          <ion-toolbar>\r\n            <ion-title class=\"text-center\">Templates</ion-title>\r\n            <ion-buttons slot=\"end\">\r\n              <ion-button (click)=\"modal.dismiss()\">\r\n                <ion-icon name=\"close-outline\" slot=\"icon-only\"></ion-icon>\r\n              </ion-button>\r\n            </ion-buttons>\r\n          </ion-toolbar>\r\n        </ion-header>\r\n\r\n        <ion-content class=\"ion-padding\">\r\n          <cdk-virtual-scroll-viewport itemSize=\"50\" minBufferPx=\"1200\" maxBufferPx=\"1200\">\r\n            <ion-list>\r\n              <ion-item button></ion-item>\r\n            </ion-list>\r\n          </cdk-virtual-scroll-viewport>\r\n        </ion-content>\r\n      </ng-template>\r\n    </ion-modal>\r\n  `,\r\n  standalone: true,\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  imports: [\r\n    IonicModule,\r\n    ScrollingModule\r\n  ]\r\n})\r\nexport class TemplateMenuModal {\r\n  @Input()\r\n  trigger!: string;\r\n\r\n  @Input()\r\n  isOpen: boolean = false;\r\n\r\n  \r\n}\r\n",
+            "sourceCode": "import { ScrollingModule } from \"@angular/cdk/scrolling\";\nimport { ChangeDetectionStrategy, Component, Input } from \"@angular/core\";\nimport { IonicModule } from \"@ionic/angular\";\n\n@Component({\n  selector: \"template-menu-modal[trigger]\",\n  template: `\n    <ion-modal #modal [trigger]=\"trigger\" [isOpen]=\"isOpen\">\n      <ng-template>\n        <ion-header>\n          <ion-toolbar>\n            <ion-title class=\"text-center\">Templates</ion-title>\n            <ion-buttons slot=\"end\">\n              <ion-button (click)=\"modal.dismiss()\">\n                <ion-icon name=\"close-outline\" slot=\"icon-only\"></ion-icon>\n              </ion-button>\n            </ion-buttons>\n          </ion-toolbar>\n        </ion-header>\n\n        <ion-content class=\"ion-padding\">\n          <cdk-virtual-scroll-viewport itemSize=\"50\" minBufferPx=\"1200\" maxBufferPx=\"1200\">\n            <ion-list>\n              <ion-item button></ion-item>\n            </ion-list>\n          </cdk-virtual-scroll-viewport>\n        </ion-content>\n      </ng-template>\n    </ion-modal>\n  `,\n  standalone: true,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  imports: [\n    IonicModule,\n    ScrollingModule\n  ]\n})\nexport class TemplateMenuModal {\n  @Input()\n  trigger!: string;\n\n  @Input()\n  isOpen: boolean = false;\n\n  \n}\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": ""
@@ -6862,7 +6926,7 @@
                 "name": "Default",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/shared/components/multi-selectable/multi-selectable.component.stories.ts",
+                "file": "src/app/shared/components/datetime-picker/datetime-picker.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -6872,7 +6936,7 @@
                 "name": "Default",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/shared/components/datetime-picker/datetime-picker.component.stories.ts",
+                "file": "src/app/shared/components/multi-selectable/multi-selectable.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -6913,16 +6977,6 @@
                 "ctype": "miscellaneous",
                 "subtype": "variable",
                 "file": "src/app/shared/modals/operative-list/components/online-operative-search/online-operative-search.component.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "",
-                "defaultValue": "Template.bind({})"
-            },
-            {
-                "name": "Default",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "src/app/core/pages/document-builder/components/input-types/actioner-select/actioner-select.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -7032,16 +7086,6 @@
                 "name": "Default",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/core/pages/document-builder/components/question-types/05-select/select.component.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "",
-                "defaultValue": "Template.bind({})"
-            },
-            {
-                "name": "Default",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "src/app/core/pages/document-builder/components/question-types/02-radio-table/radio-table.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -7062,6 +7106,26 @@
                 "name": "Default",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "src/app/core/pages/document-builder/components/question-types/04-textarea/textarea.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "Default",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/core/pages/document-builder/components/question-types/05-select/select.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "Default",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "src/app/core/pages/document-builder/components/question-types/06-checkbox-textbox/checkbox-textbox.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -7072,7 +7136,7 @@
                 "name": "Default",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/core/pages/document-builder/components/question-types/04-textarea/textarea.component.stories.ts",
+                "file": "src/app/core/pages/document-builder/components/question-types/07-radio-group-textbox/radio-group-textbox.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -7102,7 +7166,7 @@
                 "name": "Default",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/core/pages/document-builder/components/question-types/07-radio-group-textbox/radio-group-textbox.component.stories.ts",
+                "file": "src/app/core/pages/document-builder/components/question-types/09-datetime/datetime.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -7132,7 +7196,17 @@
                 "name": "Default",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/core/pages/document-builder/components/question-types/09-datetime/datetime.component.stories.ts",
+                "file": "src/app/core/pages/document-builder/components/input-types/actioner-select/actioner-select.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "Default",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/core/pages/document-builder/components/question-types/13-cascade-select/cascade-select.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -7152,16 +7226,6 @@
                 "name": "Default",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/core/pages/document-builder/components/question-types/18-linked-dates/linked-dates.component.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "",
-                "defaultValue": "Template.bind({})"
-            },
-            {
-                "name": "Default",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "src/app/core/pages/document-builder/components/question-types/17-asset-list/asset-list.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -7172,7 +7236,7 @@
                 "name": "Default",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/core/pages/document-builder/components/question-types/13-cascade-select/cascade-select.component.stories.ts",
+                "file": "src/app/core/pages/document-builder/components/question-types/18-linked-dates/linked-dates.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -7286,7 +7350,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "object",
-                "defaultValue": "{\n  production: true,\n  siteDocsApi: \"http://localhost:3002/api\",\n  apiTimeout: 60000\n}"
+                "defaultValue": "{\r\n  production: true,\r\n  siteDocsApi: \"http://localhost:3002/api\",\r\n  apiTimeout: 60000\r\n}"
             },
             {
                 "name": "environment",
@@ -7296,7 +7360,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "object",
-                "defaultValue": "{\n  production: false,\n  siteDocsApi: \"http://localhost:3002/api\",\n  apiTimeout: 60000\n}"
+                "defaultValue": "{\r\n  production: false,\r\n  siteDocsApi: \"http://localhost:3002/api\",\r\n  apiTimeout: 60000\r\n}"
             },
             {
                 "name": "formFillerRouteMock",
@@ -7442,11 +7506,11 @@
                 "name": "preview",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": ".storybook/preview.ts",
+                "file": ".storybook/preview.tsx",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Preview",
-                "defaultValue": "{\r\n  parameters: {\r\n    actions: { argTypesRegex: \"^on[A-Z].*\" },\r\n    controls: {\r\n      matchers: {\r\n        color: /(background|color)$/i,\r\n        date: /Date$/,\r\n      },\r\n    },\r\n  },\r\n  decorators: [\r\n    applicationConfig({\r\n      providers: [\r\n        importProvidersFrom(IonicModule.forRoot({})),\r\n        provideHttpClient(),\r\n        provideHttpClientTesting()\r\n      ]\r\n    }),\r\n    componentWrapperDecorator(story => `<ion-app>${story}</ion-app>`)\r\n  ]\r\n}"
+                "defaultValue": "{\r\n  globalTypes: {\r\n    iosMode: {\r\n      name: \"IOS Mode\",\r\n      defaultValue: false\r\n    }\r\n  },\r\n  parameters: {\r\n    actions: { argTypesRegex: \"^on[A-Z].*\" },\r\n    controls: {\r\n      matchers: {\r\n        color: /(background|color)$/i,\r\n        date: /Date$/,\r\n      },\r\n    },\r\n  },\r\n  decorators: [\r\n    applicationConfig({\r\n      providers: [\r\n        importProvidersFrom(IonicModule.forRoot({})),\r\n        provideHttpClient(),\r\n        provideHttpClientTesting()\r\n      ]\r\n    }),\r\n    componentWrapperDecorator(story => `<ion-app>${story}</ion-app>`)\r\n  ]\r\n}"
             },
             {
                 "name": "queues",
@@ -7516,7 +7580,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
-                "defaultValue": "createStore(\n  { name: \"site-documents\" },\n  withEntities<CategoryActioner, \"Id\">({ idKey: \"Id\" })\n)"
+                "defaultValue": "createStore(\r\n  { name: \"site-documents\" },\r\n  withEntities<CategoryActioner, \"Id\">({ idKey: \"Id\" })\r\n)"
             },
             {
                 "name": "store",
@@ -7536,17 +7600,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
-                "defaultValue": "createStore(\n  { name: \"responsibility-area-types\" },\n  withEntities<ResponsibilityAreaType, \"Id\">({ idKey: \"Id\" })\n)"
-            },
-            {
-                "name": "store",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "src/app/core/stores/site-document-image/site-document-image.store.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "",
-                "defaultValue": "createStore(\r\n  { name: \"site-document-image\" }, \r\n  withEntities<SiteDocumentImage, \"DocumentId\">({ idKey: \"DocumentId\" })\r\n)"
+                "defaultValue": "createStore(\r\n  { name: \"responsibility-area-types\" },\r\n  withEntities<ResponsibilityAreaType, \"Id\">({ idKey: \"Id\" })\r\n)"
             },
             {
                 "name": "store",
@@ -7557,6 +7611,16 @@
                 "deprecationMessage": "",
                 "type": "",
                 "defaultValue": "createStore(\r\n  { name: \"site-documents\" },\r\n  withEntities<SiteDocument, \"DocumentID\">({ idKey: \"DocumentID\" })\r\n)"
+            },
+            {
+                "name": "store",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/core/stores/site-document-image/site-document-image.store.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "createStore(\n  { name: \"site-document-image\" }, \n  withEntities<SiteDocumentImage, \"DocumentId\">({ idKey: \"DocumentId\" })\n)"
             },
             {
                 "name": "store",
@@ -7612,21 +7676,21 @@
                 "name": "Template",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/shared/components/multi-selectable/multi-selectable.component.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "StoryFn<MultiSelectableComponent>",
-                "defaultValue": "(args: MultiSelectableComponent) => ({\r\n  props: args\r\n})"
-            },
-            {
-                "name": "Template",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "src/app/shared/components/datetime-picker/datetime-picker.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "StoryFn<DatetimePickerComponent>",
                 "defaultValue": "(args: DatetimePickerComponent) => ({\r\n  props: args\r\n})"
+            },
+            {
+                "name": "Template",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/shared/components/multi-selectable/multi-selectable.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "StoryFn<MultiSelectableComponent>",
+                "defaultValue": "(args: MultiSelectableComponent) => ({\r\n  props: args\r\n})"
             },
             {
                 "name": "Template",
@@ -7667,16 +7731,6 @@
                 "deprecationMessage": "",
                 "type": "StoryFn<OnlineOperativeSearchComponent>",
                 "defaultValue": "args => ({\r\n  props: args\r\n})"
-            },
-            {
-                "name": "Template",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "src/app/core/pages/document-builder/components/input-types/actioner-select/actioner-select.component.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "StoryFn<ActionerSelectComponent>",
-                "defaultValue": "(args: ActionerSelectComponent) => ({\r\n  props: args\r\n})"
             },
             {
                 "name": "Template",
@@ -7782,16 +7836,6 @@
                 "name": "Template",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/core/pages/document-builder/components/question-types/05-select/select.component.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "StoryFn<Story>",
-                "defaultValue": "args => ({\r\n  props: {\r\n    ...args,\r\n    question: {\r\n      ...defaultQuestion,\r\n      QuestionText: args[\"question.QuestionText\"],\r\n      Required: args[\"question.Required\"],\r\n      Options: args[\"question.Options\"],\r\n      CanHaveImg: args[\"question.CanHaveImg\"],\r\n      CanHaveFiles: args[\"question.CanHaveFiles\"]\r\n    }\r\n  }\r\n})"
-            },
-            {
-                "name": "Template",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "src/app/core/pages/document-builder/components/question-types/02-radio-table/radio-table.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -7812,6 +7856,26 @@
                 "name": "Template",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "src/app/core/pages/document-builder/components/question-types/04-textarea/textarea.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "StoryFn<Story>",
+                "defaultValue": "args => ({\r\n  props: {\r\n    ...args,\r\n    question: {\r\n      ...defaultQuestion,\r\n      QuestionText: args[\"question.QuestionText\"],\r\n      Required: args[\"question.Required\"],\r\n      AnswerText: args[\"question.AnswerText\"],\r\n      CanHaveImg: args[\"question.CanHaveImg\"],\r\n      CanHaveFiles: args[\"question.CanHaveFiles\"]\r\n    }\r\n  }\r\n})"
+            },
+            {
+                "name": "Template",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/core/pages/document-builder/components/question-types/05-select/select.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "StoryFn<Story>",
+                "defaultValue": "args => ({\r\n  props: {\r\n    ...args,\r\n    question: {\r\n      ...defaultQuestion,\r\n      QuestionText: args[\"question.QuestionText\"],\r\n      Required: args[\"question.Required\"],\r\n      Options: args[\"question.Options\"],\r\n      CanHaveImg: args[\"question.CanHaveImg\"],\r\n      CanHaveFiles: args[\"question.CanHaveFiles\"]\r\n    }\r\n  }\r\n})"
+            },
+            {
+                "name": "Template",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "src/app/core/pages/document-builder/components/question-types/06-checkbox-textbox/checkbox-textbox.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -7822,11 +7886,11 @@
                 "name": "Template",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/core/pages/document-builder/components/question-types/04-textarea/textarea.component.stories.ts",
+                "file": "src/app/core/pages/document-builder/components/question-types/07-radio-group-textbox/radio-group-textbox.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "StoryFn<Story>",
-                "defaultValue": "args => ({\r\n  props: {\r\n    ...args,\r\n    question: {\r\n      ...defaultQuestion,\r\n      QuestionText: args[\"question.QuestionText\"],\r\n      Required: args[\"question.Required\"],\r\n      AnswerText: args[\"question.AnswerText\"],\r\n      CanHaveImg: args[\"question.CanHaveImg\"],\r\n      CanHaveFiles: args[\"question.CanHaveFiles\"]\r\n    }\r\n  }\r\n})"
+                "defaultValue": "args => ({\r\n  props: {\r\n    ...args,\r\n    question: {\r\n      ...defaultQuestion,\r\n      QuestionText: args[\"question.QuestionText\"],\r\n      Required: args[\"question.Required\"],\r\n      YesNoNA: args[\"question.YesNoNA\"] === \"Yes\" ? true \r\n        : args[\"question.YesNoNA\"] === \"No\" ? false\r\n        : args[\"question.YesNoNA\"] === \"NA\" ? null\r\n        : args[\"question.YesNoNA\"],\r\n      AnswerText: args[\"question.AnswerText\"],\r\n      CanHaveImg: args[\"question.CanHaveImg\"],\r\n      CanHaveFiles: args[\"question.CanHaveFiles\"]\r\n    },\r\n    section: {\r\n      ...defaultSection,\r\n      TableTitles: args[\"section.TableTitles\"]\r\n    }\r\n  }\r\n})"
             },
             {
                 "name": "Template",
@@ -7852,11 +7916,11 @@
                 "name": "Template",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/core/pages/document-builder/components/question-types/07-radio-group-textbox/radio-group-textbox.component.stories.ts",
+                "file": "src/app/core/pages/document-builder/components/question-types/09-datetime/datetime.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "StoryFn<Story>",
-                "defaultValue": "args => ({\r\n  props: {\r\n    ...args,\r\n    question: {\r\n      ...defaultQuestion,\r\n      QuestionText: args[\"question.QuestionText\"],\r\n      Required: args[\"question.Required\"],\r\n      YesNoNA: args[\"question.YesNoNA\"] === \"Yes\" ? true \r\n        : args[\"question.YesNoNA\"] === \"No\" ? false\r\n        : args[\"question.YesNoNA\"] === \"NA\" ? null\r\n        : args[\"question.YesNoNA\"],\r\n      AnswerText: args[\"question.AnswerText\"],\r\n      CanHaveImg: args[\"question.CanHaveImg\"],\r\n      CanHaveFiles: args[\"question.CanHaveFiles\"]\r\n    },\r\n    section: {\r\n      ...defaultSection,\r\n      TableTitles: args[\"section.TableTitles\"]\r\n    }\r\n  }\r\n})"
+                "defaultValue": "args => ({\r\n  props: {\r\n    ...args,\r\n    question: {\r\n      ...defaultQuestion,\r\n      QuestionText: args[\"question.QuestionText\"],\r\n      Required: args[\"question.Required\"],\r\n      DateAndTime: args[\"question.DateAndTime\"]\r\n    }\r\n  }\r\n})"
             },
             {
                 "name": "Template",
@@ -7882,11 +7946,21 @@
                 "name": "Template",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/core/pages/document-builder/components/question-types/09-datetime/datetime.component.stories.ts",
+                "file": "src/app/core/pages/document-builder/components/input-types/actioner-select/actioner-select.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "StoryFn<ActionerSelectComponent>",
+                "defaultValue": "(args: ActionerSelectComponent) => ({\r\n  props: args\r\n})"
+            },
+            {
+                "name": "Template",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/core/pages/document-builder/components/question-types/13-cascade-select/cascade-select.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "StoryFn<Story>",
-                "defaultValue": "args => ({\r\n  props: {\r\n    ...args,\r\n    question: {\r\n      ...defaultQuestion,\r\n      QuestionText: args[\"question.QuestionText\"],\r\n      Required: args[\"question.Required\"],\r\n      DateAndTime: args[\"question.DateAndTime\"]\r\n    }\r\n  }\r\n})"
+                "defaultValue": "args => ({\r\n  props: {\r\n    ...args,\r\n    question: {\r\n      ...defaultQuestion,\r\n      QuestionText: args[\"question.QuestionText\"],\r\n      Required: args[\"question.Required\"],\r\n      Options: args[\"question.Options\"],\r\n      CascadeOptions: args[\"question.CascadeOptions\"],\r\n      CanHaveImg: args[\"question.CanHaveImg\"],\r\n      CanHaveFiles: args[\"question.CanHaveFiles\"]\r\n    }\r\n  }\r\n})"
             },
             {
                 "name": "Template",
@@ -7902,16 +7976,6 @@
                 "name": "Template",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/core/pages/document-builder/components/question-types/18-linked-dates/linked-dates.component.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "StoryFn<Story>",
-                "defaultValue": "args => ({\r\n  props: {\r\n    ...args,\r\n    question: {\r\n      ...defaultQuestion,\r\n      QuestionText: args[\"question.QuestionText\"],\r\n      CascadeOptionsText: args[\"question.CascadeOptionsText\"],\r\n      Required: args[\"question.Required\"],\r\n      DateAndTime: args[\"question.DateAndTime\"],\r\n      DateAndTime2: args[\"question.DateAndTime2\"]\r\n    }\r\n  }\r\n})"
-            },
-            {
-                "name": "Template",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "src/app/core/pages/document-builder/components/question-types/17-asset-list/asset-list.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -7922,11 +7986,11 @@
                 "name": "Template",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/core/pages/document-builder/components/question-types/13-cascade-select/cascade-select.component.stories.ts",
+                "file": "src/app/core/pages/document-builder/components/question-types/18-linked-dates/linked-dates.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "StoryFn<Story>",
-                "defaultValue": "args => ({\r\n  props: {\r\n    ...args,\r\n    question: {\r\n      ...defaultQuestion,\r\n      QuestionText: args[\"question.QuestionText\"],\r\n      Required: args[\"question.Required\"],\r\n      Options: args[\"question.Options\"],\r\n      CascadeOptions: args[\"question.CascadeOptions\"],\r\n      CanHaveImg: args[\"question.CanHaveImg\"],\r\n      CanHaveFiles: args[\"question.CanHaveFiles\"]\r\n    }\r\n  }\r\n})"
+                "defaultValue": "args => ({\r\n  props: {\r\n    ...args,\r\n    question: {\r\n      ...defaultQuestion,\r\n      QuestionText: args[\"question.QuestionText\"],\r\n      CascadeOptionsText: args[\"question.CascadeOptionsText\"],\r\n      Required: args[\"question.Required\"],\r\n      DateAndTime: args[\"question.DateAndTime\"],\r\n      DateAndTime2: args[\"question.DateAndTime2\"]\r\n    }\r\n  }\r\n})"
             },
             {
                 "name": "Template",
@@ -8047,24 +8111,6 @@
             {
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/core/stores/site-document/form-filler/form-filler.store.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "",
-                "defaultValue": "entitiesPropsFactory(\"templateMenu\")"
-            },
-            {
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "src/app/core/stores/site-document/form-filler/form-filler.store.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "",
-                "defaultValue": "writingDocumentAdapter(store)"
-            },
-            {
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "src/app/core/stores/site-document/adapters/writing-document.adapter.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -8079,6 +8125,24 @@
                 "deprecationMessage": "",
                 "type": "",
                 "defaultValue": "propsFactory(\"writingDocument\", { initialValue: null as SiteDocument | null })"
+            },
+            {
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/core/stores/site-document/form-filler/form-filler.store.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "entitiesPropsFactory(\"templateMenu\")"
+            },
+            {
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/core/stores/site-document/form-filler/form-filler.store.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "writingDocumentAdapter(store)"
             },
             {
                 "ctype": "miscellaneous",
@@ -8821,7 +8885,7 @@
                         "type": "AdapterTarget<TState>",
                         "deprecated": false,
                         "deprecationMessage": "",
-                        "destrucuredGroupId": "b536aa84-4232-4da7-8c9c-156480700173",
+                        "destrucuredGroupId": "084eba28-4345-4d9c-b52a-df1955b3f20e",
                         "destructuredParameter": true
                     },
                     {
@@ -8829,7 +8893,7 @@
                         "type": "",
                         "deprecated": false,
                         "deprecationMessage": "",
-                        "destrucuredGroupId": "b536aa84-4232-4da7-8c9c-156480700173",
+                        "destrucuredGroupId": "084eba28-4345-4d9c-b52a-df1955b3f20e",
                         "destructuredParameter": true
                     }
                 ],
@@ -8839,7 +8903,7 @@
                         "type": "AdapterTarget<TState>",
                         "deprecated": false,
                         "deprecationMessage": "",
-                        "destrucuredGroupId": "b536aa84-4232-4da7-8c9c-156480700173",
+                        "destrucuredGroupId": "084eba28-4345-4d9c-b52a-df1955b3f20e",
                         "destructuredParameter": true,
                         "tagName": {
                             "text": "param"
@@ -8850,7 +8914,7 @@
                         "type": "",
                         "deprecated": false,
                         "deprecationMessage": "",
-                        "destrucuredGroupId": "b536aa84-4232-4da7-8c9c-156480700173",
+                        "destrucuredGroupId": "084eba28-4345-4d9c-b52a-df1955b3f20e",
                         "destructuredParameter": true,
                         "tagName": {
                             "text": "param"
@@ -9398,17 +9462,6 @@
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
                 "rawtype": "",
-                "file": "src/app/core/pages/document-builder/components/question-types/05-select/select.component.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "description": "",
-                "kind": 187
-            },
-            {
-                "name": "Story",
-                "ctype": "miscellaneous",
-                "subtype": "typealias",
-                "rawtype": "",
                 "file": "src/app/core/pages/document-builder/components/question-types/02-radio-table/radio-table.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -9431,6 +9484,28 @@
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
                 "rawtype": "",
+                "file": "src/app/core/pages/document-builder/components/question-types/04-textarea/textarea.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "kind": 187
+            },
+            {
+                "name": "Story",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
+                "rawtype": "",
+                "file": "src/app/core/pages/document-builder/components/question-types/05-select/select.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "kind": 187
+            },
+            {
+                "name": "Story",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
+                "rawtype": "",
                 "file": "src/app/core/pages/document-builder/components/question-types/06-checkbox-textbox/checkbox-textbox.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -9442,7 +9517,7 @@
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
                 "rawtype": "",
-                "file": "src/app/core/pages/document-builder/components/question-types/04-textarea/textarea.component.stories.ts",
+                "file": "src/app/core/pages/document-builder/components/question-types/07-radio-group-textbox/radio-group-textbox.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
@@ -9475,7 +9550,7 @@
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
                 "rawtype": "",
-                "file": "src/app/core/pages/document-builder/components/question-types/07-radio-group-textbox/radio-group-textbox.component.stories.ts",
+                "file": "src/app/core/pages/document-builder/components/question-types/09-datetime/datetime.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
@@ -9508,7 +9583,7 @@
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
                 "rawtype": "",
-                "file": "src/app/core/pages/document-builder/components/question-types/09-datetime/datetime.component.stories.ts",
+                "file": "src/app/core/pages/document-builder/components/question-types/13-cascade-select/cascade-select.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
@@ -9530,17 +9605,6 @@
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
                 "rawtype": "",
-                "file": "src/app/core/pages/document-builder/components/question-types/18-linked-dates/linked-dates.component.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "description": "",
-                "kind": 187
-            },
-            {
-                "name": "Story",
-                "ctype": "miscellaneous",
-                "subtype": "typealias",
-                "rawtype": "",
                 "file": "src/app/core/pages/document-builder/components/question-types/17-asset-list/asset-list.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -9552,7 +9616,7 @@
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
                 "rawtype": "",
-                "file": "src/app/core/pages/document-builder/components/question-types/13-cascade-select/cascade-select.component.stories.ts",
+                "file": "src/app/core/pages/document-builder/components/question-types/18-linked-dates/linked-dates.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
@@ -10157,28 +10221,6 @@
                     "defaultValue": "args => ({\r\n  props: args\r\n})"
                 }
             ],
-            "src/app/core/pages/document-builder/components/input-types/actioner-select/actioner-select.component.stories.ts": [
-                {
-                    "name": "Default",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/core/pages/document-builder/components/input-types/actioner-select/actioner-select.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "Template.bind({})"
-                },
-                {
-                    "name": "Template",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/core/pages/document-builder/components/input-types/actioner-select/actioner-select.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "StoryFn<ActionerSelectComponent>",
-                    "defaultValue": "(args: ActionerSelectComponent) => ({\r\n  props: args\r\n})"
-                }
-            ],
             "src/app/core/pages/document-builder/components/input-types/company-actioner-select/company-actioner-select.component.stories.ts": [
                 {
                     "name": "Default",
@@ -10489,28 +10531,6 @@
                     "defaultValue": "args => ({\r\n  props: {\r\n    ...args,\r\n    question: {\r\n      ...defaultQuestion,\r\n      QuestionText: args[\"question.QuestionText\"],\r\n      Required: args[\"question.Required\"],\r\n      YesNoNA: args[\"question.YesNoNA\"] === \"Yes\" ? true \r\n        : args[\"question.YesNoNA\"] === \"No\" ? false\r\n        : args[\"question.YesNoNA\"] === \"NA\" ? null\r\n        : args[\"question.YesNoNA\"],\r\n      CanHaveImg: args[\"question.CanHaveImg\"],\r\n      CanHaveFiles: args[\"question.CanHaveFiles\"]\r\n    },\r\n    section: {\r\n      ...defaultSection,\r\n      TableTitles: args[\"section.TableTitles\"]\r\n    }\r\n  }\r\n})"
                 }
             ],
-            "src/app/core/pages/document-builder/components/question-types/05-select/select.component.stories.ts": [
-                {
-                    "name": "Default",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/core/pages/document-builder/components/question-types/05-select/select.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "Template.bind({})"
-                },
-                {
-                    "name": "Template",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/core/pages/document-builder/components/question-types/05-select/select.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "StoryFn<Story>",
-                    "defaultValue": "args => ({\r\n  props: {\r\n    ...args,\r\n    question: {\r\n      ...defaultQuestion,\r\n      QuestionText: args[\"question.QuestionText\"],\r\n      Required: args[\"question.Required\"],\r\n      Options: args[\"question.Options\"],\r\n      CanHaveImg: args[\"question.CanHaveImg\"],\r\n      CanHaveFiles: args[\"question.CanHaveFiles\"]\r\n    }\r\n  }\r\n})"
-                }
-            ],
             "src/app/core/pages/document-builder/components/question-types/02-radio-table/radio-table.component.stories.ts": [
                 {
                     "name": "Default",
@@ -10555,6 +10575,50 @@
                     "defaultValue": "args => ({\r\n  props: {\r\n    ...args,\r\n    question: {\r\n      ...defaultQuestion,\r\n      QuestionText: args[\"question.QuestionText\"],\r\n      Required: args[\"question.Required\"],\r\n      AnswerText: args[\"question.AnswerText\"],\r\n      CanHaveImg: args[\"question.CanHaveImg\"],\r\n      CanHaveFiles: args[\"question.CanHaveFiles\"]\r\n    }\r\n  }\r\n})"
                 }
             ],
+            "src/app/core/pages/document-builder/components/question-types/04-textarea/textarea.component.stories.ts": [
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/core/pages/document-builder/components/question-types/04-textarea/textarea.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/core/pages/document-builder/components/question-types/04-textarea/textarea.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "StoryFn<Story>",
+                    "defaultValue": "args => ({\r\n  props: {\r\n    ...args,\r\n    question: {\r\n      ...defaultQuestion,\r\n      QuestionText: args[\"question.QuestionText\"],\r\n      Required: args[\"question.Required\"],\r\n      AnswerText: args[\"question.AnswerText\"],\r\n      CanHaveImg: args[\"question.CanHaveImg\"],\r\n      CanHaveFiles: args[\"question.CanHaveFiles\"]\r\n    }\r\n  }\r\n})"
+                }
+            ],
+            "src/app/core/pages/document-builder/components/question-types/05-select/select.component.stories.ts": [
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/core/pages/document-builder/components/question-types/05-select/select.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/core/pages/document-builder/components/question-types/05-select/select.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "StoryFn<Story>",
+                    "defaultValue": "args => ({\r\n  props: {\r\n    ...args,\r\n    question: {\r\n      ...defaultQuestion,\r\n      QuestionText: args[\"question.QuestionText\"],\r\n      Required: args[\"question.Required\"],\r\n      Options: args[\"question.Options\"],\r\n      CanHaveImg: args[\"question.CanHaveImg\"],\r\n      CanHaveFiles: args[\"question.CanHaveFiles\"]\r\n    }\r\n  }\r\n})"
+                }
+            ],
             "src/app/core/pages/document-builder/components/question-types/06-checkbox-textbox/checkbox-textbox.component.stories.ts": [
                 {
                     "name": "Default",
@@ -10577,12 +10641,12 @@
                     "defaultValue": "args => ({\r\n  props: {\r\n    ...args,\r\n    question: {\r\n      ...defaultQuestion,\r\n      QuestionText: args[\"question.QuestionText\"],\r\n      Required: args[\"question.Required\"],\r\n      YesNoNA: args[\"question.YesNoNA\"],\r\n      AnswerText: args[\"question.AnswerText\"],\r\n      CanHaveImg: args[\"question.CanHaveImg\"],\r\n      CanHaveFiles: args[\"question.CanHaveFiles\"]\r\n    }\r\n  }\r\n})"
                 }
             ],
-            "src/app/core/pages/document-builder/components/question-types/04-textarea/textarea.component.stories.ts": [
+            "src/app/core/pages/document-builder/components/question-types/07-radio-group-textbox/radio-group-textbox.component.stories.ts": [
                 {
                     "name": "Default",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "src/app/core/pages/document-builder/components/question-types/04-textarea/textarea.component.stories.ts",
+                    "file": "src/app/core/pages/document-builder/components/question-types/07-radio-group-textbox/radio-group-textbox.component.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "",
@@ -10592,11 +10656,11 @@
                     "name": "Template",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "src/app/core/pages/document-builder/components/question-types/04-textarea/textarea.component.stories.ts",
+                    "file": "src/app/core/pages/document-builder/components/question-types/07-radio-group-textbox/radio-group-textbox.component.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "StoryFn<Story>",
-                    "defaultValue": "args => ({\r\n  props: {\r\n    ...args,\r\n    question: {\r\n      ...defaultQuestion,\r\n      QuestionText: args[\"question.QuestionText\"],\r\n      Required: args[\"question.Required\"],\r\n      AnswerText: args[\"question.AnswerText\"],\r\n      CanHaveImg: args[\"question.CanHaveImg\"],\r\n      CanHaveFiles: args[\"question.CanHaveFiles\"]\r\n    }\r\n  }\r\n})"
+                    "defaultValue": "args => ({\r\n  props: {\r\n    ...args,\r\n    question: {\r\n      ...defaultQuestion,\r\n      QuestionText: args[\"question.QuestionText\"],\r\n      Required: args[\"question.Required\"],\r\n      YesNoNA: args[\"question.YesNoNA\"] === \"Yes\" ? true \r\n        : args[\"question.YesNoNA\"] === \"No\" ? false\r\n        : args[\"question.YesNoNA\"] === \"NA\" ? null\r\n        : args[\"question.YesNoNA\"],\r\n      AnswerText: args[\"question.AnswerText\"],\r\n      CanHaveImg: args[\"question.CanHaveImg\"],\r\n      CanHaveFiles: args[\"question.CanHaveFiles\"]\r\n    },\r\n    section: {\r\n      ...defaultSection,\r\n      TableTitles: args[\"section.TableTitles\"]\r\n    }\r\n  }\r\n})"
                 }
             ],
             "src/app/core/pages/document-builder/components/question-types/07-radio-table-textbox/radio-table-textbox.component.stories.ts": [
@@ -10643,12 +10707,12 @@
                     "defaultValue": "args => ({\r\n  props: {\r\n    ...args,\r\n    question: {\r\n      ...defaultQuestion,\r\n      QuestionText: args[\"question.QuestionText\"],\r\n      Required: args[\"question.Required\"],\r\n      DateAndTime: args[\"question.DateAndTime\"]\r\n    }\r\n  }\r\n})"
                 }
             ],
-            "src/app/core/pages/document-builder/components/question-types/07-radio-group-textbox/radio-group-textbox.component.stories.ts": [
+            "src/app/core/pages/document-builder/components/question-types/09-datetime/datetime.component.stories.ts": [
                 {
                     "name": "Default",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "src/app/core/pages/document-builder/components/question-types/07-radio-group-textbox/radio-group-textbox.component.stories.ts",
+                    "file": "src/app/core/pages/document-builder/components/question-types/09-datetime/datetime.component.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "",
@@ -10658,11 +10722,11 @@
                     "name": "Template",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "src/app/core/pages/document-builder/components/question-types/07-radio-group-textbox/radio-group-textbox.component.stories.ts",
+                    "file": "src/app/core/pages/document-builder/components/question-types/09-datetime/datetime.component.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "StoryFn<Story>",
-                    "defaultValue": "args => ({\r\n  props: {\r\n    ...args,\r\n    question: {\r\n      ...defaultQuestion,\r\n      QuestionText: args[\"question.QuestionText\"],\r\n      Required: args[\"question.Required\"],\r\n      YesNoNA: args[\"question.YesNoNA\"] === \"Yes\" ? true \r\n        : args[\"question.YesNoNA\"] === \"No\" ? false\r\n        : args[\"question.YesNoNA\"] === \"NA\" ? null\r\n        : args[\"question.YesNoNA\"],\r\n      AnswerText: args[\"question.AnswerText\"],\r\n      CanHaveImg: args[\"question.CanHaveImg\"],\r\n      CanHaveFiles: args[\"question.CanHaveFiles\"]\r\n    },\r\n    section: {\r\n      ...defaultSection,\r\n      TableTitles: args[\"section.TableTitles\"]\r\n    }\r\n  }\r\n})"
+                    "defaultValue": "args => ({\r\n  props: {\r\n    ...args,\r\n    question: {\r\n      ...defaultQuestion,\r\n      QuestionText: args[\"question.QuestionText\"],\r\n      Required: args[\"question.Required\"],\r\n      DateAndTime: args[\"question.DateAndTime\"]\r\n    }\r\n  }\r\n})"
                 }
             ],
             "src/app/core/pages/document-builder/components/question-types/10-operative-list/operative-list.component.stories.ts": [
@@ -10709,12 +10773,12 @@
                     "defaultValue": "args => ({\r\n  props: {\r\n    ...args,\r\n    question: {\r\n      ...defaultQuestion,\r\n      QuestionText: args[\"question.QuestionText\"],\r\n      Required: args[\"question.Required\"],\r\n      NumberVal: args[\"question.NumberVal\"],\r\n      CanHaveImg: args[\"question.CanHaveImg\"],\r\n      CanHaveFiles: args[\"question.CanHaveFiles\"]\r\n    }\r\n  }\r\n})"
                 }
             ],
-            "src/app/core/pages/document-builder/components/question-types/09-datetime/datetime.component.stories.ts": [
+            "src/app/core/pages/document-builder/components/input-types/actioner-select/actioner-select.component.stories.ts": [
                 {
                     "name": "Default",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "src/app/core/pages/document-builder/components/question-types/09-datetime/datetime.component.stories.ts",
+                    "file": "src/app/core/pages/document-builder/components/input-types/actioner-select/actioner-select.component.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "",
@@ -10724,11 +10788,33 @@
                     "name": "Template",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "src/app/core/pages/document-builder/components/question-types/09-datetime/datetime.component.stories.ts",
+                    "file": "src/app/core/pages/document-builder/components/input-types/actioner-select/actioner-select.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "StoryFn<ActionerSelectComponent>",
+                    "defaultValue": "(args: ActionerSelectComponent) => ({\r\n  props: args\r\n})"
+                }
+            ],
+            "src/app/core/pages/document-builder/components/question-types/13-cascade-select/cascade-select.component.stories.ts": [
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/core/pages/document-builder/components/question-types/13-cascade-select/cascade-select.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/core/pages/document-builder/components/question-types/13-cascade-select/cascade-select.component.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "StoryFn<Story>",
-                    "defaultValue": "args => ({\r\n  props: {\r\n    ...args,\r\n    question: {\r\n      ...defaultQuestion,\r\n      QuestionText: args[\"question.QuestionText\"],\r\n      Required: args[\"question.Required\"],\r\n      DateAndTime: args[\"question.DateAndTime\"]\r\n    }\r\n  }\r\n})"
+                    "defaultValue": "args => ({\r\n  props: {\r\n    ...args,\r\n    question: {\r\n      ...defaultQuestion,\r\n      QuestionText: args[\"question.QuestionText\"],\r\n      Required: args[\"question.Required\"],\r\n      Options: args[\"question.Options\"],\r\n      CascadeOptions: args[\"question.CascadeOptions\"],\r\n      CanHaveImg: args[\"question.CanHaveImg\"],\r\n      CanHaveFiles: args[\"question.CanHaveFiles\"]\r\n    }\r\n  }\r\n})"
                 }
             ],
             "src/app/core/pages/document-builder/components/question-types/16-linked-bool/linked-bool.component.stories.ts": [
@@ -10753,28 +10839,6 @@
                     "defaultValue": "args => ({\r\n  props: {\r\n    ...args,\r\n    question: {\r\n      ...defaultQuestion,\r\n      QuestionText: args[\"question.QuestionText\"],\r\n      Required: args[\"question.Required\"],\r\n      YesNoNA: args[\"question.YesNoNA\"],\r\n      CanHaveImg: args[\"question.CanHaveImg\"],\r\n      CanHaveFiles: args[\"question.CanHaveFiles\"]\r\n    },\r\n    section: {\r\n      ...defaultSection,\r\n      TableTitles: args[\"section.TableTitles\"]\r\n    }\r\n  }\r\n})"
                 }
             ],
-            "src/app/core/pages/document-builder/components/question-types/18-linked-dates/linked-dates.component.stories.ts": [
-                {
-                    "name": "Default",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/core/pages/document-builder/components/question-types/18-linked-dates/linked-dates.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "Template.bind({})"
-                },
-                {
-                    "name": "Template",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/core/pages/document-builder/components/question-types/18-linked-dates/linked-dates.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "StoryFn<Story>",
-                    "defaultValue": "args => ({\r\n  props: {\r\n    ...args,\r\n    question: {\r\n      ...defaultQuestion,\r\n      QuestionText: args[\"question.QuestionText\"],\r\n      CascadeOptionsText: args[\"question.CascadeOptionsText\"],\r\n      Required: args[\"question.Required\"],\r\n      DateAndTime: args[\"question.DateAndTime\"],\r\n      DateAndTime2: args[\"question.DateAndTime2\"]\r\n    }\r\n  }\r\n})"
-                }
-            ],
             "src/app/core/pages/document-builder/components/question-types/17-asset-list/asset-list.component.stories.ts": [
                 {
                     "name": "Default",
@@ -10797,12 +10861,12 @@
                     "defaultValue": "args => ({\r\n  props: {\r\n    ...args,\r\n    question: {\r\n      ...defaultQuestion,\r\n      QuestionText: args[\"question.QuestionText\"],\r\n      Assets: args[\"question.Assets\"]\r\n    }\r\n  }\r\n})"
                 }
             ],
-            "src/app/core/pages/document-builder/components/question-types/13-cascade-select/cascade-select.component.stories.ts": [
+            "src/app/core/pages/document-builder/components/question-types/18-linked-dates/linked-dates.component.stories.ts": [
                 {
                     "name": "Default",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "src/app/core/pages/document-builder/components/question-types/13-cascade-select/cascade-select.component.stories.ts",
+                    "file": "src/app/core/pages/document-builder/components/question-types/18-linked-dates/linked-dates.component.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "",
@@ -10812,11 +10876,11 @@
                     "name": "Template",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "src/app/core/pages/document-builder/components/question-types/13-cascade-select/cascade-select.component.stories.ts",
+                    "file": "src/app/core/pages/document-builder/components/question-types/18-linked-dates/linked-dates.component.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "StoryFn<Story>",
-                    "defaultValue": "args => ({\r\n  props: {\r\n    ...args,\r\n    question: {\r\n      ...defaultQuestion,\r\n      QuestionText: args[\"question.QuestionText\"],\r\n      Required: args[\"question.Required\"],\r\n      Options: args[\"question.Options\"],\r\n      CascadeOptions: args[\"question.CascadeOptions\"],\r\n      CanHaveImg: args[\"question.CanHaveImg\"],\r\n      CanHaveFiles: args[\"question.CanHaveFiles\"]\r\n    }\r\n  }\r\n})"
+                    "defaultValue": "args => ({\r\n  props: {\r\n    ...args,\r\n    question: {\r\n      ...defaultQuestion,\r\n      QuestionText: args[\"question.QuestionText\"],\r\n      CascadeOptionsText: args[\"question.CascadeOptionsText\"],\r\n      Required: args[\"question.Required\"],\r\n      DateAndTime: args[\"question.DateAndTime\"],\r\n      DateAndTime2: args[\"question.DateAndTime2\"]\r\n    }\r\n  }\r\n})"
                 }
             ],
             "src/app/core/pages/document-builder/components/question-types/19-signature/signature.component.stories.ts": [
@@ -10938,7 +11002,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "object",
-                    "defaultValue": "{\n  production: true,\n  siteDocsApi: \"http://localhost:3002/api\",\n  apiTimeout: 60000\n}"
+                    "defaultValue": "{\r\n  production: true,\r\n  siteDocsApi: \"http://localhost:3002/api\",\r\n  apiTimeout: 60000\r\n}"
                 }
             ],
             "src/environments/environment.ts": [
@@ -10950,7 +11014,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "object",
-                    "defaultValue": "{\n  production: false,\n  siteDocsApi: \"http://localhost:3002/api\",\n  apiTimeout: 60000\n}"
+                    "defaultValue": "{\r\n  production: false,\r\n  siteDocsApi: \"http://localhost:3002/api\",\r\n  apiTimeout: 60000\r\n}"
                 }
             ],
             "src/app/shared/plugins/device.plugin.ts": [
@@ -10987,16 +11051,16 @@
                     "defaultValue": "memoize(() => {\r\n  const platform = inject(Platform);\r\n\r\n  return platform.is(\"cordova\");\r\n})"
                 }
             ],
-            ".storybook/preview.ts": [
+            ".storybook/preview.tsx": [
                 {
                     "name": "preview",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": ".storybook/preview.ts",
+                    "file": ".storybook/preview.tsx",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Preview",
-                    "defaultValue": "{\r\n  parameters: {\r\n    actions: { argTypesRegex: \"^on[A-Z].*\" },\r\n    controls: {\r\n      matchers: {\r\n        color: /(background|color)$/i,\r\n        date: /Date$/,\r\n      },\r\n    },\r\n  },\r\n  decorators: [\r\n    applicationConfig({\r\n      providers: [\r\n        importProvidersFrom(IonicModule.forRoot({})),\r\n        provideHttpClient(),\r\n        provideHttpClientTesting()\r\n      ]\r\n    }),\r\n    componentWrapperDecorator(story => `<ion-app>${story}</ion-app>`)\r\n  ]\r\n}"
+                    "defaultValue": "{\r\n  globalTypes: {\r\n    iosMode: {\r\n      name: \"IOS Mode\",\r\n      defaultValue: false\r\n    }\r\n  },\r\n  parameters: {\r\n    actions: { argTypesRegex: \"^on[A-Z].*\" },\r\n    controls: {\r\n      matchers: {\r\n        color: /(background|color)$/i,\r\n        date: /Date$/,\r\n      },\r\n    },\r\n  },\r\n  decorators: [\r\n    applicationConfig({\r\n      providers: [\r\n        importProvidersFrom(IonicModule.forRoot({})),\r\n        provideHttpClient(),\r\n        provideHttpClientTesting()\r\n      ]\r\n    }),\r\n    componentWrapperDecorator(story => `<ion-app>${story}</ion-app>`)\r\n  ]\r\n}"
                 }
             ],
             "src/app/core/stores/user/user.store.ts": [
@@ -11059,7 +11123,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "",
-                    "defaultValue": "createStore(\n  { name: \"site-documents\" },\n  withEntities<CategoryActioner, \"Id\">({ idKey: \"Id\" })\n)"
+                    "defaultValue": "createStore(\r\n  { name: \"site-documents\" },\r\n  withEntities<CategoryActioner, \"Id\">({ idKey: \"Id\" })\r\n)"
                 }
             ],
             "src/app/core/stores/operative/operatives.store.ts": [
@@ -11111,19 +11175,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "",
-                    "defaultValue": "createStore(\n  { name: \"responsibility-area-types\" },\n  withEntities<ResponsibilityAreaType, \"Id\">({ idKey: \"Id\" })\n)"
-                }
-            ],
-            "src/app/core/stores/site-document-image/site-document-image.store.ts": [
-                {
-                    "name": "store",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/core/stores/site-document-image/site-document-image.store.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "createStore(\r\n  { name: \"site-document-image\" }, \r\n  withEntities<SiteDocumentImage, \"DocumentId\">({ idKey: \"DocumentId\" })\r\n)"
+                    "defaultValue": "createStore(\r\n  { name: \"responsibility-area-types\" },\r\n  withEntities<ResponsibilityAreaType, \"Id\">({ idKey: \"Id\" })\r\n)"
                 }
             ],
             "src/app/core/stores/site-document/site-document.store.ts": [
@@ -11136,6 +11188,18 @@
                     "deprecationMessage": "",
                     "type": "",
                     "defaultValue": "createStore(\r\n  { name: \"site-documents\" },\r\n  withEntities<SiteDocument, \"DocumentID\">({ idKey: \"DocumentID\" })\r\n)"
+                }
+            ],
+            "src/app/core/stores/site-document-image/site-document-image.store.ts": [
+                {
+                    "name": "store",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/core/stores/site-document-image/site-document-image.store.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "createStore(\n  { name: \"site-document-image\" }, \n  withEntities<SiteDocumentImage, \"DocumentId\">({ idKey: \"DocumentId\" })\n)"
                 }
             ],
             "src/app/core/stores/site-document/form-filler/form-filler.store.ts": [
@@ -12007,7 +12071,7 @@
                             "type": "AdapterTarget<TState>",
                             "deprecated": false,
                             "deprecationMessage": "",
-                            "destrucuredGroupId": "b536aa84-4232-4da7-8c9c-156480700173",
+                            "destrucuredGroupId": "084eba28-4345-4d9c-b52a-df1955b3f20e",
                             "destructuredParameter": true
                         },
                         {
@@ -12015,7 +12079,7 @@
                             "type": "",
                             "deprecated": false,
                             "deprecationMessage": "",
-                            "destrucuredGroupId": "b536aa84-4232-4da7-8c9c-156480700173",
+                            "destrucuredGroupId": "084eba28-4345-4d9c-b52a-df1955b3f20e",
                             "destructuredParameter": true
                         }
                     ],
@@ -12025,7 +12089,7 @@
                             "type": "AdapterTarget<TState>",
                             "deprecated": false,
                             "deprecationMessage": "",
-                            "destrucuredGroupId": "b536aa84-4232-4da7-8c9c-156480700173",
+                            "destrucuredGroupId": "084eba28-4345-4d9c-b52a-df1955b3f20e",
                             "destructuredParameter": true,
                             "tagName": {
                                 "text": "param"
@@ -12036,7 +12100,7 @@
                             "type": "",
                             "deprecated": false,
                             "deprecationMessage": "",
-                            "destrucuredGroupId": "b536aa84-4232-4da7-8c9c-156480700173",
+                            "destrucuredGroupId": "084eba28-4345-4d9c-b52a-df1955b3f20e",
                             "destructuredParameter": true,
                             "tagName": {
                                 "text": "param"
@@ -12769,19 +12833,6 @@
                     "kind": 187
                 }
             ],
-            "src/app/core/pages/document-builder/components/question-types/05-select/select.component.stories.ts": [
-                {
-                    "name": "Story",
-                    "ctype": "miscellaneous",
-                    "subtype": "typealias",
-                    "rawtype": "",
-                    "file": "src/app/core/pages/document-builder/components/question-types/05-select/select.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "description": "",
-                    "kind": 187
-                }
-            ],
             "src/app/core/pages/document-builder/components/question-types/02-radio-table/radio-table.component.stories.ts": [
                 {
                     "name": "Story",
@@ -12808,6 +12859,32 @@
                     "kind": 187
                 }
             ],
+            "src/app/core/pages/document-builder/components/question-types/04-textarea/textarea.component.stories.ts": [
+                {
+                    "name": "Story",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "",
+                    "file": "src/app/core/pages/document-builder/components/question-types/04-textarea/textarea.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 187
+                }
+            ],
+            "src/app/core/pages/document-builder/components/question-types/05-select/select.component.stories.ts": [
+                {
+                    "name": "Story",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "",
+                    "file": "src/app/core/pages/document-builder/components/question-types/05-select/select.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 187
+                }
+            ],
             "src/app/core/pages/document-builder/components/question-types/06-checkbox-textbox/checkbox-textbox.component.stories.ts": [
                 {
                     "name": "Story",
@@ -12821,13 +12898,13 @@
                     "kind": 187
                 }
             ],
-            "src/app/core/pages/document-builder/components/question-types/04-textarea/textarea.component.stories.ts": [
+            "src/app/core/pages/document-builder/components/question-types/07-radio-group-textbox/radio-group-textbox.component.stories.ts": [
                 {
                     "name": "Story",
                     "ctype": "miscellaneous",
                     "subtype": "typealias",
                     "rawtype": "",
-                    "file": "src/app/core/pages/document-builder/components/question-types/04-textarea/textarea.component.stories.ts",
+                    "file": "src/app/core/pages/document-builder/components/question-types/07-radio-group-textbox/radio-group-textbox.component.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
@@ -12860,13 +12937,13 @@
                     "kind": 187
                 }
             ],
-            "src/app/core/pages/document-builder/components/question-types/07-radio-group-textbox/radio-group-textbox.component.stories.ts": [
+            "src/app/core/pages/document-builder/components/question-types/09-datetime/datetime.component.stories.ts": [
                 {
                     "name": "Story",
                     "ctype": "miscellaneous",
                     "subtype": "typealias",
                     "rawtype": "",
-                    "file": "src/app/core/pages/document-builder/components/question-types/07-radio-group-textbox/radio-group-textbox.component.stories.ts",
+                    "file": "src/app/core/pages/document-builder/components/question-types/09-datetime/datetime.component.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
@@ -12899,13 +12976,13 @@
                     "kind": 187
                 }
             ],
-            "src/app/core/pages/document-builder/components/question-types/09-datetime/datetime.component.stories.ts": [
+            "src/app/core/pages/document-builder/components/question-types/13-cascade-select/cascade-select.component.stories.ts": [
                 {
                     "name": "Story",
                     "ctype": "miscellaneous",
                     "subtype": "typealias",
                     "rawtype": "",
-                    "file": "src/app/core/pages/document-builder/components/question-types/09-datetime/datetime.component.stories.ts",
+                    "file": "src/app/core/pages/document-builder/components/question-types/13-cascade-select/cascade-select.component.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
@@ -12925,19 +13002,6 @@
                     "kind": 187
                 }
             ],
-            "src/app/core/pages/document-builder/components/question-types/18-linked-dates/linked-dates.component.stories.ts": [
-                {
-                    "name": "Story",
-                    "ctype": "miscellaneous",
-                    "subtype": "typealias",
-                    "rawtype": "",
-                    "file": "src/app/core/pages/document-builder/components/question-types/18-linked-dates/linked-dates.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "description": "",
-                    "kind": 187
-                }
-            ],
             "src/app/core/pages/document-builder/components/question-types/17-asset-list/asset-list.component.stories.ts": [
                 {
                     "name": "Story",
@@ -12951,13 +13015,13 @@
                     "kind": 187
                 }
             ],
-            "src/app/core/pages/document-builder/components/question-types/13-cascade-select/cascade-select.component.stories.ts": [
+            "src/app/core/pages/document-builder/components/question-types/18-linked-dates/linked-dates.component.stories.ts": [
                 {
                     "name": "Story",
                     "ctype": "miscellaneous",
                     "subtype": "typealias",
                     "rawtype": "",
-                    "file": "src/app/core/pages/document-builder/components/question-types/13-cascade-select/cascade-select.component.stories.ts",
+                    "file": "src/app/core/pages/document-builder/components/question-types/18-linked-dates/linked-dates.component.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
@@ -13024,7 +13088,7 @@
         "status": "low",
         "files": [
             {
-                "filePath": ".storybook/preview.ts",
+                "filePath": ".storybook/preview.tsx",
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
@@ -15297,6 +15361,24 @@
                 "type": "class",
                 "linktype": "classe",
                 "name": "AssetListModal",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/shared/modals/asset-list/components/local-asset-search/local-asset-search.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "LocalAssetSearchComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/shared/modals/asset-list/components/online-asset-search/online-asset-search.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "OnlineAssetSearchComponent",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"
