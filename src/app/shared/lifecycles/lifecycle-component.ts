@@ -1,28 +1,10 @@
 import { Component } from "@angular/core";
 import { flow } from "lodash-es";
-import { Observable, pipe, Subject, takeUntil, UnaryFunction } from "rxjs";
 
-export type ReactiveConstructor = new (...args: any[]) => {
-  destroy$: Observable<void>,
-  takeUntilDestroyed<T>(): UnaryFunction<Observable<T>, Observable<T>>
-};
+export type ReactiveConstructor = new (...args: any[]) => {};
 
 @Component({ template: "" })
-class ReactiveComponent {
-  private _destroy$ = new Subject<void>();
-  readonly destroy$ = this._destroy$.asObservable();
-
-  ngOnDestroy() {
-    this._destroy$.next();
-    this._destroy$.complete();
-  }
-
-  takeUntilDestroyed<T>() {
-    return pipe(
-      takeUntil<T>(this.destroy$)
-    );
-  }
-};
+class ReactiveComponent {};
 
 function withNoop<TBase extends ReactiveConstructor>(Base: TBase) {
   return class extends Base {}

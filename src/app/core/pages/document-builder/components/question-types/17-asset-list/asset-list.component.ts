@@ -6,7 +6,7 @@ import { isMobileApp } from "src/app/shared/plugins/platform.plugin";
 import { QuestionTextComponent } from "../extras";
 
 @Component({
-  selector: "asset-list-question[question]",
+  selector: "asset-list-question",
   template: `
     <ion-list>
       <ion-item lines="none">
@@ -43,7 +43,7 @@ import { QuestionTextComponent } from "../extras";
   ]
 })
 export class AssetListComponent {
-  @Input()
+  @Input({ required: true })
   question!: Question;
 
   isMobileApp = isMobileApp();

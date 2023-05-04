@@ -5,7 +5,7 @@ import { importRxTemplate } from "src/app/shared/imports";
 import { CameraCaptureComponent, FileUploadComponent, QuestionTextComponent } from "../extras";
 
 @Component({
-  selector: "textarea-question[question]",
+  selector: "textarea-question",
   template: `
     <ion-list>
       <ion-item lines="none">
@@ -31,6 +31,6 @@ import { CameraCaptureComponent, FileUploadComponent, QuestionTextComponent } fr
   ]
 })
 export class TextareaComponent {
-  @Input()
+  @Input({ required: true })
   question!: Question;
 }

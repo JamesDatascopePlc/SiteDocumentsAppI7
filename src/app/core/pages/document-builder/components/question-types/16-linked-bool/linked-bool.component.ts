@@ -6,7 +6,7 @@ import { importRxTemplate } from "src/app/shared/imports";
 import { CameraCaptureComponent, FileUploadComponent, QuestionTextComponent } from "../extras";
 
 @Component({
-  selector: "linked-bool-question[question][section]",
+  selector: "linked-bool-question",
   template: `
     <ion-list>
       <ion-item lines="none">
@@ -38,9 +38,9 @@ import { CameraCaptureComponent, FileUploadComponent, QuestionTextComponent } fr
   ]
 })
 export class LinkedBoolComponent {
-  @Input()
+  @Input({ required: true })
   question!: Question;
 
-  @Input()
+  @Input({ required: true })
   section!: Section;
 }

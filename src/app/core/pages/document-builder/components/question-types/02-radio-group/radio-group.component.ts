@@ -6,12 +6,12 @@ import { Question, Section } from "src/app/core/stores/site-document/models";
 import { FormsModule } from "@angular/forms";
 
 @Component({
-  selector: "radio-group-question[section][question]",
+  selector: "radio-group-question",
   template: `
     <ion-item class="ion-no-padding" lines="none">
       <question-text [required]="question.Required">{{ question.QuestionText }}</question-text>
-      <camera-capture *rxIf="question.CanHaveImg" class="ion-no-margin" slot="end"></camera-capture>
-      <file-upload *rxIf="question.CanHaveFiles" class="ion-no-margin" slot="end"></file-upload>
+      <camera-capture *rxIf="question.CanHaveImg" class="ion-no-margin" slot="end" />
+      <file-upload *rxIf="question.CanHaveFiles" class="ion-no-margin" slot="end" />
     </ion-item>
 
     <ion-list>
@@ -42,9 +42,9 @@ import { FormsModule } from "@angular/forms";
   ]
 })
 export class RadioGroupComponent {
-  @Input()
+  @Input({ required: true })
   section!: Section;
   
-  @Input()
+  @Input({ required: true })
   question!: Question;
 }

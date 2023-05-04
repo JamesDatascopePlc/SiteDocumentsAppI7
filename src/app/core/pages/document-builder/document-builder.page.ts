@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject } from "@angular/core";
+import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { IonicModule } from "@ionic/angular";
 import { filter, merge, shareReplay, switchMap } from "rxjs";
 import { IfComponent } from "src/app/shared/components";
@@ -40,66 +41,56 @@ import { numberAdapter } from "src/app/shared/adapters/number.adapter";
          *rxIf="document.CanAddActionerFromApp"
          [(actionerId)]="document.CurrentActionerOperativeID"
          [title]="document.MetaData.ActionerText"
-         [hideMyself]="document.MetaData.CannotAddSelfAsActioner || false">
-      </actioner-select>
+         [hideMyself]="document.MetaData.CannotAddSelfAsActioner || false" />
       <category-actioner-select 
         *rxIf="document.CanAddCategoryActioner && document.DocumentCategory != null" 
         [title]="document.MetaData.ActionerText"
         [(actionerId)]="document.CurrentActionerOperativeID"
         [categoryId]="document.DocumentCategory"
-        [hideMyself]="document.MetaData.CannotAddSelfAsActioner || false">
-      </category-actioner-select>
+        [hideMyself]="document.MetaData.CannotAddSelfAsActioner || false" />
       <company-actioner-select 
         *rxIf="document.CanHaveCompanyActioner"
         [title]="document.MetaData.ActionerText"
-        [(companyId)]="document.CompanyActionerId">
-      </company-actioner-select>
+        [(companyId)]="document.CompanyActionerId" />
       <queue-select 
         *rxIf="document.Queues && document.Queues.length > 0"
-        [queueId]="document.AutoQueueID">
-      </queue-select>
+        [queueId]="document.AutoQueueID" />
       <site-select 
         *rxIf="document.MetaData?.HasSiteList"
         [title]="document.MetaData.SiteListTitle"
-        [(siteId)]="document.SiteId">
-      </site-select>
-      <queue-duration *rxIf="document.CanHaveQueueDuration"></queue-duration>
+        [(siteId)]="document.SiteId" />
+      <queue-duration *rxIf="document.CanHaveQueueDuration" />
 
       <document-page *rxFor="let page of document.Pages; index as idx" [page]="page" [hidden]="pageIndex.isNotNumber$(idx) | push">
         <document-section *rxFor="let section of page.Sections" [section]="section">
           <ng-template [ngSwitch]="section.SectionQuestiontype" [questions]="section.Questions" let-question>
-            <label-question *ngSwitchCase="QuestionType.Label" [question]="question"></label-question>
-            <checkbox-question *ngSwitchCase="QuestionType.Checkbox" [question]="question"></checkbox-question>
-            <radio-group-question *ngSwitchCase="QuestionType.RadioGroup" [section]="section" [question]="question"></radio-group-question>
+            <label-question *ngSwitchCase="QuestionType.Label" [question]="question" />
+            <checkbox-question *ngSwitchCase="QuestionType.Checkbox" [question]="question" />
+            <radio-group-question *ngSwitchCase="QuestionType.RadioGroup" [section]="section" [question]="question" />
             <radio-table-question 
               *rxIf="section.SectionQuestiontype === QuestionType.RadioGroup && document.MetaData.UsesRadioGroupTable" 
-              [question]="question">
-            </radio-table-question>
-            <textarea-question *ngSwitchCase="QuestionType.TextArea" [question]="question"></textarea-question>
-            <select-question *ngSwitchCase="QuestionType.Select" [question]="question"></select-question>
-            <checkbox-question *ngSwitchCase="QuestionType.CheckboxTextbox" [question]="question"></checkbox-question>
-            <radio-group-textbox-question *ngSwitchCase="QuestionType.RadioGroupTextbox" [question]="question" [section]="section"></radio-group-textbox-question>
+              [question]="question" />
+            <textarea-question *ngSwitchCase="QuestionType.TextArea" [question]="question" />
+            <select-question *ngSwitchCase="QuestionType.Select" [question]="question" />
+            <checkbox-question *ngSwitchCase="QuestionType.CheckboxTextbox" [question]="question" />
+            <radio-group-textbox-question *ngSwitchCase="QuestionType.RadioGroupTextbox" [question]="question" [section]="section" />
             <radio-table-textbox-question 
               *rxIf="section.SectionQuestiontype === QuestionType.RadioGroupTextbox && document.MetaData.UsesRadioGroupTable" 
-              [question]="question">
-            </radio-table-textbox-question>
-            <date-question *ngSwitchCase="QuestionType.Date" [question]="question"></date-question>
-            <datetime-question *ngSwitchCase="QuestionType.DateTime" [question]="question"></datetime-question>
-            <operative-list-question *ngSwitchCase="QuestionType.OperativeList" [question]="question"></operative-list-question>
-            <number-question *ngSwitchCase="QuestionType.Number" [question]="question"></number-question>
-            <asset-list-question *ngSwitchCase="QuestionType.AssetList" [question]="question"></asset-list-question>
-            <linked-dates-question *ngSwitchCase="QuestionType.LinkedDates" [question]="question"></linked-dates-question>
-            <signature-question *ngSwitchCase="QuestionType.Signature" [question]="question"></signature-question>
-            <select-text-question *ngSwitchCase="QuestionType.SelectText" [question]="question"></select-text-question>
-            <time-question *ngSwitchCase="QuestionType.Time" [question]="question"></time-question>
+              [question]="question" />
+            <date-question *ngSwitchCase="QuestionType.Date" [question]="question" />
+            <datetime-question *ngSwitchCase="QuestionType.DateTime" [question]="question" />
+            <operative-list-question *ngSwitchCase="QuestionType.OperativeList" [question]="question" />
+            <number-question *ngSwitchCase="QuestionType.Number" [question]="question" />
+            <asset-list-question *ngSwitchCase="QuestionType.AssetList" [question]="question" />
+            <linked-dates-question *ngSwitchCase="QuestionType.LinkedDates" [question]="question" />
+            <signature-question *ngSwitchCase="QuestionType.Signature" [question]="question" />
+            <select-text-question *ngSwitchCase="QuestionType.SelectText" [question]="question" />
+            <time-question *ngSwitchCase="QuestionType.Time" [question]="question" />
           </ng-template>
         </document-section>
       </document-page>
 
-      <remain-anonymous 
-        *rxIf="document.AllowAnon"
-        [(isTicked)]="document.RemainAnon">
-      </remain-anonymous>
+      <remain-anonymous *rxIf="document.AllowAnon" [(isTicked)]="document.RemainAnon" />
 
       <ion-button
         (click)="submit(document)"
@@ -157,7 +148,7 @@ export class DocumentBuilderPage extends AngularComponent() {
   );
 
   submit = reaction<SiteDocument>(document$ => this.formFillerStore.submitDocument$(document$).pipe(
-    this.takeUntilDestroyed(),
+    takeUntilDestroyed(),
     clickReaction()
   ));
 

@@ -1,8 +1,7 @@
-import { ScrollingModule } from "@angular/cdk/scrolling";
 import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { IonicModule } from "@ionic/angular";
-import { importRxTemplate } from "../../imports";
+import { importRxFixedVirtualScroll, importRxTemplate } from "../../imports";
 import { FusePipe } from "../../pipes";
 
 @Component({
@@ -45,10 +44,10 @@ import { FusePipe } from "../../pipes";
         </ion-header>
 
         <ion-content>
-          <cdk-virtual-scroll-viewport itemSize="50" minBufferPx="1200" maxBufferPx="1200">
-            <ion-list>
+          <ion-list class="h-full">
+            <rx-virtual-scroll-viewport [itemSize]="50">
               <ion-item 
-                *cdkVirtualFor="let item of items 
+                *rxVirtualFor="let item of items 
                   | fuse: {
                     search: searchValue,
                     keys: itemText != null 
@@ -56,14 +55,20 @@ import { FusePipe } from "../../pipes";
                       : []
                   }; 
                   last as isLast" 
-                (click)="value = item; valueChange.emit(item); modal.dismiss()"
-                [lines]="isLast ? 'none' : 'inset'" 
+                class="w-full"
+                (click)="
+                  value = item; 
+                  valueChange.emit(item); 
+                  modal.dismiss()"
+                [lines]="isLast 
+                  ? 'none' 
+                  : 'inset'" 
                 [unpatch] 
                 button>
                 <ion-label class="ion-text-wrap">{{ itemText != null ? item[itemText] : item }}</ion-label>
               </ion-item>
-            </ion-list>
-          </cdk-virtual-scroll-viewport>
+            </rx-virtual-scroll-viewport>
+          </ion-list>
         </ion-content>
       </ng-template>
     </ion-modal>
@@ -72,8 +77,8 @@ import { FusePipe } from "../../pipes";
   imports: [
     IonicModule,
     ...importRxTemplate(),
+    ...importRxFixedVirtualScroll(),
     FormsModule,
-    ScrollingModule,
     FusePipe
   ]
 })

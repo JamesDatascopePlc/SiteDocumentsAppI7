@@ -5,7 +5,7 @@ import { DatetimePickerComponent } from "src/app/shared/components/datetime-pick
 import { QuestionTextComponent } from "../extras";
 
 @Component({
-  selector: "linked-dates-question[question]",
+  selector: "linked-dates-question",
   template: `
     <ion-list>
       <ion-item lines="none">
@@ -27,6 +27,6 @@ import { QuestionTextComponent } from "../extras";
   ]
 })
 export class LinkedDatesComponent {
-  @Input()
+  @Input({ required: true })
   question!: Question;
 }

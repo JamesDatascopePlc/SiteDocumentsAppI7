@@ -6,16 +6,16 @@ import { CameraCaptureComponent, FileUploadComponent, QuestionTextComponent } fr
 import { FormsModule } from "@angular/forms";
 
 @Component({
-  selector: "textbox-question[question]",
+  selector: "textbox-question",
   template: `
     <ion-list>
       <ion-item lines="none">
         <question-text [required]="question.Required">{{ question.QuestionText }}</question-text>
-        <camera-capture *rxIf="question.CanHaveImg" class="ion-no-margin" slot="end"></camera-capture>
-        <file-upload *rxIf="question.CanHaveFiles" class="ion-no-margin" slot="end"></file-upload>
+        <camera-capture *rxIf="question.CanHaveImg" class="ion-no-margin" slot="end" />
+        <file-upload *rxIf="question.CanHaveFiles" class="ion-no-margin" slot="end" />
       </ion-item>
       <ion-item>
-        <ion-input label="" type="text" [(ngModel)]="question.AnswerText"></ion-input>
+        <ion-input label="" type="text" [(ngModel)]="question.AnswerText" />
       </ion-item>
     </ion-list>
   `,
@@ -31,6 +31,6 @@ import { FormsModule } from "@angular/forms";
   ]
 })
 export class TextboxComponent {
-  @Input()
+  @Input({ required: true })
   question!: Question;
 }

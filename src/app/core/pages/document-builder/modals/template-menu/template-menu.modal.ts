@@ -1,4 +1,3 @@
-import { ScrollingModule } from "@angular/cdk/scrolling";
 import { ChangeDetectionStrategy, Component, Input } from "@angular/core";
 import { IonicModule } from "@ionic/angular";
 
@@ -19,11 +18,7 @@ import { IonicModule } from "@ionic/angular";
         </ion-header>
 
         <ion-content class="ion-padding">
-          <cdk-virtual-scroll-viewport itemSize="50" minBufferPx="1200" maxBufferPx="1200">
-            <ion-list>
-              <ion-item button></ion-item>
-            </ion-list>
-          </cdk-virtual-scroll-viewport>
+
         </ion-content>
       </ng-template>
     </ion-modal>
@@ -32,7 +27,6 @@ import { IonicModule } from "@ionic/angular";
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     IonicModule,
-    ScrollingModule
   ]
 })
 export class TemplateMenuModal {

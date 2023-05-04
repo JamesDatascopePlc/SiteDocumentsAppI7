@@ -6,7 +6,7 @@ import { importRxTemplate } from "src/app/shared/imports";
 import { CameraCaptureComponent, FileUploadComponent, QuestionTextComponent } from "../extras";
 
 @Component({
-  selector: "select-text-question[question]",
+  selector: "select-text-question",
   template: `
     <ion-list>
       <ion-item lines="none">
@@ -38,6 +38,6 @@ import { CameraCaptureComponent, FileUploadComponent, QuestionTextComponent } fr
   ]
 })
 export class SelectTextComponent {
-  @Input()
+  @Input({ required: true })
   question!: Question;
 }

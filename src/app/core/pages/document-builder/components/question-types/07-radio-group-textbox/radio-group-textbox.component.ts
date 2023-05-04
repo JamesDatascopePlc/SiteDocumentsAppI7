@@ -4,7 +4,7 @@ import { RadioGroupComponent } from "../02-radio-group/radio-group.component";
 import { Question, Section } from "src/app/core/stores/site-document/models";
 
 @Component({
-  selector: "radio-group-textbox-question[question]",
+  selector: "radio-group-textbox-question",
   template: `
     <radio-group-question [section]="section" [question]="question"></radio-group-question>
 
@@ -22,9 +22,9 @@ import { Question, Section } from "src/app/core/stores/site-document/models";
   ]
 })
 export class RadioGroupTextboxComponent {
-  @Input()
+  @Input({ required: true })
   section!: Section;
 
-  @Input()
+  @Input({ required: true })
   question!: Question;
 }

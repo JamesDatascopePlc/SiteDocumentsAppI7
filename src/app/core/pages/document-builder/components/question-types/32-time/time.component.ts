@@ -4,7 +4,7 @@ import { Question } from "src/app/core/stores/site-document/models";
 import { QuestionTextComponent } from "../extras";
 
 @Component({
-  selector: "time-question[question]",
+  selector: "time-question",
   template: `
     <ion-list>
       <ion-item lines="none">
@@ -28,6 +28,6 @@ import { QuestionTextComponent } from "../extras";
 export class TimeComponent {
   id = crypto.randomUUID();
 
-  @Input()
+  @Input({ required: true })
   question!: Question;
 }

@@ -6,7 +6,7 @@ import { CameraCaptureComponent, FileUploadComponent, QuestionTextComponent } fr
 import { FormsModule } from "@angular/forms";
 
 @Component({
-  selector: "checkbox-question-question[question]",
+  selector: "checkbox-question-question",
   template: `
     <ion-list>
       <ion-item lines="none">
@@ -33,6 +33,6 @@ import { FormsModule } from "@angular/forms";
   ]
 })
 export class CheckboxTextboxComponent {
-  @Input()
+  @Input({ required: true })
   question!: Question;
 }

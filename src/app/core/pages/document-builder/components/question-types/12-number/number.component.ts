@@ -6,7 +6,7 @@ import { CameraCaptureComponent, FileUploadComponent, QuestionTextComponent } fr
 import { FormsModule } from "@angular/forms";
 
 @Component({
-  selector: "number-question[question]",
+  selector: "number-question",
   template: `
     <ion-list>
       <ion-item lines="none">
@@ -32,6 +32,6 @@ import { FormsModule } from "@angular/forms";
   ]
 })
 export class NumberComponent {
-  @Input()
+  @Input({ required: true })
   question!: Question;
 }

@@ -5,7 +5,7 @@ import { DatetimePickerComponent } from "src/app/shared/components/datetime-pick
 import { QuestionTextComponent } from "../extras";
 
 @Component({
-  selector: "datetime-question[question]",
+  selector: "datetime-question",
   template: `
     <ion-list>
       <ion-item lines="none">
@@ -23,6 +23,6 @@ import { QuestionTextComponent } from "../extras";
   ]
 })
 export class DatetimeComponent {
-  @Input()
+  @Input({ required: true })
   question!: Question;
 }

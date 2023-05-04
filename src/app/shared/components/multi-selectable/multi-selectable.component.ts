@@ -1,8 +1,7 @@
-import { ScrollingModule } from "@angular/cdk/scrolling";
 import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { IonicModule } from "@ionic/angular";
-import { importRxTemplate } from "../../imports";
+import { importRxFixedVirtualScroll, importRxTemplate } from "../../imports";
 import { FusePipe } from "../../pipes";
 import { IfComponent } from "../if/if.component";
 
@@ -41,10 +40,10 @@ import { IfComponent } from "../if/if.component";
         </ion-header>
 
         <ion-content>
-          <cdk-virtual-scroll-viewport itemSize="50" minBufferPx="1200" maxBufferPx="1200">
-            <ion-list>
+          <ion-list class="h-full">
+            <rx-virtual-scroll-viewport [itemSize]="50">
               <ion-item 
-                *cdkVirtualFor="let item of items | fuse: { 
+                *rxVirtualFor="let item of items | fuse: { 
                   search: searchValue,
                   keys: itemText != null 
                     ? [itemText]
@@ -56,13 +55,13 @@ import { IfComponent } from "../if/if.component";
                 button>
                 <ion-label class="ion-text-wrap">{{ itemText != null ? item[itemText] : item }}</ion-label>
                 <ion-icon 
-                  *rxIf="selectedValues.includes(itemVal != null ? item[itemVal] : item)" 
+                  *rxIf="selectedValues.includes(itemVal != null ? item[itemVal].toString() : item.toString())" 
                   name="checkmark-outline" 
                   slot="end">
                 </ion-icon>
               </ion-item>
-            </ion-list>
-          </cdk-virtual-scroll-viewport>
+            </rx-virtual-scroll-viewport>
+          </ion-list>
         </ion-content>
       </ng-template>
     </ion-modal>
@@ -72,12 +71,12 @@ import { IfComponent } from "../if/if.component";
     IonicModule,
     IfComponent,
     ...importRxTemplate(),
-    ScrollingModule,
+    ...importRxFixedVirtualScroll(),
     FormsModule,
     FusePipe
   ]
 })
-export class MultiSelectableComponent<T = unknown> {
+export class MultiSelectableComponent<T extends { [key: string]: object } = {}> {
   id = crypto.randomUUID();
 
   @Input()

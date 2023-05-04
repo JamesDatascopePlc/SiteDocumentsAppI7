@@ -5,7 +5,7 @@ import { QuestionTextComponent } from "../extras";
 import { FormsModule } from "@angular/forms";
 
 @Component({
-  selector: "signature-question[question]",
+  selector: "signature-question",
   template: `
     <ion-list>
       <ion-item lines="none">
@@ -29,6 +29,6 @@ import { FormsModule } from "@angular/forms";
   ]
 })
 export class SignatureComponent {
-  @Input()
+  @Input({ required: true })
   question!: Question;
 }

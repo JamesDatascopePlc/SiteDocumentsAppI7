@@ -6,7 +6,7 @@ import { SelectableComponent } from "src/app/shared/components";
 import { Question } from "src/app/core/stores/site-document/models";
 
 @Component({
-  selector: "cascade-select-text-question[question]",
+  selector: "cascade-select-text-question",
   template: `
     <ion-list>
       <ion-item lines="none">
@@ -52,6 +52,6 @@ import { Question } from "src/app/core/stores/site-document/models";
   ]
 })
 export class CascadeSelectTextComponent {
-  @Input()
+  @Input({ required: true })
   question!: Question;
 }

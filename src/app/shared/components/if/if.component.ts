@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, Input } from "@angular/core";
 import { IfModule } from "@rx-angular/template/if";
 
 @Component({
-  selector: 'if[condition]',
+  selector: 'if',
   styles: [`
     :host { display: contents }
   `],
@@ -12,10 +12,8 @@ import { IfModule } from "@rx-angular/template/if";
   `,
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [
-    IfModule
-  ]
+  imports: [IfModule]
 })
 export class IfComponent {
-  @Input() condition!: boolean;
+  @Input({ required: true }) condition!: boolean;
 }

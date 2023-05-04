@@ -4,7 +4,7 @@ import { Question } from "src/app/core/stores/site-document/models";
 import { CameraCaptureComponent, FileUploadComponent, QuestionTextComponent } from "../extras";
 
 @Component({
-  selector: "radio-table-question[question]",
+  selector: "radio-table-question",
   template: `
     <ion-row>
       <ion-col class="flex items-center" size="2">
@@ -24,8 +24,8 @@ import { CameraCaptureComponent, FileUploadComponent, QuestionTextComponent } fr
         </ion-col>
       </ion-radio-group>
       <ion-col size="1">
-        <camera-capture></camera-capture>
-        <file-upload></file-upload>
+        <camera-capture *rxIf="question.CanHaveImg" />
+        <file-upload *rxIf="question.CanHaveFiles" />
       </ion-col>
     </ion-row>
   `,
@@ -39,6 +39,6 @@ import { CameraCaptureComponent, FileUploadComponent, QuestionTextComponent } fr
   ]
 })
 export class RadioTableComponent {  
-  @Input()
+  @Input({ required: true })
   question!: Question;
 }

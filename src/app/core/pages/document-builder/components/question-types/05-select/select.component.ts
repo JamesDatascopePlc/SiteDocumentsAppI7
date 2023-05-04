@@ -6,7 +6,7 @@ import { SelectableComponent } from "src/app/shared/components/selectable/select
 import { CameraCaptureComponent, FileUploadComponent, QuestionTextComponent } from "../extras";
 
 @Component({
-  selector: "select-question[question]",
+  selector: "select-question",
   template: `
     <ion-list>
       <ion-item lines="none">
@@ -35,6 +35,6 @@ import { CameraCaptureComponent, FileUploadComponent, QuestionTextComponent } fr
   ]
 })
 export class SelectComponent {
-  @Input()
+  @Input({ required: true })
   question!: Question;
 }

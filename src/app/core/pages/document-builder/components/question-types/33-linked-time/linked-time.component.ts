@@ -4,7 +4,7 @@ import { Question } from "src/app/core/stores/site-document/models";
 import { QuestionTextComponent } from "../extras";
 
 @Component({
-  selector: "linked-time[question]",
+  selector: "linked-time",
   template: `
     <ion-list>
       <ion-item lines="none">
@@ -17,6 +17,6 @@ import { QuestionTextComponent } from "../extras";
   imports: [IonicModule, QuestionTextComponent]
 })
 export class LinkedTimeComponent {
-  @Input()
+  @Input({ required: true })
   question!: Question;
 }

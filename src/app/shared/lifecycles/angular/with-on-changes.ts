@@ -1,12 +1,13 @@
 import { SimpleChanges } from "@angular/core";
-import { filter, map, merge, Observable, Subject, takeUntil } from "rxjs";
+import { filter, map, merge, Observable, Subject } from "rxjs";
 import { ReactiveConstructor } from "../lifecycle-component";
+import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 
 export function withOnChanges<TBase extends ReactiveConstructor>(Base: TBase) {
   return class extends Base {
     private _onChanges$ = new Subject<SimpleChanges>();
     readonly changes$ = this._onChanges$.pipe(
-      takeUntil(this.destroy$)
+      takeUntilDestroyed()
     );
 
     ngOnChanges(changes: SimpleChanges) {

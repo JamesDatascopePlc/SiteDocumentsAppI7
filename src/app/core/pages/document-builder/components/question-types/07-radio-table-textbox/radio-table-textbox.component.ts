@@ -4,7 +4,7 @@ import { Question } from "src/app/core/stores/site-document/models";
 import { QuestionTextComponent } from "../extras";
 
 @Component({
-  selector: "radio-table-textbox-question[question]",
+  selector: "radio-table-textbox-question",
   template: `
     <ion-row>
       <ion-col class="flex items-center" size="2">
@@ -38,6 +38,6 @@ import { QuestionTextComponent } from "../extras";
   ]
 })
 export class RadioTableTextboxComponent {
-  @Input()
+  @Input({ required: true })
   question!: Question;
 }

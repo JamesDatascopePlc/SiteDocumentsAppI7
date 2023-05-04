@@ -1,8 +1,8 @@
-import { ScrollingModule } from "@angular/cdk/scrolling";
 import { ChangeDetectionStrategy, Component, Input, inject } from "@angular/core";
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { IonicModule } from "@ionic/angular";
 import { AngularComponent } from "src/app/shared/lifecycles";
-import { importRxTemplate } from "src/app/shared/imports";
+import { importRxTemplate, importRxFixedVirtualScroll } from "src/app/shared/imports";
 import { OperativeSearchParams, OperativesStore } from "src/app/core/stores/operative/operatives.store";
 import { reaction } from "src/app/shared/reactions";
 import { FormsModule } from "@angular/forms";
@@ -33,14 +33,17 @@ import { IfComponent } from "src/app/shared/components";
         </ion-item>
       </ion-list>
 
-      <cdk-virtual-scroll-viewport else *rxLet="searchResults$; let results" itemSize="50" minBufferPx="1200" maxBufferPx="1200">
-        <ion-item 
-          *cdkVirtualFor="let op of results; last as isLast"
-          [lines]="isLast ? 'none' : 'inset'"
-          button>
-          {{ op.ID }} - {{ op.Name }}
-        </ion-item>
-      </cdk-virtual-scroll-viewport>
+      <ion-list class="h-full" else>
+        <rx-virtual-scroll-viewport [itemSize]="50">
+          <ion-item 
+            *rxVirtualFor="let op of searchResults$; last as isLast"
+            class="w-full"
+            [lines]="isLast ? 'none' : 'inset'"
+            button>
+            {{ op.ID }} - {{ op.Name }}
+          </ion-item>
+        </rx-virtual-scroll-viewport>
+      </ion-list>
     </if>
   `,
   standalone: true,
@@ -48,8 +51,8 @@ import { IfComponent } from "src/app/shared/components";
   imports: [
     IonicModule,
     ...importRxTemplate(),
+    ...importRxFixedVirtualScroll(),
     FormsModule,
-    ScrollingModule,
     IfComponent
   ]
 })
@@ -69,7 +72,7 @@ export class OnlineOperativeSearchComponent extends AngularComponent() {
   }
   
   search = reaction($entered => $entered.pipe(
-    this.takeUntilDestroyed(),
+    takeUntilDestroyed(),
     switchMap(() => this.operativesStore.getSearchResults(this.searchParams$()))
   ));
 }

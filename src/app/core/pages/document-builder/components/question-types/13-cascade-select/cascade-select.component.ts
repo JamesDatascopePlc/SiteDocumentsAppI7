@@ -6,7 +6,7 @@ import { SelectableComponent } from "src/app/shared/components";
 import { Question } from "src/app/core/stores/site-document/models";
 
 @Component({
-  selector: "cascade-select-question[question]",
+  selector: "cascade-select-question",
   template: `
     <ion-list>
       <ion-item lines="none">
@@ -45,6 +45,6 @@ import { Question } from "src/app/core/stores/site-document/models";
   ]
 })
 export class CascadeSelectComponent {
-  @Input()
+  @Input({ required: true })
   question!: Question;
 }

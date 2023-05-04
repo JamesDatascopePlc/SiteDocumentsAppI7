@@ -6,7 +6,7 @@ import { FormsModule } from "@angular/forms";
 import { Operative } from "src/app/core/stores/operative/operatives.store";
 
 @Component({
-  selector: "operative-list-modal[trigger]",
+  selector: "operative-list-modal",
   template: `
     <ion-modal #modal [trigger]="trigger" [isOpen]="isOpen">
       <ng-template>
@@ -33,8 +33,8 @@ import { Operative } from "src/app/core/stores/operative/operatives.store";
         </ion-header>
       
         <ion-content [ngSwitch]="segment" class="ion-padding">
-          <local-operative-search *ngSwitchCase="'local'" [hideMyself]="hideMyself"></local-operative-search>
-          <online-operative-search *ngSwitchCase="'online'"></online-operative-search>
+          <local-operative-search *ngSwitchCase="'local'" [hideMyself]="hideMyself" />
+          <online-operative-search *ngSwitchCase="'online'" />
         </ion-content>
       </ng-template>
     </ion-modal>
@@ -51,7 +51,7 @@ import { Operative } from "src/app/core/stores/operative/operatives.store";
   ]
 })
 export class OperativeListModal {
-  @Input()
+  @Input({ required: true })
   trigger!: string;
   
   @Input()

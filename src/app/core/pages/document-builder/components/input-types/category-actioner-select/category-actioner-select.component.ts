@@ -8,7 +8,7 @@ import { importRxTemplate } from "src/app/shared/imports";
 import { AngularComponent, withAfterViewInit, withOnChanges } from "src/app/shared/lifecycles";
 
 @Component({
-  selector: "category-actioner-select[categoryId]",
+  selector: "category-actioner-select",
   template: `
     <ion-card>
       <ion-card-header>
@@ -45,10 +45,10 @@ export class CategoryActionerSelectComponent extends AngularComponent(withAfterV
   @Input()
   hideMyself: boolean = false;
 
-  @Input()
+  @Input({ required: true })
   categoryId!: number;
 
-  @Input()
+  @Input({ required: true })
   actionerId?: number;
 
   @Output()

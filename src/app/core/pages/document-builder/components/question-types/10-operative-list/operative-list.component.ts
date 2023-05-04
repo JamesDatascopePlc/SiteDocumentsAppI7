@@ -8,7 +8,7 @@ import { QuestionTextComponent } from "../extras";
 import { OperativeListModal } from "src/app/shared/modals/operative-list/operative-list.modal";
 
 @Component({
-  selector: "operative-list-question[question]",
+  selector: "operative-list-question",
   template: `
     <ion-list>
       <ion-item lines="none">
@@ -51,7 +51,7 @@ import { OperativeListModal } from "src/app/shared/modals/operative-list/operati
 export class OperativeListComponent {
   id = crypto.randomUUID();
 
-  @Input()
+  @Input({ required: true })
   question!: Question;
 
   isMobileApp = isMobileApp();

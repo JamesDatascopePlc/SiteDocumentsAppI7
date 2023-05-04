@@ -1,9 +1,8 @@
-import { ScrollingModule } from "@angular/cdk/scrolling";
 import { ChangeDetectionStrategy, Component, Input } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { IonicModule } from "@ionic/angular";
 import { Question } from "src/app/core/stores/site-document/models";
-import { importRxTemplate } from "src/app/shared/imports";
+import { importRxFixedVirtualScroll, importRxTemplate } from "src/app/shared/imports";
 
 @Component({
   selector: "multi-checkbox-modal[trigger]",
@@ -29,13 +28,13 @@ import { importRxTemplate } from "src/app/shared/imports";
         </ion-header>
 
         <ion-content>
-          <cdk-virtual-scroll-viewport itemSize="50" minBufferPx="1200" maxBufferPx="1200">
-            <ion-list>
-              <ion-item *cdkVirtualFor="let question of questions">
+          <ion-list class="h-full">
+            <rx-virtual-scroll-viewport [itemSize]="50">
+              <ion-item *rxVirtualFor="let question of questions">
                 <ion-checkbox></ion-checkbox>
               </ion-item>
-            </ion-list>
-          </cdk-virtual-scroll-viewport>
+            </rx-virtual-scroll-viewport>
+          </ion-list>
         </ion-content>
       </ng-template>
     </ion-modal>
@@ -45,7 +44,7 @@ import { importRxTemplate } from "src/app/shared/imports";
   imports: [
     IonicModule,
     ...importRxTemplate(),
-    ScrollingModule,
+    ...importRxFixedVirtualScroll(),
     FormsModule
   ]
 })

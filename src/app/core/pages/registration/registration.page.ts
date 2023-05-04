@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject } from "@angular/core";
+import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { ReactiveFormsModule, Validators } from "@angular/forms";
 import { IonicModule } from "@ionic/angular";
 import { FormGroup, FormControl } from "@ngneat/reactive-forms";
@@ -71,7 +72,7 @@ export class RegistrationPage extends AngularComponent() {
   });
 
   submit = reaction(click$ => click$.pipe(
-    this.takeUntilDestroyed(),
+    takeUntilDestroyed(),
     clickReaction(),
     switchMap(() => this.userStore.getUserRequest$(this.form.value$))
   ));
