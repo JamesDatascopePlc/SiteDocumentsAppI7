@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component } from "@angular/core";
+import { ChangeDetectionStrategy, Component, Input } from "@angular/core";
 import { IonicModule } from "@ionic/angular";
+import { SiteDocument } from "src/app/core/stores/site-document/models";
 
 @Component({
   selector: "child-document-card[document]",
@@ -8,10 +9,10 @@ import { IonicModule } from "@ionic/angular";
       <ion-list-header>Action Document</ion-list-header>
       <ion-item lines="none">
         <ion-label class="ion-text-wrap">
-          
+          {{ childTemplate.DocumentTitle }}
         </ion-label>
-        <ion-button>
-          <ion-icon name="pencil-outline" slot="icon-only"></ion-icon>
+        <ion-button (click)="open()">
+          <ion-icon name="pencil-outline" slot="icon-only" />
         </ion-button>
       </ion-item>
     </ion-list>
@@ -21,4 +22,8 @@ import { IonicModule } from "@ionic/angular";
   imports: [IonicModule]
 })
 export class ChildDocumentCardComponent {
+  @Input({ required: true })
+  childTemplate!: SiteDocument;
+
+  open() {}
 }

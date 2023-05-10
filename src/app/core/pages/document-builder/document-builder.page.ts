@@ -4,15 +4,14 @@ import { IonicModule } from "@ionic/angular";
 import { filter, merge, shareReplay, switchMap } from "rxjs";
 import { IfComponent } from "src/app/shared/components";
 import { importNgSwitch, importRxTemplate } from "src/app/shared/imports";
-import { AngularComponent } from "src/app/shared/lifecycles";
 import { FormFillerStore } from "../../stores/site-document/form-filler/form-filler.store";
 import { DocumentPageComponent, DocumentSectionComponent, QuestionTemplateDirective, importInputTypes, importQuestionTypes } from "./components";
-import { FormFillerRoute } from "./routes";
 import { clickReaction, reaction } from "src/app/shared/reactions";
-import { TemplateMenuModal } from "./modals";
 import { QuestionType, SiteDocument } from "../../stores/site-document/models";
 import { isMobileApp } from "src/app/shared/plugins/platform.plugin";
-import { numberAdapter } from "src/app/shared/adapters/number.adapter";
+import { numberState } from "src/app/shared/states/number.state";
+import { DocumentBuilderRoute } from "./document-builder.route";
+import { importDocumentBuilderModals } from "./modals";
 
 @Component({
   selector: 'app-document-builder',
@@ -25,11 +24,11 @@ import { numberAdapter } from "src/app/shared/adapters/number.adapter";
         <ion-buttons *rxIf="isMobileApp" slot="end">
           <if [condition]="document.Pinned">
             <ion-button [unpatch] show color="primary">
-              <ion-icon name="bookmark"></ion-icon>
+              <ion-icon name="bookmark" />
             </ion-button>
 
             <ion-button [unpatch] else>
-              <ion-icon name="bookmark-outline"></ion-icon>
+              <ion-icon name="bookmark-outline" />
             </ion-button>
           </if>
         </ion-buttons>
@@ -130,19 +129,20 @@ import { numberAdapter } from "src/app/shared/adapters/number.adapter";
     QuestionTemplateDirective,
     ...importInputTypes(),
     ...importQuestionTypes(),
-    TemplateMenuModal
+    ...importDocumentBuilderModals()
   ]
 })
-export class DocumentBuilderPage extends AngularComponent() {
-  protected readonly formFillerRoute = inject(FormFillerRoute);
+export class DocumentBuilderPage {
+  protected readonly route = inject(DocumentBuilderRoute);
   protected readonly formFillerStore = inject(FormFillerStore);
 
   QuestionType = QuestionType;
   isMobileApp = isMobileApp();
 
   document$ = merge(
-    this.formFillerStore.getTemplateRequest$(this.formFillerRoute.lastDocumentId$),
+    this.formFillerStore.getTemplateRequest$(this.route.lastDocumentId$),
   ).pipe(
+    takeUntilDestroyed(),
     switchMap(() => this.formFillerStore.writingDocument$),
     shareReplay()
   );
@@ -152,13 +152,16 @@ export class DocumentBuilderPage extends AngularComponent() {
     clickReaction()
   ));
 
-  pageIndex = {
-    ...numberAdapter("PageIndex", 0),
-    isNotNumber$: (page: number) => this.pageIndex.is$(idx => idx !== page),
-    isGreaterThan0$: () => this.pageIndex.is$(idx => idx > 0),
-    isLessThanDocumentLength$: () => this.document$.pipe(
-      filter(doc => doc != null),
-      switchMap(doc => this.pageIndex.is$(idx => idx < doc!.Pages.length))
-    )
-  };
+  pageIndex = numberState({
+    name: "PageIndex",
+    initialValue: 0,
+    props: state => ({
+      isNotNumber$: (page: number) => state.is$(idx => idx !== page),
+      isGreaterThan0$: () => state.is$(idx => idx > 0),
+      isLessThanDocumentLength$: () => this.document$.pipe(
+        filter(doc => doc != null),
+        switchMap(doc => state.is$(idx => idx < doc!.Pages.length))
+      )
+    })
+  })
 }

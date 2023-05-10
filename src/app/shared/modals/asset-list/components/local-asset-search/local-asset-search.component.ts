@@ -6,7 +6,7 @@ import { importRxTemplate } from "src/app/shared/imports";
 @Component({
   selector: "local-asset-search",
   template: `
-    <ion-searchbar class="animate__animated animate__fadeIn"></ion-searchbar>
+    <ion-searchbar class="animate__animated animate__fadeIn" />
 
     <ion-list>
       <ion-item-sliding *rxFor="let asset of assets$">
@@ -15,7 +15,7 @@ import { importRxTemplate } from "src/app/shared/imports";
         </ion-item>
         <ion-item-options side="end">
           <ion-item-options color="danger">
-            <ion-icon name="trash-bin-outline"></ion-icon>
+            <ion-icon name="trash-bin-outline" />
           </ion-item-options>
         </ion-item-options>
       </ion-item-sliding>

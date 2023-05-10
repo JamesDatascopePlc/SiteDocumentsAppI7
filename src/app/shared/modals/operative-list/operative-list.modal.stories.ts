@@ -1,8 +1,8 @@
 import { Meta, StoryFn, applicationConfig } from "@storybook/angular";
 import { OperativeListModal } from "./operative-list.modal";
 import { UserStore } from "src/app/core/stores/user/user.store";
-import { Observable, map, of } from "rxjs";
-import { Operative, OperativeSearchParams, OperativeSearchResult, OperativesStore } from "src/app/core/stores/operative/operatives.store";
+import { of } from "rxjs";
+import { Operative, OperativeSearchResult, OperativesStore } from "src/app/core/stores/operative/operatives.store";
 import { defaultUser } from ".storybook/default";
 import { faker } from "@faker-js/faker";
 
@@ -35,9 +35,7 @@ const operativesStore: Pick<OperativesStore, "operatives$" | "searchResults$" | 
   operatives$: of(operatives),
   searchResults$: of<OperativeSearchResult[]>(searchResults),
   searchResultsIsPending$: of(false),
-  getSearchResults: (action$: Observable<OperativeSearchParams>) => action$.pipe(
-    map(() => searchResults)
-  )
+  getSearchResults: () => of(searchResults)
 }
 
 export default {

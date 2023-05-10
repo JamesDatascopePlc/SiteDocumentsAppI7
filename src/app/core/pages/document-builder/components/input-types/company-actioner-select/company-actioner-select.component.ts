@@ -22,8 +22,7 @@ import { AngularComponent, withAfterViewInit, withOnChanges } from "src/app/shar
             [value]="selectedCompany$ | push"
             (valueChange)="companyChange($event)"
             itemText="Text"
-            [canClear]="false">
-          </selectable>
+            [canClear]="false" />
         </ion-list>
       </ion-card-content>
     </ion-card>

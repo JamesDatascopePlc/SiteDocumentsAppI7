@@ -24,8 +24,7 @@ import { AngularComponent, withAfterViewInit, withOnChanges } from "src/app/shar
             [items]="rat?.Areas || []"
             itemText="Name"
             (valueChange)="responsibilityAreaTypeIdChange.emit($event!.Id)"
-            [canClear]="false">
-          </selectable>
+            [canClear]="false" />
           <span else>
             No areas found For Document Responsibility Area Type. 
             Document will not be able to be submitted. Please update lists and try again.

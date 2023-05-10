@@ -9,15 +9,15 @@ import { importRxTemplate } from "src/app/shared/imports";
   template: `
     <if [condition]="base64Img == null">
       <camera show (takePhoto)="take($event)" fill="clear">
-        <ion-icon name="camera-outline" slot="icon-only"></ion-icon>
+        <ion-icon name="camera-outline" slot="icon-only" />
       </camera>
 
       <ng-container else>
         <ion-button [photo-viewer]="base64Img!" [unpatch] fill="clear">
-          <ion-icon name="eye-outline" slot="icon-only"></ion-icon>
+          <ion-icon name="eye-outline" slot="icon-only" />
         </ion-button>
         <ion-button (click)="remove()" fill="clear" color="danger">
-          <ion-icon name="close-outline" slot="icon-only"></ion-icon>
+          <ion-icon name="close-outline" slot="icon-only" />
         </ion-button>
       </ng-container>
     </if>

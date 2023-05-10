@@ -14,7 +14,7 @@ import { DataUrlFile } from "../../models/files/data-url-file.model";
     <ion-button [fill]="fill" [expand]="expand" [color]="color">
       <if [condition]="isMobileApp">
         <div show [camera]="options" (takePhoto)="take($event)"></div>
-        <upload else (uploadFiles)="upload($event)" accept="image/*"></upload>
+        <upload else (uploadFiles)="upload($event)" accept="image/*" />
       </if>
       <ng-content></ng-content>
     </ion-button>

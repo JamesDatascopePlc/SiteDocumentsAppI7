@@ -1,2 +1,2 @@
 export { importNgSwitch } from "./ng-switch.import";
-export { importRxTemplate, importRxFixedVirtualScroll } from "./rx-template.import";
+export { importRxTemplate, importRxVirtualScroll, importRxFixedVirtualScroll, importRxDynamicVirtualScroll, importRxAutoVirtualScroll } from "./rx-template.import";

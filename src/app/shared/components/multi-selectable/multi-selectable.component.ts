@@ -18,9 +18,9 @@ import { IfComponent } from "../if/if.component";
         </if>
       </ion-label>
       <ion-button *rxIf="canClear && values.length > 0" (click)="$event.stopPropagation(); values = []; valuesChange.emit([])" fill="clear">
-        <ion-icon name="close-outline" color="danger" slot="icon-only"></ion-icon>
+        <ion-icon name="close-outline" color="danger" slot="icon-only" />
       </ion-button>
-      <ion-icon name="caret-down-outline" slot="end"></ion-icon>
+      <ion-icon name="caret-down-outline" slot="end" />
     </ion-item>
 
     <ion-modal #modal [trigger]="id">
@@ -29,13 +29,13 @@ import { IfComponent } from "../if/if.component";
           <ion-toolbar>
             <ion-buttons slot="start">
               <ion-button (click)="modal.dismiss()" [unpatch] fill="clear">
-                <ion-icon name="arrow-back-outline" slot="icon-only"></ion-icon>
+                <ion-icon name="arrow-back-outline" slot="icon-only" />
               </ion-button>
             </ion-buttons>
             <ion-title class="ion-text-center">{{ title }}</ion-title>
           </ion-toolbar>
           <ion-toolbar>
-            <ion-searchbar [(ngModel)]="searchValue" placeholder="Search"></ion-searchbar>
+            <ion-searchbar [(ngModel)]="searchValue" placeholder="Search" />
           </ion-toolbar>
         </ion-header>
 
@@ -57,8 +57,7 @@ import { IfComponent } from "../if/if.component";
                 <ion-icon 
                   *rxIf="selectedValues.includes(itemVal != null ? item[itemVal].toString() : item.toString())" 
                   name="checkmark-outline" 
-                  slot="end">
-                </ion-icon>
+                  slot="end" />
               </ion-item>
             </rx-virtual-scroll-viewport>
           </ion-list>

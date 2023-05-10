@@ -26,8 +26,7 @@ import { clickReaction, reaction } from "src/app/shared/reactions";
             labelPlacement="floating"
             formControlName="token"
             type="text" 
-            clearInput>
-          </ion-input>
+            clearInput />
         </ion-item>
         <ion-item>
           <ion-input 
@@ -35,8 +34,7 @@ import { clickReaction, reaction } from "src/app/shared/reactions";
             labelPlacement="floating"
             formControlName="pin" 
             type="tel" 
-            clearInput>
-          </ion-input>
+            clearInput />
         </ion-item>
       </ion-list>
 

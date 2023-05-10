@@ -12,10 +12,10 @@ import { QuestionTextComponent } from "../extras";
       <ion-item lines="none">
         <question-text>{{ question.QuestionText }}</question-text>
         <ion-button *rxIf="isMobileApp" fill="clear" slot="end">
-          <ion-icon name="scan-outline" slots="icon-only"></ion-icon>
+          <ion-icon name="scan-outline" slots="icon-only" />
         </ion-button>
         <ion-button fill="clear" slot="end">
-          <ion-icon name="search-outline" slot="icon-only"></ion-icon>
+          <ion-icon name="search-outline" slot="icon-only" />
         </ion-button>
       </ion-item>
     </ion-list>
@@ -28,7 +28,7 @@ import { QuestionTextComponent } from "../extras";
 
         <ion-item-options side="end">
           <ion-item-option color="danger">
-            <ion-icon name="trash-outline" slot="icon-only"></ion-icon>
+            <ion-icon name="trash-outline" slot="icon-only" />
           </ion-item-option>
         </ion-item-options>
       </ion-item-sliding>

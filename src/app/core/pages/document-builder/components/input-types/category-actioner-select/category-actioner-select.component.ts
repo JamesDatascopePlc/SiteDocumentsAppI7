@@ -21,8 +21,7 @@ import { AngularComponent, withAfterViewInit, withOnChanges } from "src/app/shar
             placeholder="Actioner"
             [value]="selectedActioner$ | push"
             [items]="visibleCatActioners$ | push"
-            itemText="Name">
-          </selectable>
+            itemText="Name" />
         </ion-list>
       </ion-card-content>
     </ion-card>

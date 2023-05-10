@@ -14,13 +14,13 @@ import { OperativeListModal } from "src/app/shared/modals/operative-list/operati
       <ion-item lines="none">
         <question-text>{{ question.QuestionText }}</question-text>
         <ion-button *rxIf="isMobileApp" fill="clear" slot="end">
-          <ion-icon name="scan-outline" slot="icon-only"></ion-icon>
+          <ion-icon name="scan-outline" slot="icon-only" />
         </ion-button>
         <ion-button [id]="id" fill="clear" color="secondary" slot="end">
-          <ion-icon name="search-outline" slot="icon-only"></ion-icon>
+          <ion-icon name="search-outline" slot="icon-only" />
         </ion-button>
 
-        <operative-list-modal [trigger]="id"></operative-list-modal>
+        <operative-list-modal [trigger]="id" />
       </ion-item>
     </ion-list>
 
@@ -32,7 +32,7 @@ import { OperativeListModal } from "src/app/shared/modals/operative-list/operati
 
         <ion-item-options side="end">
           <ion-item-option color="danger">
-            <ion-icon name="trash-outline" slot="icon-only"></ion-icon>
+            <ion-icon name="trash-outline" slot="icon-only" />
           </ion-item-option>
         </ion-item-options>
       </ion-item-sliding>

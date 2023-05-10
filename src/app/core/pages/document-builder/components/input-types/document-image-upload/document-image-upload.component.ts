@@ -18,7 +18,7 @@ import { isMobileApp } from "src/app/shared/plugins/platform.plugin";
       Document Images
       <if [condition]="images.length > 0">
         <span show>({{ images.length }})</span>
-        <ion-icon else name="images-outline" slot="end"></ion-icon>
+        <ion-icon else name="images-outline" slot="end" />
       </if>
     </ion-button>
 
@@ -29,7 +29,7 @@ import { isMobileApp } from "src/app/shared/plugins/platform.plugin";
             <ion-title class="text-center">Images</ion-title>
             <ion-buttons slot="end">
               <ion-button (click)="modal.dismiss()">
-                <ion-icon name="close-outline" slot="icon-only"></ion-icon>
+                <ion-icon name="close-outline" slot="icon-only" />
               </ion-button>
             </ion-buttons>
           </ion-toolbar>
@@ -46,11 +46,11 @@ import { isMobileApp } from "src/app/shared/plugins/platform.plugin";
                 <ion-col *rxFor="let img of images" size="6" sizeMd="4" sizeLg="3">
                   <ion-fab vertical="top" horizontal="end">
                     <ion-fab-button (click)="remove(img)" size="small" color="danger">
-                      <ion-icon name="close-outline"></ion-icon>
+                      <ion-icon name="close-outline" />
                     </ion-fab-button>
                   </ion-fab>
 
-                  <ion-img [src]="img"></ion-img>
+                  <ion-img [src]="img" />
                 </ion-col>
               </ion-row>
             </ion-grid>
@@ -60,17 +60,17 @@ import { isMobileApp } from "src/app/shared/plugins/platform.plugin";
             <if [condition]="isMobileApp">
               <ng-container show>
                 <ion-fab-button [camera]="cameraOptions" (takePhoto)="addPhoto($event)" class="ion-margin-vertical">
-                  <ion-icon name="camera-outline"></ion-icon>
+                  <ion-icon name="camera-outline" />
                 </ion-fab-button>
 
                 <ion-fab-button [camera]="galleryOptions" (takePhoto)="addPhoto($event)" class="ion-margin-vertical">
-                  <ion-icon name="image-outline"></ion-icon>
+                  <ion-icon name="image-outline" />
                 </ion-fab-button>
               </ng-container>
 
               <ion-fab-button else>
-                <upload (uploadFiles)="uploads($event)" accept="image/*"></upload>
-                <ion-icon name="camera-outline"></ion-icon>
+                <upload (uploadFiles)="uploads($event)" accept="image/*" />
+                <ion-icon name="camera-outline" />
               </ion-fab-button>
             </if>
           </ion-fab>

@@ -9,12 +9,12 @@ import { DataUrlFile } from "src/app/shared/models/files/data-url-file.model";
   template: `
     <if [condition]="filename == null">
       <ion-button show fill="clear">
-        <upload (uploadFiles)="upload($event)"></upload>
-        <ion-icon name="cloud-upload-outline"></ion-icon>
+        <upload (uploadFiles)="upload($event)" />
+        <ion-icon name="cloud-upload-outline" />
       </ion-button>
 
       <ion-button else (click)="clear()" fill="clear" color="danger">
-        <ion-icon name="trash-bin-outline"></ion-icon>
+        <ion-icon name="trash-bin-outline" />
       </ion-button>
     </if>
   `,

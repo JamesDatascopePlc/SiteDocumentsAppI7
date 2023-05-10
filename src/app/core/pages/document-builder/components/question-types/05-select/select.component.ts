@@ -11,16 +11,15 @@ import { CameraCaptureComponent, FileUploadComponent, QuestionTextComponent } fr
     <ion-list>
       <ion-item lines="none">
         <question-text [required]="question.Required">{{ question.QuestionText }}</question-text>
-        <camera-capture *rxIf="question.CanHaveImg" class="ion-no-margin" slot="end"></camera-capture>
-        <file-upload *rxIf="question.CanHaveFiles" class="ion-no-margin" slot="end"></file-upload>
+        <camera-capture *rxIf="question.CanHaveImg" class="ion-no-margin" slot="end" />
+        <file-upload *rxIf="question.CanHaveFiles" class="ion-no-margin" slot="end" />
       </ion-item>
       <selectable 
         placeholder="Select"
         [title]="question.QuestionText"
         [items]="question.Options"
         itemText="Text"
-        [canClear]="!question.Required">
-      </selectable>
+        [canClear]="!question.Required" />
     </ion-list>
   `,
   standalone: true,

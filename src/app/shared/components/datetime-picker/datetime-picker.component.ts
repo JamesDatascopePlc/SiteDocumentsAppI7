@@ -20,8 +20,7 @@ import { UtcDatePipe, UtcDateTimePipe } from "../../pipes";
           <ion-datetime 
             [(date)]="datetime" 
             (ionChange)="datetimeChange.emit(datetime)" 
-            [presentation]="presentation">
-          </ion-datetime>
+            [presentation]="presentation" />
         </ion-content>
       </ng-template>
     </ion-popover>

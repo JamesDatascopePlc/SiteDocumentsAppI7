@@ -11,7 +11,7 @@ import { QuestionTextComponent } from "../extras";
       <ion-item lines="none">
         <question-text [required]="question.Required">{{ question.QuestionText }}</question-text>
       </ion-item>
-      <datetime-picker [(datetime)]="question.DateAndTime" presentation="date"></datetime-picker>
+      <datetime-picker [(datetime)]="question.DateAndTime" presentation="date" />
     </ion-list>
   `,
   standalone: true,

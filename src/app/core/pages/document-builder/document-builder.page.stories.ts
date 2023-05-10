@@ -4,11 +4,11 @@ import { applicationConfig, Meta, StoryFn } from "@storybook/angular";
 import { Observable, of, Subject } from "rxjs";
 import { FormFillerStore } from "../../stores/site-document/form-filler/form-filler.store";
 import { DocumentBuilderPage } from "./document-builder.page";
-import { FormFillerRoute } from "./routes";
 import { SiteDocument } from "../../stores/site-document/models";
 import { QuestionType } from "../../stores/site-document/models/site-document.model";
+import { DocumentBuilderRoute } from "./document-builder.route";
 
-const formFillerRouteMock: Partial<FormFillerRoute> = {
+const formFillerRouteMock: Partial<DocumentBuilderRoute> = {
   documentIds$: of([29]),
   lastDocumentId$: of(29)
 }
@@ -29,7 +29,7 @@ export default {
     applicationConfig({
       providers: [
         {
-          provide: FormFillerRoute,
+          provide: DocumentBuilderRoute,
           useValue: formFillerRouteMock
         },
         {

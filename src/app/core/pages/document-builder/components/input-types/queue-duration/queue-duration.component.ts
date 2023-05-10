@@ -13,7 +13,7 @@ import { IonicModule } from "@ionic/angular";
         <ion-grid>
           <ion-row>
             <ion-col>
-              <ion-input [(ngModel)]="duration" (ionChange)="durationChange.emit(duration)" label="Duration" labelPlacement="floating" type="number" min="0"></ion-input>
+              <ion-input [(ngModel)]="duration" (ionChange)="durationChange.emit(duration)" label="Duration" labelPlacement="floating" type="number" min="0" />
             </ion-col>
             <ion-col>
               <ion-select [(ngModel)]="type" (ionChange)="typeChange.emit(type)" interface="popover" label="Type" labelPlacement="floating">

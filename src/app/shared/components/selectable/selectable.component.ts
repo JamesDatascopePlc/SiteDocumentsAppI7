@@ -18,9 +18,9 @@ import { FusePipe } from "../../pipes";
       }}
       </ion-label>
       <ion-button *rxIf="canClear && value != null" (click)="$event.stopPropagation(); value = null; valueChange.emit(null)" fill="clear">
-        <ion-icon name="close-outline" color="danger" slot="icon-only"></ion-icon>
+        <ion-icon name="close-outline" color="danger" slot="icon-only" />
       </ion-button>
-      <ion-icon name="caret-down-outline" slot="end"></ion-icon>
+      <ion-icon name="caret-down-outline" slot="end" />
     </ion-item>
 
     <ion-modal #modal [trigger]="id">
@@ -29,7 +29,7 @@ import { FusePipe } from "../../pipes";
           <ion-toolbar>
             <ion-buttons slot="start">
               <ion-button (click)="modal.dismiss()" [unpatch] fill="clear">
-                <ion-icon name="arrow-back-outline" slot="icon-only"></ion-icon>
+                <ion-icon name="arrow-back-outline" slot="icon-only" />
               </ion-button>
             </ion-buttons>
             <ion-title class="ion-text-center">{{ title }}</ion-title>
@@ -38,8 +38,7 @@ import { FusePipe } from "../../pipes";
             <ion-searchbar 
               [(ngModel)]="searchValue"
               debounce="300" 
-              placeholder="Search">
-            </ion-searchbar>
+              placeholder="Search" />
           </ion-toolbar>
         </ion-header>
 

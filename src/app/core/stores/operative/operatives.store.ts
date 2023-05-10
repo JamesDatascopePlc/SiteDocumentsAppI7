@@ -2,9 +2,9 @@ import { Injectable, inject } from "@angular/core"
 import { createStore } from "@ngneat/elf";
 import { addEntities, withEntities } from "@ngneat/elf-entities";
 import { localStorageStrategy, persistState } from "@ngneat/elf-persist-state";
-import { searchResultsAdapter } from "src/app/shared/adapters/search-results.adapter";
+import { searchResultsAdapter } from "src/app/shared/states/search-results.adapter";
 import { operativesAdapter } from "./adapters/operatives.adapter";
-import { Observable, switchMap, tap } from "rxjs";
+import { tap } from "rxjs";
 import { HttpClient } from "@angular/common/http";
 import { environment } from "src/environments/environment";
 import { createRequestsStatusOperator, selectIsRequestPending, updateRequestStatus, withRequestsStatus } from "@ngneat/elf-requests";
@@ -33,6 +33,16 @@ const {
   withSearchResultEntities,
   searchResultsAdapt
 } = searchResultsAdapter();
+
+// function withTapUpdate(): PropsFactory<{ tapUpdate: object }, EmptyConfig> {
+//   return {
+//     props: {
+//       tapUpdate: pipe(
+//         tap()
+//       )
+//     }
+//   }
+// }
 
 const store = createStore(
   { name: "operatives" },
@@ -69,14 +79,13 @@ export class OperativesStore {
   addOperative = addOperative;
   setSearchResults = setSearchResults;
 
-  getSearchResults = (action$: Observable<OperativeSearchParams>) => action$.pipe(
-    switchMap(params => this.httpClient.get<OperativeSearchResult[]>(`${environment.siteDocsApi}/OperativeApi/GetOperativesByName`, {
-      params: {
-        search: params.search,
-        noAppLimit: params.noAppLimit,
-        siteId: params.siteId?.toString() || "null"
-      }
-    })),
+  getSearchResults = (params: OperativeSearchParams) => this.httpClient.get<OperativeSearchResult[]>(`${environment.siteDocsApi}/OperativeApi/GetOperativesByName`, {
+    params: {
+      search: params.search,
+      noAppLimit: params.noAppLimit,
+      siteId: params.siteId?.toString() || "null"
+    }
+  }).pipe(
     trackRequestStatus("operativesSearch"),
     tap(searchResults => store.update(
       addEntities(searchResults, { ref: SearchResultEntitiesRef }),

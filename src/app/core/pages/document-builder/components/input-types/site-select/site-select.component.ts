@@ -25,8 +25,7 @@ import { isMobileApp } from "src/app/shared/plugins/platform.plugin";
           itemText="Name"
           [value]="selectedSite$ | push"
           (valueChange)="siteChange($event)"
-          [canClear]="false">
-        </selectable>
+          [canClear]="false" />
       </ion-card-content>
     </ion-card>
   `,

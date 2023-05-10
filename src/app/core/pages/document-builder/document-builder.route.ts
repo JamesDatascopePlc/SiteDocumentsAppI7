@@ -3,9 +3,9 @@ import { ActivatedRoute } from "@angular/router";
 import { filter, map } from "rxjs";
 
 @Injectable({ providedIn: "root" })
-export class FormFillerRoute {
-  protected route = inject(ActivatedRoute); 
-
+export class DocumentBuilderRoute {
+  protected readonly route = inject(ActivatedRoute);
+  
   documentIds$ = this.route.queryParams.pipe(
     map(params => JSON.parse(params["ids"]) as number[])
   );

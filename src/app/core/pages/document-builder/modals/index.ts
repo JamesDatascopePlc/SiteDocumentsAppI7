@@ -1,1 +1,1 @@
-export { TemplateMenuModal } from "./template-menu/template-menu.modal";
+export { importDocumentBuilderModals } from "./document-builder-modals.import";

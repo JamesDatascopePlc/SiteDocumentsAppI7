@@ -17,9 +17,9 @@ import { OperativeListModal } from "src/app/shared/modals/operative-list/operati
         <ion-list>
           <ion-item [id]="id" button>
             <ion-label *rxLet="selectedActioner$; let actioner" class="ion-text-wrap">{{ actioner?.Name || "Select an Actioner" }}</ion-label>
-            <ion-icon name="person-outline" slot="start"></ion-icon>
+            <ion-icon name="person-outline" slot="start" />
           </ion-item>
-          <operative-list-modal [trigger]="id"></operative-list-modal>
+          <operative-list-modal [trigger]="id" />
         </ion-list>
       </ion-card-content>
     </ion-card>

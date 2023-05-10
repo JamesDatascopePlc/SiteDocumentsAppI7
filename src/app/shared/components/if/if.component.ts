@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from "@angular/core";
-import { IfModule } from "@rx-angular/template/if";
+import { RxIf } from "@rx-angular/template/if";
+import { ObservableInput } from "rxjs";
 
 @Component({
   selector: 'if',
@@ -12,8 +13,8 @@ import { IfModule } from "@rx-angular/template/if";
   `,
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [IfModule]
+  imports: [RxIf]
 })
 export class IfComponent {
-  @Input({ required: true }) condition!: boolean;
+  @Input({ required: true }) condition!: boolean | ObservableInput<boolean>;
 }

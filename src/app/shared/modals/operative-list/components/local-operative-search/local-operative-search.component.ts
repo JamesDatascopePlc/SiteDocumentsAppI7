@@ -8,7 +8,7 @@ import { AngularComponent } from "src/app/shared/lifecycles";
 @Component({
   selector: "local-operative-search",
   template: `
-    <ion-searchbar class="animate__animated animate__fadeIn"></ion-searchbar>
+    <ion-searchbar class="animate__animated animate__fadeIn" />
 
     <ion-list *rxLet="user$; let user">
       <ion-item 
@@ -23,7 +23,7 @@ import { AngularComponent } from "src/app/shared/lifecycles";
         </ion-item>
         <ion-item-options side="end">
           <ion-item-option color="danger">
-            <ion-icon name="trash-bin-outline"></ion-icon>
+            <ion-icon name="trash-bin-outline" />
           </ion-item-option>
         </ion-item-options>
       </ion-item-sliding>

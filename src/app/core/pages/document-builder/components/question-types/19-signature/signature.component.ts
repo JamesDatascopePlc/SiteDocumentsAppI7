@@ -13,9 +13,9 @@ import { FormsModule } from "@angular/forms";
       </ion-item>
 
       <ion-item>
-        <ion-input label="Print" labelPlacement="floating" [(ngModel)]="question.AnswerText" type="text"></ion-input>
+        <ion-input label="Print" labelPlacement="floating" [(ngModel)]="question.AnswerText" type="text" />
         <ion-button fill="clear" slot="end">
-          <ion-icon name="create-outline" slot="icon-only"></ion-icon>
+          <ion-icon name="create-outline" slot="icon-only" />
         </ion-button>
       </ion-item>
     </ion-list>
