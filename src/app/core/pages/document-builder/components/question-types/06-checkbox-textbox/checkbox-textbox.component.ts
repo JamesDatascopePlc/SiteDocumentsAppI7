@@ -16,9 +16,7 @@ import { FormsModule } from "@angular/forms";
         <file-upload *rxIf="question.CanHaveFiles" class="ion-no-margin" slot="end" />
       </ion-item>
 
-      <ion-item>
-        <ion-textarea [(ngModel)]="question.AnswerText" label="text:" labelPlacement="stacked" rows="3" />
-      </ion-item>
+      <ion-textarea [(ngModel)]="question.AnswerText" label="text:" labelPlacement="stacked" rows="3" fill="outline" />
     </ion-list>
   `,
   standalone: true,

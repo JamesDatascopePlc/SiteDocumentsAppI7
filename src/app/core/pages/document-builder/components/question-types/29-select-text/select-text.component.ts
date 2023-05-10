@@ -20,9 +20,7 @@ import { CameraCaptureComponent, FileUploadComponent, QuestionTextComponent } fr
         [items]="question.Options"
         itemText="Text"
         [canClear]="!question.Required" />
-      <ion-item>
-        <ion-input label="Comments" labelPlacement="floating" type="text" />
-      </ion-item>
+      <ion-textarea class="ion-margin-top" label="Comments" labelPlacement="floating" rows="4" type="text" fill="outline" />
     </ion-list>
   `,
   standalone: true,

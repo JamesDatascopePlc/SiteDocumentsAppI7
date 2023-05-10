@@ -26,6 +26,10 @@ export interface SiteDocument {
   MetaData: Partial<SiteDocumentMetaData>;
   SiteId?: number;
   AutoQueueID?: number;
+  QueueDuration?: {
+    Value: number;
+    Type: string;
+  }
 }
 
 export interface SiteDocumentImage {

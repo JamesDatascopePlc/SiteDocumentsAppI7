@@ -8,7 +8,7 @@ import { IfComponent } from "../if/if.component";
 @Component({
   selector: "multi-selectable",
   template: `
-    <ion-item [id]="id" [unpatch] button>
+    <ion-item [id]="id" detail="false" button>
       <ion-label [color]="values.length > 0 ? 'medium' : ''" class="ion-text-wrap">
         <if [condition]="values.length === 0">
           <ion-label show color="medium" class="ion-text-wrap">{{ placeholder }}</ion-label>

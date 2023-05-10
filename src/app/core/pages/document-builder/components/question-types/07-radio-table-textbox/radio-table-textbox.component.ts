@@ -24,9 +24,7 @@ import { QuestionTextComponent } from "../extras";
         </ion-col>
       </ion-radio-group>
       <ion-col size="2">
-        <ion-item>
-          <ion-textarea label="" rows="4"></ion-textarea>
-        </ion-item>
+        <ion-textarea label="" rows="4" fill="outline" />
       </ion-col>
     </ion-row>
   `,

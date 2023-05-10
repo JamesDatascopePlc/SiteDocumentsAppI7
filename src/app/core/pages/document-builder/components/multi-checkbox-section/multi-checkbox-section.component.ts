@@ -12,13 +12,13 @@ import { AutoSizeVirtualScrollStrategy, FixedSizeVirtualScrollStrategy } from "@
   selector: "multi-checkbox-modal",
   template: `
     <ion-list>
-      <ion-item [id]="id" button>
+      <ion-item [id]="id" detail="false" button>
         <ion-label>{{ section.TableTitles[0] }}</ion-label>
         <ion-icon name="create-outline" slot="end"></ion-icon>
       </ion-item>
     </ion-list>
 
-    <ion-list class="max-h-80 h-80">
+    <ion-list class="h-80">
       <rx-virtual-scroll-viewport autosize>
         <ion-item *rxVirtualFor="let question of selectedQuestions$" class="w-full">
           {{ question.QuestionText }}

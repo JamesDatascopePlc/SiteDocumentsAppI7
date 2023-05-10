@@ -41,23 +41,28 @@ import { importDocumentBuilderModals } from "./modals";
          [(actionerId)]="document.CurrentActionerOperativeID"
          [title]="document.MetaData.ActionerText"
          [hideMyself]="document.MetaData.CannotAddSelfAsActioner || false" />
+      
       <category-actioner-select 
         *rxIf="document.CanAddCategoryActioner && document.DocumentCategory != null" 
         [title]="document.MetaData.ActionerText"
         [(actionerId)]="document.CurrentActionerOperativeID"
         [categoryId]="document.DocumentCategory"
         [hideMyself]="document.MetaData.CannotAddSelfAsActioner || false" />
+      
       <company-actioner-select 
         *rxIf="document.CanHaveCompanyActioner"
         [title]="document.MetaData.ActionerText"
         [(companyId)]="document.CompanyActionerId" />
+      
       <queue-select 
         *rxIf="document.Queues && document.Queues.length > 0"
         [queueId]="document.AutoQueueID" />
+      
       <site-select 
         *rxIf="document.MetaData?.HasSiteList"
         [title]="document.MetaData.SiteListTitle"
         [(siteId)]="document.SiteId" />
+      
       <queue-duration *rxIf="document.CanHaveQueueDuration" />
 
       <document-page *rxFor="let page of document.Pages; index as idx" [page]="page" [hidden]="pageIndex.isNotNumber$(idx) | push">
@@ -109,7 +114,7 @@ import { importDocumentBuilderModals } from "./modals";
           Back
         </ion-button>
         <ion-button 
-          *rxIf="idx < document.Pages.length" 
+          *rxIf="idx < document.Pages.length - 1" 
           (click)="pageIndex.increment()"
           class="float-right">
           Next

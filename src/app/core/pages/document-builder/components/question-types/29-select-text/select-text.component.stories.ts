@@ -8,7 +8,7 @@ import { defaultQuestion } from ".storybook/default";
 type Story = SelectTextComponent & Prefix<Question, "question">;
 
 export default {
-  title: "Pages/Document-Builder/Question-Types/29-select-text",
+  title: "Pages/Document-Builder/Question-Types/29-Select-Text",
   component: SelectTextComponent,
   argTypes: {
     question: { table: { disable: true } },

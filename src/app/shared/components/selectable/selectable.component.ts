@@ -7,7 +7,7 @@ import { FusePipe } from "../../pipes";
 @Component({
   selector: "selectable",
   template: `
-    <ion-item [id]="id" [unpatch] button>
+    <ion-item [id]="id" detail="false" button>
       <ion-label [color]="value == null ? 'medium' : ''" class="ion-text-wrap">
       {{ 
         value == null 
