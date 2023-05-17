@@ -19,7 +19,7 @@ import { OperativeListModal } from "src/app/shared/modals/operative-list/operati
             <ion-label *rxLet="selectedActioner$; let actioner" class="ion-text-wrap">{{ actioner?.Name || "Select an Actioner" }}</ion-label>
             <ion-icon name="person-outline" slot="start" />
           </ion-item>
-          <operative-list-modal [trigger]="id" />
+          <operative-list-modal [trigger]="id" (operativeChange)="actionerId = $event.ID; actionerIdChange.emit($event.ID)" />
         </ion-list>
       </ion-card-content>
     </ion-card>
@@ -52,11 +52,11 @@ export class ActionerSelectComponent extends AngularComponent(withAfterViewInit,
   actionerIdChange = new EventEmitter<number>();
 
   selectedActioner$: Observable<Operative | null> = merge(
-    this.afterViewInit$, 
+    this.afterViewInit$(), 
     this.input$("actionerId"), 
     this.actionerIdChange
   ).pipe(
     switchMap(() => this.operatives$),
-    map(operatives => operatives.find(o => o.ID === this.actionerId) || null)
+    map(operatives => operatives.find(o => o.ID === this.actionerId) || null),
   );
 }

@@ -1,16 +1,10 @@
 import { Component } from "@angular/core";
 import { flow } from "lodash-es";
-
-export type ReactiveConstructor = new (...args: any[]) => {};
+import { AnyFunction } from "./types";
+import { withNoop } from "./with-noop";
 
 @Component({ template: "" })
 class ReactiveComponent {};
-
-function withNoop<TBase extends ReactiveConstructor>(Base: TBase) {
-  return class extends Base {}
-}
-
-type AnyFunction = (...args: any) => any;
 
 export function AngularComponent<T1 extends AnyFunction>(h1: T1): ReturnType<T1>
 export function AngularComponent<T1 extends AnyFunction, T2 extends AnyFunction>(h1: T1, h2: T2): ReturnType<T1> & ReturnType<T2>

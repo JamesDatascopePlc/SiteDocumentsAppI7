@@ -13,7 +13,6 @@ export class DateDirective {
   
   @Output()
   dateChange = new EventEmitter<Date>();
-
   
   ngOnChanges() {
     this.element.value = formatISO(this.date);

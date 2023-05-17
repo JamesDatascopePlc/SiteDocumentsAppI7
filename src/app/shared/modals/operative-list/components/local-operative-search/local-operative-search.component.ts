@@ -18,7 +18,7 @@ import { AngularComponent } from "src/app/shared/lifecycles";
           {{ user.Id }} - {{ user.FirstName }} {{ user.LastName }}
       </ion-item>
       <ion-item-sliding *rxFor="let op of operatives$; last as isLast">
-        <ion-item button>
+        <ion-item (click)="select.emit(op)" button>
           {{ op.ID }} - {{ op.Name }}
         </ion-item>
         <ion-item-options side="end">

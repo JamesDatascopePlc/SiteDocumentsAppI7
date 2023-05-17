@@ -13,7 +13,7 @@ import { importRxTemplate } from "src/app/shared/imports";
       </camera>
 
       <ng-container else>
-        <ion-button [photo-viewer]="base64Img!" [unpatch] fill="clear">
+        <ion-button [unpatch] fill="clear">
           <ion-icon name="eye-outline" slot="icon-only" />
         </ion-button>
         <ion-button (click)="remove()" fill="clear" color="danger">

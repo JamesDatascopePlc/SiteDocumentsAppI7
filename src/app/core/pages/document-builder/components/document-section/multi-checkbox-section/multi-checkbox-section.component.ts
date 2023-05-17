@@ -2,14 +2,14 @@ import { ChangeDetectionStrategy, Component, Input } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { IonicModule } from "@ionic/angular";
 import { importRxTemplate, importRxVirtualScroll } from "src/app/shared/imports";
-import { CheckboxComponent } from "../question-types/01-checkbox/checkbox.component";
+import { CheckboxComponent } from "../../question-types/01-checkbox/checkbox.component";
 import { FusePipe } from "src/app/shared/pipes";
 import { Question, Section } from "src/app/core/stores/site-document/models";
 import { BehaviorSubject, map } from "rxjs";
 import { AutoSizeVirtualScrollStrategy, FixedSizeVirtualScrollStrategy } from "@rx-angular/template/experimental/virtual-scrolling";
 
 @Component({
-  selector: "multi-checkbox-modal",
+  selector: "multi-checkbox-section",
   template: `
     <ion-list>
       <ion-item [id]="id" detail="false" button>
@@ -18,12 +18,10 @@ import { AutoSizeVirtualScrollStrategy, FixedSizeVirtualScrollStrategy } from "@
       </ion-item>
     </ion-list>
 
-    <ion-list class="h-80">
-      <rx-virtual-scroll-viewport autosize>
-        <ion-item *rxVirtualFor="let question of selectedQuestions$" class="w-full">
-          {{ question.QuestionText }}
-        </ion-item>
-      </rx-virtual-scroll-viewport>
+    <ion-list>
+      <ion-item *rxFor="let question of selectedQuestions$" class="w-full">
+        {{ question.QuestionText }}
+      </ion-item>
     </ion-list>
 
     <ion-modal #modal [trigger]="id">

@@ -1,18 +1,27 @@
-import { Directive, HostBinding, Input } from "@angular/core";
-import { PhotoViewer } from "@capacitor-community/photoviewer";
+import { Directive, ElementRef, HostBinding, inject } from "@angular/core";
+import Viewer from "viewerjs";
 
 @Directive({
   selector: "[photo-viewer]",
   standalone: true
 })
 export class PhotoViewerDirective {
-  @Input("photo-viewer")
-  url!: string;
+  elementRef = inject(ElementRef);
 
   @HostBinding("click")
   view() {
-    PhotoViewer.show({
-      images: [{ url: this.url }]
+    const viewer = new Viewer(this.elementRef.nativeElement, {
+      backdrop: true,
+      focus: true,
+      fullscreen: true,
+      loading: true,
+      title: true,
+      transition: true,
+      zoomable: true,
+      zoomOnTouch: true,
+      zoomOnWheel: true
     });
+
+    viewer.view();
   }
 }

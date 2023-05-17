@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, inject } from "@angular/core";
+import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { IonicModule } from "@ionic/angular";
 import { Observable, merge, switchMap } from "rxjs";
 import { ResponsibilityAreaType, ResponsibilityAreaTypesStore } from "src/app/core/stores/responsibility-area-types/responsibility-area-types.store";
@@ -51,7 +52,8 @@ export class ResponsibilityAreaSelectComponent extends AngularComponent(withAfte
   @Output()
   responsibilityAreaTypeIdChange = new EventEmitter<number>();
 
-  responsibilityAreaType$: Observable<ResponsibilityAreaType | undefined> = merge(this.afterViewInit$, this.input$("responsibilityAreaTypeId")).pipe(
+  responsibilityAreaType$: Observable<ResponsibilityAreaType | undefined> = merge(this.afterViewInit$(), this.input$("responsibilityAreaTypeId")).pipe(
+    takeUntilDestroyed(),
     switchMap(() => this.responsibilityAreaTypesStore.responsibilityAreaTypeById$(this.responsibilityAreaTypeId))
   );
 }

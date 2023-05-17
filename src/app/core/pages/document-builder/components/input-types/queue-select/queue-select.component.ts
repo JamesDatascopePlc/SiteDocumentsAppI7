@@ -1,5 +1,6 @@
 import { AsyncPipe } from "@angular/common";
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from "@angular/core";
+import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { IonicModule } from "@ionic/angular";
 import { map, merge, Observable } from "rxjs";
 import { SelectableComponent } from "src/app/shared/components/selectable/selectable.component";
@@ -52,9 +53,10 @@ export class QueueSelectComponent extends AngularComponent(withAfterViewInit, wi
   queueIdChange = new EventEmitter<number>();
 
   queue$: Observable<{ id: number, name: string } | null> = merge(
-    this.afterViewInit$,
+    this.afterViewInit$(),
     this.input$("queueId")
   ).pipe(
+    takeUntilDestroyed(),
     map(() => this.queues.find(q => q.id === this.queueId) || null)
   );
 }

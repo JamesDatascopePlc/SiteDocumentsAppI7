@@ -90,6 +90,7 @@ import { importDocumentBuilderModals } from "./modals";
             <signature-question *ngSwitchCase="QuestionType.Signature" [question]="question" />
             <select-text-question *ngSwitchCase="QuestionType.SelectText" [question]="question" />
             <time-question *ngSwitchCase="QuestionType.Time" [question]="question" />
+            <linked-times-question *ngSwitchCase="QuestionType.LinkedTimes" [question]="question" />
           </ng-template>
         </document-section>
       </document-page>

@@ -5,27 +5,33 @@ import { QuestionTextComponent } from "../extras";
 import { TimePickerComponent } from "src/app/shared/components";
 
 @Component({
-  selector: "time-question",
+  selector: "linked-times-question",
   template: `
     <ion-list>
       <ion-item lines="none">
         <question-text [required]="question.Required">{{ question.QuestionText }}</question-text>
       </ion-item>
-
       <ion-item>
         <time-picker [(time)]="question.DateAndTime" class="w-full" />
+      </ion-item>
+
+      <ion-item lines="none">
+        <question-text [required]="question.Required">{{ question.CascadeOptionsText }}</question-text>
+      </ion-item>
+      <ion-item>
+        <time-picker [(time)]="question.DateAndTime2" class="w-full"></time-picker>
       </ion-item>
     </ion-list>
   `,
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
-    IonicModule,
+    IonicModule, 
     QuestionTextComponent,
     TimePickerComponent
   ]
 })
-export class TimeComponent {
+export class LinkedTimesComponent {
   @Input({ required: true })
-  question!: Question;
+  question!: Question;  
 }

@@ -14,7 +14,7 @@ import { Operative } from "src/app/core/stores/operative/operatives.store";
           <ion-toolbar>
             <ion-title class="ion-text-center">Select an Operative</ion-title>
             <ion-buttons slot="end">
-              <ion-button (click)="modal.dismiss()" [unpatch]>
+              <ion-button (click)="modal.dismiss()">
                 <ion-icon name="close-outline" slot="icon-only" />
               </ion-button>
             </ion-buttons>
@@ -33,7 +33,10 @@ import { Operative } from "src/app/core/stores/operative/operatives.store";
         </ion-header>
       
         <ion-content [ngSwitch]="segment" class="ion-padding">
-          <local-operative-search *ngSwitchCase="'local'" [hideMyself]="hideMyself" />
+          <local-operative-search 
+            *ngSwitchCase="'local'" 
+            [hideMyself]="hideMyself" 
+            (select)="operativeChange.emit($event); modal.dismiss();" />
           <online-operative-search *ngSwitchCase="'online'" />
         </ion-content>
       </ng-template>

@@ -1,7 +1,7 @@
 import { SimpleChanges } from "@angular/core";
 import { filter, map, merge, Observable, Subject } from "rxjs";
-import { ReactiveConstructor } from "../lifecycle-component";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
+import { ReactiveConstructor } from "../types";
 
 export function withOnChanges<TBase extends ReactiveConstructor>(Base: TBase) {
   return class extends Base {

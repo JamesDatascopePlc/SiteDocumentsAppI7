@@ -5,7 +5,7 @@ import { defaultQuestion, defaultSection } from ".storybook/default";
 import { faker } from "@faker-js/faker";
 
 export default {
-  title: "Pages/Document-Builder/Components/Multi-Checkbox-Section",
+  title: "Pages/Document-Builder/Components/Document-Section/Multi-Checkbox-Section",
   component: MultiCheckboxSectionComponent,
   argTypes: {
     section: { name: "section", control: "object" },

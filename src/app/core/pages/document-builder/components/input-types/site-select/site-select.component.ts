@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, inject } from "@angular/core";
+import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { IonicModule } from "@ionic/angular";
 import { Observable, map, merge, switchMap } from "rxjs";
 import { Site, UserStore } from "src/app/core/stores/user/user.store";
@@ -53,7 +54,8 @@ export class SiteSelectComponent extends AngularComponent(withAfterViewInit, wit
 
   sites$ = this.userStore.sites$;
 
-  selectedSite$: Observable<Site | null> = merge(this.afterViewInit$, this.input$("siteId")).pipe(
+  selectedSite$: Observable<Site | null> = merge(this.afterViewInit$(), this.input$("siteId")).pipe(
+    takeUntilDestroyed(),
     switchMap(() => this.sites$),
     map(sites => sites.find(s => s.Id === this.siteId) || null)
   );

@@ -3,14 +3,15 @@ import { Device } from "@capacitor/device";
 import { ToastController } from "@ionic/angular";
 import OneSignal from "onesignal-cordova-plugin";
 import NotificationReceivedEvent from "onesignal-cordova-plugin/dist/NotificationReceivedEvent";
-import { map, Subject, switchMap, tap } from "rxjs";
+import { map, switchMap, tap } from "rxjs";
+import { subject } from "../../rxjs";
 
 @Injectable({
   providedIn: "root"
 })
 export class OneSignalService {
   protected toastCtrl = inject(ToastController);
-  protected notificationReceived$ = new Subject<NotificationReceivedEvent>();
+  protected notificationReceived$ = subject<NotificationReceivedEvent>();
 
   async startup() {
     const device = await Device.getInfo();
@@ -18,7 +19,7 @@ export class OneSignalService {
     if (device.platform === "web")
       return;
 
-    this.notificationReceived$.pipe(
+    this.notificationReceived$(
       map(nr => nr.getNotification()),
       switchMap(notification => this.toastCtrl.create({
         header: notification.title,

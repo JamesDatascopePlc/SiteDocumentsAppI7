@@ -4,6 +4,7 @@ import { Question } from "src/app/core/stores/site-document/models";
 import { QuestionTextComponent } from "../extras";
 import { FormsModule } from "@angular/forms";
 import { importRxTemplate } from "src/app/shared/imports";
+import { SignaturePadComponent } from "src/app/shared/components";
 
 @Component({
   selector: "signature-question",
@@ -36,9 +37,7 @@ import { importRxTemplate } from "src/app/shared/imports";
         </ion-header>
 
         <ion-content>
-          <canvas>
-
-          </canvas>
+          <signature-pad />
         </ion-content>
         
         <ion-footer>
@@ -66,7 +65,8 @@ import { importRxTemplate } from "src/app/shared/imports";
     IonicModule,
     ...importRxTemplate(),
     FormsModule,
-    QuestionTextComponent
+    QuestionTextComponent,
+    SignaturePadComponent
   ]
 })
 export class SignatureComponent {

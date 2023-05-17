@@ -1,8 +1,10 @@
 import { NgTemplateOutlet } from "@angular/common";
 import { ChangeDetectionStrategy, Component, ContentChild, Directive, Input, TemplateRef } from "@angular/core";
 import { IonicModule } from "@ionic/angular";
-import { Question, Section } from "src/app/core/stores/site-document/models";
+import { Question, QuestionType, Section } from "src/app/core/stores/site-document/models";
+import { IfComponent } from "src/app/shared/components";
 import { importRxTemplate } from "src/app/shared/imports";
+import { MultiCheckboxSectionComponent } from "./multi-checkbox-section/multi-checkbox-section.component";
 
 @Directive({
   selector: "ng-template[questions]",
@@ -30,9 +32,13 @@ export class QuestionTemplateDirective {
       </ion-button>
     </ng-container>
 
-    <ng-container *rxFor="let question of section.Questions">
-      <ng-container *ngTemplateOutlet="questions; context: { $implicit: question }" />
-    </ng-container>
+    <if [condition]="section.SectionQuestiontype === QuestionType.MultiCheckbox">
+      <multi-checkbox-section show [section]="section" />
+
+      <ng-container else *rxFor="let question of section.Questions">
+        <ng-container *ngTemplateOutlet="questions; context: { $implicit: question }" />
+      </ng-container>
+    </if>
   `,
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -40,10 +46,14 @@ export class QuestionTemplateDirective {
     IonicModule,
     ...importRxTemplate(),
     NgTemplateOutlet,
+    IfComponent,
+    MultiCheckboxSectionComponent,
     QuestionTemplateDirective
   ]
 })
 export class DocumentSectionComponent {
+  QuestionType = QuestionType;
+
   @Input()
   section!: Section;
 

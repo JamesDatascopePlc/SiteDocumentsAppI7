@@ -19,7 +19,7 @@ import { LinkedDatesComponent } from "./18-linked-dates/linked-dates.component";
 import { SignatureComponent } from "./19-signature/signature.component";
 import { SelectTextComponent } from "./29-select-text/select-text.component";
 import { TimeComponent } from "./32-time/time.component";
-import { LinkedTimeComponent } from "./33-linked-time/linked-time.component";
+import { LinkedTimesComponent } from "./33-linked-times/linked-times.component";
 
 export function importQuestionTypes() {
   return [
@@ -44,6 +44,6 @@ export function importQuestionTypes() {
     SignatureComponent,
     SelectTextComponent,
     TimeComponent,
-    LinkedTimeComponent
+    LinkedTimesComponent
   ]
 }
