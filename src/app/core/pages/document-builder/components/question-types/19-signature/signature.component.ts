@@ -37,14 +37,14 @@ import { SignaturePadComponent } from "src/app/shared/components";
         </ion-header>
 
         <ion-content>
-          <signature-pad />
+          <signature-pad (padInit)="signaturePad = $event" />
         </ion-content>
         
         <ion-footer>
           <ion-grid>
             <ion-row>
               <ion-col>
-                <ion-button color="danger" expand="full">
+                <ion-button (click)="signaturePad.clear()" color="danger" expand="full">
                   Clear
                 </ion-button>
               </ion-col>
@@ -74,4 +74,6 @@ export class SignatureComponent {
   
   @Input({ required: true })
   question!: Question;
+
+  signaturePad!: SignaturePadComponent;
 }

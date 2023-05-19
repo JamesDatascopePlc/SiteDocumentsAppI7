@@ -58,7 +58,7 @@ export class OnlineAssetSearchComponent {
 
   assets$ = new Subject<Asset[]>();
 
-  search = reaction($entered => $entered.pipe(
+  search = reaction($entered => $entered(
     takeUntilDestroyed()
   ));
 }

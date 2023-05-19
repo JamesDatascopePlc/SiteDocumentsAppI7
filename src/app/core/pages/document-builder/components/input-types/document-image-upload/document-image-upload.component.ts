@@ -5,7 +5,7 @@ import { Observable, map } from "rxjs";
 import { SiteDocumentImageStore } from "src/app/core/stores/site-document-image/site-document-image.store";
 import { SiteDocument } from "src/app/core/stores/site-document/models";
 import { IfComponent, UploadComponent } from "src/app/shared/components";
-import { CameraDirective } from "src/app/shared/directives";
+import { CameraDirective, PhotoViewerDirective } from "src/app/shared/directives";
 import { importRxTemplate } from "src/app/shared/imports";
 import { AngularComponent, withOnChanges } from "src/app/shared/lifecycles";
 import { DataUrlFile } from "src/app/shared/models/files/data-url-file.model";
@@ -50,7 +50,7 @@ import { isMobileApp } from "src/app/shared/plugins/platform.plugin";
                     </ion-fab-button>
                   </ion-fab>
 
-                  <ion-img [src]="img" />
+                  <ion-img photo-viewer [src]="img" />
                 </ion-col>
               </ion-row>
             </ion-grid>
@@ -85,7 +85,8 @@ import { isMobileApp } from "src/app/shared/plugins/platform.plugin";
     ...importRxTemplate(),
     IfComponent,
     UploadComponent,
-    CameraDirective
+    CameraDirective,
+    PhotoViewerDirective
   ]
 })
 export class DocumentImageUploadComponent extends AngularComponent(withOnChanges) {

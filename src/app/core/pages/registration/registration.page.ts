@@ -69,7 +69,7 @@ export class RegistrationPage extends AngularComponent() {
     ])
   });
 
-  submit = reaction(click$ => click$.pipe(
+  submit = reaction(click$ => click$(
     takeUntilDestroyed(),
     clickReaction(),
     switchMap(() => this.userStore.getUserRequest$(this.form.value$))

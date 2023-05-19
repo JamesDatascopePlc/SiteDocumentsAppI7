@@ -1,9 +1,11 @@
-import { ChangeDetectionStrategy, Component, Directive, ElementRef, inject } from "@angular/core";
-import { debounceTime, map, merge } from "rxjs";
+import { ChangeDetectionStrategy, Component, Directive, ElementRef, EventEmitter, Output, inject } from "@angular/core";
+import { debounceTime, map, merge, switchMap, tap } from "rxjs";
 import SignaturePad from "signature_pad";
 import { AngularComponent, withAfterViewInit } from "../../lifecycles";
 import { PushPipe } from "@rx-angular/template/push";
-import { subject } from "../../rxjs/subject";
+import { replaySubject, subject } from "../../rxjs/subject";
+import { reaction } from "../../reactions";
+import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 
 @Directive({
   selector: "canvas[signature-pad]",
@@ -17,6 +19,13 @@ export class SignaturePadDirective {
     maxWidth: 5,
     backgroundColor: "rgb(255,255,255)"
   });
+
+  @Output()
+  padInit = new EventEmitter<SignaturePad>();
+
+  ngOnInit() {
+    this.padInit.emit(this.signaturePad);
+  }
 }
 
 @Component({
@@ -24,7 +33,8 @@ export class SignaturePadDirective {
   template: `
     <canvas 
       signature-pad 
-      class="border border-black" 
+      class="border border-black bg-white" 
+      (padInit)="signaturePad$.next($event); padInit.emit(this)"
       (window:resize)="resize$.next()"
       [width]="width$ | push"
       [height]="height$ | push">
@@ -40,6 +50,7 @@ export class SignaturePadComponent extends AngularComponent(withAfterViewInit) {
     return this.elementRef.nativeElement.parentElement![prop];
   }
 
+  signaturePad$ = replaySubject<SignaturePad>();
   resize$ = subject();
 
   width$ = merge(this.afterViewInit$(), this.resize$()).pipe(
@@ -51,4 +62,13 @@ export class SignaturePadComponent extends AngularComponent(withAfterViewInit) {
     debounceTime(300),
     map(() => this.parentElement("offsetHeight") - 2)
   );
+
+  clear = reaction($event => $event(
+    takeUntilDestroyed(),
+    switchMap(() => this.signaturePad$()),
+    tap(pad => pad.clear()),
+  ));
+
+  @Output()
+  padInit = new EventEmitter<SignaturePadComponent>();
 }

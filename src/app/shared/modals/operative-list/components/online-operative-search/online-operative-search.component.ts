@@ -63,7 +63,7 @@ export class OnlineOperativeSearchComponent {
 
   searchName: string = "";
   
-  search = reaction($entered => $entered.pipe(
+  search = reaction($entered => $entered(
     takeUntilDestroyed(),
     switchMap(() => this.operativesStore.getSearchResults({ search: this.searchName, noAppLimit: this.noAppLimit }))
   ));

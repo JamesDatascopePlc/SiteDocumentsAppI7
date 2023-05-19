@@ -153,7 +153,7 @@ export class DocumentBuilderPage {
     shareReplay()
   );
 
-  submit = reaction<SiteDocument>(document$ => this.formFillerStore.submitDocument$(document$).pipe(
+  submit = reaction<SiteDocument>(document$ => this.formFillerStore.submitDocument$(document$()).pipe(
     takeUntilDestroyed(),
     clickReaction()
   ));

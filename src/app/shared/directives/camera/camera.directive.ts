@@ -1,4 +1,4 @@
-import { Directive, EventEmitter, HostBinding, Input, Output } from "@angular/core";
+import { Directive, EventEmitter,HostListener, Input, Output } from "@angular/core";
 import { Camera, ImageOptions } from "@capacitor/camera";
 import { CameraResultType, Photo } from "@capacitor/camera/dist/esm/definitions";
 
@@ -15,7 +15,7 @@ export class CameraDirective {
   @Output()
   takePhoto = new EventEmitter<Photo>();
 
-  @HostBinding("click")
+  @HostListener("click")
   async take() {
     const photo = await Camera.getPhoto(this.options);
     this.takePhoto.emit(photo);

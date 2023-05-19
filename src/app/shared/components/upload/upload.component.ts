@@ -28,7 +28,7 @@ function fileToDataUrlFile(file: File): Promise<DataUrlFile> {
     :host { display: contents }
   `],
   template: `
-    <label [for]="id" class="w-full h-full fixed cursor-pointer"></label>
+    <label [for]="id" class="w-full h-full fixed cursor-pointer z-50"></label>
     <input [id]="id" type="file" [accept]="accept" (change)="take($event)" class="hidden" />
   `,
   standalone: true,

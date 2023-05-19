@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from "@angular/core";
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from "@angular/core";
 import { IonicModule } from "@ionic/angular";
 import { SiteDocument } from "src/app/core/stores/site-document/models";
 import { importRxTemplate } from "src/app/shared/imports";
@@ -67,7 +67,7 @@ import { importRxTemplate } from "src/app/shared/imports";
                 <ion-button (click)="modal.dismiss()" color="danger" expand="full">Cancel</ion-button>
               </ion-col>
               <ion-col>
-                <ion-button expand="full">Submit</ion-button>
+                <ion-button (click)="submit.emit()" expand="full">Submit</ion-button>
               </ion-col>
             </ion-row>
           </ion-grid>
@@ -79,7 +79,7 @@ import { importRxTemplate } from "src/app/shared/imports";
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     IonicModule,
-    importRxTemplate(),
+    ...importRxTemplate(),
   ]
 })
 export class DocumentSummaryModal {
@@ -91,4 +91,7 @@ export class DocumentSummaryModal {
 
   @Input({ required: true })
   document!: SiteDocument;
+
+  @Output()
+  submit = new EventEmitter<void>();
 }

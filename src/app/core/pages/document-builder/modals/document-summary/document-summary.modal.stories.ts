@@ -11,7 +11,8 @@ export default {
   argTypes: {
     trigger: { name: "trigger", control: "text" },
     isOpen: { name: "isOpen", control: "boolean" },
-    document: { name: "document", control: "object" }
+    document: { name: "document", control: "object" },
+    submit: { action: "submit" }
   }
 } as StorybookMeta<DocumentSummaryModal>;
 
