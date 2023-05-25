@@ -1,3 +1,5 @@
+import { PointGroup } from "signature_pad";
+
 export interface SiteDocument {
   DocumentID: number;
   DocumentTitle: string;
@@ -134,6 +136,7 @@ export interface Question {
   YesNoNA: boolean | null;
   CanHaveImg: boolean;
   CanHaveFiles: boolean;
+  SignaturePoints?: PointGroup[];
 }
 
 export interface SelectOption {

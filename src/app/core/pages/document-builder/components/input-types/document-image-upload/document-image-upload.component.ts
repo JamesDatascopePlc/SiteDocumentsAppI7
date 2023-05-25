@@ -50,7 +50,7 @@ import { isMobileApp } from "src/app/shared/plugins/platform.plugin";
                     </ion-fab-button>
                   </ion-fab>
 
-                  <ion-img photo-viewer [src]="img" />
+                  <ion-img [src]="img" />
                 </ion-col>
               </ion-row>
             </ion-grid>

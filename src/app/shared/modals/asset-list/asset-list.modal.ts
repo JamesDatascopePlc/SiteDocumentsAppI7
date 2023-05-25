@@ -1,8 +1,9 @@
-import { ChangeDetectionStrategy, Component, Input } from "@angular/core";
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from "@angular/core";
 import { IonicModule } from "@ionic/angular";
 import { importNgSwitch, importRxTemplate } from "../../imports";
 import { LocalAssetSearchComponent, OnlineAssetSearchComponent } from "./components";
 import { FormsModule } from "@angular/forms";
+import { Asset } from "src/app/core/stores/asset/asset.store";
 
 @Component({
   selector: "asset-list-modal",
@@ -32,7 +33,7 @@ import { FormsModule } from "@angular/forms";
         </ion-header>
 
         <ion-content [ngSwitch]="segment" class="ion-padding">
-          <local-asset-search *ngSwitchCase="'local'" />
+          <local-asset-search *ngSwitchCase="'local'" (select)="assetChange.emit($event); modal.dismiss();" />
           <online-asset-search *ngSwitchCase="'online'" />
         </ion-content>
       </ng-template>
@@ -55,6 +56,9 @@ export class AssetListModal {
 
   @Input()
   isOpen: boolean = false;
+
+  @Output()
+  assetChange = new EventEmitter<Asset>();
 
   segment: "local" | "online" = "local";
 }

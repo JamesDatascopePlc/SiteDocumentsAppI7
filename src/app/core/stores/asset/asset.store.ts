@@ -4,7 +4,8 @@ import { selectAllEntities, withEntities } from "@ngneat/elf-entities";
 
 export interface Asset {
   Id : number,
-  Registration: string
+  TypeName: string,
+  Registration: string | null
 }
 
 const store = createStore(

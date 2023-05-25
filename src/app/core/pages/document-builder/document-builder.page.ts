@@ -12,6 +12,7 @@ import { isMobileApp } from "src/app/shared/plugins/platform.plugin";
 import { numberState } from "src/app/shared/states/number.state";
 import { DocumentBuilderRoute } from "./document-builder.route";
 import { importDocumentBuilderModals } from "./modals";
+import { ActivatedRoute, Router } from "@angular/router";
 
 @Component({
   selector: 'app-document-builder',
@@ -122,6 +123,8 @@ import { importDocumentBuilderModals } from "./modals";
         </ion-button>
       </ion-footer>
     </ng-container>
+
+    <template-menu-modal [isOpen]="route.noParams$ | push" (select)="navigateDocument($event)" />
   `,
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -139,6 +142,8 @@ import { importDocumentBuilderModals } from "./modals";
   ]
 })
 export class DocumentBuilderPage {
+  protected readonly router = inject(Router);
+  _route = inject(ActivatedRoute);
   protected readonly route = inject(DocumentBuilderRoute);
   protected readonly formFillerStore = inject(FormFillerStore);
 
@@ -148,12 +153,22 @@ export class DocumentBuilderPage {
   document$ = merge(
     this.formFillerStore.getTemplateRequest$(this.route.lastDocumentId$),
   ).pipe(
-    takeUntilDestroyed(),
     switchMap(() => this.formFillerStore.writingDocument$),
     shareReplay()
   );
 
-  submit = reaction<SiteDocument>(document$ => this.formFillerStore.submitDocument$(document$()).pipe(
+  navigateDocument(id: number) {
+    this.router.navigate([], {
+      relativeTo: this._route,
+      queryParams: {
+        ids: [id]
+      },
+      queryParamsHandling: "merge",
+      skipLocationChange: true
+    });
+  }
+
+  submit = reaction<SiteDocument>(doc$ => this.formFillerStore.submitDocument$(doc$()).pipe(
     takeUntilDestroyed(),
     clickReaction()
   ));

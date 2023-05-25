@@ -1,9 +1,9 @@
-import { ChangeDetectionStrategy, Component, Directive, ElementRef, EventEmitter, Output, inject } from "@angular/core";
+import { ChangeDetectionStrategy, Component, Directive, ElementRef, EventEmitter, Input, Output, inject } from "@angular/core";
 import { debounceTime, map, merge, switchMap, tap } from "rxjs";
-import SignaturePad from "signature_pad";
+import SignaturePad, { PointGroup } from "signature_pad";
 import { AngularComponent, withAfterViewInit } from "../../lifecycles";
 import { PushPipe } from "@rx-angular/template/push";
-import { replaySubject, subject } from "../../rxjs/subject";
+import { use } from "../../rxjs/use";
 import { reaction } from "../../reactions";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 
@@ -20,10 +20,21 @@ export class SignaturePadDirective {
     backgroundColor: "rgb(255,255,255)"
   });
 
+  @Input()
+  points: PointGroup[] = [];
+
+  @Output()
+  pointsChange = new EventEmitter<PointGroup[]>();
+
   @Output()
   padInit = new EventEmitter<SignaturePad>();
 
   ngOnInit() {
+    this.signaturePad.fromData(this.points);
+    this.signaturePad.addEventListener("endStroke", () => {
+      this.points = this.signaturePad.toData();
+      this.pointsChange.emit(this.points);
+    });
     this.padInit.emit(this.signaturePad);
   }
 }
@@ -33,9 +44,11 @@ export class SignaturePadDirective {
   template: `
     <canvas 
       signature-pad 
+      [(points)]="points"
+      (pointsChange)="pointsChange.emit(points)"
       class="border border-black bg-white" 
-      (padInit)="signaturePad$.next($event); padInit.emit(this)"
-      (window:resize)="resize$.next()"
+      (padInit)="signaturePad.next($event); padInit.emit(this)"
+      (window:resize)="resize.next()"
       [width]="width$ | push"
       [height]="height$ | push">
     </canvas>
@@ -50,25 +63,40 @@ export class SignaturePadComponent extends AngularComponent(withAfterViewInit) {
     return this.elementRef.nativeElement.parentElement![prop];
   }
 
-  signaturePad$ = replaySubject<SignaturePad>();
-  resize$ = subject();
+  @Input()
+  points: PointGroup[] = [];
 
-  width$ = merge(this.afterViewInit$(), this.resize$()).pipe(
+  @Output()
+  pointsChange = new EventEmitter<PointGroup[]>();
+
+  @Output()
+  padInit = new EventEmitter<SignaturePadComponent>();
+
+  @Output()
+  save = new EventEmitter<{ points: PointGroup[], dataUrl: string }>();
+
+  signaturePad = use<SignaturePad>();
+  resize = use();
+
+  width$ = merge(this.afterViewInit$(), this.resize()).pipe(
     debounceTime(300),
     map(() => this.parentElement("offsetWidth") - 2)
   );
 
-  height$ = merge(this.afterViewInit$(), this.resize$()).pipe(
+  height$ = merge(this.afterViewInit$(), this.resize()).pipe(
     debounceTime(300),
     map(() => this.parentElement("offsetHeight") - 2)
   );
 
+  output = reaction($event => $event(
+    takeUntilDestroyed(),
+    switchMap(() => this.signaturePad()),
+    tap(pad => this.save.emit({ points: pad.toData(), dataUrl: pad.toDataURL() }))
+  ))
+
   clear = reaction($event => $event(
     takeUntilDestroyed(),
-    switchMap(() => this.signaturePad$()),
+    switchMap(() => this.signaturePad()),
     tap(pad => pad.clear()),
   ));
-
-  @Output()
-  padInit = new EventEmitter<SignaturePadComponent>();
 }

@@ -17,7 +17,16 @@ import { IonicModule, ModalController } from "@ionic/angular";
     <ion-content class="ion-padding">
       <swiper-container>
         <swiper-slide>
-          <img class="max-h-full max-w-full" [src]="src" />
+          <img class="
+            max-w-full 
+            max-h-full 
+            absolute 
+            top-1/2 
+            left-1/2 
+            -translate-x-1/2 
+            -translate-y-1/2
+            p-4" 
+            [src]="src" />
         </swiper-slide>
       </swiper-container>
     </ion-content>
@@ -39,7 +48,7 @@ class PhotoViewerComponent {
 }
 
 @Directive({
-  selector: "[photo-viewer]",
+  selector: "[src]",
   standalone: true
 })
 export class PhotoViewerDirective {
@@ -50,7 +59,6 @@ export class PhotoViewerDirective {
 
   @HostListener("click")
   async view() {
-    // replace with angular lifecycle
     const modal = await this.modalCtrl.create({
       component: PhotoViewerComponent,
       componentProps: {

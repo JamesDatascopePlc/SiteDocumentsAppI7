@@ -37,19 +37,19 @@ import { SignaturePadComponent } from "src/app/shared/components";
         </ion-header>
 
         <ion-content>
-          <signature-pad (padInit)="signaturePad = $event" />
+          <signature-pad (padInit)="signaturePad = $event" [(points)]="points" />
         </ion-content>
         
         <ion-footer>
           <ion-grid>
             <ion-row>
               <ion-col>
-                <ion-button (click)="signaturePad.clear()" color="danger" expand="full">
+                <ion-button (click)="cancel(); signaturePad.clear()" color="danger" expand="full">
                   Clear
                 </ion-button>
               </ion-col>
               <ion-col>
-                <ion-button color="secondary" expand="full">
+                <ion-button (click)="signaturePad.output(); modal.dismiss()" color="secondary" expand="full">
                   Save
                 </ion-button>
               </ion-col>
@@ -76,4 +76,13 @@ export class SignatureComponent {
   question!: Question;
 
   signaturePad!: SignaturePadComponent;
+  points = [...this.question?.SignaturePoints || []];
+
+  cancel() {
+    this.points = [...this.question.SignaturePoints || []];
+  }
+
+  save() {
+    this.question.SignaturePoints = [...this.points];
+  }
 }

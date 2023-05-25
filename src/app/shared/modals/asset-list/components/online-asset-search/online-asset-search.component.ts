@@ -1,46 +1,51 @@
-import { ChangeDetectionStrategy, Component } from "@angular/core";
-import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
+import { HttpClient } from "@angular/common/http";
+import { ChangeDetectionStrategy, Component, EventEmitter, Output, inject } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { IonicModule } from "@ionic/angular";
-import { Subject } from "rxjs";
 import { Asset } from "src/app/core/stores/asset/asset.store";
 import { IfComponent } from "src/app/shared/components";
 import { importRxFixedVirtualScroll, importRxTemplate } from "src/app/shared/imports";
-import { reaction } from "src/app/shared/reactions";
+import { track, use } from "src/app/shared/rxjs";
+import { environment } from "src/environments/environment";
 
 @Component({
   selector: "online-asset-search",
+  styles: [`
+    ion-list { height: calc(100% - 58px) }
+  `],
   template: `
-    <ion-searchbar [(ngModel)]="searchRegistration" />
+    <ion-searchbar [(ngModel)]="searchRegistration" (keyup.enter)="search.next()" />
     
-    <if [condition]="searchIsPending">
-      <ion-list show>
-        <ion-item lines="none">
-          <ion-skeleton-text [animated]="true" />
-        </ion-item>
-        <ion-item lines="none">
-          <ion-skeleton-text [animated]="true" />
-        </ion-item>
-        <ion-item lines="none">
-          <ion-skeleton-text [animated]="true" />
-        </ion-item>
-        <ion-item lines="none">
-          <ion-skeleton-text [animated]="true" />
-        </ion-item>
-      </ion-list>
-
-      <ion-list else class="h-full">
-        <rx-virtual-scroll-viewport [itemSize]="50">
-          <ion-item 
-            *rxVirtualFor="let asset of assets$; last as isLast"
-            class="w-full" 
-            [lines]="isLast ? 'none' : 'inset'" 
-            button>
-            {{ asset.Id }} - {{ asset.Registration }}
+    <ng-container *rxIf="assetsTracking$; let assetsTracking">
+      <if [condition]="assetsTracking.isLoading$ | push">
+        <ion-list show>
+          <ion-item lines="none">
+            <ion-skeleton-text [animated]="true" />
           </ion-item>
-        </rx-virtual-scroll-viewport>
-      </ion-list>
-    </if>
+          <ion-item lines="none">
+            <ion-skeleton-text [animated]="true" />
+          </ion-item>
+          <ion-item lines="none">
+            <ion-skeleton-text [animated]="true" />
+          </ion-item>
+          <ion-item lines="none">
+            <ion-skeleton-text [animated]="true" />
+          </ion-item>
+        </ion-list>
+
+        <ion-list else>
+          <rx-virtual-scroll-viewport [itemSize]="50">
+            <ion-item 
+              *rxVirtualFor="let asset of assetsTracking.data$"
+              (click)="select.emit(asset)"
+              class="w-full" 
+              button>
+              {{ asset.Id }} - {{ asset.Registration }}
+            </ion-item>
+          </rx-virtual-scroll-viewport>
+        </ion-list>
+      </if>
+    </ng-container>
   `,
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -53,12 +58,17 @@ import { reaction } from "src/app/shared/reactions";
   ]
 })
 export class OnlineAssetSearchComponent {
+  httpClient = inject(HttpClient);
+
   searchRegistration: string = "";
-  searchIsPending: boolean = false;
+  search = use();
 
-  assets$ = new Subject<Asset[]>();
-
-  search = reaction($entered => $entered(
-    takeUntilDestroyed()
-  ));
+  assetsTracking$ = this.search(() => track(() => this.httpClient.get<Asset[]>(`${environment.siteDocsApi}/AssetApi/GetAssetsByReg`, {
+    params: {
+      searchString: this.searchRegistration
+    }
+  })));
+  
+  @Output()
+  select = new EventEmitter<Asset>();
 }

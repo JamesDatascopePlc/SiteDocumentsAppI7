@@ -1,3 +1,4 @@
 export { selector } from "./selector";
-export { subject, replaySubject } from "./subject";
+export { use } from "./use";
+export { track } from "./track";
 export { pipeTap } from "./pipes/pipe-tap";
