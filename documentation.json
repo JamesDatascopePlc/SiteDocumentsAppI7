@@ -436,12 +436,12 @@
         },
         {
             "name": "CategoryActioner",
-            "id": "interface-CategoryActioner-42f16afc6748431c0a69b740335336a0f23d0c571b1bc3521bef9b27932b93f2ff8f2f0b9fc2e210b44b0585b64faeac40950e5e9a9fac61b7bfb6c4642715ff",
+            "id": "interface-CategoryActioner-f00e25b1b0963845698122b3806fb5aef12fef89fe0c9637431e3a594265277add13ffdbad2658e396e5f4adfd275942492f8780d48053a68fe8c4aa55b824e2",
             "file": "src/app/core/stores/category-actioners/category-actioners.store.ts",
             "deprecated": false,
             "deprecationMessage": "",
             "type": "interface",
-            "sourceCode": "import { HttpClient } from \"@angular/common/http\";\r\nimport { Injectable, inject } from \"@angular/core\";\r\nimport { createStore } from \"@ngneat/elf\";\r\nimport { selectAllEntities, withEntities } from \"@ngneat/elf-entities\";\r\nimport { map } from \"rxjs\";\r\n\r\nexport interface CategoryActioner {\r\n  Id: number,\r\n  Name: string,\r\n  CategoryId: number\r\n}\r\n\r\nconst store = createStore(\r\n  { name: \"site-documents\" },\r\n  withEntities<CategoryActioner, \"Id\">({ idKey: \"Id\" })\r\n);\r\n\r\n@Injectable({ providedIn: \"root\" })\r\nexport class CategoryActionersStore {\r\n  http = inject(HttpClient);\r\n\r\n  categoryActioners$ = store.pipe(selectAllEntities());\r\n  categoryActionersById$ = (categoryId: number) => this.categoryActioners$.pipe(\r\n    map(catActioners => catActioners.filter(ca => ca.CategoryId === categoryId))\r\n  );\r\n\r\n  downloadCategoryActioners$ = (siteId: number) => this.http.get<CategoryActioner[]>(\"api/LoginApi/GetCategoryActioners\", {\r\n    params: {\r\n      siteId: siteId.toString()\r\n    }\r\n  });\r\n}\r\n",
+            "sourceCode": "import { HttpClient } from \"@angular/common/http\";\nimport { Injectable, inject } from \"@angular/core\";\nimport { createStore } from \"@ngneat/elf\";\nimport { selectAllEntities, withEntities } from \"@ngneat/elf-entities\";\nimport { map } from \"rxjs\";\n\nexport interface CategoryActioner {\n  Id: number,\n  Name: string,\n  CategoryId: number\n}\n\nconst store = createStore(\n  { name: \"site-documents\" },\n  withEntities<CategoryActioner, \"Id\">({ idKey: \"Id\" })\n);\n\n@Injectable({ providedIn: \"root\" })\nexport class CategoryActionersStore {\n  http = inject(HttpClient);\n\n  categoryActioners$ = store.pipe(selectAllEntities());\n  categoryActionersById$ = (categoryId: number) => this.categoryActioners$.pipe(\n    map(catActioners => catActioners.filter(ca => ca.CategoryId === categoryId))\n  );\n\n  downloadCategoryActioners$ = (siteId: number) => this.http.get<CategoryActioner[]>(\"api/LoginApi/GetCategoryActioners\", {\n    params: {\n      siteId: siteId.toString()\n    }\n  });\n}\n",
             "properties": [
                 {
                     "name": "CategoryId",
@@ -1083,12 +1083,12 @@
         },
         {
             "name": "ResponsibilityArea",
-            "id": "interface-ResponsibilityArea-939de3da069ba66b6240a9296476df2f670a51cbe802dc1846bbf6fbfea2389c84b5753e87e9023e3428fa08653289eeb418e48939e792a252b3ed0722c45877",
+            "id": "interface-ResponsibilityArea-617b4801fa08a8e08bf98e552c0e7fad70edfa4f661170432e41b2a0de0233527ebb03bcf87a177e832f9b057238fef606b23964cff87ae7f1ea0081f82689fd",
             "file": "src/app/core/stores/responsibility-area-types/responsibility-area-types.store.ts",
             "deprecated": false,
             "deprecationMessage": "",
             "type": "interface",
-            "sourceCode": "import { Injectable } from \"@angular/core\";\r\nimport { createStore } from \"@ngneat/elf\";\r\nimport { selectAllEntities, withEntities } from \"@ngneat/elf-entities\";\r\nimport { map } from \"rxjs\";\r\n\r\nexport interface ResponsibilityArea {\r\n  Id: number,\r\n  Name: string,\r\n  DocResAreaTypeId: number,\r\n  SiteId?: number\r\n}\r\n\r\nexport interface ResponsibilityAreaType {\r\n  Id: number,\r\n  TypeName: string,\r\n  AppQuestionText: string,\r\n  Areas: ResponsibilityArea[]\r\n}\r\n\r\nconst store = createStore(\r\n  { name: \"responsibility-area-types\" },\r\n  withEntities<ResponsibilityAreaType, \"Id\">({ idKey: \"Id\" })\r\n);\r\n\r\n@Injectable({ providedIn: \"root\" })\r\nexport class ResponsibilityAreaTypesStore {\r\n  responsibilityAreaTypes$ = store.pipe(selectAllEntities());\r\n  responsibilityAreaTypeById$ = (id: number) => this.responsibilityAreaTypes$.pipe(\r\n    map(resAreaTypes => resAreaTypes.find(t => t.Id === id))\r\n  );\r\n}\r\n",
+            "sourceCode": "import { Injectable } from \"@angular/core\";\nimport { createStore } from \"@ngneat/elf\";\nimport { selectAllEntities, withEntities } from \"@ngneat/elf-entities\";\nimport { map } from \"rxjs\";\n\nexport interface ResponsibilityArea {\n  Id: number,\n  Name: string,\n  DocResAreaTypeId: number,\n  SiteId?: number\n}\n\nexport interface ResponsibilityAreaType {\n  Id: number,\n  TypeName: string,\n  AppQuestionText: string,\n  Areas: ResponsibilityArea[]\n}\n\nconst store = createStore(\n  { name: \"responsibility-area-types\" },\n  withEntities<ResponsibilityAreaType, \"Id\">({ idKey: \"Id\" })\n);\n\n@Injectable({ providedIn: \"root\" })\nexport class ResponsibilityAreaTypesStore {\n  responsibilityAreaTypes$ = store.pipe(selectAllEntities());\n  responsibilityAreaTypeById$ = (id: number) => this.responsibilityAreaTypes$.pipe(\n    map(resAreaTypes => resAreaTypes.find(t => t.Id === id))\n  );\n}\n",
             "properties": [
                 {
                     "name": "DocResAreaTypeId",
@@ -1133,12 +1133,12 @@
         },
         {
             "name": "ResponsibilityAreaType",
-            "id": "interface-ResponsibilityAreaType-939de3da069ba66b6240a9296476df2f670a51cbe802dc1846bbf6fbfea2389c84b5753e87e9023e3428fa08653289eeb418e48939e792a252b3ed0722c45877",
+            "id": "interface-ResponsibilityAreaType-617b4801fa08a8e08bf98e552c0e7fad70edfa4f661170432e41b2a0de0233527ebb03bcf87a177e832f9b057238fef606b23964cff87ae7f1ea0081f82689fd",
             "file": "src/app/core/stores/responsibility-area-types/responsibility-area-types.store.ts",
             "deprecated": false,
             "deprecationMessage": "",
             "type": "interface",
-            "sourceCode": "import { Injectable } from \"@angular/core\";\r\nimport { createStore } from \"@ngneat/elf\";\r\nimport { selectAllEntities, withEntities } from \"@ngneat/elf-entities\";\r\nimport { map } from \"rxjs\";\r\n\r\nexport interface ResponsibilityArea {\r\n  Id: number,\r\n  Name: string,\r\n  DocResAreaTypeId: number,\r\n  SiteId?: number\r\n}\r\n\r\nexport interface ResponsibilityAreaType {\r\n  Id: number,\r\n  TypeName: string,\r\n  AppQuestionText: string,\r\n  Areas: ResponsibilityArea[]\r\n}\r\n\r\nconst store = createStore(\r\n  { name: \"responsibility-area-types\" },\r\n  withEntities<ResponsibilityAreaType, \"Id\">({ idKey: \"Id\" })\r\n);\r\n\r\n@Injectable({ providedIn: \"root\" })\r\nexport class ResponsibilityAreaTypesStore {\r\n  responsibilityAreaTypes$ = store.pipe(selectAllEntities());\r\n  responsibilityAreaTypeById$ = (id: number) => this.responsibilityAreaTypes$.pipe(\r\n    map(resAreaTypes => resAreaTypes.find(t => t.Id === id))\r\n  );\r\n}\r\n",
+            "sourceCode": "import { Injectable } from \"@angular/core\";\nimport { createStore } from \"@ngneat/elf\";\nimport { selectAllEntities, withEntities } from \"@ngneat/elf-entities\";\nimport { map } from \"rxjs\";\n\nexport interface ResponsibilityArea {\n  Id: number,\n  Name: string,\n  DocResAreaTypeId: number,\n  SiteId?: number\n}\n\nexport interface ResponsibilityAreaType {\n  Id: number,\n  TypeName: string,\n  AppQuestionText: string,\n  Areas: ResponsibilityArea[]\n}\n\nconst store = createStore(\n  { name: \"responsibility-area-types\" },\n  withEntities<ResponsibilityAreaType, \"Id\">({ idKey: \"Id\" })\n);\n\n@Injectable({ providedIn: \"root\" })\nexport class ResponsibilityAreaTypesStore {\n  responsibilityAreaTypes$ = store.pipe(selectAllEntities());\n  responsibilityAreaTypeById$ = (id: number) => this.responsibilityAreaTypes$.pipe(\n    map(resAreaTypes => resAreaTypes.find(t => t.Id === id))\n  );\n}\n",
             "properties": [
                 {
                     "name": "AppQuestionText",
@@ -2658,7 +2658,7 @@
         },
         {
             "name": "CategoryActionersStore",
-            "id": "injectable-CategoryActionersStore-42f16afc6748431c0a69b740335336a0f23d0c571b1bc3521bef9b27932b93f2ff8f2f0b9fc2e210b44b0585b64faeac40950e5e9a9fac61b7bfb6c4642715ff",
+            "id": "injectable-CategoryActionersStore-f00e25b1b0963845698122b3806fb5aef12fef89fe0c9637431e3a594265277add13ffdbad2658e396e5f4adfd275942492f8780d48053a68fe8c4aa55b824e2",
             "file": "src/app/core/stores/category-actioners/category-actioners.store.ts",
             "properties": [
                 {
@@ -2707,7 +2707,7 @@
             "deprecationMessage": "",
             "description": "",
             "rawdescription": "\n",
-            "sourceCode": "import { HttpClient } from \"@angular/common/http\";\r\nimport { Injectable, inject } from \"@angular/core\";\r\nimport { createStore } from \"@ngneat/elf\";\r\nimport { selectAllEntities, withEntities } from \"@ngneat/elf-entities\";\r\nimport { map } from \"rxjs\";\r\n\r\nexport interface CategoryActioner {\r\n  Id: number,\r\n  Name: string,\r\n  CategoryId: number\r\n}\r\n\r\nconst store = createStore(\r\n  { name: \"site-documents\" },\r\n  withEntities<CategoryActioner, \"Id\">({ idKey: \"Id\" })\r\n);\r\n\r\n@Injectable({ providedIn: \"root\" })\r\nexport class CategoryActionersStore {\r\n  http = inject(HttpClient);\r\n\r\n  categoryActioners$ = store.pipe(selectAllEntities());\r\n  categoryActionersById$ = (categoryId: number) => this.categoryActioners$.pipe(\r\n    map(catActioners => catActioners.filter(ca => ca.CategoryId === categoryId))\r\n  );\r\n\r\n  downloadCategoryActioners$ = (siteId: number) => this.http.get<CategoryActioner[]>(\"api/LoginApi/GetCategoryActioners\", {\r\n    params: {\r\n      siteId: siteId.toString()\r\n    }\r\n  });\r\n}\r\n",
+            "sourceCode": "import { HttpClient } from \"@angular/common/http\";\nimport { Injectable, inject } from \"@angular/core\";\nimport { createStore } from \"@ngneat/elf\";\nimport { selectAllEntities, withEntities } from \"@ngneat/elf-entities\";\nimport { map } from \"rxjs\";\n\nexport interface CategoryActioner {\n  Id: number,\n  Name: string,\n  CategoryId: number\n}\n\nconst store = createStore(\n  { name: \"site-documents\" },\n  withEntities<CategoryActioner, \"Id\">({ idKey: \"Id\" })\n);\n\n@Injectable({ providedIn: \"root\" })\nexport class CategoryActionersStore {\n  http = inject(HttpClient);\n\n  categoryActioners$ = store.pipe(selectAllEntities());\n  categoryActionersById$ = (categoryId: number) => this.categoryActioners$.pipe(\n    map(catActioners => catActioners.filter(ca => ca.CategoryId === categoryId))\n  );\n\n  downloadCategoryActioners$ = (siteId: number) => this.http.get<CategoryActioner[]>(\"api/LoginApi/GetCategoryActioners\", {\n    params: {\n      siteId: siteId.toString()\n    }\n  });\n}\n",
             "type": "injectable"
         },
         {
@@ -2988,7 +2988,7 @@
         },
         {
             "name": "ResponsibilityAreaTypesStore",
-            "id": "injectable-ResponsibilityAreaTypesStore-939de3da069ba66b6240a9296476df2f670a51cbe802dc1846bbf6fbfea2389c84b5753e87e9023e3428fa08653289eeb418e48939e792a252b3ed0722c45877",
+            "id": "injectable-ResponsibilityAreaTypesStore-617b4801fa08a8e08bf98e552c0e7fad70edfa4f661170432e41b2a0de0233527ebb03bcf87a177e832f9b057238fef606b23964cff87ae7f1ea0081f82689fd",
             "file": "src/app/core/stores/responsibility-area-types/responsibility-area-types.store.ts",
             "properties": [
                 {
@@ -3017,12 +3017,12 @@
             "deprecationMessage": "",
             "description": "",
             "rawdescription": "\n",
-            "sourceCode": "import { Injectable } from \"@angular/core\";\r\nimport { createStore } from \"@ngneat/elf\";\r\nimport { selectAllEntities, withEntities } from \"@ngneat/elf-entities\";\r\nimport { map } from \"rxjs\";\r\n\r\nexport interface ResponsibilityArea {\r\n  Id: number,\r\n  Name: string,\r\n  DocResAreaTypeId: number,\r\n  SiteId?: number\r\n}\r\n\r\nexport interface ResponsibilityAreaType {\r\n  Id: number,\r\n  TypeName: string,\r\n  AppQuestionText: string,\r\n  Areas: ResponsibilityArea[]\r\n}\r\n\r\nconst store = createStore(\r\n  { name: \"responsibility-area-types\" },\r\n  withEntities<ResponsibilityAreaType, \"Id\">({ idKey: \"Id\" })\r\n);\r\n\r\n@Injectable({ providedIn: \"root\" })\r\nexport class ResponsibilityAreaTypesStore {\r\n  responsibilityAreaTypes$ = store.pipe(selectAllEntities());\r\n  responsibilityAreaTypeById$ = (id: number) => this.responsibilityAreaTypes$.pipe(\r\n    map(resAreaTypes => resAreaTypes.find(t => t.Id === id))\r\n  );\r\n}\r\n",
+            "sourceCode": "import { Injectable } from \"@angular/core\";\nimport { createStore } from \"@ngneat/elf\";\nimport { selectAllEntities, withEntities } from \"@ngneat/elf-entities\";\nimport { map } from \"rxjs\";\n\nexport interface ResponsibilityArea {\n  Id: number,\n  Name: string,\n  DocResAreaTypeId: number,\n  SiteId?: number\n}\n\nexport interface ResponsibilityAreaType {\n  Id: number,\n  TypeName: string,\n  AppQuestionText: string,\n  Areas: ResponsibilityArea[]\n}\n\nconst store = createStore(\n  { name: \"responsibility-area-types\" },\n  withEntities<ResponsibilityAreaType, \"Id\">({ idKey: \"Id\" })\n);\n\n@Injectable({ providedIn: \"root\" })\nexport class ResponsibilityAreaTypesStore {\n  responsibilityAreaTypes$ = store.pipe(selectAllEntities());\n  responsibilityAreaTypeById$ = (id: number) => this.responsibilityAreaTypes$.pipe(\n    map(resAreaTypes => resAreaTypes.find(t => t.Id === id))\n  );\n}\n",
             "type": "injectable"
         },
         {
             "name": "SiteDocumentImageStore",
-            "id": "injectable-SiteDocumentImageStore-5e3bce50f5da91d19f468f57c0510bc0c96ddb8bd6bc9a2b6d3258d722107c267ee5f013f4ce297f8258c0da0d91e2a2f8102fc9389fe0d4a9acf128aed2ab4f",
+            "id": "injectable-SiteDocumentImageStore-4fd102b627a08f3daf343ec9e1671ced7a924c711e0f0c352f4a5968af753a737cb68d1dc539cbd987bbabc60134200ea82ee42d1e386cfc315a492f37d6d269",
             "file": "src/app/core/stores/site-document-image/site-document-image.store.ts",
             "properties": [],
             "methods": [
@@ -3059,7 +3059,7 @@
             "deprecationMessage": "",
             "description": "",
             "rawdescription": "\n",
-            "sourceCode": "import { Injectable } from \"@angular/core\";\nimport { createStore } from \"@ngneat/elf\";\nimport { addEntities, deleteEntitiesByPredicate, selectAllEntitiesApply, withEntities } from \"@ngneat/elf-entities\";\nimport { SiteDocument, SiteDocumentImage } from \"../site-document/models/site-document.model\";\n\nconst store = createStore(\n  { name: \"site-document-image\" }, \n  withEntities<SiteDocumentImage, \"DocumentId\">({ idKey: \"DocumentId\" })\n);\n\n@Injectable({ providedIn: \"root\" })\nexport class SiteDocumentImageStore {\n  useImages(document: SiteDocument) {\n    return [\n      store.pipe(\n        selectAllEntitiesApply({\n          filterEntity: e => e.DocumentId === document.DocumentID\n        })\n      ),\n      \n      (images: string[]) => store.update(\n        deleteEntitiesByPredicate(e => e.DocumentId === document.DocumentID),\n        addEntities(images.map((img, idx) => \n          ({\n            DocumentId: document.DocumentID,\n            DocumentSubmissionId: 1,\n            Base64: img,\n            ImageNo: idx\n          })\n        ))\n      )\n    ]\n  }\n}\n",
+            "sourceCode": "import { Injectable } from \"@angular/core\";\r\nimport { createStore } from \"@ngneat/elf\";\r\nimport { addEntities, deleteEntitiesByPredicate, selectAllEntitiesApply, withEntities } from \"@ngneat/elf-entities\";\r\nimport { SiteDocument, SiteDocumentImage } from \"../site-document/models/site-document.model\";\r\n\r\nconst store = createStore(\r\n  { name: \"site-document-image\" }, \r\n  withEntities<SiteDocumentImage, \"DocumentId\">({ idKey: \"DocumentId\" })\r\n);\r\n\r\n@Injectable({ providedIn: \"root\" })\r\nexport class SiteDocumentImageStore {\r\n  useImages(document: SiteDocument) {\r\n    return [\r\n      store.pipe(\r\n        selectAllEntitiesApply({\r\n          filterEntity: e => e.DocumentId === document.DocumentID\r\n        })\r\n      ),\r\n      \r\n      (images: string[]) => store.update(\r\n        deleteEntitiesByPredicate(e => e.DocumentId === document.DocumentID),\r\n        addEntities(images.map((img, idx) => \r\n          ({\r\n            DocumentId: document.DocumentID,\r\n            DocumentSubmissionId: 1,\r\n            Base64: img,\r\n            ImageNo: idx\r\n          })\r\n        ))\r\n      )\r\n    ]\r\n  }\r\n}\r\n",
             "type": "injectable"
         },
         {
@@ -3157,12 +3157,12 @@
     "directives": [
         {
             "name": "BarcodeScannerDirective",
-            "id": "directive-BarcodeScannerDirective-2090b1d2d924f19a05479ab3d246af7c86f50045098dc549f9e2c808faee7a81e5eca4f1374938fec331f42702743a3ad29903ae67ac4a0e9c689e5d6e91c260",
+            "id": "directive-BarcodeScannerDirective-e7ab6e64f44fc426c4d8d715ee139a730b17b8b0304d2ed60c9bd1963305c222b91562838f03e7d909258d5d1b915ddc777b6614fa4103b28777a1fefaa3e26b",
             "file": "src/app/shared/directives/barcode-scanner/barcode-scanner.directive.ts",
             "type": "directive",
             "description": "",
             "rawdescription": "\n",
-            "sourceCode": "import { Directive, EventEmitter, HostListener, Input, Output } from \"@angular/core\";\r\nimport { BarcodeScanner, ScanOptions } from \"@capacitor-community/barcode-scanner\";\r\n\r\n@Directive({\r\n  selector: \"[barcode-scanner]\",\r\n  standalone: true\r\n})\r\nexport class BarcodeScannerDirective {\r\n  @Input(\"barcode-scanner\")\r\n  options: ScanOptions = {}\r\n\r\n  @Output(\"scan\") \r\n  scan = new EventEmitter<string>();\r\n\r\n  @HostListener(\"click\")\r\n  async scanCode() {\r\n    await BarcodeScanner.hideBackground();\r\n    const res = await BarcodeScanner.startScan({ targetedFormats: [] });\r\n    \r\n    if (res.hasContent)\r\n      this.scan.emit(res.content);\r\n  }\r\n}\r\n",
+            "sourceCode": "import { Directive, EventEmitter, HostListener, Input, Output } from \"@angular/core\";\nimport { BarcodeScanner, ScanOptions } from \"@capacitor-community/barcode-scanner\";\n\n@Directive({\n  selector: \"[barcode-scanner]\",\n  standalone: true\n})\nexport class BarcodeScannerDirective {\n  @Input(\"barcode-scanner\")\n  options: ScanOptions = {}\n\n  @Output(\"scan\") \n  scan = new EventEmitter<string>();\n\n  @HostListener(\"click\")\n  async scanCode() {\n    await BarcodeScanner.hideBackground();\n    const res = await BarcodeScanner.startScan({ targetedFormats: [] });\n    \n    if (res.hasContent)\n      this.scan.emit(res.content);\n  }\n}\n",
             "selector": "[barcode-scanner]",
             "providers": [],
             "inputsClass": [
@@ -3224,18 +3224,18 @@
         },
         {
             "name": "CameraDirective",
-            "id": "directive-CameraDirective-05254ce120db0c0b5580386a8a56763e8635725d1348fbdfbcadb9aec18159e609570f98accc1d5931c9d6f81999bd09a90ebc27c65117bc8111d1b4eb267945",
+            "id": "directive-CameraDirective-a0c01329ea7309d954f21bc50ea6e10164599d55fad15aa6772645ecfdc526459746201c9205db135fee7ebacb3f7c99e510da5319200f71c785d774657cc5a9",
             "file": "src/app/shared/directives/camera/camera.directive.ts",
             "type": "directive",
             "description": "",
             "rawdescription": "\n",
-            "sourceCode": "import { Directive, EventEmitter,HostListener, Input, Output } from \"@angular/core\";\r\nimport { Camera, ImageOptions } from \"@capacitor/camera\";\r\nimport { CameraResultType, Photo } from \"@capacitor/camera/dist/esm/definitions\";\r\n\r\n@Directive({\r\n  selector: \"[camera]\",\r\n  standalone: true\r\n})\r\nexport class CameraDirective {\r\n  @Input(\"camera\")\r\n  options: ImageOptions = {\r\n    resultType: CameraResultType.Base64\r\n  };\r\n\r\n  @Output()\r\n  takePhoto = new EventEmitter<Photo>();\r\n\r\n  @HostListener(\"click\")\r\n  async take() {\r\n    const photo = await Camera.getPhoto(this.options);\r\n    this.takePhoto.emit(photo);\r\n  }\r\n}\r\n",
+            "sourceCode": "import { Directive, EventEmitter,HostListener, Input, Output } from \"@angular/core\";\nimport { Camera, ImageOptions } from \"@capacitor/camera\";\nimport { CameraResultType, Photo } from \"@capacitor/camera/dist/esm/definitions\";\n\n@Directive({\n  selector: \"[camera]\",\n  standalone: true\n})\nexport class CameraDirective {\n  @Input(\"camera\")\n  options: ImageOptions = {\n    resultType: CameraResultType.Base64\n  };\n\n  @Output()\n  takePhoto = new EventEmitter<Photo>();\n\n  @HostListener(\"click\")\n  async take() {\n    const photo = await Camera.getPhoto(this.options);\n    this.takePhoto.emit(photo);\n  }\n}\n",
             "selector": "[camera]",
             "providers": [],
             "inputsClass": [
                 {
                     "name": "camera",
-                    "defaultValue": "{\r\n    resultType: CameraResultType.Base64\r\n  }",
+                    "defaultValue": "{\n    resultType: CameraResultType.Base64\n  }",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "line": 11,
@@ -3739,7 +3739,7 @@
         },
         {
             "name": "AppComponent",
-            "id": "component-AppComponent-1ec040a91f41102ea933f46462e206d3a941e35a0d50f1652261905e96af137ae536ab5179c199c7069e97e9ab1b58a16b836b6235b5b11f562d4a0515565fb7",
+            "id": "component-AppComponent-d41cfd42d13923078762ea410fbe2dca1567b4115e79eed159cf8ddb724e841d83ae01cc29a79701af47deae4a91fa8962e9322fcc26c1f1cbe8126ef1638a0c",
             "file": "src/app/app.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -3763,7 +3763,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component } from '@angular/core';\r\nimport { IonicModule } from '@ionic/angular';\r\n\r\n@Component({\r\n  selector: 'app-root',\r\n  template: `\r\n    <ion-app>\r\n      <ion-router-outlet></ion-router-outlet>\r\n    </ion-app>\r\n  `,\r\n  standalone: true,\r\n  imports: [IonicModule],\r\n})\r\nexport class AppComponent {\r\n  constructor() {}\r\n}\r\n",
+            "sourceCode": "import { Component } from '@angular/core';\nimport { IonicModule } from '@ionic/angular';\n\n@Component({\n  selector: 'app-root',\n  template: `\n    <ion-app>\n      <ion-router-outlet></ion-router-outlet>\n    </ion-app>\n  `,\n  standalone: true,\n  imports: [IonicModule],\n})\nexport class AppComponent {\n  constructor() {}\n}\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
@@ -5735,7 +5735,7 @@
         },
         {
             "name": "MultiCheckboxSectionComponent",
-            "id": "component-MultiCheckboxSectionComponent-85c5987a7e53cbac3917d5f18ef360822b4fd4773156708fcf27f09195d4f58014b47f24d3b498ada6bd8bbd1f069ffde2fc237233974b5ac4325e532bc6ce24",
+            "id": "component-MultiCheckboxSectionComponent-382e134566f5f20df0d82eea595ac255a1e442ea7238a09aa9e6045fc383b9ed2bacb0c13442c7731032e0f3586c630f2e1016aedc2ff14e58f140e7b702ca74",
             "file": "src/app/core/pages/document-builder/components/document-section/multi-checkbox-section/multi-checkbox-section.component.ts",
             "changeDetection": "ChangeDetectionStrategy.OnPush",
             "encapsulation": [],
@@ -5792,7 +5792,7 @@
                 },
                 {
                     "name": "selectedQuestions$",
-                    "defaultValue": "this.questions$.pipe(\n    map(questions => questions.filter(q => q.YesNoNA))\n  )",
+                    "defaultValue": "this.questions$.pipe(\r\n    map(questions => questions.filter(q => q.YesNoNA))\r\n  )",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "",
@@ -5809,7 +5809,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { ChangeDetectionStrategy, Component, Input } from \"@angular/core\";\nimport { FormsModule } from \"@angular/forms\";\nimport { IonicModule } from \"@ionic/angular\";\nimport { importRxTemplate, importRxVirtualScroll } from \"src/app/shared/imports\";\nimport { CheckboxComponent } from \"../../question-types/01-checkbox/checkbox.component\";\nimport { FusePipe } from \"src/app/shared/pipes\";\nimport { Question, Section } from \"src/app/core/stores/site-document/models\";\nimport { BehaviorSubject, map } from \"rxjs\";\nimport { AutoSizeVirtualScrollStrategy, FixedSizeVirtualScrollStrategy } from \"@rx-angular/template/experimental/virtual-scrolling\";\n\n@Component({\n  selector: \"multi-checkbox-section\",\n  template: `\n    <ion-list>\n      <ion-item [id]=\"id\" detail=\"false\" button>\n        <ion-label>{{ section.TableTitles[0] }}</ion-label>\n        <ion-icon name=\"create-outline\" slot=\"end\"></ion-icon>\n      </ion-item>\n    </ion-list>\n\n    <ion-list>\n      <ion-item *rxFor=\"let question of selectedQuestions$\" class=\"w-full\">\n        {{ question.QuestionText }}\n      </ion-item>\n    </ion-list>\n\n    <ion-modal #modal [trigger]=\"id\">\n      <ng-template>\n        <ion-header>\n          <ion-toolbar>\n            <ion-title class=\"text-center\">Select Responses</ion-title>\n            <ion-buttons slot=\"end\">\n              <ion-button (click)=\"modal.dismiss(); questions$.next(section.Questions)\">\n                <ion-icon name=\"close-outline\" slot=\"icon-only\" />\n              </ion-button>\n            </ion-buttons>\n          </ion-toolbar>\n          <ion-toolbar>\n            <ion-searchbar \n              [(ngModel)]=\"searchValue\"\n              debounce=\"300\" \n              placeholder=\"Search\" />\n          </ion-toolbar>\n        </ion-header>\n\n        <ion-content>\n          <ion-list class=\"h-full\">\n            <rx-virtual-scroll-viewport [itemSize]=\"50\">\n              <checkbox-question \n                *rxVirtualFor=\"let question of section.Questions\n                  | fuse: {\n                    search: searchValue,\n                    keys: ['QuestionText']\n                  }\" \n                class=\"w-full\"\n                [question]=\"question\" />\n            </rx-virtual-scroll-viewport>\n          </ion-list>\n        </ion-content>\n      </ng-template>\n    </ion-modal>\n  `,\n  standalone: true,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  imports: [\n    IonicModule,\n    ...importRxTemplate(),\n    ...importRxVirtualScroll(FixedSizeVirtualScrollStrategy, AutoSizeVirtualScrollStrategy),\n    FormsModule,\n    CheckboxComponent,\n    FusePipe\n  ]\n})\nexport class MultiCheckboxSectionComponent {\n  id = crypto.randomUUID();\n\n  @Input({ required: true })\n  section!: Section;\n\n  searchValue: string = \"\";\n\n  questions$ = new BehaviorSubject<Question[]>([]);\n  selectedQuestions$ = this.questions$.pipe(\n    map(questions => questions.filter(q => q.YesNoNA))\n  );\n}\n",
+            "sourceCode": "import { ChangeDetectionStrategy, Component, Input } from \"@angular/core\";\r\nimport { FormsModule } from \"@angular/forms\";\r\nimport { IonicModule } from \"@ionic/angular\";\r\nimport { importRxTemplate, importRxVirtualScroll } from \"src/app/shared/imports\";\r\nimport { CheckboxComponent } from \"../../question-types/01-checkbox/checkbox.component\";\r\nimport { FusePipe } from \"src/app/shared/pipes\";\r\nimport { Question, Section } from \"src/app/core/stores/site-document/models\";\r\nimport { BehaviorSubject, map } from \"rxjs\";\r\nimport { AutoSizeVirtualScrollStrategy, FixedSizeVirtualScrollStrategy } from \"@rx-angular/template/experimental/virtual-scrolling\";\r\n\r\n@Component({\r\n  selector: \"multi-checkbox-section\",\r\n  template: `\r\n    <ion-list>\r\n      <ion-item [id]=\"id\" detail=\"false\" button>\r\n        <ion-label>{{ section.TableTitles[0] }}</ion-label>\r\n        <ion-icon name=\"create-outline\" slot=\"end\"></ion-icon>\r\n      </ion-item>\r\n    </ion-list>\r\n\r\n    <ion-list>\r\n      <ion-item *rxFor=\"let question of selectedQuestions$\" class=\"w-full\">\r\n        {{ question.QuestionText }}\r\n      </ion-item>\r\n    </ion-list>\r\n\r\n    <ion-modal #modal [trigger]=\"id\">\r\n      <ng-template>\r\n        <ion-header>\r\n          <ion-toolbar>\r\n            <ion-title class=\"text-center\">Select Responses</ion-title>\r\n            <ion-buttons slot=\"end\">\r\n              <ion-button (click)=\"modal.dismiss(); questions$.next(section.Questions)\">\r\n                <ion-icon name=\"close-outline\" slot=\"icon-only\" />\r\n              </ion-button>\r\n            </ion-buttons>\r\n          </ion-toolbar>\r\n          <ion-toolbar>\r\n            <ion-searchbar \r\n              [(ngModel)]=\"searchValue\"\r\n              debounce=\"300\" \r\n              placeholder=\"Search\" />\r\n          </ion-toolbar>\r\n        </ion-header>\r\n\r\n        <ion-content>\r\n          <ion-list class=\"h-full\">\r\n            <rx-virtual-scroll-viewport [itemSize]=\"50\">\r\n              <checkbox-question \r\n                *rxVirtualFor=\"let question of section.Questions\r\n                  | fuse: {\r\n                    search: searchValue,\r\n                    keys: ['QuestionText']\r\n                  }\" \r\n                class=\"w-full\"\r\n                [question]=\"question\" />\r\n            </rx-virtual-scroll-viewport>\r\n          </ion-list>\r\n        </ion-content>\r\n      </ng-template>\r\n    </ion-modal>\r\n  `,\r\n  standalone: true,\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  imports: [\r\n    IonicModule,\r\n    ...importRxTemplate(),\r\n    ...importRxVirtualScroll(FixedSizeVirtualScrollStrategy, AutoSizeVirtualScrollStrategy),\r\n    FormsModule,\r\n    CheckboxComponent,\r\n    FusePipe\r\n  ]\r\n})\r\nexport class MultiCheckboxSectionComponent {\r\n  id = crypto.randomUUID();\r\n\r\n  @Input({ required: true })\r\n  section!: Section;\r\n\r\n  searchValue: string = \"\";\r\n\r\n  questions$ = new BehaviorSubject<Question[]>([]);\r\n  selectedQuestions$ = this.questions$.pipe(\r\n    map(questions => questions.filter(q => q.YesNoNA))\r\n  );\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": ""
@@ -7760,7 +7760,7 @@
         },
         {
             "name": "TimePickerComponent",
-            "id": "component-TimePickerComponent-366addfbe861c634c97d8b97cbea97a4df36902acebdcea538b912995ff247b4a2f1031ed16e57cc7437dcf9de89a7282f64f88ed5995676667a5dce57aa26e7",
+            "id": "component-TimePickerComponent-355fcef0ccc58990fabb6008800d5ca5cf6513d8fb6c6cd478f98e8078ae52f69fd29b3621f3a8ffab547314d8ccedaca479c87d40193f44c00070aa83ba4758",
             "file": "src/app/shared/components/time-picker/time-picker.component.ts",
             "changeDetection": "ChangeDetectionStrategy.OnPush",
             "encapsulation": [],
@@ -7809,7 +7809,7 @@
             "propertiesClass": [
                 {
                     "name": "timeValue$",
-                    "defaultValue": "merge(this.afterViewInit$(), this.input$(\"time\")).pipe(\n    takeUntilDestroyed(),\n    map(() => format(this.time, \"hh:mm\"))\n  )",
+                    "defaultValue": "merge(this.afterViewInit$(), this.input$(\"time\")).pipe(\r\n    takeUntilDestroyed(),\r\n    map(() => format(this.time, \"hh:mm\"))\r\n  )",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Observable<string>",
@@ -7855,7 +7855,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from \"@angular/core\";\nimport { PushPipe } from \"@rx-angular/template/push\";\nimport { AngularComponent, withAfterViewInit, withOnChanges } from \"../../lifecycles\";\nimport { Observable, map, merge } from \"rxjs\";\nimport { format, parse } from \"date-fns\";\nimport { takeUntilDestroyed } from \"@angular/core/rxjs-interop\";\n\n@Component({\n  selector: \"time-picker\",\n  styles: [`\n    :host { display: contents }\n  `],\n  template: `\n    <input \n      #timeInput \n      type=\"time\" \n      [class]=\"className\"\n      [value]=\"timeValue$ | push\" \n      (change)=\"change(timeInput.value)\" />\n  `,\n  standalone: true,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  imports: [PushPipe]\n})\nexport class TimePickerComponent extends AngularComponent(withAfterViewInit, withOnChanges) {\n  @Input(\"class\")\n  className: string = \"\";\n  \n  @Input()\n  time: Date = new Date();\n  \n  timeValue$: Observable<string> = merge(this.afterViewInit$(), this.input$(\"time\")).pipe(\n    takeUntilDestroyed(),\n    map(() => format(this.time, \"hh:mm\"))\n  );\n\n  @Output()\n  timeChange = new EventEmitter<Date>();\n  \n  change(value: string) {\n    this.time = parse(value, \"hh:mm\", new Date());\n    this.timeChange.emit(this.time);\n  }\n}\n",
+            "sourceCode": "import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from \"@angular/core\";\r\nimport { PushPipe } from \"@rx-angular/template/push\";\r\nimport { AngularComponent, withAfterViewInit, withOnChanges } from \"../../lifecycles\";\r\nimport { Observable, map, merge } from \"rxjs\";\r\nimport { format, parse } from \"date-fns\";\r\nimport { takeUntilDestroyed } from \"@angular/core/rxjs-interop\";\r\n\r\n@Component({\r\n  selector: \"time-picker\",\r\n  styles: [`\r\n    :host { display: contents }\r\n  `],\r\n  template: `\r\n    <input \r\n      #timeInput \r\n      type=\"time\" \r\n      [class]=\"className\"\r\n      [value]=\"timeValue$ | push\" \r\n      (change)=\"change(timeInput.value)\" />\r\n  `,\r\n  standalone: true,\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  imports: [PushPipe]\r\n})\r\nexport class TimePickerComponent extends AngularComponent(withAfterViewInit, withOnChanges) {\r\n  @Input(\"class\")\r\n  className: string = \"\";\r\n  \r\n  @Input()\r\n  time: Date = new Date();\r\n  \r\n  timeValue$: Observable<string> = merge(this.afterViewInit$(), this.input$(\"time\")).pipe(\r\n    takeUntilDestroyed(),\r\n    map(() => format(this.time, \"hh:mm\"))\r\n  );\r\n\r\n  @Output()\r\n  timeChange = new EventEmitter<Date>();\r\n  \r\n  change(value: string) {\r\n    this.time = parse(value, \"hh:mm\", new Date());\r\n    this.timeChange.emit(this.time);\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "\n    :host { display: contents }\n  \n"
@@ -7973,17 +7973,7 @@
                 "name": "Default",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/core/pages/document-builder/document-builder.page.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "",
-                "defaultValue": "Template.bind({})"
-            },
-            {
-                "name": "Default",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "src/app/core/pages/registration/registration.page.stories.ts",
+                "file": "src/app/shared/components/camera/camera.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -8003,16 +7993,6 @@
                 "name": "Default",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/shared/components/camera/camera.component.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "",
-                "defaultValue": "Template.bind({})"
-            },
-            {
-                "name": "Default",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "src/app/shared/components/multi-selectable/multi-selectable.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -8023,7 +8003,7 @@
                 "name": "Default",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/shared/components/selectable/selectable.component.stories.ts",
+                "file": "src/app/shared/components/signature-pad/signature-pad.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -8033,7 +8013,7 @@
                 "name": "Default",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/shared/components/signature-pad/signature-pad.component.stories.ts",
+                "file": "src/app/shared/components/selectable/selectable.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -8073,7 +8053,7 @@
                 "name": "Default",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/core/pages/document-builder/modals/document-summary/document-summary.modal.stories.ts",
+                "file": "src/app/core/pages/document-builder/document-builder.page.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -8083,7 +8063,7 @@
                 "name": "Default",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/core/pages/document-builder/modals/template-menu/template-menu.modal.stories.ts",
+                "file": "src/app/core/pages/registration/registration.page.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -8113,7 +8093,7 @@
                 "name": "Default",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/core/pages/document-builder/components/document-section/multi-checkbox-section/multi-checkbox-section.component.stories.ts",
+                "file": "src/app/core/pages/document-builder/modals/template-menu/template-menu.modal.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -8123,7 +8103,7 @@
                 "name": "Default",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/core/pages/document-builder/components/input-types/actioner-select/actioner-select.component.stories.ts",
+                "file": "src/app/core/pages/document-builder/modals/document-summary/document-summary.modal.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -8134,6 +8114,16 @@
                 "ctype": "miscellaneous",
                 "subtype": "variable",
                 "file": "src/app/core/pages/document-builder/components/input-types/company-actioner-select/company-actioner-select.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "Default",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/core/pages/document-builder/components/input-types/actioner-select/actioner-select.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -8163,7 +8153,7 @@
                 "name": "Default",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/core/pages/document-builder/components/input-types/queue-duration/queue-duration.component.stories.ts",
+                "file": "src/app/core/pages/document-builder/components/input-types/queue-select/queue-select.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -8173,7 +8163,7 @@
                 "name": "Default",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/core/pages/document-builder/components/input-types/queue-select/queue-select.component.stories.ts",
+                "file": "src/app/core/pages/document-builder/components/input-types/queue-duration/queue-duration.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -8213,7 +8203,7 @@
                 "name": "Default",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/core/pages/document-builder/components/question-types/00-label/label.component.stories.ts",
+                "file": "src/app/core/pages/document-builder/components/document-section/multi-checkbox-section/multi-checkbox-section.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -8234,6 +8224,16 @@
                 "ctype": "miscellaneous",
                 "subtype": "variable",
                 "file": "src/app/core/pages/document-builder/components/question-types/02-radio-table/radio-table.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "Default",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/core/pages/document-builder/components/question-types/00-label/label.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -8333,7 +8333,7 @@
                 "name": "Default",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/core/pages/document-builder/components/question-types/10-operative-list/operative-list.component.stories.ts",
+                "file": "src/app/core/pages/document-builder/components/question-types/12-number/number.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -8343,7 +8343,7 @@
                 "name": "Default",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/core/pages/document-builder/components/question-types/12-number/number.component.stories.ts",
+                "file": "src/app/core/pages/document-builder/components/question-types/10-operative-list/operative-list.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -8373,7 +8373,7 @@
                 "name": "Default",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/core/pages/document-builder/components/question-types/17-asset-list/asset-list.component.stories.ts",
+                "file": "src/app/core/pages/document-builder/components/question-types/19-signature/signature.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -8393,27 +8393,7 @@
                 "name": "Default",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/core/pages/document-builder/components/question-types/19-signature/signature.component.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "",
-                "defaultValue": "Template.bind({})"
-            },
-            {
-                "name": "Default",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "src/app/core/pages/document-builder/components/question-types/29-select-text/select-text.component.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "",
-                "defaultValue": "Template.bind({})"
-            },
-            {
-                "name": "Default",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "src/app/core/pages/document-builder/components/question-types/30-cascade-select-text/cascade-select-text.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -8433,6 +8413,16 @@
                 "name": "Default",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "src/app/core/pages/document-builder/components/question-types/30-cascade-select-text/cascade-select-text.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "Default",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "src/app/core/pages/document-builder/components/question-types/33-linked-times/linked-times.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -8443,7 +8433,7 @@
                 "name": "Default",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/core/pages/document-builder/components/question-types/extras/file-upload/file-upload.component.stories.ts",
+                "file": "src/app/core/pages/document-builder/components/question-types/17-asset-list/asset-list.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -8454,6 +8444,16 @@
                 "ctype": "miscellaneous",
                 "subtype": "variable",
                 "file": "src/app/core/pages/document-builder/components/question-types/extras/camera-capture/camera-capture.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "Default",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/core/pages/document-builder/components/question-types/extras/file-upload/file-upload.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -8527,7 +8527,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "object",
-                "defaultValue": "{\r\n  production: true,\r\n  siteDocsApi: \"http://localhost:3002/api\",\r\n  apiTimeout: 60000\r\n}"
+                "defaultValue": "{\n  production: true,\n  siteDocsApi: \"http://localhost:3002/api\",\n  apiTimeout: 60000\n}"
             },
             {
                 "name": "environment",
@@ -8537,7 +8537,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "object",
-                "defaultValue": "{\r\n  production: false,\r\n  siteDocsApi: \"http://localhost:3002/api\",\r\n  apiTimeout: 60000\r\n}"
+                "defaultValue": "{\n  production: false,\n  siteDocsApi: \"http://localhost:3002/api\",\n  apiTimeout: 60000\n}"
             },
             {
                 "name": "formFillerRouteMock",
@@ -8707,7 +8707,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Preview",
-                "defaultValue": "{\r\n  globalTypes: {\r\n    iosMode: {\r\n      name: \"IOS Mode\",\r\n      defaultValue: false\r\n    }\r\n  },\r\n  parameters: {\r\n    actions: { argTypesRegex: \"^on[A-Z].*\" },\r\n    controls: {\r\n      matchers: {\r\n        color: /(background|color)$/i,\r\n        date: /Date$/,\r\n      },\r\n    },\r\n  },\r\n  decorators: [\r\n    applicationConfig({\r\n      providers: [\r\n        importProvidersFrom(IonicModule.forRoot({})),\r\n        provideHttpClient(),\r\n        //provideHttpClientTesting()\r\n      ]\r\n    }),\r\n    componentWrapperDecorator(story => `<ion-app>${story}</ion-app>`)\r\n  ]\r\n}"
+                "defaultValue": "{\r\n  globalTypes: {\r\n    iosMode: {\r\n      name: \"IOS Mode\",\r\n      defaultValue: false\r\n    }\r\n  },\r\n  parameters: {\r\n    actions: { argTypesRegex: \"^on[A-Z].*\" },\r\n    controls: {\r\n      matchers: {\r\n        color: /(background|color)$/i,\r\n        date: /Date$/,\r\n      },\r\n    },\r\n  },\r\n  decorators: [\r\n    applicationConfig({\r\n      providers: [\r\n        importProvidersFrom(IonicModule.forRoot({})),\r\n        provideHttpClient(),\r\n        provideHttpClientTesting()\r\n      ]\r\n    }),\r\n    componentWrapperDecorator(story => `<ion-app>${story}</ion-app>`)\r\n  ]\r\n}"
             },
             {
                 "name": "queues",
@@ -8797,7 +8797,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
-                "defaultValue": "createStore(\r\n  { name: \"site-documents\" },\r\n  withEntities<CategoryActioner, \"Id\">({ idKey: \"Id\" })\r\n)"
+                "defaultValue": "createStore(\n  { name: \"site-documents\" },\n  withEntities<CategoryActioner, \"Id\">({ idKey: \"Id\" })\n)"
             },
             {
                 "name": "store",
@@ -8817,7 +8817,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
-                "defaultValue": "createStore(\r\n  { name: \"responsibility-area-types\" },\r\n  withEntities<ResponsibilityAreaType, \"Id\">({ idKey: \"Id\" })\r\n)"
+                "defaultValue": "createStore(\n  { name: \"responsibility-area-types\" },\n  withEntities<ResponsibilityAreaType, \"Id\">({ idKey: \"Id\" })\n)"
             },
             {
                 "name": "store",
@@ -8837,7 +8837,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
-                "defaultValue": "createStore(\n  { name: \"site-document-image\" }, \n  withEntities<SiteDocumentImage, \"DocumentId\">({ idKey: \"DocumentId\" })\n)"
+                "defaultValue": "createStore(\r\n  { name: \"site-document-image\" }, \r\n  withEntities<SiteDocumentImage, \"DocumentId\">({ idKey: \"DocumentId\" })\r\n)"
             },
             {
                 "name": "store",
@@ -8863,21 +8863,11 @@
                 "name": "Template",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/core/pages/document-builder/document-builder.page.stories.ts",
+                "file": "src/app/shared/components/camera/camera.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
-                "type": "StoryFn<DocumentBuilderPage>",
-                "defaultValue": "(args: DocumentBuilderPage) => ({\r\n  props: args,\r\n  styles: [`\r\n    app-document-builder { display: contents; }\r\n  `]\r\n})"
-            },
-            {
-                "name": "Template",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "src/app/core/pages/registration/registration.page.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "StoryFn<RegistrationPage>",
-                "defaultValue": "(args: RegistrationPage) => ({\r\n  props: args\r\n})"
+                "type": "StoryFn<CameraComponent>",
+                "defaultValue": "(args: CameraComponent) => ({\r\n  props: args,\r\n  template: `\r\n    <camera [fill]=\"fill\" [expand]=\"expand\" [color]=\"color\">\r\n      Add Image\r\n    </camera>\r\n  `\r\n})"
             },
             {
                 "name": "Template",
@@ -8893,16 +8883,6 @@
                 "name": "Template",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/shared/components/camera/camera.component.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "StoryFn<CameraComponent>",
-                "defaultValue": "(args: CameraComponent) => ({\r\n  props: args,\r\n  template: `\r\n    <camera [fill]=\"fill\" [expand]=\"expand\" [color]=\"color\">\r\n      Add Image\r\n    </camera>\r\n  `\r\n})"
-            },
-            {
-                "name": "Template",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "src/app/shared/components/multi-selectable/multi-selectable.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -8913,21 +8893,21 @@
                 "name": "Template",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/shared/components/selectable/selectable.component.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "StoryFn<SelectableComponent>",
-                "defaultValue": "(args: SelectableComponent) => ({\r\n  props: args\r\n})"
-            },
-            {
-                "name": "Template",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "src/app/shared/components/signature-pad/signature-pad.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "StoryFn<SignaturePadComponent>",
                 "defaultValue": "args => ({\r\n  props: args\r\n})"
+            },
+            {
+                "name": "Template",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/shared/components/selectable/selectable.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "StoryFn<SelectableComponent>",
+                "defaultValue": "(args: SelectableComponent) => ({\r\n  props: args\r\n})"
             },
             {
                 "name": "Template",
@@ -8963,21 +8943,21 @@
                 "name": "Template",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/core/pages/document-builder/modals/document-summary/document-summary.modal.stories.ts",
+                "file": "src/app/core/pages/document-builder/document-builder.page.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
-                "type": "StoryFn<DocumentSummaryModal>",
-                "defaultValue": "args => ({\r\n  props: args\r\n})"
+                "type": "StoryFn<DocumentBuilderPage>",
+                "defaultValue": "(args: DocumentBuilderPage) => ({\r\n  props: args,\r\n  styles: [`\r\n    app-document-builder { display: contents; }\r\n  `]\r\n})"
             },
             {
                 "name": "Template",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/core/pages/document-builder/modals/template-menu/template-menu.modal.stories.ts",
+                "file": "src/app/core/pages/registration/registration.page.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
-                "type": "StoryFn<TemplateMenuModal>",
-                "defaultValue": "args => ({\r\n  props: args\r\n})"
+                "type": "StoryFn<RegistrationPage>",
+                "defaultValue": "(args: RegistrationPage) => ({\r\n  props: args\r\n})"
             },
             {
                 "name": "Template",
@@ -9003,10 +8983,30 @@
                 "name": "Template",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/core/pages/document-builder/components/document-section/multi-checkbox-section/multi-checkbox-section.component.stories.ts",
+                "file": "src/app/core/pages/document-builder/modals/template-menu/template-menu.modal.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
-                "type": "StoryFn<MultiCheckboxSectionComponent>",
+                "type": "StoryFn<TemplateMenuModal>",
+                "defaultValue": "args => ({\r\n  props: args\r\n})"
+            },
+            {
+                "name": "Template",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/core/pages/document-builder/modals/document-summary/document-summary.modal.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "StoryFn<DocumentSummaryModal>",
+                "defaultValue": "args => ({\r\n  props: args\r\n})"
+            },
+            {
+                "name": "Template",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/core/pages/document-builder/components/input-types/company-actioner-select/company-actioner-select.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "StoryFn<CompanyActionerSelectComponent>",
                 "defaultValue": "args => ({\r\n  props: args\r\n})"
             },
             {
@@ -9018,16 +9018,6 @@
                 "deprecationMessage": "",
                 "type": "StoryFn<ActionerSelectComponent>",
                 "defaultValue": "(args: ActionerSelectComponent) => ({\r\n  props: args\r\n})"
-            },
-            {
-                "name": "Template",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "src/app/core/pages/document-builder/components/input-types/company-actioner-select/company-actioner-select.component.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "StoryFn<CompanyActionerSelectComponent>",
-                "defaultValue": "args => ({\r\n  props: args\r\n})"
             },
             {
                 "name": "Template",
@@ -9053,21 +9043,21 @@
                 "name": "Template",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/core/pages/document-builder/components/input-types/queue-duration/queue-duration.component.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "StoryFn<QueueDurationComponent>",
-                "defaultValue": "(args: QueueDurationComponent) => ({\r\n  props: args\r\n})"
-            },
-            {
-                "name": "Template",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "src/app/core/pages/document-builder/components/input-types/queue-select/queue-select.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "StoryFn<QueueSelectComponent>",
                 "defaultValue": "(args: QueueSelectComponent) => ({\r\n  props: args\r\n})"
+            },
+            {
+                "name": "Template",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/core/pages/document-builder/components/input-types/queue-duration/queue-duration.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "StoryFn<QueueDurationComponent>",
+                "defaultValue": "(args: QueueDurationComponent) => ({\r\n  props: args\r\n})"
             },
             {
                 "name": "Template",
@@ -9103,11 +9093,11 @@
                 "name": "Template",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/core/pages/document-builder/components/question-types/00-label/label.component.stories.ts",
+                "file": "src/app/core/pages/document-builder/components/document-section/multi-checkbox-section/multi-checkbox-section.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
-                "type": "StoryFn<Story>",
-                "defaultValue": "args => ({\r\n  props: {\r\n    ...args,\r\n    question: {\r\n      ...defaultQuestion,\r\n      QuestionText: args[\"question.QuestionText\"],\r\n      Required: args[\"question.Required\"],\r\n      CanHaveImg: args[\"question.CanHaveImg\"],\r\n      CanHaveFiles: args[\"question.CanHaveFiles\"]\r\n    }\r\n  }\r\n})"
+                "type": "StoryFn<MultiCheckboxSectionComponent>",
+                "defaultValue": "args => ({\r\n  props: args\r\n})"
             },
             {
                 "name": "Template",
@@ -9128,6 +9118,16 @@
                 "deprecationMessage": "",
                 "type": "StoryFn<Story>",
                 "defaultValue": "args => ({\r\n  props: {\r\n    ...args,\r\n    question: {\r\n      ...defaultQuestion,\r\n      QuestionText: args[\"question.QuestionText\"],\r\n      Required: args[\"question.Required\"],\r\n      YesNoNA: args[\"question.YesNoNA\"] === \"Yes\" ? true \r\n        : args[\"question.YesNoNA\"] === \"No\" ? false\r\n        : args[\"question.YesNoNA\"] === \"NA\" ? null\r\n        : args[\"question.YesNoNA\"],\r\n      CanHaveImg: args[\"question.CanHaveImg\"],\r\n      CanHaveFiles: args[\"question.CanHaveFiles\"]\r\n    }\r\n  }\r\n})"
+            },
+            {
+                "name": "Template",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/core/pages/document-builder/components/question-types/00-label/label.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "StoryFn<Story>",
+                "defaultValue": "args => ({\r\n  props: {\r\n    ...args,\r\n    question: {\r\n      ...defaultQuestion,\r\n      QuestionText: args[\"question.QuestionText\"],\r\n      Required: args[\"question.Required\"],\r\n      CanHaveImg: args[\"question.CanHaveImg\"],\r\n      CanHaveFiles: args[\"question.CanHaveFiles\"]\r\n    }\r\n  }\r\n})"
             },
             {
                 "name": "Template",
@@ -9223,21 +9223,21 @@
                 "name": "Template",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/core/pages/document-builder/components/question-types/10-operative-list/operative-list.component.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "StoryFn<Story>",
-                "defaultValue": "args => ({\r\n  props: {\r\n    ...args,\r\n    question: {\r\n      ...defaultQuestion,\r\n      QuestionText: args[\"question.QuestionText\"],\r\n      Operatives: args[\"question.Operatives\"]\r\n    }\r\n  }\r\n})"
-            },
-            {
-                "name": "Template",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "src/app/core/pages/document-builder/components/question-types/12-number/number.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "StoryFn<Story>",
                 "defaultValue": "args => ({\r\n  props: {\r\n    ...args,\r\n    question: {\r\n      ...defaultQuestion,\r\n      QuestionText: args[\"question.QuestionText\"],\r\n      Required: args[\"question.Required\"],\r\n      NumberVal: args[\"question.NumberVal\"],\r\n      CanHaveImg: args[\"question.CanHaveImg\"],\r\n      CanHaveFiles: args[\"question.CanHaveFiles\"]\r\n    }\r\n  }\r\n})"
+            },
+            {
+                "name": "Template",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/core/pages/document-builder/components/question-types/10-operative-list/operative-list.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "StoryFn<Story>",
+                "defaultValue": "args => ({\r\n  props: {\r\n    ...args,\r\n    question: {\r\n      ...defaultQuestion,\r\n      QuestionText: args[\"question.QuestionText\"],\r\n      Operatives: args[\"question.Operatives\"]\r\n    }\r\n  }\r\n})"
             },
             {
                 "name": "Template",
@@ -9263,11 +9263,11 @@
                 "name": "Template",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/core/pages/document-builder/components/question-types/17-asset-list/asset-list.component.stories.ts",
+                "file": "src/app/core/pages/document-builder/components/question-types/19-signature/signature.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "StoryFn<Story>",
-                "defaultValue": "args => ({\r\n  props: {\r\n    ...args,\r\n    question: {\r\n      ...defaultQuestion,\r\n      QuestionText: args[\"question.QuestionText\"],\r\n      Assets: args[\"question.Assets\"]\r\n    }\r\n  }\r\n})"
+                "defaultValue": "args => ({\r\n  props: {\r\n    ...args,\r\n    question: {\r\n      ...defaultQuestion,\r\n      QuestionText: args[\"question.QuestionText\"],\r\n      Required: args[\"question.Required\"],\r\n      AnswerText: args[\"question.AnswerText\"]\r\n    }\r\n  }\r\n})"
             },
             {
                 "name": "Template",
@@ -9283,31 +9283,11 @@
                 "name": "Template",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/core/pages/document-builder/components/question-types/19-signature/signature.component.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "StoryFn<Story>",
-                "defaultValue": "args => ({\r\n  props: {\r\n    ...args,\r\n    question: {\r\n      ...defaultQuestion,\r\n      QuestionText: args[\"question.QuestionText\"],\r\n      Required: args[\"question.Required\"],\r\n      AnswerText: args[\"question.AnswerText\"]\r\n    }\r\n  }\r\n})"
-            },
-            {
-                "name": "Template",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "src/app/core/pages/document-builder/components/question-types/29-select-text/select-text.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "StoryFn<Story>",
                 "defaultValue": "args => ({\r\n  props: {\r\n    ...args,\r\n    question: {\r\n      ...defaultQuestion,\r\n      QuestionText: args[\"question.QuestionText\"],\r\n      Required: args[\"question.Required\"],\r\n      AnswerText: args[\"question.AnswerText\"],\r\n      Options: args[\"question.Options\"],\r\n      CanHaveImg: args[\"question.CanHaveImg\"],\r\n      CanHaveFiles: args[\"question.CanHaveFiles\"]\r\n    }\r\n  }\r\n})"
-            },
-            {
-                "name": "Template",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "src/app/core/pages/document-builder/components/question-types/30-cascade-select-text/cascade-select-text.component.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "StoryFn<Story>",
-                "defaultValue": "args => ({\r\n  props: {\r\n    ...args,\r\n    question: {\r\n      ...defaultQuestion,\r\n      QuestionText: args[\"question.QuestionText\"],\r\n      CommentsText: args[\"question.CommentsText\"],\r\n      Required: args[\"question.Required\"],\r\n      Options: args[\"question.Options\"],\r\n      CascadeOptions: args[\"question.CascadeOptions\"],\r\n      CanHaveImg: args[\"question.CanHaveImg\"],\r\n      CanHaveFiles: args[\"question.CanHaveFiles\"]\r\n    }\r\n  }\r\n})"
             },
             {
                 "name": "Template",
@@ -9323,6 +9303,16 @@
                 "name": "Template",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "src/app/core/pages/document-builder/components/question-types/30-cascade-select-text/cascade-select-text.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "StoryFn<Story>",
+                "defaultValue": "args => ({\r\n  props: {\r\n    ...args,\r\n    question: {\r\n      ...defaultQuestion,\r\n      QuestionText: args[\"question.QuestionText\"],\r\n      CommentsText: args[\"question.CommentsText\"],\r\n      Required: args[\"question.Required\"],\r\n      Options: args[\"question.Options\"],\r\n      CascadeOptions: args[\"question.CascadeOptions\"],\r\n      CanHaveImg: args[\"question.CanHaveImg\"],\r\n      CanHaveFiles: args[\"question.CanHaveFiles\"]\r\n    }\r\n  }\r\n})"
+            },
+            {
+                "name": "Template",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "src/app/core/pages/document-builder/components/question-types/33-linked-times/linked-times.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -9333,11 +9323,11 @@
                 "name": "Template",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/app/core/pages/document-builder/components/question-types/extras/file-upload/file-upload.component.stories.ts",
+                "file": "src/app/core/pages/document-builder/components/question-types/17-asset-list/asset-list.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
-                "type": "StoryFn<FileUploadComponent>",
-                "defaultValue": "(args: FileUploadComponent) => ({\r\n  props: args\r\n})"
+                "type": "StoryFn<Story>",
+                "defaultValue": "args => ({\r\n  props: {\r\n    ...args,\r\n    question: {\r\n      ...defaultQuestion,\r\n      QuestionText: args[\"question.QuestionText\"],\r\n      Assets: args[\"question.Assets\"]\r\n    }\r\n  }\r\n})"
             },
             {
                 "name": "Template",
@@ -9348,6 +9338,16 @@
                 "deprecationMessage": "",
                 "type": "StoryFn<CameraCaptureComponent>",
                 "defaultValue": "(args: CameraCaptureComponent) => ({\r\n  props: args\r\n})"
+            },
+            {
+                "name": "Template",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/core/pages/document-builder/components/question-types/extras/file-upload/file-upload.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "StoryFn<FileUploadComponent>",
+                "defaultValue": "(args: FileUploadComponent) => ({\r\n  props: args\r\n})"
             },
             {
                 "name": "trackRequestStatus",
@@ -9427,6 +9427,15 @@
             {
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "src/app/core/stores/site-document/props/writing-document.props.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "propsFactory(\"writingDocument\", { initialValue: null as SiteDocument | null })"
+            },
+            {
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "src/app/core/stores/site-document/form-filler/form-filler.store.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -9441,15 +9450,6 @@
                 "deprecationMessage": "",
                 "type": "",
                 "defaultValue": "writingDocumentAdapter(store)"
-            },
-            {
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "src/app/core/stores/site-document/props/writing-document.props.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "",
-                "defaultValue": "propsFactory(\"writingDocument\", { initialValue: null as SiteDocument | null })"
             },
             {
                 "ctype": "miscellaneous",
@@ -10372,7 +10372,7 @@
                         "type": "AdapterConfig<boolean, BooleanState, TProps>",
                         "deprecated": false,
                         "deprecationMessage": "",
-                        "destrucuredGroupId": "ccbcf237-8505-4dae-9bd1-51266973ce89",
+                        "destrucuredGroupId": "15212f9f-2fcd-406e-be1f-1fd1deffb89f",
                         "destructuredParameter": true
                     },
                     {
@@ -10380,7 +10380,7 @@
                         "type": "",
                         "deprecated": false,
                         "deprecationMessage": "",
-                        "destrucuredGroupId": "ccbcf237-8505-4dae-9bd1-51266973ce89",
+                        "destrucuredGroupId": "15212f9f-2fcd-406e-be1f-1fd1deffb89f",
                         "destructuredParameter": true
                     },
                     {
@@ -10388,7 +10388,7 @@
                         "type": "",
                         "deprecated": false,
                         "deprecationMessage": "",
-                        "destrucuredGroupId": "ccbcf237-8505-4dae-9bd1-51266973ce89",
+                        "destrucuredGroupId": "15212f9f-2fcd-406e-be1f-1fd1deffb89f",
                         "destructuredParameter": true
                     }
                 ],
@@ -10398,7 +10398,7 @@
                         "type": "AdapterConfig<boolean, BooleanState, TProps>",
                         "deprecated": false,
                         "deprecationMessage": "",
-                        "destrucuredGroupId": "ccbcf237-8505-4dae-9bd1-51266973ce89",
+                        "destrucuredGroupId": "15212f9f-2fcd-406e-be1f-1fd1deffb89f",
                         "destructuredParameter": true,
                         "tagName": {
                             "text": "param"
@@ -10409,7 +10409,7 @@
                         "type": "",
                         "deprecated": false,
                         "deprecationMessage": "",
-                        "destrucuredGroupId": "ccbcf237-8505-4dae-9bd1-51266973ce89",
+                        "destrucuredGroupId": "15212f9f-2fcd-406e-be1f-1fd1deffb89f",
                         "destructuredParameter": true,
                         "tagName": {
                             "text": "param"
@@ -10420,7 +10420,7 @@
                         "type": "",
                         "deprecated": false,
                         "deprecationMessage": "",
-                        "destrucuredGroupId": "ccbcf237-8505-4dae-9bd1-51266973ce89",
+                        "destrucuredGroupId": "15212f9f-2fcd-406e-be1f-1fd1deffb89f",
                         "destructuredParameter": true,
                         "tagName": {
                             "text": "param"
@@ -10661,7 +10661,7 @@
                         "type": "AdapterConfig<number, NumberState, TProps>",
                         "deprecated": false,
                         "deprecationMessage": "",
-                        "destrucuredGroupId": "4cdc33e5-9d29-4a47-82c1-7b604a7966be",
+                        "destrucuredGroupId": "af18cf87-6872-45a4-a7ae-7fca1f4fd7fa",
                         "destructuredParameter": true
                     },
                     {
@@ -10669,7 +10669,7 @@
                         "type": "",
                         "deprecated": false,
                         "deprecationMessage": "",
-                        "destrucuredGroupId": "4cdc33e5-9d29-4a47-82c1-7b604a7966be",
+                        "destrucuredGroupId": "af18cf87-6872-45a4-a7ae-7fca1f4fd7fa",
                         "destructuredParameter": true
                     },
                     {
@@ -10677,7 +10677,7 @@
                         "type": "",
                         "deprecated": false,
                         "deprecationMessage": "",
-                        "destrucuredGroupId": "4cdc33e5-9d29-4a47-82c1-7b604a7966be",
+                        "destrucuredGroupId": "af18cf87-6872-45a4-a7ae-7fca1f4fd7fa",
                         "destructuredParameter": true
                     }
                 ],
@@ -10687,7 +10687,7 @@
                         "type": "AdapterConfig<number, NumberState, TProps>",
                         "deprecated": false,
                         "deprecationMessage": "",
-                        "destrucuredGroupId": "4cdc33e5-9d29-4a47-82c1-7b604a7966be",
+                        "destrucuredGroupId": "af18cf87-6872-45a4-a7ae-7fca1f4fd7fa",
                         "destructuredParameter": true,
                         "tagName": {
                             "text": "param"
@@ -10698,7 +10698,7 @@
                         "type": "",
                         "deprecated": false,
                         "deprecationMessage": "",
-                        "destrucuredGroupId": "4cdc33e5-9d29-4a47-82c1-7b604a7966be",
+                        "destrucuredGroupId": "af18cf87-6872-45a4-a7ae-7fca1f4fd7fa",
                         "destructuredParameter": true,
                         "tagName": {
                             "text": "param"
@@ -10709,7 +10709,7 @@
                         "type": "",
                         "deprecated": false,
                         "deprecationMessage": "",
-                        "destrucuredGroupId": "4cdc33e5-9d29-4a47-82c1-7b604a7966be",
+                        "destrucuredGroupId": "af18cf87-6872-45a4-a7ae-7fca1f4fd7fa",
                         "destructuredParameter": true,
                         "tagName": {
                             "text": "param"
@@ -10759,7 +10759,7 @@
                         "type": "AdapterTarget<TState>",
                         "deprecated": false,
                         "deprecationMessage": "",
-                        "destrucuredGroupId": "daf0a4e7-936f-4eac-a3ad-f91a90b57ddc",
+                        "destrucuredGroupId": "7cca30e9-78d1-4d61-a4e8-9de27dc2d26a",
                         "destructuredParameter": true
                     },
                     {
@@ -10767,7 +10767,7 @@
                         "type": "",
                         "deprecated": false,
                         "deprecationMessage": "",
-                        "destrucuredGroupId": "daf0a4e7-936f-4eac-a3ad-f91a90b57ddc",
+                        "destrucuredGroupId": "7cca30e9-78d1-4d61-a4e8-9de27dc2d26a",
                         "destructuredParameter": true
                     }
                 ],
@@ -10777,7 +10777,7 @@
                         "type": "AdapterTarget<TState>",
                         "deprecated": false,
                         "deprecationMessage": "",
-                        "destrucuredGroupId": "daf0a4e7-936f-4eac-a3ad-f91a90b57ddc",
+                        "destrucuredGroupId": "7cca30e9-78d1-4d61-a4e8-9de27dc2d26a",
                         "destructuredParameter": true,
                         "tagName": {
                             "text": "param"
@@ -10788,7 +10788,7 @@
                         "type": "",
                         "deprecated": false,
                         "deprecationMessage": "",
-                        "destrucuredGroupId": "daf0a4e7-936f-4eac-a3ad-f91a90b57ddc",
+                        "destrucuredGroupId": "7cca30e9-78d1-4d61-a4e8-9de27dc2d26a",
                         "destructuredParameter": true,
                         "tagName": {
                             "text": "param"
@@ -11370,17 +11370,6 @@
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
                 "rawtype": "",
-                "file": "src/app/core/pages/document-builder/components/question-types/00-label/label.component.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "description": "",
-                "kind": 187
-            },
-            {
-                "name": "Story",
-                "ctype": "miscellaneous",
-                "subtype": "typealias",
-                "rawtype": "",
                 "file": "src/app/core/pages/document-builder/components/question-types/01-checkbox/checkbox.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -11393,6 +11382,17 @@
                 "subtype": "typealias",
                 "rawtype": "",
                 "file": "src/app/core/pages/document-builder/components/question-types/02-radio-table/radio-table.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "kind": 187
+            },
+            {
+                "name": "Story",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
+                "rawtype": "",
+                "file": "src/app/core/pages/document-builder/components/question-types/00-label/label.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
@@ -11502,7 +11502,7 @@
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
                 "rawtype": "",
-                "file": "src/app/core/pages/document-builder/components/question-types/10-operative-list/operative-list.component.stories.ts",
+                "file": "src/app/core/pages/document-builder/components/question-types/12-number/number.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
@@ -11513,7 +11513,7 @@
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
                 "rawtype": "",
-                "file": "src/app/core/pages/document-builder/components/question-types/12-number/number.component.stories.ts",
+                "file": "src/app/core/pages/document-builder/components/question-types/10-operative-list/operative-list.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
@@ -11546,7 +11546,7 @@
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
                 "rawtype": "",
-                "file": "src/app/core/pages/document-builder/components/question-types/17-asset-list/asset-list.component.stories.ts",
+                "file": "src/app/core/pages/document-builder/components/question-types/19-signature/signature.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
@@ -11568,29 +11568,7 @@
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
                 "rawtype": "",
-                "file": "src/app/core/pages/document-builder/components/question-types/19-signature/signature.component.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "description": "",
-                "kind": 187
-            },
-            {
-                "name": "Story",
-                "ctype": "miscellaneous",
-                "subtype": "typealias",
-                "rawtype": "",
                 "file": "src/app/core/pages/document-builder/components/question-types/29-select-text/select-text.component.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "description": "",
-                "kind": 187
-            },
-            {
-                "name": "Story",
-                "ctype": "miscellaneous",
-                "subtype": "typealias",
-                "rawtype": "",
-                "file": "src/app/core/pages/document-builder/components/question-types/30-cascade-select-text/cascade-select-text.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
@@ -11612,7 +11590,29 @@
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
                 "rawtype": "",
+                "file": "src/app/core/pages/document-builder/components/question-types/30-cascade-select-text/cascade-select-text.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "kind": 187
+            },
+            {
+                "name": "Story",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
+                "rawtype": "",
                 "file": "src/app/core/pages/document-builder/components/question-types/33-linked-times/linked-times.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "kind": 187
+            },
+            {
+                "name": "Story",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
+                "rawtype": "",
+                "file": "src/app/core/pages/document-builder/components/question-types/17-asset-list/asset-list.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
@@ -11868,6 +11868,220 @@
                     "defaultValue": "(args: DatetimePickerComponent) => ({\r\n  props: args\r\n})"
                 }
             ],
+            "src/app/shared/components/camera/camera.component.stories.ts": [
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/shared/components/camera/camera.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/shared/components/camera/camera.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "StoryFn<CameraComponent>",
+                    "defaultValue": "(args: CameraComponent) => ({\r\n  props: args,\r\n  template: `\r\n    <camera [fill]=\"fill\" [expand]=\"expand\" [color]=\"color\">\r\n      Add Image\r\n    </camera>\r\n  `\r\n})"
+                }
+            ],
+            "src/app/shared/components/multi-selectable/multi-selectable.component.stories.ts": [
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/shared/components/multi-selectable/multi-selectable.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/shared/components/multi-selectable/multi-selectable.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "StoryFn<MultiSelectableComponent>",
+                    "defaultValue": "(args: MultiSelectableComponent) => ({\r\n  props: args\r\n})"
+                }
+            ],
+            "src/app/shared/components/signature-pad/signature-pad.component.stories.ts": [
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/shared/components/signature-pad/signature-pad.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/shared/components/signature-pad/signature-pad.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "StoryFn<SignaturePadComponent>",
+                    "defaultValue": "args => ({\r\n  props: args\r\n})"
+                }
+            ],
+            "src/app/shared/components/selectable/selectable.component.stories.ts": [
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/shared/components/selectable/selectable.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "ObjectSelectable",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/shared/components/selectable/selectable.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({}) as StoryFn<SelectableComponent<{ name: string }>>"
+                },
+                {
+                    "name": "PrepopulatedSelectable",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/shared/components/selectable/selectable.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/shared/components/selectable/selectable.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "StoryFn<SelectableComponent>",
+                    "defaultValue": "(args: SelectableComponent) => ({\r\n  props: args\r\n})"
+                }
+            ],
+            "src/app/shared/components/time-picker/time-picker.component.stories.ts": [
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/shared/components/time-picker/time-picker.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/shared/components/time-picker/time-picker.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "StoryFn<TimePickerComponent>",
+                    "defaultValue": "args => ({\r\n  props: args\r\n})"
+                }
+            ],
+            "src/app/shared/modals/asset-list/asset-list.modal.stories.ts": [
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/shared/modals/asset-list/asset-list.modal.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/shared/modals/asset-list/asset-list.modal.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "StoryFn<AssetListModal>",
+                    "defaultValue": "(args: AssetListModal) => ({\r\n  props: args\r\n})"
+                }
+            ],
+            "src/app/shared/modals/operative-list/operative-list.modal.stories.ts": [
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/shared/modals/operative-list/operative-list.modal.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "operatives",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/shared/modals/operative-list/operative-list.modal.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Operative[]",
+                    "defaultValue": "Array\r\n  .from({ length: 3 })\r\n  .map((val, idx) => \r\n    ({\r\n      ID: idx + 2,\r\n      Name: faker.name.fullName()\r\n    })\r\n  )"
+                },
+                {
+                    "name": "operativesStore",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/shared/modals/operative-list/operative-list.modal.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Pick<OperativesStore, \"operatives$\" | \"searchResults$\" | \"searchResultsIsPending$\" | \"getSearchResults\">",
+                    "defaultValue": "{\r\n  operatives$: of(operatives),\r\n  searchResults$: of<OperativeSearchResult[]>(searchResults),\r\n  searchResultsIsPending$: of(false),\r\n  getSearchResults: () => of(searchResults)\r\n}"
+                },
+                {
+                    "name": "searchResults",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/shared/modals/operative-list/operative-list.modal.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "OperativeSearchResult[]",
+                    "defaultValue": "Array\r\n  .from({ length: 10 })\r\n  .map((val, idx) => \r\n    ({\r\n      ID: idx + 1,\r\n      Name: faker.name.fullName(),\r\n      CompanyName: faker.company.name(),\r\n      HasAppAccess: true,\r\n      HasQRCode: true\r\n    })\r\n  )"
+                },
+                {
+                    "name": "Template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/shared/modals/operative-list/operative-list.modal.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "StoryFn<OperativeListModal>",
+                    "defaultValue": "(args: OperativeListModal) => ({\r\n  props: args\r\n})"
+                },
+                {
+                    "name": "userStore",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/shared/modals/operative-list/operative-list.modal.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Pick<UserStore, user$>",
+                    "defaultValue": "{\r\n  user$: of(defaultUser)\r\n}"
+                }
+            ],
             "src/app/core/pages/document-builder/document-builder.page.stories.ts": [
                 {
                     "name": "Default",
@@ -11982,274 +12196,6 @@
                     "defaultValue": "(args: RegistrationPage) => ({\r\n  props: args\r\n})"
                 }
             ],
-            "src/app/shared/components/camera/camera.component.stories.ts": [
-                {
-                    "name": "Default",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/shared/components/camera/camera.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "Template.bind({})"
-                },
-                {
-                    "name": "Template",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/shared/components/camera/camera.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "StoryFn<CameraComponent>",
-                    "defaultValue": "(args: CameraComponent) => ({\r\n  props: args,\r\n  template: `\r\n    <camera [fill]=\"fill\" [expand]=\"expand\" [color]=\"color\">\r\n      Add Image\r\n    </camera>\r\n  `\r\n})"
-                }
-            ],
-            "src/app/shared/components/multi-selectable/multi-selectable.component.stories.ts": [
-                {
-                    "name": "Default",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/shared/components/multi-selectable/multi-selectable.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "Template.bind({})"
-                },
-                {
-                    "name": "Template",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/shared/components/multi-selectable/multi-selectable.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "StoryFn<MultiSelectableComponent>",
-                    "defaultValue": "(args: MultiSelectableComponent) => ({\r\n  props: args\r\n})"
-                }
-            ],
-            "src/app/shared/components/selectable/selectable.component.stories.ts": [
-                {
-                    "name": "Default",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/shared/components/selectable/selectable.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "Template.bind({})"
-                },
-                {
-                    "name": "ObjectSelectable",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/shared/components/selectable/selectable.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "Template.bind({}) as StoryFn<SelectableComponent<{ name: string }>>"
-                },
-                {
-                    "name": "PrepopulatedSelectable",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/shared/components/selectable/selectable.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "Template.bind({})"
-                },
-                {
-                    "name": "Template",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/shared/components/selectable/selectable.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "StoryFn<SelectableComponent>",
-                    "defaultValue": "(args: SelectableComponent) => ({\r\n  props: args\r\n})"
-                }
-            ],
-            "src/app/shared/components/signature-pad/signature-pad.component.stories.ts": [
-                {
-                    "name": "Default",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/shared/components/signature-pad/signature-pad.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "Template.bind({})"
-                },
-                {
-                    "name": "Template",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/shared/components/signature-pad/signature-pad.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "StoryFn<SignaturePadComponent>",
-                    "defaultValue": "args => ({\r\n  props: args\r\n})"
-                }
-            ],
-            "src/app/shared/components/time-picker/time-picker.component.stories.ts": [
-                {
-                    "name": "Default",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/shared/components/time-picker/time-picker.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "Template.bind({})"
-                },
-                {
-                    "name": "Template",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/shared/components/time-picker/time-picker.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "StoryFn<TimePickerComponent>",
-                    "defaultValue": "args => ({\r\n  props: args\r\n})"
-                }
-            ],
-            "src/app/shared/modals/asset-list/asset-list.modal.stories.ts": [
-                {
-                    "name": "Default",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/shared/modals/asset-list/asset-list.modal.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "Template.bind({})"
-                },
-                {
-                    "name": "Template",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/shared/modals/asset-list/asset-list.modal.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "StoryFn<AssetListModal>",
-                    "defaultValue": "(args: AssetListModal) => ({\r\n  props: args\r\n})"
-                }
-            ],
-            "src/app/shared/modals/operative-list/operative-list.modal.stories.ts": [
-                {
-                    "name": "Default",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/shared/modals/operative-list/operative-list.modal.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "Template.bind({})"
-                },
-                {
-                    "name": "operatives",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/shared/modals/operative-list/operative-list.modal.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Operative[]",
-                    "defaultValue": "Array\r\n  .from({ length: 3 })\r\n  .map((val, idx) => \r\n    ({\r\n      ID: idx + 2,\r\n      Name: faker.name.fullName()\r\n    })\r\n  )"
-                },
-                {
-                    "name": "operativesStore",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/shared/modals/operative-list/operative-list.modal.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Pick<OperativesStore, \"operatives$\" | \"searchResults$\" | \"searchResultsIsPending$\" | \"getSearchResults\">",
-                    "defaultValue": "{\r\n  operatives$: of(operatives),\r\n  searchResults$: of<OperativeSearchResult[]>(searchResults),\r\n  searchResultsIsPending$: of(false),\r\n  getSearchResults: () => of(searchResults)\r\n}"
-                },
-                {
-                    "name": "searchResults",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/shared/modals/operative-list/operative-list.modal.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "OperativeSearchResult[]",
-                    "defaultValue": "Array\r\n  .from({ length: 10 })\r\n  .map((val, idx) => \r\n    ({\r\n      ID: idx + 1,\r\n      Name: faker.name.fullName(),\r\n      CompanyName: faker.company.name(),\r\n      HasAppAccess: true,\r\n      HasQRCode: true\r\n    })\r\n  )"
-                },
-                {
-                    "name": "Template",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/shared/modals/operative-list/operative-list.modal.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "StoryFn<OperativeListModal>",
-                    "defaultValue": "(args: OperativeListModal) => ({\r\n  props: args\r\n})"
-                },
-                {
-                    "name": "userStore",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/shared/modals/operative-list/operative-list.modal.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Pick<UserStore, user$>",
-                    "defaultValue": "{\r\n  user$: of(defaultUser)\r\n}"
-                }
-            ],
-            "src/app/core/pages/document-builder/modals/document-summary/document-summary.modal.stories.ts": [
-                {
-                    "name": "Default",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/core/pages/document-builder/modals/document-summary/document-summary.modal.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "Template.bind({})"
-                },
-                {
-                    "name": "defaultDoc",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/core/pages/document-builder/modals/document-summary/document-summary.modal.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "SiteDocument",
-                    "defaultValue": "{\r\n  ...defaultSiteDocument,\r\n  DocumentTitle: faker.lorem.word(),\r\n  RemainAnon: true,\r\n  CurrentActionerOperativeID: 1,\r\n  CompanyActionerId: 1,\r\n  SiteId: 1,\r\n  AutoQueueID: 1,\r\n  QueueDuration: {\r\n    Value: 6,\r\n    Type: \"Hours\"\r\n  },\r\n  MetaData: {\r\n    ActionerText: \"Pick your actioner\",\r\n    SiteListTitle: \"Pick your site\"\r\n  },\r\n  Pages: [\r\n    {\r\n      PageID: 1,\r\n      PageTitle: faker.lorem.word(),\r\n      Sections: Object\r\n        .values(QuestionType)\r\n        .filter(qt => typeof qt === \"number\")\r\n        .map((qt, idx) => \r\n          ({\r\n            ...defaultSection,\r\n            SectionID: idx,\r\n            SectionNo: idx,\r\n            SectionTitle: \"\",\r\n            SectionQuestiontype: qt as QuestionType,\r\n            Questions: [\r\n              {\r\n                ...defaultQuestion,\r\n                QuestionText: QuestionType[qt as number].toString()\r\n              }\r\n            ]\r\n          })\r\n        )\r\n    }\r\n  ]\r\n}"
-                },
-                {
-                    "name": "Template",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/core/pages/document-builder/modals/document-summary/document-summary.modal.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "StoryFn<DocumentSummaryModal>",
-                    "defaultValue": "args => ({\r\n  props: args\r\n})"
-                }
-            ],
-            "src/app/core/pages/document-builder/modals/template-menu/template-menu.modal.stories.ts": [
-                {
-                    "name": "Default",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/core/pages/document-builder/modals/template-menu/template-menu.modal.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "Template.bind({})"
-                },
-                {
-                    "name": "Template",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/core/pages/document-builder/modals/template-menu/template-menu.modal.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "StoryFn<TemplateMenuModal>",
-                    "defaultValue": "args => ({\r\n  props: args\r\n})"
-                }
-            ],
             "src/app/shared/modals/operative-list/components/local-operative-search/local-operative-search.component.stories.ts": [
                 {
                     "name": "Default",
@@ -12304,12 +12250,12 @@
                     "defaultValue": "args => ({\r\n  props: args\r\n})"
                 }
             ],
-            "src/app/core/pages/document-builder/components/document-section/multi-checkbox-section/multi-checkbox-section.component.stories.ts": [
+            "src/app/core/pages/document-builder/modals/template-menu/template-menu.modal.stories.ts": [
                 {
                     "name": "Default",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "src/app/core/pages/document-builder/components/document-section/multi-checkbox-section/multi-checkbox-section.component.stories.ts",
+                    "file": "src/app/core/pages/document-builder/modals/template-menu/template-menu.modal.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "",
@@ -12319,11 +12265,85 @@
                     "name": "Template",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "src/app/core/pages/document-builder/components/document-section/multi-checkbox-section/multi-checkbox-section.component.stories.ts",
+                    "file": "src/app/core/pages/document-builder/modals/template-menu/template-menu.modal.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "type": "StoryFn<MultiCheckboxSectionComponent>",
+                    "type": "StoryFn<TemplateMenuModal>",
                     "defaultValue": "args => ({\r\n  props: args\r\n})"
+                }
+            ],
+            "src/app/core/pages/document-builder/modals/document-summary/document-summary.modal.stories.ts": [
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/core/pages/document-builder/modals/document-summary/document-summary.modal.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "defaultDoc",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/core/pages/document-builder/modals/document-summary/document-summary.modal.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "SiteDocument",
+                    "defaultValue": "{\r\n  ...defaultSiteDocument,\r\n  DocumentTitle: faker.lorem.word(),\r\n  RemainAnon: true,\r\n  CurrentActionerOperativeID: 1,\r\n  CompanyActionerId: 1,\r\n  SiteId: 1,\r\n  AutoQueueID: 1,\r\n  QueueDuration: {\r\n    Value: 6,\r\n    Type: \"Hours\"\r\n  },\r\n  MetaData: {\r\n    ActionerText: \"Pick your actioner\",\r\n    SiteListTitle: \"Pick your site\"\r\n  },\r\n  Pages: [\r\n    {\r\n      PageID: 1,\r\n      PageTitle: faker.lorem.word(),\r\n      Sections: Object\r\n        .values(QuestionType)\r\n        .filter(qt => typeof qt === \"number\")\r\n        .map((qt, idx) => \r\n          ({\r\n            ...defaultSection,\r\n            SectionID: idx,\r\n            SectionNo: idx,\r\n            SectionTitle: \"\",\r\n            SectionQuestiontype: qt as QuestionType,\r\n            Questions: [\r\n              {\r\n                ...defaultQuestion,\r\n                QuestionText: QuestionType[qt as number].toString()\r\n              }\r\n            ]\r\n          })\r\n        )\r\n    }\r\n  ]\r\n}"
+                },
+                {
+                    "name": "Template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/core/pages/document-builder/modals/document-summary/document-summary.modal.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "StoryFn<DocumentSummaryModal>",
+                    "defaultValue": "args => ({\r\n  props: args\r\n})"
+                }
+            ],
+            "src/app/core/pages/document-builder/components/input-types/company-actioner-select/company-actioner-select.component.stories.ts": [
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/core/pages/document-builder/components/input-types/company-actioner-select/company-actioner-select.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "PrepopulatedCompany",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/core/pages/document-builder/components/input-types/company-actioner-select/company-actioner-select.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/core/pages/document-builder/components/input-types/company-actioner-select/company-actioner-select.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "StoryFn<CompanyActionerSelectComponent>",
+                    "defaultValue": "args => ({\r\n  props: args\r\n})"
+                },
+                {
+                    "name": "userStoreMock",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/core/pages/document-builder/components/input-types/company-actioner-select/company-actioner-select.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Partial<UserStore>",
+                    "defaultValue": "{\r\n  companies$: of<Company[]>(Array\r\n    .from({ length: 10 })\r\n    .map((val, idx) => \r\n      ({\r\n        Id: idx,\r\n        Text: faker.company.name()\r\n      })\r\n  ))\r\n}"
                 }
             ],
             "src/app/core/pages/document-builder/components/input-types/actioner-select/actioner-select.component.stories.ts": [
@@ -12388,48 +12408,6 @@
                     "defaultValue": "{\r\n  user$: of(defaultUser)\r\n}"
                 }
             ],
-            "src/app/core/pages/document-builder/components/input-types/company-actioner-select/company-actioner-select.component.stories.ts": [
-                {
-                    "name": "Default",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/core/pages/document-builder/components/input-types/company-actioner-select/company-actioner-select.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "Template.bind({})"
-                },
-                {
-                    "name": "PrepopulatedCompany",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/core/pages/document-builder/components/input-types/company-actioner-select/company-actioner-select.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "Template.bind({})"
-                },
-                {
-                    "name": "Template",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/core/pages/document-builder/components/input-types/company-actioner-select/company-actioner-select.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "StoryFn<CompanyActionerSelectComponent>",
-                    "defaultValue": "args => ({\r\n  props: args\r\n})"
-                },
-                {
-                    "name": "userStoreMock",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/core/pages/document-builder/components/input-types/company-actioner-select/company-actioner-select.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Partial<UserStore>",
-                    "defaultValue": "{\r\n  companies$: of<Company[]>(Array\r\n    .from({ length: 10 })\r\n    .map((val, idx) => \r\n      ({\r\n        Id: idx,\r\n        Text: faker.company.name()\r\n      })\r\n  ))\r\n}"
-                }
-            ],
             "src/app/core/pages/document-builder/components/input-types/category-actioner-select/category-actioner-select.component.stories.ts": [
                 {
                     "name": "Default",
@@ -12474,28 +12452,6 @@
                     "defaultValue": "args => ({\r\n  props: args\r\n})"
                 }
             ],
-            "src/app/core/pages/document-builder/components/input-types/queue-duration/queue-duration.component.stories.ts": [
-                {
-                    "name": "Default",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/core/pages/document-builder/components/input-types/queue-duration/queue-duration.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "Template.bind({})"
-                },
-                {
-                    "name": "Template",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/core/pages/document-builder/components/input-types/queue-duration/queue-duration.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "StoryFn<QueueDurationComponent>",
-                    "defaultValue": "(args: QueueDurationComponent) => ({\r\n  props: args\r\n})"
-                }
-            ],
             "src/app/core/pages/document-builder/components/input-types/queue-select/queue-select.component.stories.ts": [
                 {
                     "name": "Default",
@@ -12536,6 +12492,28 @@
                     "deprecationMessage": "",
                     "type": "StoryFn<QueueSelectComponent>",
                     "defaultValue": "(args: QueueSelectComponent) => ({\r\n  props: args\r\n})"
+                }
+            ],
+            "src/app/core/pages/document-builder/components/input-types/queue-duration/queue-duration.component.stories.ts": [
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/core/pages/document-builder/components/input-types/queue-duration/queue-duration.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/core/pages/document-builder/components/input-types/queue-duration/queue-duration.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "StoryFn<QueueDurationComponent>",
+                    "defaultValue": "(args: QueueDurationComponent) => ({\r\n  props: args\r\n})"
                 }
             ],
             "src/app/core/pages/document-builder/components/input-types/remain-anonymous/remain-anonymous.component.stories.ts": [
@@ -12654,12 +12632,12 @@
                     "defaultValue": "{\r\n  sites$: of(Array\r\n    .from({ length: 10 })\r\n    .map((val, idx) => \r\n      ({\r\n        Id: idx,\r\n        Name: faker.company.name()\r\n      })\r\n  ))\r\n}"
                 }
             ],
-            "src/app/core/pages/document-builder/components/question-types/00-label/label.component.stories.ts": [
+            "src/app/core/pages/document-builder/components/document-section/multi-checkbox-section/multi-checkbox-section.component.stories.ts": [
                 {
                     "name": "Default",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "src/app/core/pages/document-builder/components/question-types/00-label/label.component.stories.ts",
+                    "file": "src/app/core/pages/document-builder/components/document-section/multi-checkbox-section/multi-checkbox-section.component.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "",
@@ -12669,11 +12647,11 @@
                     "name": "Template",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "src/app/core/pages/document-builder/components/question-types/00-label/label.component.stories.ts",
+                    "file": "src/app/core/pages/document-builder/components/document-section/multi-checkbox-section/multi-checkbox-section.component.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "type": "StoryFn<Story>",
-                    "defaultValue": "args => ({\r\n  props: {\r\n    ...args,\r\n    question: {\r\n      ...defaultQuestion,\r\n      QuestionText: args[\"question.QuestionText\"],\r\n      Required: args[\"question.Required\"],\r\n      CanHaveImg: args[\"question.CanHaveImg\"],\r\n      CanHaveFiles: args[\"question.CanHaveFiles\"]\r\n    }\r\n  }\r\n})"
+                    "type": "StoryFn<MultiCheckboxSectionComponent>",
+                    "defaultValue": "args => ({\r\n  props: args\r\n})"
                 }
             ],
             "src/app/core/pages/document-builder/components/question-types/01-checkbox/checkbox.component.stories.ts": [
@@ -12718,6 +12696,28 @@
                     "deprecationMessage": "",
                     "type": "StoryFn<Story>",
                     "defaultValue": "args => ({\r\n  props: {\r\n    ...args,\r\n    question: {\r\n      ...defaultQuestion,\r\n      QuestionText: args[\"question.QuestionText\"],\r\n      Required: args[\"question.Required\"],\r\n      YesNoNA: args[\"question.YesNoNA\"] === \"Yes\" ? true \r\n        : args[\"question.YesNoNA\"] === \"No\" ? false\r\n        : args[\"question.YesNoNA\"] === \"NA\" ? null\r\n        : args[\"question.YesNoNA\"],\r\n      CanHaveImg: args[\"question.CanHaveImg\"],\r\n      CanHaveFiles: args[\"question.CanHaveFiles\"]\r\n    }\r\n  }\r\n})"
+                }
+            ],
+            "src/app/core/pages/document-builder/components/question-types/00-label/label.component.stories.ts": [
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/core/pages/document-builder/components/question-types/00-label/label.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/core/pages/document-builder/components/question-types/00-label/label.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "StoryFn<Story>",
+                    "defaultValue": "args => ({\r\n  props: {\r\n    ...args,\r\n    question: {\r\n      ...defaultQuestion,\r\n      QuestionText: args[\"question.QuestionText\"],\r\n      Required: args[\"question.Required\"],\r\n      CanHaveImg: args[\"question.CanHaveImg\"],\r\n      CanHaveFiles: args[\"question.CanHaveFiles\"]\r\n    }\r\n  }\r\n})"
                 }
             ],
             "src/app/core/pages/document-builder/components/question-types/02-radio-group/radio-group.component.stories.ts": [
@@ -12918,28 +12918,6 @@
                     "defaultValue": "args => ({\r\n  props: {\r\n    ...args,\r\n    question: {\r\n      ...defaultQuestion,\r\n      QuestionText: args[\"question.QuestionText\"],\r\n      Required: args[\"question.Required\"],\r\n      DateAndTime: args[\"question.DateAndTime\"]\r\n    }\r\n  }\r\n})"
                 }
             ],
-            "src/app/core/pages/document-builder/components/question-types/10-operative-list/operative-list.component.stories.ts": [
-                {
-                    "name": "Default",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/core/pages/document-builder/components/question-types/10-operative-list/operative-list.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "Template.bind({})"
-                },
-                {
-                    "name": "Template",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/core/pages/document-builder/components/question-types/10-operative-list/operative-list.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "StoryFn<Story>",
-                    "defaultValue": "args => ({\r\n  props: {\r\n    ...args,\r\n    question: {\r\n      ...defaultQuestion,\r\n      QuestionText: args[\"question.QuestionText\"],\r\n      Operatives: args[\"question.Operatives\"]\r\n    }\r\n  }\r\n})"
-                }
-            ],
             "src/app/core/pages/document-builder/components/question-types/12-number/number.component.stories.ts": [
                 {
                     "name": "Default",
@@ -12960,6 +12938,28 @@
                     "deprecationMessage": "",
                     "type": "StoryFn<Story>",
                     "defaultValue": "args => ({\r\n  props: {\r\n    ...args,\r\n    question: {\r\n      ...defaultQuestion,\r\n      QuestionText: args[\"question.QuestionText\"],\r\n      Required: args[\"question.Required\"],\r\n      NumberVal: args[\"question.NumberVal\"],\r\n      CanHaveImg: args[\"question.CanHaveImg\"],\r\n      CanHaveFiles: args[\"question.CanHaveFiles\"]\r\n    }\r\n  }\r\n})"
+                }
+            ],
+            "src/app/core/pages/document-builder/components/question-types/10-operative-list/operative-list.component.stories.ts": [
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/core/pages/document-builder/components/question-types/10-operative-list/operative-list.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/core/pages/document-builder/components/question-types/10-operative-list/operative-list.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "StoryFn<Story>",
+                    "defaultValue": "args => ({\r\n  props: {\r\n    ...args,\r\n    question: {\r\n      ...defaultQuestion,\r\n      QuestionText: args[\"question.QuestionText\"],\r\n      Operatives: args[\"question.Operatives\"]\r\n    }\r\n  }\r\n})"
                 }
             ],
             "src/app/core/pages/document-builder/components/question-types/13-cascade-select/cascade-select.component.stories.ts": [
@@ -13006,12 +13006,12 @@
                     "defaultValue": "args => ({\r\n  props: {\r\n    ...args,\r\n    question: {\r\n      ...defaultQuestion,\r\n      QuestionText: args[\"question.QuestionText\"],\r\n      Required: args[\"question.Required\"],\r\n      YesNoNA: args[\"question.YesNoNA\"],\r\n      CanHaveImg: args[\"question.CanHaveImg\"],\r\n      CanHaveFiles: args[\"question.CanHaveFiles\"]\r\n    },\r\n    section: {\r\n      ...defaultSection,\r\n      TableTitles: args[\"section.TableTitles\"]\r\n    }\r\n  }\r\n})"
                 }
             ],
-            "src/app/core/pages/document-builder/components/question-types/17-asset-list/asset-list.component.stories.ts": [
+            "src/app/core/pages/document-builder/components/question-types/19-signature/signature.component.stories.ts": [
                 {
                     "name": "Default",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "src/app/core/pages/document-builder/components/question-types/17-asset-list/asset-list.component.stories.ts",
+                    "file": "src/app/core/pages/document-builder/components/question-types/19-signature/signature.component.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "",
@@ -13021,11 +13021,11 @@
                     "name": "Template",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "src/app/core/pages/document-builder/components/question-types/17-asset-list/asset-list.component.stories.ts",
+                    "file": "src/app/core/pages/document-builder/components/question-types/19-signature/signature.component.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "StoryFn<Story>",
-                    "defaultValue": "args => ({\r\n  props: {\r\n    ...args,\r\n    question: {\r\n      ...defaultQuestion,\r\n      QuestionText: args[\"question.QuestionText\"],\r\n      Assets: args[\"question.Assets\"]\r\n    }\r\n  }\r\n})"
+                    "defaultValue": "args => ({\r\n  props: {\r\n    ...args,\r\n    question: {\r\n      ...defaultQuestion,\r\n      QuestionText: args[\"question.QuestionText\"],\r\n      Required: args[\"question.Required\"],\r\n      AnswerText: args[\"question.AnswerText\"]\r\n    }\r\n  }\r\n})"
                 }
             ],
             "src/app/core/pages/document-builder/components/question-types/18-linked-dates/linked-dates.component.stories.ts": [
@@ -13050,28 +13050,6 @@
                     "defaultValue": "args => ({\r\n  props: {\r\n    ...args,\r\n    question: {\r\n      ...defaultQuestion,\r\n      QuestionText: args[\"question.QuestionText\"],\r\n      CascadeOptionsText: args[\"question.CascadeOptionsText\"],\r\n      Required: args[\"question.Required\"],\r\n      DateAndTime: args[\"question.DateAndTime\"],\r\n      DateAndTime2: args[\"question.DateAndTime2\"]\r\n    }\r\n  }\r\n})"
                 }
             ],
-            "src/app/core/pages/document-builder/components/question-types/19-signature/signature.component.stories.ts": [
-                {
-                    "name": "Default",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/core/pages/document-builder/components/question-types/19-signature/signature.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "Template.bind({})"
-                },
-                {
-                    "name": "Template",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/core/pages/document-builder/components/question-types/19-signature/signature.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "StoryFn<Story>",
-                    "defaultValue": "args => ({\r\n  props: {\r\n    ...args,\r\n    question: {\r\n      ...defaultQuestion,\r\n      QuestionText: args[\"question.QuestionText\"],\r\n      Required: args[\"question.Required\"],\r\n      AnswerText: args[\"question.AnswerText\"]\r\n    }\r\n  }\r\n})"
-                }
-            ],
             "src/app/core/pages/document-builder/components/question-types/29-select-text/select-text.component.stories.ts": [
                 {
                     "name": "Default",
@@ -13092,28 +13070,6 @@
                     "deprecationMessage": "",
                     "type": "StoryFn<Story>",
                     "defaultValue": "args => ({\r\n  props: {\r\n    ...args,\r\n    question: {\r\n      ...defaultQuestion,\r\n      QuestionText: args[\"question.QuestionText\"],\r\n      Required: args[\"question.Required\"],\r\n      AnswerText: args[\"question.AnswerText\"],\r\n      Options: args[\"question.Options\"],\r\n      CanHaveImg: args[\"question.CanHaveImg\"],\r\n      CanHaveFiles: args[\"question.CanHaveFiles\"]\r\n    }\r\n  }\r\n})"
-                }
-            ],
-            "src/app/core/pages/document-builder/components/question-types/30-cascade-select-text/cascade-select-text.component.stories.ts": [
-                {
-                    "name": "Default",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/core/pages/document-builder/components/question-types/30-cascade-select-text/cascade-select-text.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "Template.bind({})"
-                },
-                {
-                    "name": "Template",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/core/pages/document-builder/components/question-types/30-cascade-select-text/cascade-select-text.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "StoryFn<Story>",
-                    "defaultValue": "args => ({\r\n  props: {\r\n    ...args,\r\n    question: {\r\n      ...defaultQuestion,\r\n      QuestionText: args[\"question.QuestionText\"],\r\n      CommentsText: args[\"question.CommentsText\"],\r\n      Required: args[\"question.Required\"],\r\n      Options: args[\"question.Options\"],\r\n      CascadeOptions: args[\"question.CascadeOptions\"],\r\n      CanHaveImg: args[\"question.CanHaveImg\"],\r\n      CanHaveFiles: args[\"question.CanHaveFiles\"]\r\n    }\r\n  }\r\n})"
                 }
             ],
             "src/app/core/pages/document-builder/components/question-types/32-time/time.component.stories.ts": [
@@ -13138,6 +13094,28 @@
                     "defaultValue": "args => ({\r\n  props: {\r\n    ...args,\r\n    question: {\r\n      ...defaultQuestion,\r\n      QuestionText: args[\"question.QuestionText\"],\r\n      Required: args[\"question.Required\"],\r\n      DateAndTime: args[\"question.DateAndTime\"]\r\n    }\r\n  }\r\n})"
                 }
             ],
+            "src/app/core/pages/document-builder/components/question-types/30-cascade-select-text/cascade-select-text.component.stories.ts": [
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/core/pages/document-builder/components/question-types/30-cascade-select-text/cascade-select-text.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/core/pages/document-builder/components/question-types/30-cascade-select-text/cascade-select-text.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "StoryFn<Story>",
+                    "defaultValue": "args => ({\r\n  props: {\r\n    ...args,\r\n    question: {\r\n      ...defaultQuestion,\r\n      QuestionText: args[\"question.QuestionText\"],\r\n      CommentsText: args[\"question.CommentsText\"],\r\n      Required: args[\"question.Required\"],\r\n      Options: args[\"question.Options\"],\r\n      CascadeOptions: args[\"question.CascadeOptions\"],\r\n      CanHaveImg: args[\"question.CanHaveImg\"],\r\n      CanHaveFiles: args[\"question.CanHaveFiles\"]\r\n    }\r\n  }\r\n})"
+                }
+            ],
             "src/app/core/pages/document-builder/components/question-types/33-linked-times/linked-times.component.stories.ts": [
                 {
                     "name": "Default",
@@ -13160,12 +13138,12 @@
                     "defaultValue": "args => ({\r\n  props: {\r\n    ...args,\r\n    question: {\r\n      ...defaultQuestion,\r\n      QuestionText: args[\"question.QuestionText\"],\r\n      CascadeOptionsText: args[\"question.CascadeOptionsText\"],\r\n      Required: args[\"question.Required\"],\r\n      DateAndTime: args[\"question.DateAndTime\"]\r\n    }\r\n  }\r\n})"
                 }
             ],
-            "src/app/core/pages/document-builder/components/question-types/extras/file-upload/file-upload.component.stories.ts": [
+            "src/app/core/pages/document-builder/components/question-types/17-asset-list/asset-list.component.stories.ts": [
                 {
                     "name": "Default",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "src/app/core/pages/document-builder/components/question-types/extras/file-upload/file-upload.component.stories.ts",
+                    "file": "src/app/core/pages/document-builder/components/question-types/17-asset-list/asset-list.component.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "",
@@ -13175,11 +13153,11 @@
                     "name": "Template",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "src/app/core/pages/document-builder/components/question-types/extras/file-upload/file-upload.component.stories.ts",
+                    "file": "src/app/core/pages/document-builder/components/question-types/17-asset-list/asset-list.component.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "type": "StoryFn<FileUploadComponent>",
-                    "defaultValue": "(args: FileUploadComponent) => ({\r\n  props: args\r\n})"
+                    "type": "StoryFn<Story>",
+                    "defaultValue": "args => ({\r\n  props: {\r\n    ...args,\r\n    question: {\r\n      ...defaultQuestion,\r\n      QuestionText: args[\"question.QuestionText\"],\r\n      Assets: args[\"question.Assets\"]\r\n    }\r\n  }\r\n})"
                 }
             ],
             "src/app/core/pages/document-builder/components/question-types/extras/camera-capture/camera-capture.component.stories.ts": [
@@ -13204,6 +13182,28 @@
                     "defaultValue": "(args: CameraCaptureComponent) => ({\r\n  props: args\r\n})"
                 }
             ],
+            "src/app/core/pages/document-builder/components/question-types/extras/file-upload/file-upload.component.stories.ts": [
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/core/pages/document-builder/components/question-types/extras/file-upload/file-upload.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/core/pages/document-builder/components/question-types/extras/file-upload/file-upload.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "StoryFn<FileUploadComponent>",
+                    "defaultValue": "(args: FileUploadComponent) => ({\r\n  props: args\r\n})"
+                }
+            ],
             "src/environments/environment.prod.ts": [
                 {
                     "name": "environment",
@@ -13213,7 +13213,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "object",
-                    "defaultValue": "{\r\n  production: true,\r\n  siteDocsApi: \"http://localhost:3002/api\",\r\n  apiTimeout: 60000\r\n}"
+                    "defaultValue": "{\n  production: true,\n  siteDocsApi: \"http://localhost:3002/api\",\n  apiTimeout: 60000\n}"
                 }
             ],
             "src/environments/environment.ts": [
@@ -13225,7 +13225,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "object",
-                    "defaultValue": "{\r\n  production: false,\r\n  siteDocsApi: \"http://localhost:3002/api\",\r\n  apiTimeout: 60000\r\n}"
+                    "defaultValue": "{\n  production: false,\n  siteDocsApi: \"http://localhost:3002/api\",\n  apiTimeout: 60000\n}"
                 }
             ],
             "src/app/shared/plugins/device.plugin.ts": [
@@ -13271,7 +13271,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Preview",
-                    "defaultValue": "{\r\n  globalTypes: {\r\n    iosMode: {\r\n      name: \"IOS Mode\",\r\n      defaultValue: false\r\n    }\r\n  },\r\n  parameters: {\r\n    actions: { argTypesRegex: \"^on[A-Z].*\" },\r\n    controls: {\r\n      matchers: {\r\n        color: /(background|color)$/i,\r\n        date: /Date$/,\r\n      },\r\n    },\r\n  },\r\n  decorators: [\r\n    applicationConfig({\r\n      providers: [\r\n        importProvidersFrom(IonicModule.forRoot({})),\r\n        provideHttpClient(),\r\n        //provideHttpClientTesting()\r\n      ]\r\n    }),\r\n    componentWrapperDecorator(story => `<ion-app>${story}</ion-app>`)\r\n  ]\r\n}"
+                    "defaultValue": "{\r\n  globalTypes: {\r\n    iosMode: {\r\n      name: \"IOS Mode\",\r\n      defaultValue: false\r\n    }\r\n  },\r\n  parameters: {\r\n    actions: { argTypesRegex: \"^on[A-Z].*\" },\r\n    controls: {\r\n      matchers: {\r\n        color: /(background|color)$/i,\r\n        date: /Date$/,\r\n      },\r\n    },\r\n  },\r\n  decorators: [\r\n    applicationConfig({\r\n      providers: [\r\n        importProvidersFrom(IonicModule.forRoot({})),\r\n        provideHttpClient(),\r\n        provideHttpClientTesting()\r\n      ]\r\n    }),\r\n    componentWrapperDecorator(story => `<ion-app>${story}</ion-app>`)\r\n  ]\r\n}"
                 }
             ],
             "src/app/core/stores/user/user.store.ts": [
@@ -13346,7 +13346,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "",
-                    "defaultValue": "createStore(\r\n  { name: \"site-documents\" },\r\n  withEntities<CategoryActioner, \"Id\">({ idKey: \"Id\" })\r\n)"
+                    "defaultValue": "createStore(\n  { name: \"site-documents\" },\n  withEntities<CategoryActioner, \"Id\">({ idKey: \"Id\" })\n)"
                 }
             ],
             "src/app/core/stores/operative/operatives.store.ts": [
@@ -13398,7 +13398,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "",
-                    "defaultValue": "createStore(\r\n  { name: \"responsibility-area-types\" },\r\n  withEntities<ResponsibilityAreaType, \"Id\">({ idKey: \"Id\" })\r\n)"
+                    "defaultValue": "createStore(\n  { name: \"responsibility-area-types\" },\n  withEntities<ResponsibilityAreaType, \"Id\">({ idKey: \"Id\" })\n)"
                 }
             ],
             "src/app/core/stores/site-document/site-document.store.ts": [
@@ -13422,7 +13422,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "",
-                    "defaultValue": "createStore(\n  { name: \"site-document-image\" }, \n  withEntities<SiteDocumentImage, \"DocumentId\">({ idKey: \"DocumentId\" })\n)"
+                    "defaultValue": "createStore(\r\n  { name: \"site-document-image\" }, \r\n  withEntities<SiteDocumentImage, \"DocumentId\">({ idKey: \"DocumentId\" })\r\n)"
                 }
             ],
             "src/app/core/stores/site-document/form-filler/form-filler.store.ts": [
@@ -14386,7 +14386,7 @@
                             "type": "AdapterConfig<boolean, BooleanState, TProps>",
                             "deprecated": false,
                             "deprecationMessage": "",
-                            "destrucuredGroupId": "ccbcf237-8505-4dae-9bd1-51266973ce89",
+                            "destrucuredGroupId": "15212f9f-2fcd-406e-be1f-1fd1deffb89f",
                             "destructuredParameter": true
                         },
                         {
@@ -14394,7 +14394,7 @@
                             "type": "",
                             "deprecated": false,
                             "deprecationMessage": "",
-                            "destrucuredGroupId": "ccbcf237-8505-4dae-9bd1-51266973ce89",
+                            "destrucuredGroupId": "15212f9f-2fcd-406e-be1f-1fd1deffb89f",
                             "destructuredParameter": true
                         },
                         {
@@ -14402,7 +14402,7 @@
                             "type": "",
                             "deprecated": false,
                             "deprecationMessage": "",
-                            "destrucuredGroupId": "ccbcf237-8505-4dae-9bd1-51266973ce89",
+                            "destrucuredGroupId": "15212f9f-2fcd-406e-be1f-1fd1deffb89f",
                             "destructuredParameter": true
                         }
                     ],
@@ -14412,7 +14412,7 @@
                             "type": "AdapterConfig<boolean, BooleanState, TProps>",
                             "deprecated": false,
                             "deprecationMessage": "",
-                            "destrucuredGroupId": "ccbcf237-8505-4dae-9bd1-51266973ce89",
+                            "destrucuredGroupId": "15212f9f-2fcd-406e-be1f-1fd1deffb89f",
                             "destructuredParameter": true,
                             "tagName": {
                                 "text": "param"
@@ -14423,7 +14423,7 @@
                             "type": "",
                             "deprecated": false,
                             "deprecationMessage": "",
-                            "destrucuredGroupId": "ccbcf237-8505-4dae-9bd1-51266973ce89",
+                            "destrucuredGroupId": "15212f9f-2fcd-406e-be1f-1fd1deffb89f",
                             "destructuredParameter": true,
                             "tagName": {
                                 "text": "param"
@@ -14434,7 +14434,7 @@
                             "type": "",
                             "deprecated": false,
                             "deprecationMessage": "",
-                            "destrucuredGroupId": "ccbcf237-8505-4dae-9bd1-51266973ce89",
+                            "destrucuredGroupId": "15212f9f-2fcd-406e-be1f-1fd1deffb89f",
                             "destructuredParameter": true,
                             "tagName": {
                                 "text": "param"
@@ -14727,7 +14727,7 @@
                             "type": "AdapterConfig<number, NumberState, TProps>",
                             "deprecated": false,
                             "deprecationMessage": "",
-                            "destrucuredGroupId": "4cdc33e5-9d29-4a47-82c1-7b604a7966be",
+                            "destrucuredGroupId": "af18cf87-6872-45a4-a7ae-7fca1f4fd7fa",
                             "destructuredParameter": true
                         },
                         {
@@ -14735,7 +14735,7 @@
                             "type": "",
                             "deprecated": false,
                             "deprecationMessage": "",
-                            "destrucuredGroupId": "4cdc33e5-9d29-4a47-82c1-7b604a7966be",
+                            "destrucuredGroupId": "af18cf87-6872-45a4-a7ae-7fca1f4fd7fa",
                             "destructuredParameter": true
                         },
                         {
@@ -14743,7 +14743,7 @@
                             "type": "",
                             "deprecated": false,
                             "deprecationMessage": "",
-                            "destrucuredGroupId": "4cdc33e5-9d29-4a47-82c1-7b604a7966be",
+                            "destrucuredGroupId": "af18cf87-6872-45a4-a7ae-7fca1f4fd7fa",
                             "destructuredParameter": true
                         }
                     ],
@@ -14753,7 +14753,7 @@
                             "type": "AdapterConfig<number, NumberState, TProps>",
                             "deprecated": false,
                             "deprecationMessage": "",
-                            "destrucuredGroupId": "4cdc33e5-9d29-4a47-82c1-7b604a7966be",
+                            "destrucuredGroupId": "af18cf87-6872-45a4-a7ae-7fca1f4fd7fa",
                             "destructuredParameter": true,
                             "tagName": {
                                 "text": "param"
@@ -14764,7 +14764,7 @@
                             "type": "",
                             "deprecated": false,
                             "deprecationMessage": "",
-                            "destrucuredGroupId": "4cdc33e5-9d29-4a47-82c1-7b604a7966be",
+                            "destrucuredGroupId": "af18cf87-6872-45a4-a7ae-7fca1f4fd7fa",
                             "destructuredParameter": true,
                             "tagName": {
                                 "text": "param"
@@ -14775,7 +14775,7 @@
                             "type": "",
                             "deprecated": false,
                             "deprecationMessage": "",
-                            "destrucuredGroupId": "4cdc33e5-9d29-4a47-82c1-7b604a7966be",
+                            "destrucuredGroupId": "af18cf87-6872-45a4-a7ae-7fca1f4fd7fa",
                             "destructuredParameter": true,
                             "tagName": {
                                 "text": "param"
@@ -14827,7 +14827,7 @@
                             "type": "AdapterTarget<TState>",
                             "deprecated": false,
                             "deprecationMessage": "",
-                            "destrucuredGroupId": "daf0a4e7-936f-4eac-a3ad-f91a90b57ddc",
+                            "destrucuredGroupId": "7cca30e9-78d1-4d61-a4e8-9de27dc2d26a",
                             "destructuredParameter": true
                         },
                         {
@@ -14835,7 +14835,7 @@
                             "type": "",
                             "deprecated": false,
                             "deprecationMessage": "",
-                            "destrucuredGroupId": "daf0a4e7-936f-4eac-a3ad-f91a90b57ddc",
+                            "destrucuredGroupId": "7cca30e9-78d1-4d61-a4e8-9de27dc2d26a",
                             "destructuredParameter": true
                         }
                     ],
@@ -14845,7 +14845,7 @@
                             "type": "AdapterTarget<TState>",
                             "deprecated": false,
                             "deprecationMessage": "",
-                            "destrucuredGroupId": "daf0a4e7-936f-4eac-a3ad-f91a90b57ddc",
+                            "destrucuredGroupId": "7cca30e9-78d1-4d61-a4e8-9de27dc2d26a",
                             "destructuredParameter": true,
                             "tagName": {
                                 "text": "param"
@@ -14856,7 +14856,7 @@
                             "type": "",
                             "deprecated": false,
                             "deprecationMessage": "",
-                            "destrucuredGroupId": "daf0a4e7-936f-4eac-a3ad-f91a90b57ddc",
+                            "destrucuredGroupId": "7cca30e9-78d1-4d61-a4e8-9de27dc2d26a",
                             "destructuredParameter": true,
                             "tagName": {
                                 "text": "param"
@@ -15653,19 +15653,6 @@
                     "kind": 177
                 }
             ],
-            "src/app/core/pages/document-builder/components/question-types/00-label/label.component.stories.ts": [
-                {
-                    "name": "Story",
-                    "ctype": "miscellaneous",
-                    "subtype": "typealias",
-                    "rawtype": "",
-                    "file": "src/app/core/pages/document-builder/components/question-types/00-label/label.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "description": "",
-                    "kind": 187
-                }
-            ],
             "src/app/core/pages/document-builder/components/question-types/01-checkbox/checkbox.component.stories.ts": [
                 {
                     "name": "Story",
@@ -15686,6 +15673,19 @@
                     "subtype": "typealias",
                     "rawtype": "",
                     "file": "src/app/core/pages/document-builder/components/question-types/02-radio-table/radio-table.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 187
+                }
+            ],
+            "src/app/core/pages/document-builder/components/question-types/00-label/label.component.stories.ts": [
+                {
+                    "name": "Story",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "",
+                    "file": "src/app/core/pages/document-builder/components/question-types/00-label/label.component.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
@@ -15809,19 +15809,6 @@
                     "kind": 187
                 }
             ],
-            "src/app/core/pages/document-builder/components/question-types/10-operative-list/operative-list.component.stories.ts": [
-                {
-                    "name": "Story",
-                    "ctype": "miscellaneous",
-                    "subtype": "typealias",
-                    "rawtype": "",
-                    "file": "src/app/core/pages/document-builder/components/question-types/10-operative-list/operative-list.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "description": "",
-                    "kind": 187
-                }
-            ],
             "src/app/core/pages/document-builder/components/question-types/12-number/number.component.stories.ts": [
                 {
                     "name": "Story",
@@ -15829,6 +15816,19 @@
                     "subtype": "typealias",
                     "rawtype": "",
                     "file": "src/app/core/pages/document-builder/components/question-types/12-number/number.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 187
+                }
+            ],
+            "src/app/core/pages/document-builder/components/question-types/10-operative-list/operative-list.component.stories.ts": [
+                {
+                    "name": "Story",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "",
+                    "file": "src/app/core/pages/document-builder/components/question-types/10-operative-list/operative-list.component.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
@@ -15861,13 +15861,13 @@
                     "kind": 187
                 }
             ],
-            "src/app/core/pages/document-builder/components/question-types/17-asset-list/asset-list.component.stories.ts": [
+            "src/app/core/pages/document-builder/components/question-types/19-signature/signature.component.stories.ts": [
                 {
                     "name": "Story",
                     "ctype": "miscellaneous",
                     "subtype": "typealias",
                     "rawtype": "",
-                    "file": "src/app/core/pages/document-builder/components/question-types/17-asset-list/asset-list.component.stories.ts",
+                    "file": "src/app/core/pages/document-builder/components/question-types/19-signature/signature.component.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
@@ -15887,19 +15887,6 @@
                     "kind": 187
                 }
             ],
-            "src/app/core/pages/document-builder/components/question-types/19-signature/signature.component.stories.ts": [
-                {
-                    "name": "Story",
-                    "ctype": "miscellaneous",
-                    "subtype": "typealias",
-                    "rawtype": "",
-                    "file": "src/app/core/pages/document-builder/components/question-types/19-signature/signature.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "description": "",
-                    "kind": 187
-                }
-            ],
             "src/app/core/pages/document-builder/components/question-types/29-select-text/select-text.component.stories.ts": [
                 {
                     "name": "Story",
@@ -15907,19 +15894,6 @@
                     "subtype": "typealias",
                     "rawtype": "",
                     "file": "src/app/core/pages/document-builder/components/question-types/29-select-text/select-text.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "description": "",
-                    "kind": 187
-                }
-            ],
-            "src/app/core/pages/document-builder/components/question-types/30-cascade-select-text/cascade-select-text.component.stories.ts": [
-                {
-                    "name": "Story",
-                    "ctype": "miscellaneous",
-                    "subtype": "typealias",
-                    "rawtype": "",
-                    "file": "src/app/core/pages/document-builder/components/question-types/30-cascade-select-text/cascade-select-text.component.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
@@ -15939,6 +15913,19 @@
                     "kind": 187
                 }
             ],
+            "src/app/core/pages/document-builder/components/question-types/30-cascade-select-text/cascade-select-text.component.stories.ts": [
+                {
+                    "name": "Story",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "",
+                    "file": "src/app/core/pages/document-builder/components/question-types/30-cascade-select-text/cascade-select-text.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 187
+                }
+            ],
             "src/app/core/pages/document-builder/components/question-types/33-linked-times/linked-times.component.stories.ts": [
                 {
                     "name": "Story",
@@ -15946,6 +15933,19 @@
                     "subtype": "typealias",
                     "rawtype": "",
                     "file": "src/app/core/pages/document-builder/components/question-types/33-linked-times/linked-times.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 187
+                }
+            ],
+            "src/app/core/pages/document-builder/components/question-types/17-asset-list/asset-list.component.stories.ts": [
+                {
+                    "name": "Story",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "",
+                    "file": "src/app/core/pages/document-builder/components/question-types/17-asset-list/asset-list.component.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
