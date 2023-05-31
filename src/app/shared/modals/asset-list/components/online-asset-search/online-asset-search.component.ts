@@ -14,38 +14,36 @@ import { environment } from "src/environments/environment";
     ion-list { height: calc(100% - 58px) }
   `],
   template: `
-    <ion-searchbar [(ngModel)]="searchRegistration" (keyup.enter)="search.next()" />
+    <ion-searchbar [(ngModel)]="searchRegistration" (keyup.enter)="tracking.fire()" />
     
-    <ng-container *rxIf="assetsTracking$; let assetsTracking">
-      <if [condition]="assetsTracking.isLoading$ | push">
-        <ion-list show>
-          <ion-item lines="none">
-            <ion-skeleton-text [animated]="true" />
-          </ion-item>
-          <ion-item lines="none">
-            <ion-skeleton-text [animated]="true" />
-          </ion-item>
-          <ion-item lines="none">
-            <ion-skeleton-text [animated]="true" />
-          </ion-item>
-          <ion-item lines="none">
-            <ion-skeleton-text [animated]="true" />
-          </ion-item>
-        </ion-list>
+    <if [condition]="tracking.isLoading() | push">
+      <ion-list show>
+        <ion-item lines="none">
+          <ion-skeleton-text [animated]="true" />
+        </ion-item>
+        <ion-item lines="none">
+          <ion-skeleton-text [animated]="true" />
+        </ion-item>
+        <ion-item lines="none">
+          <ion-skeleton-text [animated]="true" />
+        </ion-item>
+        <ion-item lines="none">
+          <ion-skeleton-text [animated]="true" />
+        </ion-item>
+      </ion-list>
 
-        <ion-list else>
-          <rx-virtual-scroll-viewport [itemSize]="50">
-            <ion-item 
-              *rxVirtualFor="let asset of assetsTracking.data$"
-              (click)="select.emit(asset)"
-              class="w-full" 
-              button>
-              {{ asset.Id }} - {{ asset.Registration }}
-            </ion-item>
-          </rx-virtual-scroll-viewport>
-        </ion-list>
-      </if>
-    </ng-container>
+      <ion-list else>
+        <rx-virtual-scroll-viewport [itemSize]="50">
+          <ion-item 
+            *rxVirtualFor="let asset of tracking.data()"
+            (click)="select.emit(asset)"
+            class="w-full" 
+            button>
+            {{ asset.Id }} - {{ asset.Registration }}
+          </ion-item>
+        </rx-virtual-scroll-viewport>
+      </ion-list>
+    </if>
   `,
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -63,12 +61,12 @@ export class OnlineAssetSearchComponent {
   searchRegistration: string = "";
   search = use();
 
-  assetsTracking$ = this.search(() => track(() => this.httpClient.get<Asset[]>(`${environment.siteDocsApi}/AssetApi/GetAssetsByReg`, {
+  tracking = track(() => this.httpClient.get<Asset[]>(`${environment.siteDocsApi}/AssetApi/GetAssetsByReg`, {
     params: {
       searchString: this.searchRegistration
     }
-  })));
-  
+  }));
+
   @Output()
   select = new EventEmitter<Asset>();
 }

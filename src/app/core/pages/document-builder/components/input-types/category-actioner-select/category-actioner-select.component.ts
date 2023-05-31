@@ -53,11 +53,11 @@ export class CategoryActionerSelectComponent extends AngularComponent(withAfterV
   @Output()
   actionerIdChange = new EventEmitter<number>();
 
-  categoryActioners$: Observable<CategoryActioner[]> = merge(this.afterViewInit$(), this.input$("categoryId")).pipe(
+  categoryActioners$: Observable<CategoryActioner[]> = merge(this.afterViewInit(), this.input("categoryId")).pipe(
     switchMap(() => this.categoryActionersStore.categoryActionersById$(this.categoryId))
   );
 
-  visibleCatActioners$: Observable<CategoryActioner[]> = merge(this.afterViewInit$(), this.input$("hideMyself")).pipe(
+  visibleCatActioners$: Observable<CategoryActioner[]> = merge(this.afterViewInit(), this.input("hideMyself")).pipe(
     switchMap(() => combineLatest({
       user: this.userStore.user$,
       catActioners: this.categoryActioners$
@@ -68,7 +68,7 @@ export class CategoryActionerSelectComponent extends AngularComponent(withAfterV
     )
   );
 
-  selectedActioner$: Observable<CategoryActioner | null> = merge(this.afterViewInit$(), this.input$("actionerId")).pipe(
+  selectedActioner$: Observable<CategoryActioner | null> = merge(this.afterViewInit(), this.input("actionerId")).pipe(
     switchMap(() => this.categoryActioners$),
     map(catActioners => catActioners.find(ca => ca.Id === this.actionerId) || null)
   );

@@ -3,7 +3,6 @@ import { PushPipe } from "@rx-angular/template/push";
 import { AngularComponent, withAfterViewInit, withOnChanges } from "../../lifecycles";
 import { Observable, map, merge } from "rxjs";
 import { format, parse } from "date-fns";
-import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 
 @Component({
   selector: "time-picker",
@@ -29,8 +28,7 @@ export class TimePickerComponent extends AngularComponent(withAfterViewInit, wit
   @Input()
   time: Date = new Date();
   
-  timeValue$: Observable<string> = merge(this.afterViewInit$(), this.input$("time")).pipe(
-    takeUntilDestroyed(),
+  timeValue$: Observable<string> = merge(this.afterViewInit(), this.input("time")).pipe(
     map(() => format(this.time, "hh:mm"))
   );
 

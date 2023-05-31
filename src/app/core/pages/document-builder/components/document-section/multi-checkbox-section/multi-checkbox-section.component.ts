@@ -4,9 +4,10 @@ import { IonicModule } from "@ionic/angular";
 import { importRxTemplate, importRxVirtualScroll } from "src/app/shared/imports";
 import { CheckboxComponent } from "../../question-types/01-checkbox/checkbox.component";
 import { FusePipe } from "src/app/shared/pipes";
-import { Question, Section } from "src/app/core/stores/site-document/models";
-import { BehaviorSubject, map } from "rxjs";
-import { AutoSizeVirtualScrollStrategy, FixedSizeVirtualScrollStrategy } from "@rx-angular/template/experimental/virtual-scrolling";
+import { Section } from "src/app/core/stores/site-document/models";
+import { FixedSizeVirtualScrollStrategy } from "@rx-angular/template/experimental/virtual-scrolling";
+import { use, using } from "src/app/shared/rxjs";
+import { AngularComponent, withAfterViewInit } from "src/app/shared/lifecycles";
 
 @Component({
   selector: "multi-checkbox-section",
@@ -18,10 +19,12 @@ import { AutoSizeVirtualScrollStrategy, FixedSizeVirtualScrollStrategy } from "@
       </ion-item>
     </ion-list>
 
-    <ion-list>
-      <ion-item *rxFor="let question of selectedQuestions$" class="w-full">
-        {{ question.QuestionText }}
-      </ion-item>
+    <ion-list class="max-h-96" [style.height]="listHeight() | push">
+      <rx-virtual-scroll-viewport [itemSize]="50">
+        <ion-item *rxVirtualFor="let question of selectedQuestions()" class="w-full">
+          {{ question.QuestionText }}
+        </ion-item>
+      </rx-virtual-scroll-viewport>
     </ion-list>
 
     <ion-modal #modal [trigger]="id">
@@ -30,7 +33,7 @@ import { AutoSizeVirtualScrollStrategy, FixedSizeVirtualScrollStrategy } from "@
           <ion-toolbar>
             <ion-title class="text-center">Select Responses</ion-title>
             <ion-buttons slot="end">
-              <ion-button (click)="modal.dismiss(); questions$.next(section.Questions)">
+              <ion-button (click)="modal.dismiss(); saved.next()">
                 <ion-icon name="close-outline" slot="icon-only" />
               </ion-button>
             </ion-buttons>
@@ -65,22 +68,23 @@ import { AutoSizeVirtualScrollStrategy, FixedSizeVirtualScrollStrategy } from "@
   imports: [
     IonicModule,
     ...importRxTemplate(),
-    ...importRxVirtualScroll(FixedSizeVirtualScrollStrategy, AutoSizeVirtualScrollStrategy),
+    ...importRxVirtualScroll(FixedSizeVirtualScrollStrategy),
     FormsModule,
     CheckboxComponent,
     FusePipe
   ]
 })
-export class MultiCheckboxSectionComponent {
+export class MultiCheckboxSectionComponent extends AngularComponent(withAfterViewInit) {
   id = crypto.randomUUID();
 
   @Input({ required: true })
   section!: Section;
+  saved = use();
+  questions = using(this.afterViewInit(), this.saved())
+    .calculate(() => this.section.Questions);
 
   searchValue: string = "";
 
-  questions$ = new BehaviorSubject<Question[]>([]);
-  selectedQuestions$ = this.questions$.pipe(
-    map(questions => questions.filter(q => q.YesNoNA))
-  );
+  selectedQuestions = this.questions(questions => questions.filter(q => q.YesNoNA));
+  listHeight = this.selectedQuestions(questions => (questions.length * 50) + "px");
 }

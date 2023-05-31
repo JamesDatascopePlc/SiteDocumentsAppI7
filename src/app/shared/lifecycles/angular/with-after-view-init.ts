@@ -1,20 +1,13 @@
-import { Subject, map } from "rxjs";
 import { ReactiveConstructor } from "../types";
+import { use } from "../../rxjs";
 
 export function withAfterViewInit<TBase extends ReactiveConstructor>(Base: TBase) {
   return class extends Base {
-    private _afterViewInit$ = new Subject<void>();
-    readonly afterViewInit$ = this._afterViewInit$.pipe.bind(this._afterViewInit$);
+    readonly afterViewInit = use();
 
     ngAfterViewInit() {
-      this._afterViewInit$.next();
-      this._afterViewInit$.complete();
-    }
-
-    afterViewInit<T>(project: () => T) {
-      return this._afterViewInit$.pipe(
-        map(project)
-      );
+      this.afterViewInit.next();
+      this.afterViewInit.complete();
     }
   }
 }

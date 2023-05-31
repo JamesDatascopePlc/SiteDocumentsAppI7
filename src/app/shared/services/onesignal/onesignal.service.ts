@@ -13,23 +13,24 @@ export class OneSignalService {
   protected toastCtrl = inject(ToastController);
   protected notificationReceived = use<NotificationReceivedEvent>();
 
+  protected toast$ = this.notificationReceived(
+    map(nr => nr.getNotification()),
+    switchMap(notification => this.toastCtrl.create({
+      header: notification.title,
+      message: notification.body,
+      duration: 5000,
+      position: "top"
+    })),
+    tap(toast => toast.present())
+  )();
+
   async startup() {
     const device = await Device.getInfo();
 
     if (device.platform === "web")
       return;
 
-    this.notificationReceived(
-      map(nr => nr.getNotification()),
-      switchMap(notification => this.toastCtrl.create({
-        header: notification.title,
-        message: notification.body,
-        duration: 5000,
-        position: "top"
-      })),
-      tap(toast => toast.present())
-    )
-    .subscribe();
+    this.toast$.subscribe();
 
     OneSignal.setAppId("");
 

@@ -26,7 +26,7 @@ export interface PaginatedList<T> {
           <ion-toolbar>
             <ion-title class="text-center">
               Templates
-              <ion-spinner *rxIf="templatesTracking.isLoading$" class="float-right" />
+              <ion-spinner *rxIf="templatesTracking.isLoading()" class="float-right" />
             </ion-title>
           </ion-toolbar>
         </ion-header>
@@ -34,7 +34,7 @@ export interface PaginatedList<T> {
         <ion-content class="ion-padding">
           <ion-list class="h-full">
             <rx-virtual-scroll-viewport [itemSize]="50">
-              <ion-item *rxVirtualFor="let template of templatesTracking.data$" class="w-full" (click)="select.emit(template.DocumentID); modal.dismiss()" button>
+              <ion-item *rxVirtualFor="let template of templatesTracking.data()" class="w-full" (click)="select.emit(template.DocumentID); modal.dismiss()" button>
                 {{ template.DocumentTitle }}
               </ion-item>
             </rx-virtual-scroll-viewport>
@@ -72,7 +72,8 @@ export class TemplateMenuModal {
     map(res => res.Items),
     reduce((acc, docs) => [...acc, ...docs]),
     map(tpls => orderBy(tpls, "DocumentTitle"))
-  ));
+  ))
+  .fire();
 
   @Input()
   isOpen: boolean = false;

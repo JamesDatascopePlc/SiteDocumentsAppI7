@@ -78,12 +78,12 @@ export class SignaturePadComponent extends AngularComponent(withAfterViewInit) {
   signaturePad = use<SignaturePad>();
   resize = use();
 
-  width$ = merge(this.afterViewInit$(), this.resize()).pipe(
+  width$ = merge(this.afterViewInit(), this.resize()).pipe(
     debounceTime(300),
     map(() => this.parentElement("offsetWidth") - 2)
   );
 
-  height$ = merge(this.afterViewInit$(), this.resize()).pipe(
+  height$ = merge(this.afterViewInit(), this.resize()).pipe(
     debounceTime(300),
     map(() => this.parentElement("offsetHeight") - 2)
   );

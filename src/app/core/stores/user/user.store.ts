@@ -79,7 +79,7 @@ export interface Site {
 
 export interface Company {
   Id: number,
-  Text: string
+  Name: string
 }
 
 const {

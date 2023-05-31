@@ -52,8 +52,8 @@ export class ActionerSelectComponent extends AngularComponent(withAfterViewInit,
   actionerIdChange = new EventEmitter<number>();
 
   selectedActioner$: Observable<Operative | null> = merge(
-    this.afterViewInit$(), 
-    this.input$("actionerId"), 
+    this.afterViewInit(), 
+    this.input("actionerId"), 
     this.actionerIdChange
   ).pipe(
     switchMap(() => this.operatives$),

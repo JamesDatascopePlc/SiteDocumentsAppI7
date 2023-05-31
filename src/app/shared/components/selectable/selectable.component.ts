@@ -107,3 +107,31 @@ export class SelectableComponent<T = unknown> {
 
   searchValue: string = "";
 }
+
+// export class Selectable<T = unknown> {
+//   id = crypto.randomUUID();
+
+//   @Input("placeholder") set _placeholder(placeholder: string) { this.placeholder.next(placeholder); }
+//   placeholder = use<string>("");
+
+//   items: T[] = [];
+
+//   @Input("itemText") set _itemText(itemText: keyof T | null) { this.itemText.next(itemText); }
+//   itemText = use<keyof T | null>(null);
+
+//   @Input("value") set _value(value: T) { this.value.next(value); }
+//   value = use<T | null>(null);
+
+//   label$ = combineLatest({ 
+//     placeholder: this.placeholder(), 
+//     itemText: this.itemText(),
+//     value: this.value()
+//   }).pipe(
+//     map(({ placeholder, itemText, value }) => value == null 
+//       ? placeholder
+//       : itemText != null
+//         ? value[itemText]
+//         : value
+//     )
+//   )
+// }

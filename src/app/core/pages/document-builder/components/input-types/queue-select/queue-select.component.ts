@@ -53,8 +53,8 @@ export class QueueSelectComponent extends AngularComponent(withAfterViewInit, wi
   queueIdChange = new EventEmitter<number>();
 
   queue$: Observable<{ id: number, name: string } | null> = merge(
-    this.afterViewInit$(),
-    this.input$("queueId")
+    this.afterViewInit(),
+    this.input("queueId")
   ).pipe(
     takeUntilDestroyed(),
     map(() => this.queues.find(q => q.id === this.queueId) || null)

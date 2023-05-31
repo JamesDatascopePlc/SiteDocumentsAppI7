@@ -51,7 +51,7 @@ export class ResponsibilityAreaSelectComponent extends AngularComponent(withAfte
   @Output()
   responsibilityAreaTypeIdChange = new EventEmitter<number>();
 
-  responsibilityAreaType$: Observable<ResponsibilityAreaType | undefined> = merge(this.afterViewInit$(), this.input$("responsibilityAreaTypeId")).pipe(
+  responsibilityAreaType$: Observable<ResponsibilityAreaType | undefined> = merge(this.afterViewInit(), this.input("responsibilityAreaTypeId")).pipe(
     switchMap(() => this.responsibilityAreaTypesStore.responsibilityAreaTypeById$(this.responsibilityAreaTypeId))
   );
 }

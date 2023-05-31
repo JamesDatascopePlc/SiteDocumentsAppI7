@@ -109,7 +109,7 @@ export class DocumentImageUploadComponent extends AngularComponent(withOnChanges
     source: CameraSource.Photos
   }
 
-  docImages$: Observable<string> = this.input$("document").pipe(
+  docImages$: Observable<string> = this.input("document").pipe(
     map(() => this.document.DocumentGroup)
   );
 

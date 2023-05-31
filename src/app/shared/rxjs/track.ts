@@ -1,7 +1,7 @@
-import { Observable, catchError, lastValueFrom, tap } from "rxjs";
+import { Observable, catchError, take, tap } from "rxjs";
 import { use } from "../rxjs";
 
-export type TrackingStatus = "Idle" | "Success" | "Error" | "Loading"
+export type TrackingStatus = "Idle" | "Success" | "Error" | "Loading";
 
 export class Track<TResult, TParams = void> {
   status = use<TrackingStatus>("Idle");
@@ -17,7 +17,8 @@ export class Track<TResult, TParams = void> {
   fire(params: TParams) {
     this.status.next("Loading");
 
-    lastValueFrom(this.fn(params).pipe(
+    this.fn(params).pipe(
+      take(1),
       tap(value => {
         this.status.next("Success");
         this.data.next(value);
@@ -28,7 +29,8 @@ export class Track<TResult, TParams = void> {
 
         return caught;
       })
-    ));
+    )
+    .subscribe();
 
     return this;
   }

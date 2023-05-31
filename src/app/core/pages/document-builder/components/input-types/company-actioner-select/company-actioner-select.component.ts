@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, inject } from "@angular/core";
-import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { IonicModule } from "@ionic/angular";
 import { Observable, map, merge, switchMap } from "rxjs";
 import { Company, UserStore } from "src/app/core/stores/user/user.store";
@@ -22,7 +21,7 @@ import { AngularComponent, withAfterViewInit, withOnChanges } from "src/app/shar
             [items]="companies$ | push"
             [value]="selectedCompany$ | push"
             (valueChange)="companyChange($event)"
-            itemText="Text"
+            itemText="Name"
             [canClear]="false" />
         </ion-list>
       </ion-card-content>
@@ -50,8 +49,7 @@ export class CompanyActionerSelectComponent extends AngularComponent(withAfterVi
   @Output()
   companyIdChange = new EventEmitter<number>();
 
-  selectedCompany$: Observable<Company | null> = merge(this.afterViewInit$(), this.input$("companyId")).pipe(
-    takeUntilDestroyed(),
+  selectedCompany$: Observable<Company | null> = merge(this.afterViewInit(), this.input("companyId")).pipe(
     switchMap(() => this.companies$),
     map(companies => companies.find(c => c.Id === this.companyId) || null)
   );

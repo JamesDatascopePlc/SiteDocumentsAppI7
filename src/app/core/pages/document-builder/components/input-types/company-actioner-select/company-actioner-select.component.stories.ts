@@ -11,7 +11,7 @@ const userStoreMock: Partial<UserStore> = {
     .map((val, idx) => 
       ({
         Id: idx,
-        Text: faker.company.name()
+        Name: faker.company.name()
       })
   ))
 }

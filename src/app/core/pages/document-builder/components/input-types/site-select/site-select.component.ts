@@ -53,7 +53,7 @@ export class SiteSelectComponent extends AngularComponent(withAfterViewInit, wit
 
   sites$ = this.userStore.sites$;
 
-  selectedSite$: Observable<Site | null> = merge(this.afterViewInit$(), this.input$("siteId")).pipe(
+  selectedSite$: Observable<Site | null> = merge(this.afterViewInit(), this.input("siteId")).pipe(
     switchMap(() => this.sites$),
     map(sites => sites.find(s => s.Id === this.siteId) || null)
   );

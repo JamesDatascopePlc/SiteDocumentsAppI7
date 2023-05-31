@@ -1,19 +1,14 @@
-import { Subject, map } from "rxjs";
 import { ReactiveConstructor } from "../types";
+import { use } from "../../rxjs";
 
 export function withIonViewDidLeave<TBase extends ReactiveConstructor>(Base: TBase) {
   return class extends Base {
-    private _ionViewDidLeave$ = new Subject<void>();
-    readonly ionViewDidLeave$ = this._ionViewDidLeave$.pipe.bind(this._ionViewDidLeave$);
+    readonly viewWillLeave = use();
 
     /** Fired when the component routing to has finished animating */
     ionViewWillLeave() {
-      this._ionViewDidLeave$.next();
-      this._ionViewDidLeave$.complete();
-    }
-
-    viewDidEnter<T>(project: () => T) {
-      return this._ionViewDidLeave$.pipe(map(project));
+      this.viewWillLeave.next();
+      this.viewWillLeave.complete();
     }
   }
 }
