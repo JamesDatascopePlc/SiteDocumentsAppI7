@@ -89,9 +89,14 @@ import { ActivatedRoute, Router } from "@angular/router";
             <asset-list-question *ngSwitchCase="QuestionType.AssetList" [question]="question" />
             <linked-dates-question *ngSwitchCase="QuestionType.LinkedDates" [question]="question" />
             <signature-question *ngSwitchCase="QuestionType.Signature" [question]="question" />
+            <company-select-question *ngSwitchCase="QuestionType.CompanySelect" [question]="question" />
+            <area-select-question *ngSwitchCase="QuestionType.AreaSelect" [question]="question" />
+            <asset-groups-and-types-question *ngSwitchCase="QuestionType.AssetGroupsAndTypes" [question]="question" />
             <select-text-question *ngSwitchCase="QuestionType.SelectText" [question]="question" />
             <time-question *ngSwitchCase="QuestionType.Time" [question]="question" />
             <linked-times-question *ngSwitchCase="QuestionType.LinkedTimes" [question]="question" />
+            <hra-select-question *ngSwitchCase="QuestionType.HraSelect" [question]="question" />
+            <linked-datetime-question *ngSwitchCase="QuestionType.LinkedDateAndTime" [question]="question" />
           </ng-template>
         </document-section>
       </document-page>

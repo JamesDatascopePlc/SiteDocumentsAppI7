@@ -1,15 +1,13 @@
-import { ChangeDetectionStrategy, Component, Input, inject } from "@angular/core";
+import { ChangeDetectionStrategy, Component, Input } from "@angular/core";
 import { IonicModule } from "@ionic/angular";
 import { importRxTemplate } from "src/app/shared/imports";
 import { CameraCaptureComponent, FileUploadComponent, QuestionTextComponent } from "../extras";
 import { SelectableComponent } from "src/app/shared/components";
 import { Question } from "src/app/core/stores/site-document/models";
-import { LoginApi } from "src/app/core/http/login.api";
-import { track } from "src/app/shared/rxjs";
-import { memoize } from "lodash-es";
+import { AssetInspectionSchedule } from "src/app/core/stores/asset/asset.store";
 
 @Component({
-  selector: "company-select-question",
+  selector: "asset-inspection-schedules-question",
   template: `
     <ion-list>
       <ion-item lines="none">
@@ -21,8 +19,8 @@ import { memoize } from "lodash-es";
       <selectable
         placeholder="Select"
         [title]="question.QuestionText"
-        [items]="companies.data() | push"
-        itemText="Name"
+        [items]="schedules"
+        itemText="ScheduleName"
         [canClear]="!question.Required" />
     </ion-list>
   `,
@@ -37,15 +35,9 @@ import { memoize } from "lodash-es";
     FileUploadComponent
   ]
 })
-export class CompanySelectComponent {
-  companies = useCompanies();
-
+export class AssetInspectionSchedulesComponent {
   @Input({ required: true })
   question!: Question;
+
+  schedules: AssetInspectionSchedule[] = [];
 }
-
-const useCompanies = memoize(() => {
-  const loginApi = inject(LoginApi);
-
-  return track(() => loginApi.getCompanies()).fire();
-})

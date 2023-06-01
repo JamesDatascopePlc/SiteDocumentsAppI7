@@ -82,6 +82,12 @@ export interface Company {
   Name: string
 }
 
+export interface Area {
+  Id: number,
+  SiteId: number,
+  Name: string
+}
+
 const {
   withAppUser, 
   selectAppUser, 

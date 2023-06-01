@@ -1,15 +1,14 @@
-import { ChangeDetectionStrategy, Component, Input, inject } from "@angular/core";
+import { ChangeDetectionStrategy, Component, Input } from "@angular/core";
 import { IonicModule } from "@ionic/angular";
 import { importRxTemplate } from "src/app/shared/imports";
 import { CameraCaptureComponent, FileUploadComponent, QuestionTextComponent } from "../extras";
 import { SelectableComponent } from "src/app/shared/components";
 import { Question } from "src/app/core/stores/site-document/models";
-import { LoginApi } from "src/app/core/http/login.api";
-import { track } from "src/app/shared/rxjs";
-import { memoize } from "lodash-es";
+import { AssetGroup, AssetType } from "src/app/core/stores/asset/asset.store";
+import { FusePipe } from "src/app/shared/pipes";
 
 @Component({
-  selector: "company-select-question",
+  selector: "asset-groups-and-types-question",
   template: `
     <ion-list>
       <ion-item lines="none">
@@ -17,12 +16,27 @@ import { memoize } from "lodash-es";
         <camera-capture *rxIf="question.CanHaveImg" class="ion-no-margin" slot="end" />
         <file-upload *rxIf="question.CanHaveFiles" class="ion-no-margin" slot="end" />
       </ion-item>
+      
+      <selectable 
+        placeholder="Select"
+        [title]="question.QuestionText"
+        [items]="assetGroups"
+        itemText="GroupName"
+        [canClear]="!question.Required" />
+
+      <ion-item lines="none">
+        <question-text [required]="question.Required">{{ question.CascadeOptionsText }}</question-text>
+      </ion-item>
 
       <selectable
         placeholder="Select"
-        [title]="question.QuestionText"
-        [items]="companies.data() | push"
-        itemText="Name"
+        [title]="question.CascadeOptionsText"
+        [items]="assetTypes
+          | fuse: {
+            search: question.OptionVal,
+            keys: ['Id']
+          }"
+        itemText="Text"
         [canClear]="!question.Required" />
     </ion-list>
   `,
@@ -34,18 +48,15 @@ import { memoize } from "lodash-es";
     QuestionTextComponent,
     SelectableComponent,
     CameraCaptureComponent,
-    FileUploadComponent
+    FileUploadComponent,
+    FusePipe
   ]
 })
-export class CompanySelectComponent {
-  companies = useCompanies();
-
+export class AssetGroupsAndTypesComponent {
   @Input({ required: true })
   question!: Question;
+
+  assetGroups: AssetGroup[] = [];
+  assetTypes: AssetType[] = [];
 }
 
-const useCompanies = memoize(() => {
-  const loginApi = inject(LoginApi);
-
-  return track(() => loginApi.getCompanies()).fire();
-})

@@ -1,15 +1,17 @@
-import { ChangeDetectionStrategy, Component, Input, inject } from "@angular/core";
+import { ChangeDetectionStrategy, Component, Input } from "@angular/core";
 import { IonicModule } from "@ionic/angular";
 import { importRxTemplate } from "src/app/shared/imports";
 import { CameraCaptureComponent, FileUploadComponent, QuestionTextComponent } from "../extras";
 import { SelectableComponent } from "src/app/shared/components";
 import { Question } from "src/app/core/stores/site-document/models";
-import { LoginApi } from "src/app/core/http/login.api";
-import { track } from "src/app/shared/rxjs";
-import { memoize } from "lodash-es";
+
+interface HighRiskActivity {
+  Id: number,
+  Activity: string
+}
 
 @Component({
-  selector: "company-select-question",
+  selector: "hra-select-question",
   template: `
     <ion-list>
       <ion-item lines="none">
@@ -17,12 +19,11 @@ import { memoize } from "lodash-es";
         <camera-capture *rxIf="question.CanHaveImg" class="ion-no-margin" slot="end" />
         <file-upload *rxIf="question.CanHaveFiles" class="ion-no-margin" slot="end" />
       </ion-item>
-
-      <selectable
+      <selectable 
         placeholder="Select"
         [title]="question.QuestionText"
-        [items]="companies.data() | push"
-        itemText="Name"
+        [items]="hras"
+        itemText="Activity"
         [canClear]="!question.Required" />
     </ion-list>
   `,
@@ -37,15 +38,9 @@ import { memoize } from "lodash-es";
     FileUploadComponent
   ]
 })
-export class CompanySelectComponent {
-  companies = useCompanies();
-
+export class HraSelectComponent {
   @Input({ required: true })
   question!: Question;
+
+  hras: HighRiskActivity[] = [];
 }
-
-const useCompanies = memoize(() => {
-  const loginApi = inject(LoginApi);
-
-  return track(() => loginApi.getCompanies()).fire();
-})

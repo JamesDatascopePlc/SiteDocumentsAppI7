@@ -112,7 +112,7 @@ export enum QuestionType {
   MultiCascade = 31,
   Time = 32,
   LinkedTimes = 33,
-  HRASelect = 34,
+  HraSelect = 34,
   MultiCheckbox = 35,
   LinkedDateAndTime = 36
 }

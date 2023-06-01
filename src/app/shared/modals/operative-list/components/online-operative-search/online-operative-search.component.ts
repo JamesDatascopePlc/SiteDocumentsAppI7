@@ -1,19 +1,17 @@
 import { ChangeDetectionStrategy, Component, Input, inject } from "@angular/core";
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { IonicModule } from "@ionic/angular";
 import { importRxTemplate, importRxFixedVirtualScroll } from "src/app/shared/imports";
-import { OperativesStore } from "src/app/core/stores/operative/operatives.store";
-import { reaction } from "src/app/shared/reactions";
 import { FormsModule } from "@angular/forms";
-import { switchMap } from "rxjs";
 import { IfComponent } from "src/app/shared/components";
+import { track } from "src/app/shared/rxjs";
+import { OperativeApi } from "src/app/core/http/operative.api";
 
 @Component({
   selector: "online-operative-search",
   template: `
-    <ion-searchbar [(ngModel)]="searchName" (keyup.enter)="search()" />
+    <ion-searchbar [(ngModel)]="searchName" (keyup.enter)="operativeSearch.fire()" />
 
-    <if [condition]="searchResultsIsPending$ | push">
+    <if [condition]="operativeSearch.isLoading() | push">
       <ion-list show>
         <ion-item lines="none">
           <ion-skeleton-text [animated]="true" />
@@ -32,7 +30,7 @@ import { IfComponent } from "src/app/shared/components";
       <ion-list else class="h-full">
         <rx-virtual-scroll-viewport [itemSize]="50">
           <ion-item 
-            *rxVirtualFor="let op of searchResults$; last as isLast"
+            *rxVirtualFor="let op of operativeSearch.data(); last as isLast"
             class="w-full"
             [lines]="isLast ? 'none' : 'inset'"
             button>
@@ -53,18 +51,15 @@ import { IfComponent } from "src/app/shared/components";
   ]
 })
 export class OnlineOperativeSearchComponent {
-  operativesStore = inject(OperativesStore);
-
-  searchResults$ = this.operativesStore.searchResults$;
-  searchResultsIsPending$ = this.operativesStore.searchResultsIsPending$;
+  operativeApi = inject(OperativeApi);
 
   @Input()
   noAppLimit: boolean = true;
 
   searchName: string = "";
   
-  search = reaction($entered => $entered(
-    takeUntilDestroyed(),
-    switchMap(() => this.operativesStore.getSearchResults({ search: this.searchName, noAppLimit: this.noAppLimit }))
-  ));
+  operativeSearch = track(() => this.operativeApi.getOperativesByName({
+    noAppLimit: this.noAppLimit,
+    search: this.searchName
+  }));
 }

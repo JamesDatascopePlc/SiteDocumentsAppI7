@@ -8,6 +8,24 @@ export interface Asset {
   Registration: string | null
 }
 
+export interface AssetGroup {
+  GroupId: number,
+  GroupName: string,
+  SiteId: number
+  Types: AssetType[]
+}
+
+export interface AssetType {
+  Id: number,
+  Description: string,
+  GroupId: number
+}
+
+export interface AssetInspectionSchedule {
+  ScheduleID: number,
+  ScheduleName: string
+}
+
 const store = createStore(
   { name: "assets" },
   withEntities<Asset, "Id">({ idKey: "Id" })

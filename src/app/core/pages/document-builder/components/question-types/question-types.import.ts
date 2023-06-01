@@ -17,9 +17,15 @@ import { LinkedBoolComponent } from "./16-linked-bool/linked-bool.component";
 import { AssetListComponent } from "./17-asset-list/asset-list.component";
 import { LinkedDatesComponent } from "./18-linked-dates/linked-dates.component";
 import { SignatureComponent } from "./19-signature/signature.component";
+import { CompanySelectComponent } from "./21-company-select/company-select.component";
+import { AreaSelectComponent } from "./22-area-select/area-select.component";
+import { AssetGroupsAndTypesComponent } from "./25-asset-groups-and-types/asset-groups-and-types.component";
+import { RamsSelectComponent } from "./28-rams-select/rams-select.component";
 import { SelectTextComponent } from "./29-select-text/select-text.component";
 import { TimeComponent } from "./32-time/time.component";
 import { LinkedTimesComponent } from "./33-linked-times/linked-times.component";
+import { HraSelectComponent } from "./34-hra-select/hra-select.component";
+import { LinkedDatetimeComponent } from "./36-linked-date-time/linked-datetime.component";
 
 export function importQuestionTypes() {
   return [
@@ -42,8 +48,14 @@ export function importQuestionTypes() {
     AssetListComponent,
     LinkedDatesComponent,
     SignatureComponent,
+    CompanySelectComponent,
+    AreaSelectComponent,
+    AssetGroupsAndTypesComponent,
+    RamsSelectComponent,
     SelectTextComponent,
     TimeComponent,
-    LinkedTimesComponent
+    LinkedTimesComponent,
+    HraSelectComponent,
+    LinkedDatetimeComponent
   ]
 }

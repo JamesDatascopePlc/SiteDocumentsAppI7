@@ -3,7 +3,7 @@ import Fuse from 'fuse.js'
 import { Observable, map } from "rxjs";
 
 export interface FuseOptions<T> extends Omit<Fuse.IFuseOptions<T>, "keys"> {
-  search: string,
+  search: string | null | undefined,
   keys?: keyof T | Array<keyof T>
 }
 
@@ -12,8 +12,8 @@ export interface FuseOptions<T> extends Omit<Fuse.IFuseOptions<T>, "keys"> {
   standalone: true
 })
 export class FusePipe implements PipeTransform {
-  transform<T>(values: Observable<T[]>, options: FuseOptions<T>): Observable<T[]>
   transform<T>(values: T[], options: FuseOptions<T>): T[] 
+  transform<T>(values: Observable<T[]>, options: FuseOptions<T>): Observable<T[]>
   transform<T>(values: Observable<T[]> | T[], options: FuseOptions<T>): Observable<T[]> | T[] {
     if (options.search == null || options.search.length === 0)
       return values;
@@ -25,7 +25,7 @@ export class FusePipe implements PipeTransform {
           ignoreLocation: true,
           ...options as Fuse.IFuseOptions<T>
         })
-        .search(options.search)
+        .search(options.search!)
         .map(val => val.item))
       )
       : new Fuse(values, { 

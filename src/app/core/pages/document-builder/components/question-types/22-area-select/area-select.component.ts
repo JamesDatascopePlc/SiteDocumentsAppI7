@@ -1,15 +1,15 @@
-import { ChangeDetectionStrategy, Component, Input, inject } from "@angular/core";
+import { ChangeDetectionStrategy, Component, Injectable, Input, inject } from "@angular/core";
 import { IonicModule } from "@ionic/angular";
 import { importRxTemplate } from "src/app/shared/imports";
 import { CameraCaptureComponent, FileUploadComponent, QuestionTextComponent } from "../extras";
 import { SelectableComponent } from "src/app/shared/components";
 import { Question } from "src/app/core/stores/site-document/models";
+import { track } from "src/app/shared/rxjs/track";
 import { LoginApi } from "src/app/core/http/login.api";
-import { track } from "src/app/shared/rxjs";
 import { memoize } from "lodash-es";
 
 @Component({
-  selector: "company-select-question",
+  selector: "area-select-question",
   template: `
     <ion-list>
       <ion-item lines="none">
@@ -21,7 +21,7 @@ import { memoize } from "lodash-es";
       <selectable
         placeholder="Select"
         [title]="question.QuestionText"
-        [items]="companies.data() | push"
+        [items]="areas.data() | push"
         itemText="Name"
         [canClear]="!question.Required" />
     </ion-list>
@@ -37,15 +37,23 @@ import { memoize } from "lodash-es";
     FileUploadComponent
   ]
 })
-export class CompanySelectComponent {
-  companies = useCompanies();
-
+export class AreaSelectComponent {
   @Input({ required: true })
   question!: Question;
+  
+  areas = useAreas();
 }
 
-const useCompanies = memoize(() => {
-  const loginApi = inject(LoginApi);
-
-  return track(() => loginApi.getCompanies()).fire();
+@Injectable({
+  providedIn: "root"
 })
+class AreaService {
+  loginApi = inject(LoginApi);
+  
+  useAreas = memoize(() => track(() => this.loginApi.getAreas()).fire());
+}
+
+export function useAreas() {
+  const svc = inject(AreaService);
+  return svc.useAreas();
+}
