@@ -6,7 +6,8 @@ export default {
   title: "Shared/Datetime",
   component: DatetimePickerComponent,
   argTypes: {
-    id: { type: "string" },
+    min: { control: "date" },
+    max: { control: "date" },
     datetime: { control: "date" },
     presentation: { control: "select", options: ["date", "date-time"] }
   },
@@ -24,7 +25,6 @@ const Template: StoryFn<DatetimePickerComponent> = (args: DatetimePickerComponen
 export const Default = Template.bind({});
 
 Default.args = {
-  id: new Date().toISOString(),
   datetime: new Date(),
   presentation: "date-time"
 }
@@ -32,7 +32,6 @@ Default.args = {
 export const DateOnly = Template.bind({});
 
 DateOnly.args = {
-  id: new Date().toISOString(),
   datetime: new Date(),
   presentation: "date"
 }

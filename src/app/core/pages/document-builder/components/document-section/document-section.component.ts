@@ -5,18 +5,15 @@ import { Question, QuestionType, Section } from "src/app/core/stores/site-docume
 import { IfComponent } from "src/app/shared/components";
 import { importRxTemplate } from "src/app/shared/imports";
 import { MultiCheckboxSectionComponent } from "./multi-checkbox-section/multi-checkbox-section.component";
+import { AngularDirective, withTemplateContextGuard } from "src/app/shared/lifecycles";
 
 @Directive({
   selector: "ng-template[questions]",
   standalone: true
 })
-export class QuestionTemplateDirective {
+export class QuestionsTemplateDirective extends AngularDirective(withTemplateContextGuard<Question>) {
   @Input()
   questions!: Question[];
-
-  static ngTemplateContextGuard(dir: QuestionTemplateDirective, ctx: unknown): ctx is { $implicit: Question } {
-    return true;
-  }
 }
 
 @Component({
@@ -36,7 +33,7 @@ export class QuestionTemplateDirective {
       <multi-checkbox-section show [section]="section" />
 
       <ng-container else *rxFor="let question of section.Questions">
-        <ng-container *ngTemplateOutlet="questions; context: { $implicit: question }" />
+        <ng-container *ngTemplateOutlet="questionsTpl; context: { $implicit: question }" />
       </ng-container>
     </if>
   `,
@@ -48,7 +45,7 @@ export class QuestionTemplateDirective {
     NgTemplateOutlet,
     IfComponent,
     MultiCheckboxSectionComponent,
-    QuestionTemplateDirective
+    QuestionsTemplateDirective
   ]
 })
 export class DocumentSectionComponent {
@@ -57,6 +54,6 @@ export class DocumentSectionComponent {
   @Input()
   section!: Section;
 
-  @ContentChild(QuestionTemplateDirective, { read: TemplateRef }) 
-  questions!: TemplateRef<unknown>;
+  @ContentChild(QuestionsTemplateDirective, { read: TemplateRef }) 
+  questionsTpl!: TemplateRef<unknown>;
 }

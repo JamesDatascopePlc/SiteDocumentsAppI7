@@ -1,4 +1,4 @@
-export { QuestionTemplateDirective } from "./document-section/document-section.component";
+export { QuestionsTemplateDirective } from "./document-section/document-section.component";
 
 export { ChildDocumentCardComponent } from "./child-document-card/child-document-card.component";
 export { DocumentPageComponent } from "./document-page/document-page.component";

@@ -74,5 +74,6 @@ export const defaultQuestion: Question = {
   DateAndTime2: new Date(),
   Options: [],
   CascadeOptions: [],
-  YesNoNA: null
+  YesNoNA: null,
+  ValidationData: []
 }

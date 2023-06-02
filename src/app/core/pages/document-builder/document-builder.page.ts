@@ -5,7 +5,7 @@ import { filter, merge, shareReplay, switchMap } from "rxjs";
 import { IfComponent } from "src/app/shared/components";
 import { importNgSwitch, importRxTemplate } from "src/app/shared/imports";
 import { FormFillerStore } from "../../stores/site-document/form-filler/form-filler.store";
-import { DocumentPageComponent, DocumentSectionComponent, QuestionTemplateDirective, importInputTypes, importQuestionTypes } from "./components";
+import { DocumentPageComponent, DocumentSectionComponent, QuestionsTemplateDirective, importInputTypes, importQuestionTypes } from "./components";
 import { clickReaction, reaction } from "src/app/shared/reactions";
 import { QuestionType, SiteDocument } from "../../stores/site-document/models";
 import { isMobileApp } from "src/app/shared/plugins/platform.plugin";
@@ -140,7 +140,7 @@ import { ActivatedRoute, Router } from "@angular/router";
     IfComponent,
     DocumentPageComponent,
     DocumentSectionComponent,
-    QuestionTemplateDirective,
+    QuestionsTemplateDirective,
     ...importInputTypes(),
     ...importQuestionTypes(),
     ...importDocumentBuilderModals()

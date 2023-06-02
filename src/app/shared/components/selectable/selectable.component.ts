@@ -1,12 +1,26 @@
-import { Component, EventEmitter, Input, Output } from "@angular/core";
+import { Component, ContentChild, Directive, EventEmitter, Input, Output, TemplateRef } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { IonicModule } from "@ionic/angular";
 import { importRxFixedVirtualScroll, importRxTemplate } from "../../imports";
 import { FusePipe } from "../../pipes";
+import { AngularDirective, withGenericTemplateContextGuard } from "../../lifecycles";
+
+@Directive({
+  selector: "ng-template[items]",
+  standalone: true
+})
+export class ItemsTemplateDirective<T> extends AngularDirective(withGenericTemplateContextGuard) {
+  @Input()
+  items!: T[];
+}
 
 @Component({
   selector: "selectable",
   template: `
+    <!-- <ng-template #itemTpl let-item>
+      <ion-label class="ion-text-wrap">{{ itemText != null ? item[itemText] : item }}</ion-label>
+    </ng-template> -->
+
     <ion-item [id]="id" detail="false" button>
       <ion-label [color]="value == null ? 'medium' : ''" class="ion-text-wrap">
       {{ 
@@ -106,6 +120,9 @@ export class SelectableComponent<T = unknown> {
   canClear: boolean = true;
 
   searchValue: string = "";
+
+  @ContentChild(ItemsTemplateDirective, { read: ItemsTemplateDirective })
+  itemsTpl!: TemplateRef<unknown>;
 }
 
 // export class Selectable<T = unknown> {

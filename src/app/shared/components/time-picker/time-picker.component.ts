@@ -8,6 +8,14 @@ import { format, parse } from "date-fns";
   selector: "time-picker",
   styles: [`
     :host { display: contents }
+
+    input[type="time"] {
+      width: 100%;
+      padding: 0 6px;
+      border: 0px;
+      background-color:rgba(0, 0, 0, 0);
+      -webkit-appearance: none;
+    }
   `],
   template: `
     <input 

@@ -1,11 +1,13 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, inject } from "@angular/core";
 import { IonicModule } from "@ionic/angular";
-import { Observable, map, merge, switchMap } from "rxjs";
+import { memoize } from "lodash-es";
+import { LoginApi } from "src/app/core/http/login.api";
 import { Site, UserStore } from "src/app/core/stores/user/user.store";
 import { SelectableComponent } from "src/app/shared/components";
 import { importRxTemplate } from "src/app/shared/imports";
 import { AngularComponent, withAfterViewInit, withOnChanges } from "src/app/shared/lifecycles";
 import { isMobileApp } from "src/app/shared/plugins/platform.plugin";
+import { track } from "src/app/shared/rxjs";
 
 @Component({
   selector: "site-select",
@@ -21,9 +23,8 @@ import { isMobileApp } from "src/app/shared/plugins/platform.plugin";
         <selectable 
           [title]="title || 'Select a site'" 
           placeholder="Select Site"
-          [items]="sites$ | push"
+          [items]="sites.data() | push"
           itemText="Name"
-          [value]="selectedSite$ | push"
           (valueChange)="siteChange($event)"
           [canClear]="false" />
       </ion-card-content>
@@ -51,15 +52,16 @@ export class SiteSelectComponent extends AngularComponent(withAfterViewInit, wit
   @Output()
   siteIdChange = new EventEmitter<number>();
 
-  sites$ = this.userStore.sites$;
-
-  selectedSite$: Observable<Site | null> = merge(this.afterViewInit(), this.input("siteId")).pipe(
-    switchMap(() => this.sites$),
-    map(sites => sites.find(s => s.Id === this.siteId) || null)
-  );
+  sites = useSites();
 
   siteChange(site: Site | null) {
     this.siteId = site!.Id;
     this.siteIdChange.emit(this.siteId);
   }
 }
+
+const useSites = memoize(() => {
+  const loginApi = inject(LoginApi);
+
+  return track(() => loginApi.getSites());
+});

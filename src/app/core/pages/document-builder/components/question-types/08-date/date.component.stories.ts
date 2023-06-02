@@ -14,7 +14,8 @@ export default {
     question: { table: { disable: true } },
     "question.QuestionText": { name: "QuestionText", control: "text" },
     "question.Required": { name: "Required", control: "boolean" },
-    "question.DateAndTime": { name: "DateAndTime", control: "date" }
+    "question.DateAndTime": { name: "DateAndTime", control: "date" },
+    "question.ValidationData": { name: "ValidationDate", control: "object" }
   }
 } as StorybookMeta<Story>;
 
@@ -25,7 +26,8 @@ const Template: StoryFn<Story> = args => ({
       ...defaultQuestion,
       QuestionText: args["question.QuestionText"],
       Required: args["question.Required"],
-      DateAndTime: args["question.DateAndTime"]
+      DateAndTime: args["question.DateAndTime"],
+      ValidationData: args["question.ValidationData"]
     }
   }
 });
@@ -35,5 +37,17 @@ export const Default = Template.bind({});
 Default.args = {
   "question.QuestionText": "Select Date",
   "question.Required": true,
-  "question.DateAndTime": new Date()
+  "question.DateAndTime": new Date(),
+  "question.ValidationData": [
+    {
+      Key: "Min",
+      Msg: "",
+      Value: "72"
+    },
+    {
+      Key: "Max",
+      Msg: "",
+      Value: "72"
+    }
+  ]
 }

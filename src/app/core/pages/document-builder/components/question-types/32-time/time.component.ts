@@ -14,6 +14,7 @@ import { TimePickerComponent } from "src/app/shared/components";
 
       <ion-item>
         <time-picker [(time)]="question.DateAndTime" class="w-full" />
+        <ion-icon name="time-outline" slot="end"></ion-icon>
       </ion-item>
     </ion-list>
   `,

@@ -137,6 +137,13 @@ export interface Question {
   CanHaveImg: boolean;
   CanHaveFiles: boolean;
   SignaturePoints?: PointGroup[];
+  ValidationData: ValidationData[];
+}
+
+export interface ValidationData {
+  Key: "Min" | "Max",
+  Value: string,
+  Msg: string
 }
 
 export interface SelectOption {

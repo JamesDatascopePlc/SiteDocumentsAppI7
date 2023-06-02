@@ -7,6 +7,10 @@ import { Area, Company } from "../stores/user/user.store";
 export class LoginApi {
   http = inject(HttpClient);
   
+  getSites() {
+    return this.http.get<Company[]>(`${environment.siteDocsApi}/LoginApi/GetSites`);
+  }
+
   getCompanies() {
     return this.http.get<Company[]>(`${environment.siteDocsApi}/LoginApi/GetCompanies`);
   }
