@@ -1,8 +1,8 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, inject } from "@angular/core";
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from "@angular/core";
 import { IonicModule } from "@ionic/angular";
 import { memoize } from "lodash-es";
-import { LoginApi } from "src/app/core/http/login.api";
-import { Site, UserStore } from "src/app/core/stores/user/user.store";
+import { useLoginApi } from "src/app/core/http/login.api";
+import { Site } from "src/app/core/stores/user/user.store";
 import { SelectableComponent } from "src/app/shared/components";
 import { importRxTemplate } from "src/app/shared/imports";
 import { AngularComponent, withAfterViewInit, withOnChanges } from "src/app/shared/lifecycles";
@@ -24,7 +24,9 @@ import { track } from "src/app/shared/rxjs";
           [title]="title || 'Select a site'" 
           placeholder="Select Site"
           [items]="sites.data() | push"
+          itemValue="Id"
           itemText="Name"
+          [value]="siteId"
           (valueChange)="siteChange($event)"
           [canClear]="false" />
       </ion-card-content>
@@ -39,9 +41,8 @@ import { track } from "src/app/shared/rxjs";
   ]
 })
 export class SiteSelectComponent extends AngularComponent(withAfterViewInit, withOnChanges) {
-  userStore = inject(UserStore);
-
   isMobileApp = isMobileApp();
+  sites = useSites();
 
   @Input()
   title?: string;
@@ -52,16 +53,14 @@ export class SiteSelectComponent extends AngularComponent(withAfterViewInit, wit
   @Output()
   siteIdChange = new EventEmitter<number>();
 
-  sites = useSites();
-
-  siteChange(site: Site | null) {
-    this.siteId = site!.Id;
+  siteChange(siteId: number) {
+    this.siteId = siteId;
     this.siteIdChange.emit(this.siteId);
   }
 }
 
 const useSites = memoize(() => {
-  const loginApi = inject(LoginApi);
+  const loginApi = useLoginApi();
 
-  return track(() => loginApi.getSites());
+  return track(() => loginApi.getSites()).fire();
 });

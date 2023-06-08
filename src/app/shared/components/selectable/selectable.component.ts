@@ -3,7 +3,8 @@ import { FormsModule } from "@angular/forms";
 import { IonicModule } from "@ionic/angular";
 import { importRxFixedVirtualScroll, importRxTemplate } from "../../imports";
 import { FusePipe } from "../../pipes";
-import { AngularDirective, withGenericTemplateContextGuard } from "../../lifecycles";
+import { AngularComponent, AngularDirective, withAfterViewInit, withGenericTemplateContextGuard, withOnChanges } from "../../lifecycles";
+import { using } from "../../rxjs";
 
 @Directive({
   selector: "ng-template[items]",
@@ -22,16 +23,12 @@ export class ItemsTemplateDirective<T> extends AngularDirective(withGenericTempl
     </ng-template> -->
 
     <ion-item [id]="id" detail="false" button>
-      <ion-label [color]="value == null ? 'medium' : ''" class="ion-text-wrap">
+      <ion-label *rxLet="item(); let item" [color]="value == null ? 'medium' : ''" class="ion-text-wrap">
       {{ 
-        value == null 
-          ? placeholder
-          : itemText != null
-            ? value[itemText]
-            : value
+        item || placeholder
       }}
       </ion-label>
-      <ion-button *rxIf="canClear && value != null" (click)="$event.stopPropagation(); value = null; valueChange.emit(null)" fill="clear">
+      <ion-button *rxIf="canClear && value != null" (click)="$event.stopPropagation(); clear();" fill="clear">
         <ion-icon name="close-outline" color="danger" slot="icon-only" />
       </ion-button>
       <ion-icon name="caret-down-outline" slot="end" />
@@ -69,10 +66,7 @@ export class ItemsTemplateDirective<T> extends AngularDirective(withGenericTempl
                   }; 
                   last as isLast" 
                 class="w-full"
-                (click)="
-                  value = item; 
-                  valueChange.emit(item); 
-                  modal.dismiss()"
+                (click)="select(item); modal.dismiss();"
                 [lines]="isLast 
                   ? 'none' 
                   : 'inset'" 
@@ -95,7 +89,7 @@ export class ItemsTemplateDirective<T> extends AngularDirective(withGenericTempl
     FusePipe
   ]
 })
-export class SelectableComponent<T = unknown> {
+export class SelectableComponent<T = unknown> extends AngularComponent(withAfterViewInit, withOnChanges) {
   id = crypto.randomUUID();
 
   @Input()
@@ -108,13 +102,25 @@ export class SelectableComponent<T = unknown> {
   items: T[] = [];
 
   @Input()
-  itemText: keyof T | null = null;
+  itemText: keyof T | null | undefined = null;
 
   @Input()
-  value: T | null = null;
+  itemValue: keyof T | null | undefined = null;
+
+  @Input()
+  value: T[keyof T] | null | undefined = null;
 
   @Output()
-  valueChange = new EventEmitter<T | null>();
+  itemChange = new EventEmitter<T | null>();
+
+  @Output()
+  valueChange = new EventEmitter<any>();
+
+  item = using(this.afterViewInit(), this.input("value"), this.itemChange)
+    .calculate(() => this.itemValue != null 
+      ? this.items.find(item => item[this.itemValue as keyof T] === this.value)
+      : this.value
+    );
 
   @Input()
   canClear: boolean = true;
@@ -123,6 +129,21 @@ export class SelectableComponent<T = unknown> {
 
   @ContentChild(ItemsTemplateDirective, { read: ItemsTemplateDirective })
   itemsTpl!: TemplateRef<unknown>;
+
+  select(item: T) {
+    this.itemChange.emit(item);
+
+    if (this.itemValue != null) {
+      this.value = item[this.itemValue];
+      this.valueChange.emit(item[this.itemValue]);
+    }
+  }
+
+  clear() {
+    this.value = null;
+    this.itemChange.emit(null);
+    this.valueChange.emit(null);
+  }
 }
 
 // export class Selectable<T = unknown> {
