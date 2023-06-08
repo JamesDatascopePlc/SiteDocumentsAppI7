@@ -2,7 +2,10 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable, inject } from "@angular/core";
 import { createStore } from "@ngneat/elf";
 import { selectAllEntities, withEntities } from "@ngneat/elf-entities";
+import { memoize } from "lodash-es";
 import { map } from "rxjs";
+import { useLoginApi } from "../../http";
+import { track } from "src/app/shared/rxjs";
 
 export interface CategoryActioner {
   Id: number,
@@ -30,3 +33,9 @@ export class CategoryActionersStore {
     }
   });
 }
+
+export const useCategoryActioners = memoize((siteId: number) => {
+  const loginApi = useLoginApi();
+
+  return track(() => loginApi.getCategoryActioners({ siteId }))
+});

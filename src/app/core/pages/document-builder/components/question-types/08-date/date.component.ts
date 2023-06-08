@@ -5,7 +5,6 @@ import { DatetimePickerComponent } from "src/app/shared/components/datetime-pick
 import { QuestionTextComponent } from "../extras";
 import { AngularComponent, withAfterViewInit, withOnChanges } from "src/app/shared/lifecycles";
 import { using } from "src/app/shared/rxjs";
-import { addHours, subHours } from "date-fns";
 import { importRxTemplate } from "src/app/shared/imports";
 
 @Component({
@@ -42,12 +41,12 @@ export class DateComponent extends AngularComponent(withAfterViewInit, withOnCha
     .calculate(() => this.question.ValidationData.find(rule => rule.Key === "Max"));
 
   minDate = this.minRule(min => min != null 
-    ? subHours(new Date(), +min.Value)
+    ? new Date().subtrackHours(+min.Value)
     : null
   );
 
   maxDate = this.maxRule(max => max != null
-    ? addHours(new Date(), +max.Value)
+    ? new Date().addHours(+max.Value)
     : null
   );
 }

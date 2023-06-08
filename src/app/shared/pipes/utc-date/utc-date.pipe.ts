@@ -1,5 +1,4 @@
 import { Pipe, PipeTransform } from "@angular/core";
-import { format } from "date-fns";
 
 @Pipe({
   name: 'utcDate',
@@ -7,6 +6,6 @@ import { format } from "date-fns";
 })
 export class UtcDatePipe implements PipeTransform {
   transform(value: Date) {
-    return format(value, "yyyy-MM-dd");
+    return value.toFormat("yyyy-MM-dd")
   }
 }

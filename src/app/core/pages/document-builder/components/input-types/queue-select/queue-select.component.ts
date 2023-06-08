@@ -1,6 +1,4 @@
-import { AsyncPipe } from "@angular/common";
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from "@angular/core";
-import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { IonicModule } from "@ionic/angular";
 import { map, merge, Observable } from "rxjs";
 import { SelectableComponent } from "src/app/shared/components/selectable/selectable.component";
@@ -34,12 +32,10 @@ import { AngularComponent, withAfterViewInit, withOnChanges } from "src/app/shar
   imports: [
     IonicModule,
     ...importRxTemplate(),
-    SelectableComponent,
-    AsyncPipe
+    SelectableComponent
   ]
 })
 export class QueueSelectComponent extends AngularComponent(withAfterViewInit, withOnChanges) {
-
   @Input()
   title: string = "Select Queue";
 
@@ -56,7 +52,6 @@ export class QueueSelectComponent extends AngularComponent(withAfterViewInit, wi
     this.afterViewInit(),
     this.input("queueId")
   ).pipe(
-    takeUntilDestroyed(),
     map(() => this.queues.find(q => q.id === this.queueId) || null)
   );
 }

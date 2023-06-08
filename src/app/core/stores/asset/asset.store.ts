@@ -1,6 +1,5 @@
-import { Injectable } from "@angular/core";
-import { createStore } from "@ngneat/elf";
-import { selectAllEntities, withEntities } from "@ngneat/elf-entities";
+import { memoize } from "lodash-es";
+import { use } from "src/app/shared/rxjs";
 
 export interface Asset {
   Id : number,
@@ -26,12 +25,13 @@ export interface AssetInspectionSchedule {
   ScheduleName: string
 }
 
-const store = createStore(
-  { name: "assets" },
-  withEntities<Asset, "Id">({ idKey: "Id" })
-);
+// @Injectable({ providedIn: "root" })
+// class AssetStore {
+//   assets = use<Asset[]>([]);
+//   async mutate(mutation: (assets: Asset[]) => Asset[]) {
+//     const assets = await lastValueFrom(this.assets());
+//     this.assets.next(mutation(assets));
+//   }
+// }
 
-@Injectable({ providedIn: "root" })
-export class AssetStore {
-  assets$ = store.pipe(selectAllEntities());
-}
+export const useAssetStore = memoize(() => use<Asset[]>([]));

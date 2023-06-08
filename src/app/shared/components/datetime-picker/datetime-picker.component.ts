@@ -3,8 +3,6 @@ import { IonicModule } from "@ionic/angular";
 import { DateDirective } from "../../directives/date/date.directive";
 import { UtcDatePipe, UtcDateTimePipe } from "../../pipes";
 import { RxIf } from "@rx-angular/template/if";
-import { AngularComponent, withAfterViewInit, withOnChanges } from "../../lifecycles";
-import { isEqualOrAfter, isEqualOrBefore } from "../../utils/date.fns";
 
 @Component({
   selector: "datetime-picker",
@@ -36,7 +34,7 @@ import { isEqualOrAfter, isEqualOrBefore } from "../../utils/date.fns";
     DateDirective
   ]
 })
-export class DatetimePickerComponent extends AngularComponent(withAfterViewInit, withOnChanges) {
+export class DatetimePickerComponent {
   id = crypto.randomUUID();
 
   @Input()
@@ -58,13 +56,13 @@ export class DatetimePickerComponent extends AngularComponent(withAfterViewInit,
     const date = new Date(dateStr);
 
     if (this.min != null && this.max != null)
-      return isEqualOrAfter(date, this.min) && isEqualOrBefore(date, this.max);
+      return date.isEqualOrAfter(this.min) && date.isEqualOrBefore(this.max);
 
     if (this.min != null)
-      return isEqualOrAfter(date, this.min);
+      return date.isEqualOrAfter(this.min);
 
     if (this.max != null)
-      return isEqualOrBefore(date, this.max);
+      return date.isEqualOrBefore(this.max);
 
     return true;
   }

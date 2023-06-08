@@ -1,10 +1,10 @@
-import { ChangeDetectionStrategy, Component, Input, inject } from "@angular/core";
+import { ChangeDetectionStrategy, Component, Input } from "@angular/core";
 import { IonicModule } from "@ionic/angular";
 import { importRxTemplate, importRxFixedVirtualScroll } from "src/app/shared/imports";
 import { FormsModule } from "@angular/forms";
 import { IfComponent } from "src/app/shared/components";
 import { track } from "src/app/shared/rxjs";
-import { OperativeApi } from "src/app/core/http/operative.api";
+import { useOperativeApi } from "src/app/core/http";
 
 @Component({
   selector: "online-operative-search",
@@ -51,15 +51,17 @@ import { OperativeApi } from "src/app/core/http/operative.api";
   ]
 })
 export class OnlineOperativeSearchComponent {
-  operativeApi = inject(OperativeApi);
+  operativeApi = useOperativeApi();
 
   @Input()
   noAppLimit: boolean = true;
 
+  //siteId = query("siteId")?.toNumber();
   searchName: string = "";
   
   operativeSearch = track(() => this.operativeApi.getOperativesByName({
     noAppLimit: this.noAppLimit,
-    search: this.searchName
+    search: this.searchName,
+    //siteId: this.siteId
   }));
 }

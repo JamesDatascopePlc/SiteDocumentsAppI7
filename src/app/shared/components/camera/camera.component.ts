@@ -4,8 +4,7 @@ import { importRxTemplate } from "../../imports";
 import { isMobileApp } from "../../plugins/platform.plugin";
 import { IfComponent } from "../if/if.component";
 import { UploadComponent } from "../upload/upload.component";
-import { CameraDirective } from "../../directives";
-import { CameraResultType, ImageOptions, Photo } from "@capacitor/camera";
+import { Camera, CameraResultType, ImageOptions } from "@capacitor/camera";
 import { DataUrlFile } from "../../models/files/data-url-file.model";
 
 @Component({
@@ -13,7 +12,7 @@ import { DataUrlFile } from "../../models/files/data-url-file.model";
   template: `
     <ion-button [fill]="fill" [expand]="expand" [color]="color">
       <if [condition]="isMobileApp">
-        <div show [camera]="options" (takePhoto)="take($event)"></div>
+        <div show (click)="take()"></div>
         <upload else (uploadFiles)="upload($event)" accept="image/*" />
       </if>
       <ng-content></ng-content>
@@ -24,7 +23,6 @@ import { DataUrlFile } from "../../models/files/data-url-file.model";
   imports: [
     IonicModule, 
     ...importRxTemplate(),
-    CameraDirective,
     IfComponent,
     UploadComponent
   ]
@@ -44,11 +42,14 @@ export class CameraComponent {
   
   isMobileApp = isMobileApp();
 
+  @Input()
   options: ImageOptions = {
     resultType: CameraResultType.Base64
   };
 
-  take(photo: Photo) {
+  async take() {
+    const photo = await Camera.getPhoto(this.options);
+    
     this.takePhoto.emit(photo.base64String);
   }
 

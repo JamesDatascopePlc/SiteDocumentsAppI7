@@ -36,7 +36,7 @@ import { Operative } from "src/app/core/stores/operative/operatives.store";
           <local-operative-search 
             *ngSwitchCase="'local'" 
             [hideMyself]="hideMyself" 
-            (select)="operativeChange.emit($event); modal.dismiss();" />
+            (select)="select.emit($event); modal.dismiss();" />
           <online-operative-search *ngSwitchCase="'online'" />
         </ion-content>
       </ng-template>
@@ -66,5 +66,5 @@ export class OperativeListModal {
   segment: "local" | "online" = "local"
 
   @Output()
-  operativeChange = new EventEmitter<Operative>();
+  select = new EventEmitter<Operative>();
 }

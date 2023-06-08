@@ -2,10 +2,12 @@ import { HttpClient } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
 import { createStore, propsFactory } from "@ngneat/elf";
 import { localStorageStrategy, persistState } from "@ngneat/elf-persist-state";
+import { memoize } from "lodash-es";
 import { combineLatest, Observable, switchMap } from "rxjs";
 import { getDeviceString, getDeviceUuid } from "src/app/shared/plugins/device.plugin";
-import { pipeTap, selector } from "src/app/shared/rxjs";
+import { pipeTap, selector, track } from "src/app/shared/rxjs";
 import { environment } from "src/environments/environment";
+import { LoginApi } from "../../http/login.api";
 
 export interface User {
   Id: number,
@@ -81,6 +83,12 @@ export interface Company {
   Id: number,
   Name: string
 }
+
+export const useCompanies = memoize(() => {
+  const loginApi = inject(LoginApi);
+
+  return track(() => loginApi.getCompanies()).fire();
+});
 
 export interface Area {
   Id: number,

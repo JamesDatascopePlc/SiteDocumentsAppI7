@@ -1,4 +1,4 @@
-import { Observable, catchError, take, tap } from "rxjs";
+import { EMPTY, Observable, catchError, take, tap } from "rxjs";
 import { use } from "../rxjs";
 
 export type TrackingStatus = "Idle" | "Success" | "Error" | "Loading";
@@ -6,6 +6,7 @@ export type TrackingStatus = "Idle" | "Success" | "Error" | "Loading";
 export class Track<TResult, TParams = void> {
   status = use<TrackingStatus>("Idle");
   data = use<TResult>();
+  error = use<unknown>();
 
   isIdle = this.status(s => s === "Idle");
   isSuccess = this.status(s => s === "Success");
@@ -23,11 +24,11 @@ export class Track<TResult, TParams = void> {
         this.status.next("Success");
         this.data.next(value);
       }),
-      catchError((err, caught) => {
-        console.error(err);
+      catchError((err) => {
         this.status.next("Error");
+        this.error.next(err);
 
-        return caught;
+        return EMPTY;
       })
     )
     .subscribe();

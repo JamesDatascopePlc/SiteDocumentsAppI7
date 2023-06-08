@@ -33,7 +33,7 @@ import { Asset } from "src/app/core/stores/asset/asset.store";
         </ion-header>
 
         <ion-content [ngSwitch]="segment" class="ion-padding">
-          <local-asset-search *ngSwitchCase="'local'" (select)="assetChange.emit($event); modal.dismiss();" />
+          <local-asset-search *ngSwitchCase="'local'" (select)="select.emit($event); modal.dismiss();" />
           <online-asset-search *ngSwitchCase="'online'" />
         </ion-content>
       </ng-template>
@@ -58,7 +58,7 @@ export class AssetListModal {
   isOpen: boolean = false;
 
   @Output()
-  assetChange = new EventEmitter<Asset>();
+  select = new EventEmitter<Asset>();
 
   segment: "local" | "online" = "local";
 }

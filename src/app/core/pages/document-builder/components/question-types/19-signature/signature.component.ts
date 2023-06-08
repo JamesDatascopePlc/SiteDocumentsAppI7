@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from "@angular/core";
+import { ChangeDetectionStrategy, Component, Input, ViewChild } from "@angular/core";
 import { IonicModule } from "@ionic/angular";
 import { Question } from "src/app/core/stores/site-document/models";
 import { QuestionTextComponent } from "../extras";
@@ -37,19 +37,19 @@ import { SignaturePadComponent } from "src/app/shared/components";
         </ion-header>
 
         <ion-content>
-          <signature-pad (padInit)="signaturePad = $event" [(points)]="points" />
+          <signature-pad [points]="question.SignaturePoints" />
         </ion-content>
         
         <ion-footer>
           <ion-grid>
             <ion-row>
               <ion-col>
-                <ion-button (click)="cancel(); signaturePad.clear()" color="danger" expand="full">
+                <ion-button (click)="cancel()" color="danger" expand="full">
                   Clear
                 </ion-button>
               </ion-col>
               <ion-col>
-                <ion-button (click)="signaturePad.output(); modal.dismiss()" color="secondary" expand="full">
+                <ion-button (click)="modal.dismiss()" color="secondary" expand="full">
                   Save
                 </ion-button>
               </ion-col>
@@ -75,14 +75,14 @@ export class SignatureComponent {
   @Input({ required: true })
   question!: Question;
 
+  @ViewChild(SignaturePadComponent)
   signaturePad!: SignaturePadComponent;
-  points = [...this.question?.SignaturePoints || []];
-
+  
   cancel() {
-    this.points = [...this.question.SignaturePoints || []];
+    this.signaturePad.clear();
   }
 
   save() {
-    this.question.SignaturePoints = [...this.points];
+    this.question.SignaturePoints = this.signaturePad.dataPoints();
   }
 }

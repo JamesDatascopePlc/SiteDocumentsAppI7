@@ -1,6 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable, inject } from "@angular/core";
 import { environment } from "src/environments/environment";
+import { createApi } from "./create-api";
 
 export interface OperativeSearchParams {
   search: string,
@@ -30,3 +31,10 @@ export class OperativeApi {
     })
   }
 }
+
+export const useOperativeApi = createApi({
+  baseUrl: `${environment.siteDocsApi}/OperativeApi`,
+  endpoints: ({ get }) => ({
+    getOperativesByName: get<OperativeSearchResult[], OperativeSearchParams>("GetOperativesByName")
+  })
+});

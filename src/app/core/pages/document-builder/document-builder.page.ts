@@ -37,6 +37,15 @@ import { ActivatedRoute, Router } from "@angular/router";
     </ion-header>
 
     <ion-content *rxIf="document$; let document" class="ion-padding">
+      <ion-list>
+        <ion-item>
+          <ion-label>
+            Show document as single page
+          </ion-label>
+          <ion-toggle></ion-toggle>
+        </ion-item>
+      </ion-list>
+
       <actioner-select
          *rxIf="document.CanAddActionerFromApp"
          [(actionerId)]="document.CurrentActionerOperativeID"

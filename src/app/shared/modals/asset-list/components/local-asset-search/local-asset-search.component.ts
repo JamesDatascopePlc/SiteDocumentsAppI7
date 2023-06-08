@@ -1,6 +1,6 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Output, inject } from "@angular/core";
+import { ChangeDetectionStrategy, Component, EventEmitter, Output } from "@angular/core";
 import { IonicModule } from "@ionic/angular";
-import { Asset, AssetStore } from "src/app/core/stores/asset/asset.store";
+import { Asset, useAssetStore } from "src/app/core/stores/asset/asset.store";
 import { importRxTemplate } from "src/app/shared/imports";
 import { FusePipe } from "src/app/shared/pipes";
 
@@ -10,10 +10,11 @@ import { FusePipe } from "src/app/shared/pipes";
     <ion-searchbar class="animate__animated animate__fadeIn" />
 
     <ion-list>
-      <ion-item-sliding *rxFor="let asset of assets$ | fuse: {
-        search: searchRegistration,
-        keys: ['Registration']
-      }">
+      <ion-item-sliding *rxFor="let asset of assets()
+        | fuse: {
+          search: searchRegistration,
+          keys: ['Registration']
+        }">
         <ion-item (click)="select.emit(asset)" button>
           {{ asset.Id }} - {{ asset.Registration }}
         </ion-item>
@@ -34,9 +35,7 @@ import { FusePipe } from "src/app/shared/pipes";
   ]
 })
 export class LocalAssetSearchComponent {
-  assetStore = inject(AssetStore);
-
-  assets$ = this.assetStore.assets$;
+  assets = useAssetStore();
   searchRegistration: string = "";
 
   @Output()

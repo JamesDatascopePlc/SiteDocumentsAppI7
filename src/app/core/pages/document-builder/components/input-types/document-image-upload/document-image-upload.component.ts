@@ -5,7 +5,7 @@ import { Observable, map } from "rxjs";
 import { SiteDocumentImageStore } from "src/app/core/stores/site-document-image/site-document-image.store";
 import { SiteDocument } from "src/app/core/stores/site-document/models";
 import { IfComponent, UploadComponent } from "src/app/shared/components";
-import { CameraDirective, PhotoViewerDirective } from "src/app/shared/directives";
+import { PhotoViewerDirective, TakePhotoDirective, UploadPhotoDirective } from "src/app/shared/directives";
 import { importRxTemplate } from "src/app/shared/imports";
 import { AngularComponent, withOnChanges } from "src/app/shared/lifecycles";
 import { DataUrlFile } from "src/app/shared/models/files/data-url-file.model";
@@ -59,11 +59,11 @@ import { isMobileApp } from "src/app/shared/plugins/platform.plugin";
           <ion-fab vertical="bottom" horizontal="end" slot="fixed">
             <if [condition]="isMobileApp">
               <ng-container show>
-                <ion-fab-button [camera]="cameraOptions" (takePhoto)="addPhoto($event)" class="ion-margin-vertical">
+                <ion-fab-button (takePhoto)="addPhoto($event)" class="ion-margin-vertical">
                   <ion-icon name="camera-outline" />
                 </ion-fab-button>
 
-                <ion-fab-button [camera]="galleryOptions" (takePhoto)="addPhoto($event)" class="ion-margin-vertical">
+                <ion-fab-button (uploadPhoto)="addPhoto($event)" class="ion-margin-vertical">
                   <ion-icon name="image-outline" />
                 </ion-fab-button>
               </ng-container>
@@ -85,7 +85,8 @@ import { isMobileApp } from "src/app/shared/plugins/platform.plugin";
     ...importRxTemplate(),
     IfComponent,
     UploadComponent,
-    CameraDirective,
+    TakePhotoDirective,
+    UploadPhotoDirective,
     PhotoViewerDirective
   ]
 })

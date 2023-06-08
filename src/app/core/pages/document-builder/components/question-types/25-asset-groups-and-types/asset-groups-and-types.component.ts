@@ -36,7 +36,7 @@ import { FusePipe } from "src/app/shared/pipes";
             search: question.OptionVal,
             keys: ['Id']
           }"
-        itemText="Text"
+        itemText="Description"
         [canClear]="!question.Required" />
     </ion-list>
   `,

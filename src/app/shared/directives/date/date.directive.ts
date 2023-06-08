@@ -1,12 +1,12 @@
-import { Directive, ElementRef, EventEmitter, HostListener, inject, Input, Output } from "@angular/core";
-import { formatISO, parseISO } from "date-fns";
+import { Directive, EventEmitter, HostListener, Input, Output } from "@angular/core";
+import { useElement } from "../../angular/element";
 
 @Directive({
   selector: "[date]",
   standalone: true
 })
 export class DateDirective {
-  protected element: Element & { value: string } = inject(ElementRef).nativeElement;
+  protected element: Element & { value: string } = useElement();
   
   @Input("date")
   date!: Date;
@@ -15,13 +15,13 @@ export class DateDirective {
   dateChange = new EventEmitter<Date>();
   
   ngOnChanges() {
-    this.element.value = formatISO(this.date);
+    this.element.value = this.date.toISOString();
   }
 
   @HostListener("change")
   @HostListener("ionChange")
   change() {
-    this.date = parseISO(this.element.value);
+    this.date = Date.fromISOString(this.element.value);
     this.dateChange.emit(this.date);
   }
 }

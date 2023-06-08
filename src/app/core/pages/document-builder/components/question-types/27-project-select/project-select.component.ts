@@ -1,13 +1,12 @@
 import { ChangeDetectionStrategy, Component, Input } from "@angular/core";
 import { IonicModule } from "@ionic/angular";
+import { Question } from "src/app/core/stores/site-document/models";
 import { importRxTemplate } from "src/app/shared/imports";
 import { CameraCaptureComponent, FileUploadComponent, QuestionTextComponent } from "../extras";
 import { SelectableComponent } from "src/app/shared/components";
-import { Question } from "src/app/core/stores/site-document/models";
-import { useCompanies } from "src/app/core/stores/user/user.store";
 
 @Component({
-  selector: "company-select-question",
+  selector: "project-select[question]",
   template: `
     <ion-list>
       <ion-item lines="none">
@@ -19,8 +18,6 @@ import { useCompanies } from "src/app/core/stores/user/user.store";
       <selectable
         placeholder="Select"
         [title]="question.QuestionText"
-        [items]="companies.data() | push"
-        itemText="Name"
         [canClear]="!question.Required" />
     </ion-list>
   `,
@@ -35,9 +32,7 @@ import { useCompanies } from "src/app/core/stores/user/user.store";
     FileUploadComponent
   ]
 })
-export class CompanySelectComponent {
-  companies = useCompanies();
-
+export class ProjectSelectComponent {
   @Input({ required: true })
   question!: Question;
 }

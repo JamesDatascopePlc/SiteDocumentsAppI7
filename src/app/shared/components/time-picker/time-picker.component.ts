@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from 
 import { PushPipe } from "@rx-angular/template/push";
 import { AngularComponent, withAfterViewInit, withOnChanges } from "../../lifecycles";
 import { Observable, map, merge } from "rxjs";
-import { format, parse } from "date-fns";
 
 @Component({
   selector: "time-picker",
@@ -37,14 +36,14 @@ export class TimePickerComponent extends AngularComponent(withAfterViewInit, wit
   time: Date = new Date();
   
   timeValue$: Observable<string> = merge(this.afterViewInit(), this.input("time")).pipe(
-    map(() => format(this.time, "hh:mm"))
+    map(() => this.time.toFormat("HH:mm"))
   );
 
   @Output()
   timeChange = new EventEmitter<Date>();
   
   change(value: string) {
-    this.time = parse(value, "hh:mm", new Date());
+    this.time = Date.parseFormat(value, "HH:mm");
     this.timeChange.emit(this.time);
   }
 }

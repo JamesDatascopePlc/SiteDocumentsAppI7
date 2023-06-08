@@ -8,6 +8,7 @@ import { devTools } from '@ngneat/elf-devtools';
 import { routes } from './app/app.routes';
 import { AppComponent } from './app/app.component';
 import { environment } from './environments/environment';
+import './extensions';
 
 if (environment.production) {
   enableProdMode();

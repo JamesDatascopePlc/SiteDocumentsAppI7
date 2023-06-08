@@ -1,12 +1,11 @@
-import { HttpClient } from "@angular/common/http";
-import { ChangeDetectionStrategy, Component, EventEmitter, Output, inject } from "@angular/core";
+import { ChangeDetectionStrategy, Component, EventEmitter, Output } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { IonicModule } from "@ionic/angular";
-import { Asset } from "src/app/core/stores/asset/asset.store";
+import { useAssetApi } from "src/app/core/http";
+import { Asset, useAssetStore } from "src/app/core/stores/asset/asset.store";
 import { IfComponent } from "src/app/shared/components";
 import { importRxFixedVirtualScroll, importRxTemplate } from "src/app/shared/imports";
 import { track, use } from "src/app/shared/rxjs";
-import { environment } from "src/environments/environment";
 
 @Component({
   selector: "online-asset-search",
@@ -14,9 +13,9 @@ import { environment } from "src/environments/environment";
     ion-list { height: calc(100% - 58px) }
   `],
   template: `
-    <ion-searchbar [(ngModel)]="searchRegistration" (keyup.enter)="tracking.fire()" />
+    <ion-searchbar [(ngModel)]="searchRegistration" (keyup.enter)="findAssets.fire()" />
     
-    <if [condition]="tracking.isLoading() | push">
+    <if [condition]="findAssets.isLoading() | push">
       <ion-list show>
         <ion-item lines="none">
           <ion-skeleton-text [animated]="true" />
@@ -35,8 +34,8 @@ import { environment } from "src/environments/environment";
       <ion-list else>
         <rx-virtual-scroll-viewport [itemSize]="50">
           <ion-item 
-            *rxVirtualFor="let asset of tracking.data()"
-            (click)="select.emit(asset)"
+            *rxVirtualFor="let asset of findAssets.data()"
+            (click)="addAsset(asset); select.emit(asset);"
             class="w-full" 
             button>
             {{ asset.Id }} - {{ asset.Registration }}
@@ -56,17 +55,20 @@ import { environment } from "src/environments/environment";
   ]
 })
 export class OnlineAssetSearchComponent {
-  httpClient = inject(HttpClient);
+  assetApi = useAssetApi();
+  assets = useAssetStore();
 
   searchRegistration: string = "";
   search = use();
 
-  tracking = track(() => this.httpClient.get<Asset[]>(`${environment.siteDocsApi}/AssetApi/GetAssetsByReg`, {
-    params: {
-      searchString: this.searchRegistration
-    }
+  findAssets = track(() => this.assetApi.getAssetByRegistration({
+    searchString: this.searchRegistration
   }));
 
   @Output()
   select = new EventEmitter<Asset>();
+
+  addAsset(asset: Asset) {
+    this.assets.mutate(assets => [...assets, asset]);
+  }
 }

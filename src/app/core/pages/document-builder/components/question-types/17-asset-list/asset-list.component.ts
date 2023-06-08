@@ -4,6 +4,8 @@ import { Question } from "src/app/core/stores/site-document/models";
 import { importRxTemplate } from "src/app/shared/imports";
 import { isMobileApp } from "src/app/shared/plugins/platform.plugin";
 import { QuestionTextComponent } from "../extras";
+import { AssetListModal } from "src/app/shared/modals/asset-list/asset-list.modal";
+import { Asset } from "src/app/core/stores/asset/asset.store";
 
 @Component({
   selector: "asset-list-question",
@@ -14,7 +16,8 @@ import { QuestionTextComponent } from "../extras";
         <ion-button *rxIf="isMobileApp" fill="clear" slot="end">
           <ion-icon name="scan-outline" slots="icon-only" />
         </ion-button>
-        <ion-button fill="clear" slot="end">
+        <ion-button [id]="id" fill="clear" slot="end">
+          <asset-list-modal [trigger]="id" (select)="select($event)" />
           <ion-icon name="search-outline" slot="icon-only" />
         </ion-button>
       </ion-item>
@@ -27,7 +30,7 @@ import { QuestionTextComponent } from "../extras";
         </ion-item>
 
         <ion-item-options side="end">
-          <ion-item-option color="danger">
+          <ion-item-option color="danger" (click)="remove(asset.AssetID)">
             <ion-icon name="trash-outline" slot="icon-only" />
           </ion-item-option>
         </ion-item-options>
@@ -39,12 +42,28 @@ import { QuestionTextComponent } from "../extras";
   imports: [
     IonicModule,
     ...importRxTemplate(),
-    QuestionTextComponent
+    QuestionTextComponent,
+    AssetListModal
   ]
 })
 export class AssetListComponent {
+  id = crypto.randomUUID();
+
   @Input({ required: true })
   question!: Question;
 
   isMobileApp = isMobileApp();
+
+  select(asset: Asset) {
+    if (this.question.Assets.find(a => a.AssetID === asset.Id) == null)
+      this.question.Assets.push({
+        AssetID: asset.Id,
+        Name: asset.Registration || "",
+        Tag: ""
+      });
+  }
+
+  remove(id: number) {
+    this.question.Assets = this.question.Assets.filter(a => a.AssetID !== id);
+  }
 }

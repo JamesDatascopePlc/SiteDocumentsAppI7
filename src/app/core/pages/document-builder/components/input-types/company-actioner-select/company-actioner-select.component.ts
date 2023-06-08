@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, inject } from "@angular/core";
 import { IonicModule } from "@ionic/angular";
-import { Observable, map, merge, switchMap } from "rxjs";
-import { Company, UserStore } from "src/app/core/stores/user/user.store";
+import { Company, useCompanies } from "src/app/core/stores/user/user.store";
 import { SelectableComponent } from "src/app/shared/components/selectable/selectable.component";
 import { importRxTemplate } from "src/app/shared/imports";
 import { AngularComponent, withAfterViewInit, withOnChanges } from "src/app/shared/lifecycles";
@@ -18,10 +17,10 @@ import { AngularComponent, withAfterViewInit, withOnChanges } from "src/app/shar
           <selectable 
             [title]="title || 'Company Actioners'" 
             placeholder="Actioners" 
-            [items]="companies$ | push"
-            [value]="selectedCompany$ | push"
+            [items]="companies.data() | push"
             (valueChange)="companyChange($event)"
             itemText="Name"
+            itemValue="Id"
             [canClear]="false" />
         </ion-list>
       </ion-card-content>
@@ -36,10 +35,6 @@ import { AngularComponent, withAfterViewInit, withOnChanges } from "src/app/shar
   ]
 })
 export class CompanyActionerSelectComponent extends AngularComponent(withAfterViewInit, withOnChanges) {
-  userStore = inject(UserStore);
-
-  companies$ = this.userStore.companies$;
-
   @Input()
   title?: string;
 
@@ -49,13 +44,10 @@ export class CompanyActionerSelectComponent extends AngularComponent(withAfterVi
   @Output()
   companyIdChange = new EventEmitter<number>();
 
-  selectedCompany$: Observable<Company | null> = merge(this.afterViewInit(), this.input("companyId")).pipe(
-    switchMap(() => this.companies$),
-    map(companies => companies.find(c => c.Id === this.companyId) || null)
-  );
+  companies = useCompanies();
 
-  companyChange(company: Company | null) {
-    this.companyId = company!.Id;
+  companyChange(companyId: number) {
+    this.companyId = companyId;
     this.companyIdChange.emit(this.companyId);
   }
 }

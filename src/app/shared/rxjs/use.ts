@@ -1,4 +1,4 @@
-import { BehaviorSubject, Observable, OperatorFunction, ReplaySubject, map } from "rxjs";
+import { BehaviorSubject, Observable, OperatorFunction, ReplaySubject, lastValueFrom, map } from "rxjs";
 
 export type UsePipe<T> = ReturnType<typeof createPipe<T>>;
 
@@ -35,6 +35,13 @@ export function use<T = void>(initialState?: T) {
 
   return Object.assign(createPipe(s), {
     next: s.next.bind(s),
-    complete: s.complete.bind(s)
+    complete: s.complete.bind(s),
+    mutate: async (mutation: (value: T) => T) => {
+      debugger;
+      const value = await lastValueFrom(s);
+      const update = mutation(value);
+
+      s.next(update);
+    } 
   });
 }

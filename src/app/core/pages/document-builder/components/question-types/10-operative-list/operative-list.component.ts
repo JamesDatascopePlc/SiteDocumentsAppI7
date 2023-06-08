@@ -6,6 +6,7 @@ import { importRxTemplate } from "src/app/shared/imports";
 import { isMobileApp } from "src/app/shared/plugins/platform.plugin";
 import { QuestionTextComponent } from "../extras";
 import { OperativeListModal } from "src/app/shared/modals/operative-list/operative-list.modal";
+import { Operative } from "src/app/core/stores/operative/operatives.store";
 
 @Component({
   selector: "operative-list-question",
@@ -17,10 +18,9 @@ import { OperativeListModal } from "src/app/shared/modals/operative-list/operati
           <ion-icon name="scan-outline" slot="icon-only" />
         </ion-button>
         <ion-button [id]="id" fill="clear" color="secondary" slot="end">
+          <operative-list-modal [trigger]="id" />
           <ion-icon name="search-outline" slot="icon-only" />
         </ion-button>
-
-        <operative-list-modal [trigger]="id" />
       </ion-item>
     </ion-list>
 
@@ -31,7 +31,7 @@ import { OperativeListModal } from "src/app/shared/modals/operative-list/operati
         </ion-item>
 
         <ion-item-options side="end">
-          <ion-item-option color="danger">
+          <ion-item-option color="danger" (click)="remove(operative.AttendeeID)">
             <ion-icon name="trash-outline" slot="icon-only" />
           </ion-item-option>
         </ion-item-options>
@@ -50,9 +50,21 @@ import { OperativeListModal } from "src/app/shared/modals/operative-list/operati
 })
 export class OperativeListComponent {
   id = crypto.randomUUID();
+  isMobileApp = isMobileApp();
 
   @Input({ required: true })
-  question!: Question;
+  question!: Question;  
 
-  isMobileApp = isMobileApp();
+  select(operative: Operative) {
+    if (this.question.Operatives.find(o => o.AttendeeID === operative.ID) == null)
+      this.question.Operatives.push({
+        AttendeeID: operative.ID,
+        DateAttended: new Date(),
+        Name: operative.Name
+      });
+  }
+
+  remove(id: number) {
+    this.question.Operatives = this.question.Operatives.filter(o => o.AttendeeID !== id);
+  }
 }

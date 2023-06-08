@@ -1,41 +1,44 @@
-import { ChangeDetectionStrategy, Component, Directive, ElementRef, EventEmitter, Input, Output, inject } from "@angular/core";
-import { debounceTime, map, merge, switchMap, tap } from "rxjs";
+import { ChangeDetectionStrategy, Component, Directive, EventEmitter, Input, Output, ViewChild } from "@angular/core";
+import { debounceTime, map, merge } from "rxjs";
 import SignaturePad, { PointGroup } from "signature_pad";
 import { AngularComponent, withAfterViewInit } from "../../lifecycles";
 import { PushPipe } from "@rx-angular/template/push";
 import { use } from "../../rxjs/use";
-import { reaction } from "../../reactions";
-import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
+import { useElement, useParentElement } from "../../angular/element";
 
 @Directive({
   selector: "canvas[signature-pad]",
   standalone: true
 })
 export class SignaturePadDirective {
-  elementRef: ElementRef<HTMLCanvasElement> = inject(ElementRef);
+  element = useElement<HTMLCanvasElement>();
 
-  signaturePad = new SignaturePad(this.elementRef.nativeElement, {
+  signaturePad = new SignaturePad(this.element, {
     minWidth: 2,
     maxWidth: 5,
     backgroundColor: "rgb(255,255,255)"
   });
 
   @Input()
-  points: PointGroup[] = [];
+  points?: PointGroup[] = [];
 
   @Output()
   pointsChange = new EventEmitter<PointGroup[]>();
 
-  @Output()
-  padInit = new EventEmitter<SignaturePad>();
-
   ngOnInit() {
-    this.signaturePad.fromData(this.points);
-    this.signaturePad.addEventListener("endStroke", () => {
-      this.points = this.signaturePad.toData();
-      this.pointsChange.emit(this.points);
-    });
-    this.padInit.emit(this.signaturePad);
+    this.signaturePad.fromData(this.points || []);
+  }
+
+  dataPoints() {
+    return this.signaturePad.toData();
+  }
+
+  toDataUrl() {
+    return this.signaturePad.toDataURL();
+  }
+
+  clear() {
+    this.signaturePad.clear();
   }
 }
 
@@ -44,10 +47,8 @@ export class SignaturePadDirective {
   template: `
     <canvas 
       signature-pad 
-      [(points)]="points"
-      (pointsChange)="pointsChange.emit(points)"
+      [points]="points"
       class="border border-black bg-white" 
-      (padInit)="signaturePad.next($event); padInit.emit(this)"
       (window:resize)="resize.next()"
       [width]="width$ | push"
       [height]="height$ | push">
@@ -58,45 +59,34 @@ export class SignaturePadDirective {
   imports: [PushPipe, SignaturePadDirective]
 })
 export class SignaturePadComponent extends AngularComponent(withAfterViewInit) {
-  elementRef: ElementRef<HTMLElement> = inject(ElementRef);
-  parentElement<TKey extends keyof HTMLElement>(prop: TKey): HTMLElement[TKey] {
-    return this.elementRef.nativeElement.parentElement![prop];
-  }
+  @ViewChild(SignaturePadDirective)
+  signatureDirective?: SignaturePadDirective;
 
   @Input()
-  points: PointGroup[] = [];
+  points?: PointGroup[] = [];
 
-  @Output()
-  pointsChange = new EventEmitter<PointGroup[]>();
-
-  @Output()
-  padInit = new EventEmitter<SignaturePadComponent>();
-
-  @Output()
-  save = new EventEmitter<{ points: PointGroup[], dataUrl: string }>();
-
-  signaturePad = use<SignaturePad>();
+  parentElement = useParentElement();
   resize = use();
 
   width$ = merge(this.afterViewInit(), this.resize()).pipe(
     debounceTime(300),
-    map(() => this.parentElement("offsetWidth") - 2)
+    map(() => this.parentElement.offsetWidth - 2)
   );
 
   height$ = merge(this.afterViewInit(), this.resize()).pipe(
     debounceTime(300),
-    map(() => this.parentElement("offsetHeight") - 2)
+    map(() => this.parentElement.offsetHeight - 2)
   );
 
-  output = reaction($event => $event(
-    takeUntilDestroyed(),
-    switchMap(() => this.signaturePad()),
-    tap(pad => this.save.emit({ points: pad.toData(), dataUrl: pad.toDataURL() }))
-  ))
+  dataPoints() {
+    return this.signatureDirective?.dataPoints();
+  }
 
-  clear = reaction($event => $event(
-    takeUntilDestroyed(),
-    switchMap(() => this.signaturePad()),
-    tap(pad => pad.clear()),
-  ));
+  toDataUrl() {
+    return this.signatureDirective?.toDataUrl();
+  }
+
+  clear() {
+    this.signatureDirective?.clear();
+  }
 }
