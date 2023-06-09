@@ -1,16 +1,10 @@
 import { environment } from "src/environments/environment";
 import { Area, Company, Site } from "../stores/user/user.store";
-import { createApi } from "./create-api";
-import { Injectable, inject } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
-import { map } from "rxjs";
+import { AspNetData, createApi } from "./create-api";
 import { CategoryActioner } from "../stores/category-actioners/category-actioners.store";
-
-export type AspNetData<T> = {
-  [name in keyof T]: T[name] extends Date | undefined | null 
-    ? string 
-    : T[name] 
-}
+import { flatMap, memoize } from "lodash-es";
+import { track } from "src/app/shared/rxjs";
+import { map } from "rxjs";
 
 export interface RamsItem {
   Reference: string,
@@ -19,43 +13,77 @@ export interface RamsItem {
   ExpiryDate: Date | null
 }
 
-@Injectable({ providedIn: "root" })
-export class LoginApi {
-  http = inject(HttpClient);
-  
-  getSites() {
-    return this.http.get<Site[]>(`${environment.siteDocsApi}/LoginApi/GetSites`);
-  }
+export interface GetCategoryActionerParams {
+  siteId: number
+}
 
-  getCompanies() {
-    return this.http.get<Company[]>(`${environment.siteDocsApi}/LoginApi/GetCompanies`);
-  }
+export interface ResponsibilityAreaType {
+  Id: number,
+  TypeName: string,
+  AppQuestionText: string,
+  Areas: ResponsibilityArea[]
+}
 
-  getAreas() {
-    return this.http.get<Area[]>(`${environment.siteDocsApi}/LoginApi/GetAreas`);
-  }
-
-  getRams() {
-    return this.http.get<AspNetData<RamsItem>[]>(`${environment.siteDocsApi}/LoginApi/GetRams`).pipe(
-      map(items => items.map(item => 
-          ({
-            ...item,
-            ExpiryDate: item.ExpiryDate != null 
-              ? new Date(item.ExpiryDate)
-              : null
-          })
-        )
-      )
-    );
-  }
+export interface ResponsibilityArea {
+  Id: number,
+  Name: string,
+  DocResAreaTypeId: number,
+  SiteId?: number
 }
 
 export const useLoginApi = createApi({
   baseUrl: `${environment.siteDocsApi}/LoginApi`,
   endpoints: ({ get }) => ({
+    getCompanies: get<Company[]>("GetCompanies"),
     getSites: get<Site[]>("GetSites"),
     getAreas: get<Area[]>("GetAreas"),
-    getRams: get<RamsItem[]>("GetRams"),
-    getCategoryActioners: get<CategoryActioner[], { siteId: number }>("GetCategoryActioners")
+    getRams: get<AspNetData<RamsItem>[]>("GetRams"),
+    getCategoryActioners: get<CategoryActioner[], GetCategoryActionerParams>("GetCategoryActioners"),
+    getResAreaTypes: get<ResponsibilityAreaType[]>("GetResAreas")
   })
 });
+
+export const useSites = memoize(() => {
+  const { getSites } = useLoginApi();
+
+  return track(() => getSites());
+});
+
+export const useCompanies = memoize(() => {
+  const { getCompanies } = useLoginApi();
+
+  return track(() => getCompanies());
+});
+
+export const useAreas = memoize(() => {
+  const { getAreas } = useLoginApi();
+
+  return track(() => getAreas());
+});
+
+export const useRams = memoize(() => {
+  const { getRams } = useLoginApi();
+
+  const rams = track(() => getRams().pipe(
+    map(rams => rams.map(r => ({
+      ...r,
+      ExpiryDate: r.ExpiryDate.toDate()
+    })))
+  ));
+
+  return {
+    ...rams,
+    thatArentExpiredToday: rams.data(items => items.filter(item => item.ExpiryDate == null || item.ExpiryDate.isEqualOrAfterToday()))
+  }
+});
+
+export const useResAreaTypes = memoize(() => {
+  const { getResAreaTypes } = useLoginApi();
+
+  const resAreaTypes = track(() => getResAreaTypes());
+
+  return {
+    ...resAreaTypes,
+    areas: resAreaTypes.data(types => flatMap(types, t => t.Areas))
+  }
+})

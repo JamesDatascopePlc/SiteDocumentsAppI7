@@ -23,6 +23,7 @@ interface HighRiskActivity {
         placeholder="Select"
         [title]="question.QuestionText"
         [items]="hras"
+        itemValue="Id"
         itemText="Activity"
         [canClear]="!question.Required" />
     </ion-list>

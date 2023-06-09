@@ -3,13 +3,14 @@ import { IonicModule } from "@ionic/angular";
 import { importRxTemplate, importRxFixedVirtualScroll } from "src/app/shared/imports";
 import { FormsModule } from "@angular/forms";
 import { IfComponent } from "src/app/shared/components";
-import { track } from "src/app/shared/rxjs";
 import { useOperativeApi } from "src/app/core/http";
+import { param } from "src/app/shared/route";
+import { useFetchOperativesByName } from "src/app/core/http/operative.api";
 
 @Component({
   selector: "online-operative-search",
   template: `
-    <ion-searchbar [(ngModel)]="searchName" (keyup.enter)="operativeSearch.fire()" />
+    <ion-searchbar [(ngModel)]="searchName" (keyup.enter)="operativeSearch.fetch()" />
 
     <if [condition]="operativeSearch.isLoading() | push">
       <ion-list show>
@@ -56,12 +57,12 @@ export class OnlineOperativeSearchComponent {
   @Input()
   noAppLimit: boolean = true;
 
-  //siteId = query("siteId")?.toNumber();
+  siteId = param("siteId")?.toNumber();
   searchName: string = "";
   
-  operativeSearch = track(() => this.operativeApi.getOperativesByName({
-    noAppLimit: this.noAppLimit,
+  operativeSearch = useFetchOperativesByName(() => ({
     search: this.searchName,
-    //siteId: this.siteId
+    noAppLimit: this.noAppLimit,
+    siteId: this.siteId
   }));
 }

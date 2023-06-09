@@ -28,6 +28,8 @@ export function createPipe<T>(s: Observable<T>) {
   return pipe;
 }
 
+export type UseOf<T> = ReturnType<typeof use<T>>;
+
 export function use<T = void>(initialState?: T) {
   const s = initialState != null 
       ? new BehaviorSubject<T>(initialState)
@@ -37,7 +39,6 @@ export function use<T = void>(initialState?: T) {
     next: s.next.bind(s),
     complete: s.complete.bind(s),
     mutate: async (mutation: (value: T) => T) => {
-      debugger;
       const value = await lastValueFrom(s);
       const update = mutation(value);
 

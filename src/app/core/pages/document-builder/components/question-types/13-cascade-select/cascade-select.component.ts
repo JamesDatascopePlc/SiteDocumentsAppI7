@@ -18,6 +18,7 @@ import { Question } from "src/app/core/stores/site-document/models";
         placeholder="Select"
         [title]="question.QuestionText"
         [items]="question.Options"
+        itemValue="Val"
         itemText="Text"
         [canClear]="!question.Required" />
       <ion-item lines="none">
@@ -27,6 +28,7 @@ import { Question } from "src/app/core/stores/site-document/models";
         placeholder="Select"
         [title]="question.CascadeOptionsText"
         [items]="question.CascadeOptions"
+        itemValue="Val"
         itemText="Text"
         [canClear]="!question.Required" />
     </ion-list>

@@ -4,7 +4,7 @@ import { useCategoryActioners } from "src/app/core/stores/category-actioners/cat
 import { SelectableComponent } from "src/app/shared/components";
 import { importRxTemplate } from "src/app/shared/imports";
 import { AngularComponent, withAfterViewInit, withOnChanges } from "src/app/shared/lifecycles";
-import { query } from "src/app/shared/route";
+import { param } from "src/app/shared/route";
 
 @Component({
   selector: "category-actioner-select",
@@ -19,6 +19,8 @@ import { query } from "src/app/shared/route";
             [title]="title || 'Category Actioner'"
             placeholder="Actioner"
             [items]="categoryActioners!.data() | push"
+            [value]="actionerId"
+            itemValue="CategoryId"
             itemText="Name" />
         </ion-list>
       </ion-card-content>
@@ -33,7 +35,7 @@ import { query } from "src/app/shared/route";
   ]
 })
 export class CategoryActionerSelectComponent extends AngularComponent(withAfterViewInit, withOnChanges) {
-  siteId = query("siteId")?.toNumber();
+  siteId = param("siteId")?.toNumber();
 
   categoryActioners = this.siteId != null 
     ? useCategoryActioners(this.siteId)

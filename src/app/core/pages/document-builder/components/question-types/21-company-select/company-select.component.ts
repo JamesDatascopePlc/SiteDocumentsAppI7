@@ -4,7 +4,8 @@ import { importRxTemplate } from "src/app/shared/imports";
 import { CameraCaptureComponent, FileUploadComponent, QuestionTextComponent } from "../extras";
 import { SelectableComponent } from "src/app/shared/components";
 import { Question } from "src/app/core/stores/site-document/models";
-import { useCompanies } from "src/app/core/stores/user/user.store";
+import { ToStringValuesPipe } from "src/app/shared/pipes";
+import { useCompanies } from "src/app/core/http/login.api";
 
 @Component({
   selector: "company-select-question",
@@ -19,7 +20,11 @@ import { useCompanies } from "src/app/core/stores/user/user.store";
       <selectable
         placeholder="Select"
         [title]="question.QuestionText"
-        [items]="companies.data() | push"
+        [items]="companies.data() 
+          | push 
+          | toStringValues"
+        [(value)]="question.OptionVal"
+        itemValue="Id"
         itemText="Name"
         [canClear]="!question.Required" />
     </ion-list>
@@ -32,7 +37,8 @@ import { useCompanies } from "src/app/core/stores/user/user.store";
     QuestionTextComponent,
     SelectableComponent,
     CameraCaptureComponent,
-    FileUploadComponent
+    FileUploadComponent,
+    ToStringValuesPipe
   ]
 })
 export class CompanySelectComponent {

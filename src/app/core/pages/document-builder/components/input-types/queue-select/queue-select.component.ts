@@ -18,10 +18,11 @@ import { AngularComponent, withAfterViewInit, withOnChanges } from "src/app/shar
           <selectable 
             [title]="title"
             placeholder="Queues"
-            [value]="queue$ | push"
             (valueChange)="queueIdChange.emit($event!.id)"
             [items]="queues" 
+            [value]="queueId"
             itemText="name"
+            itemValue="id"
             [canClear]="false" />
         </ion-list>
       </ion-card-content>

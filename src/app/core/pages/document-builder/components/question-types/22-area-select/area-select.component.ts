@@ -1,12 +1,11 @@
-import { ChangeDetectionStrategy, Component, Injectable, Input, inject } from "@angular/core";
+import { ChangeDetectionStrategy, Component, Input } from "@angular/core";
 import { IonicModule } from "@ionic/angular";
 import { importRxTemplate } from "src/app/shared/imports";
 import { CameraCaptureComponent, FileUploadComponent, QuestionTextComponent } from "../extras";
 import { SelectableComponent } from "src/app/shared/components";
 import { Question } from "src/app/core/stores/site-document/models";
-import { track } from "src/app/shared/rxjs/track";
-import { LoginApi } from "src/app/core/http/login.api";
-import { memoize } from "lodash-es";
+import { useAreas } from "src/app/core/http/login.api";
+import { ToStringValuesPipe } from "src/app/shared/pipes";
 
 @Component({
   selector: "area-select-question",
@@ -21,7 +20,10 @@ import { memoize } from "lodash-es";
       <selectable
         placeholder="Select"
         [title]="question.QuestionText"
-        [items]="areas.data() | push"
+        [items]="areas.data() 
+          | push 
+          | toStringValues"
+        itemValue="Id"
         itemText="Name"
         [canClear]="!question.Required" />
     </ion-list>
@@ -34,7 +36,8 @@ import { memoize } from "lodash-es";
     QuestionTextComponent,
     SelectableComponent,
     CameraCaptureComponent,
-    FileUploadComponent
+    FileUploadComponent,
+    ToStringValuesPipe
   ]
 })
 export class AreaSelectComponent {
@@ -42,18 +45,4 @@ export class AreaSelectComponent {
   question!: Question;
   
   areas = useAreas();
-}
-
-@Injectable({
-  providedIn: "root"
-})
-class AreaService {
-  loginApi = inject(LoginApi);
-  
-  useAreas = memoize(() => track(() => this.loginApi.getAreas()).fire());
-}
-
-export function useAreas() {
-  const svc = inject(AreaService);
-  return svc.useAreas();
 }

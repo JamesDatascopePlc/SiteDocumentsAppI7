@@ -2,8 +2,17 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable, inject } from "@angular/core";
 import { SiteDocument } from "../stores/site-document/models";
 import { environment } from "src/environments/environment";
-import { EMPTY, expand, map, reduce } from "rxjs";
-import { orderBy } from "lodash-es";
+import { EMPTY, Subject, expand, map, mergeMap, reduce } from "rxjs";
+import { memoize, orderBy } from "lodash-es";
+import { createApi } from "./create-api";
+import { track } from "src/app/shared/rxjs";
+import { Function } from "src/app/shared/types";
+import { dependencyTrack } from "src/app/shared/rxjs/track";
+
+export interface TemplateItem {
+  Id: number,
+  Title: string
+}
 
 export interface PaginatedList<T> {
   Items: T[],
@@ -50,3 +59,26 @@ export class TemplateApi {
     });
   }
 }
+
+export const useTemplateApi = createApi({
+  baseUrl: `${environment.siteDocsApi}/TemplateApi`,
+  endpoints: ({ get }) => ({
+    getAllTemplates: get<TemplateItem[]>("GetAllTemplates"),
+    getTemplate: get<SiteDocument, { id: number }>("GetDocumentTemplate"),
+  })
+});
+
+export const useAllTemplates = memoize(() => {
+  const { getAllTemplates } = useTemplateApi();
+
+  return track(() => getAllTemplates());
+});
+
+export const useTemplate = memoize((binding: Function<{ id: number }>) => {
+  const { getTemplate } = useTemplateApi();
+
+  return dependencyTrack({
+    binding,
+    fn: (params) => getTemplate(params)
+  })
+});

@@ -3,6 +3,12 @@ import { inject } from "@angular/core";
 import { mapValues, memoize, omitBy } from "lodash-es";
 import { Observable } from "rxjs";
 
+export type AspNetData<T> = {
+  [name in keyof T]: T[name] extends Date | undefined | null 
+    ? string 
+    : T[name] 
+}
+
 export interface GetRequestOptions<TParams> {
   path: string,
   query?: (params: TParams) => object,

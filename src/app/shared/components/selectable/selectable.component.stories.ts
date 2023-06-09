@@ -13,7 +13,8 @@ export default {
     itemText: { control: "text" },
     canClear: { control: "boolean" },
     value: { control: "text" },
-    valueChange: { action: "valueChange" }
+    valueChange: { action: "valueChange" },
+    itemChange: { action: "itemChange" }
   }
 } as Meta;
 
@@ -43,6 +44,7 @@ ObjectSelectable.args = {
       name: faker.animal.bird()
     })
   ),
+  itemValue: "name",
   itemText: "name",
   value: null,
 }

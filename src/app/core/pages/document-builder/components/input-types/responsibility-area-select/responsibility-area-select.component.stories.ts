@@ -53,8 +53,8 @@ Default.args = {
   responsibilityAreaTypeId: 1
 }
 
-export const NoResponsibilityAreasExample = Template.bind({});
+// export const NoResponsibilityAreasExample = Template.bind({});
 
-NoResponsibilityAreasExample.args = {
-  responsibilityAreaType$: of<ResponsibilityAreaType | undefined>(undefined)
-}
+// NoResponsibilityAreasExample.args = {
+//   responsibilityAreaType$: of<ResponsibilityAreaType | undefined>(undefined)
+// }

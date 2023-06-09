@@ -19,6 +19,11 @@ import { ActivatedRoute, Router } from "@angular/router";
   template: `
     <ion-header>
       <ion-toolbar *rxIf="document$; let document">
+        <ion-buttons>
+          <ion-button>
+            <ion-icon name="arrow-back-outline" />
+          </ion-button>
+        </ion-buttons>
         <ion-title class="ion-text-center ion-text-wrap">
           {{ document.DocumentTitle }}
         </ion-title>

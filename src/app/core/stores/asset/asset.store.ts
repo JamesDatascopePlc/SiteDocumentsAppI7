@@ -1,5 +1,6 @@
 import { memoize } from "lodash-es";
 import { use } from "src/app/shared/rxjs";
+import { useLoginApi } from "../../http";
 
 export interface Asset {
   Id : number,
@@ -33,5 +34,9 @@ export interface AssetInspectionSchedule {
 //     this.assets.next(mutation(assets));
 //   }
 // }
+export const useAreas = memoize(() => {
+  const loginApi = useLoginApi();
+  return loginApi.getAreas();
+});
 
 export const useAssetStore = memoize(() => use<Asset[]>([]));

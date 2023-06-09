@@ -18,6 +18,7 @@ import { CameraCaptureComponent, FileUploadComponent, QuestionTextComponent } fr
         placeholder="Select"
         [title]="question.QuestionText"
         [items]="question.Options"
+        itemValue="Val"
         itemText="Text"
         [canClear]="!question.Required" />
       <ion-textarea class="ion-margin-top" label="Comments" labelPlacement="floating" rows="4" type="text" fill="outline" />

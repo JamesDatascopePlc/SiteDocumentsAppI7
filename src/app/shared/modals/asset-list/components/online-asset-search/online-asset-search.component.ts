@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Output } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { IonicModule } from "@ionic/angular";
-import { useAssetApi } from "src/app/core/http";
+import { useFetchAssetsByRegistration, useFetchAssetsByType } from "src/app/core/http/asset.api";
 import { Asset, useAssetStore } from "src/app/core/stores/asset/asset.store";
 import { IfComponent } from "src/app/shared/components";
 import { importRxFixedVirtualScroll, importRxTemplate } from "src/app/shared/imports";
-import { track, use } from "src/app/shared/rxjs";
+import { param } from "src/app/shared/route";
 
 @Component({
   selector: "online-asset-search",
@@ -13,9 +13,9 @@ import { track, use } from "src/app/shared/rxjs";
     ion-list { height: calc(100% - 58px) }
   `],
   template: `
-    <ion-searchbar [(ngModel)]="searchRegistration" (keyup.enter)="findAssets.fire()" />
+    <ion-searchbar [(ngModel)]="searchRegistration" (keyup.enter)="findAssetsByReg.fetch()" />
     
-    <if [condition]="findAssets.isLoading() | push">
+    <if [condition]="findAssetsByReg.isLoading() | push">
       <ion-list show>
         <ion-item lines="none">
           <ion-skeleton-text [animated]="true" />
@@ -34,7 +34,7 @@ import { track, use } from "src/app/shared/rxjs";
       <ion-list else>
         <rx-virtual-scroll-viewport [itemSize]="50">
           <ion-item 
-            *rxVirtualFor="let asset of findAssets.data()"
+            *rxVirtualFor="let asset of findAssetsByReg.data()"
             (click)="addAsset(asset); select.emit(asset);"
             class="w-full" 
             button>
@@ -55,14 +55,20 @@ import { track, use } from "src/app/shared/rxjs";
   ]
 })
 export class OnlineAssetSearchComponent {
-  assetApi = useAssetApi();
   assets = useAssetStore();
 
+  siteId = param("siteId")?.toNumber();
   searchRegistration: string = "";
-  search = use();
+  typeId: number = 0;
 
-  findAssets = track(() => this.assetApi.getAssetByRegistration({
-    searchString: this.searchRegistration
+  findAssetsByReg = useFetchAssetsByRegistration(() => ({
+    searchString: this.searchRegistration,
+    siteId: this.siteId
+  }));
+
+  findAssetsByType = useFetchAssetsByType(() => ({
+    typeId: this.typeId,
+    siteId: this.siteId
   }));
 
   @Output()

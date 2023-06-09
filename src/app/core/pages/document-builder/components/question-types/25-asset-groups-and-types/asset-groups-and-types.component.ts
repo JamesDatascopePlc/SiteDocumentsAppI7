@@ -4,8 +4,8 @@ import { importRxTemplate } from "src/app/shared/imports";
 import { CameraCaptureComponent, FileUploadComponent, QuestionTextComponent } from "../extras";
 import { SelectableComponent } from "src/app/shared/components";
 import { Question } from "src/app/core/stores/site-document/models";
-import { AssetGroup, AssetType } from "src/app/core/stores/asset/asset.store";
 import { FusePipe } from "src/app/shared/pipes";
+import { useAssetGroups, useAssetTypes } from "src/app/core/http/asset.api";
 
 @Component({
   selector: "asset-groups-and-types-question",
@@ -20,7 +20,8 @@ import { FusePipe } from "src/app/shared/pipes";
       <selectable 
         placeholder="Select"
         [title]="question.QuestionText"
-        [items]="assetGroups"
+        [items]="assetGroups.data() | push"
+        itemValue="GroupId"
         itemText="GroupName"
         [canClear]="!question.Required" />
 
@@ -31,11 +32,13 @@ import { FusePipe } from "src/app/shared/pipes";
       <selectable
         placeholder="Select"
         [title]="question.CascadeOptionsText"
-        [items]="assetTypes
+        [items]="assetTypes.data()
           | fuse: {
             search: question.OptionVal,
             keys: ['Id']
-          }"
+          }
+          | push"
+        itemValue="Id"
         itemText="Description"
         [canClear]="!question.Required" />
     </ion-list>
@@ -56,7 +59,7 @@ export class AssetGroupsAndTypesComponent {
   @Input({ required: true })
   question!: Question;
 
-  assetGroups: AssetGroup[] = [];
-  assetTypes: AssetType[] = [];
+  assetGroups = useAssetGroups();
+  assetTypes = useAssetTypes();
 }
 

@@ -1,6 +1,6 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, inject } from "@angular/core";
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from "@angular/core";
 import { IonicModule } from "@ionic/angular";
-import { Company, useCompanies } from "src/app/core/stores/user/user.store";
+import { useCompanies } from "src/app/core/http/login.api";
 import { SelectableComponent } from "src/app/shared/components/selectable/selectable.component";
 import { importRxTemplate } from "src/app/shared/imports";
 import { AngularComponent, withAfterViewInit, withOnChanges } from "src/app/shared/lifecycles";
@@ -18,9 +18,10 @@ import { AngularComponent, withAfterViewInit, withOnChanges } from "src/app/shar
             [title]="title || 'Company Actioners'" 
             placeholder="Actioners" 
             [items]="companies.data() | push"
+            [value]="companyId"
             (valueChange)="companyChange($event)"
-            itemText="Name"
             itemValue="Id"
+            itemText="Name"
             [canClear]="false" />
         </ion-list>
       </ion-card-content>

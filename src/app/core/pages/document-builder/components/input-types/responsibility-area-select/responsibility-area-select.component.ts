@@ -1,15 +1,14 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, inject } from "@angular/core";
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from "@angular/core";
 import { IonicModule } from "@ionic/angular";
-import { Observable, merge, switchMap } from "rxjs";
-import { ResponsibilityAreaType, ResponsibilityAreaTypesStore } from "src/app/core/stores/responsibility-area-types/responsibility-area-types.store";
+import { useResAreaTypes } from "src/app/core/http/login.api";
 import { IfComponent, SelectableComponent } from "src/app/shared/components";
 import { importRxTemplate } from "src/app/shared/imports";
-import { AngularComponent, withAfterViewInit, withOnChanges } from "src/app/shared/lifecycles";
+import { FindPipe } from "src/app/shared/pipes";
 
 @Component({
-  selector: "responsibility-area-select[resposibilityTypeId]",
+  selector: "responsibility-area-select",
   template: `
-    <ion-card *rxLet="responsibilityAreaType$; let rat">
+    <ion-card *rxLet="resAreasTypes.data() | find: { 'Id': responsibilityAreaTypeId }; let rat">
       <ion-card-header *rxIf="rat != null">
         <ion-card-title class="text-center">
           {{ rat.AppQuestionText }}
@@ -21,10 +20,13 @@ import { AngularComponent, withAfterViewInit, withOnChanges } from "src/app/shar
             show 
             title="Responsibility Types"
             placeholder="Select"
-            [items]="rat?.Areas || []"
+            [items]="resAreasTypes.areas() | push"
+            [(value)]="responsibilityAreaTypeId"
+            itemValue="DocResAreaTypeId"
             itemText="Name"
-            (valueChange)="responsibilityAreaTypeIdChange.emit($event!.Id)"
+            (valueChange)="responsibilityAreaIdChange.emit(responsibilityAreaTypeId)"
             [canClear]="false" />
+            
           <span else>
             No areas found For Document Responsibility Area Type. 
             Document will not be able to be submitted. Please update lists and try again.
@@ -39,19 +41,19 @@ import { AngularComponent, withAfterViewInit, withOnChanges } from "src/app/shar
     IonicModule,
     ...importRxTemplate(),
     SelectableComponent,
-    IfComponent
+    IfComponent,
+    FindPipe
   ]
 })
-export class ResponsibilityAreaSelectComponent extends AngularComponent(withAfterViewInit, withOnChanges) {
-  responsibilityAreaTypesStore = inject(ResponsibilityAreaTypesStore);
-
-  @Input()
+export class ResponsibilityAreaSelectComponent {
+  resAreasTypes = useResAreaTypes();
+  
+  @Input({ required: true })
   responsibilityAreaTypeId!: number;
 
-  @Output()
-  responsibilityAreaTypeIdChange = new EventEmitter<number>();
+  @Input()
+  responsibilityAreaId?: number;
 
-  responsibilityAreaType$: Observable<ResponsibilityAreaType | undefined> = merge(this.afterViewInit(), this.input("responsibilityAreaTypeId")).pipe(
-    switchMap(() => this.responsibilityAreaTypesStore.responsibilityAreaTypeById$(this.responsibilityAreaTypeId))
-  );
+  @Output()
+  responsibilityAreaIdChange = new EventEmitter<number>();
 }

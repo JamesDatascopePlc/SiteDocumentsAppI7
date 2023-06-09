@@ -20,6 +20,7 @@ import { AssetInspectionSchedule } from "src/app/core/stores/asset/asset.store";
         placeholder="Select"
         [title]="question.QuestionText"
         [items]="schedules"
+        itemValue="ScheduleID"
         itemText="ScheduleName"
         [canClear]="!question.Required" />
     </ion-list>

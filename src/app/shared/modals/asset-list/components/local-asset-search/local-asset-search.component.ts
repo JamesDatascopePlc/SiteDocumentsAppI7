@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Output } from "@angular/core";
+import { FormsModule } from "@angular/forms";
 import { IonicModule } from "@ionic/angular";
 import { Asset, useAssetStore } from "src/app/core/stores/asset/asset.store";
 import { importRxTemplate } from "src/app/shared/imports";
@@ -7,7 +8,7 @@ import { FusePipe } from "src/app/shared/pipes";
 @Component({
   selector: "local-asset-search",
   template: `
-    <ion-searchbar class="animate__animated animate__fadeIn" />
+    <ion-searchbar [(ngModel)]="searchRegistration" class="animate__animated animate__fadeIn" debounce="300" />
 
     <ion-list>
       <ion-item-sliding *rxFor="let asset of assets()
@@ -31,6 +32,7 @@ import { FusePipe } from "src/app/shared/pipes";
   imports: [
     IonicModule,
     ...importRxTemplate(),
+    FormsModule,
     FusePipe
   ]
 })

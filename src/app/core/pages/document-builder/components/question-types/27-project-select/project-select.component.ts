@@ -4,9 +4,12 @@ import { Question } from "src/app/core/stores/site-document/models";
 import { importRxTemplate } from "src/app/shared/imports";
 import { CameraCaptureComponent, FileUploadComponent, QuestionTextComponent } from "../extras";
 import { SelectableComponent } from "src/app/shared/components";
+import { param } from "src/app/shared/route";
+import { useProjects } from "src/app/core/http/collab-plan.api";
+import { ToStringValuesPipe } from "src/app/shared/pipes";
 
 @Component({
-  selector: "project-select[question]",
+  selector: "project-select",
   template: `
     <ion-list>
       <ion-item lines="none">
@@ -16,8 +19,14 @@ import { SelectableComponent } from "src/app/shared/components";
       </ion-item>
 
       <selectable
+        *rxIf="projects != null"
         placeholder="Select"
         [title]="question.QuestionText"
+        [items]="projects.data() 
+          | push 
+          | toStringValues"
+        itemValue="ID"
+        itemText="Name"
         [canClear]="!question.Required" />
     </ion-list>
   `,
@@ -29,10 +38,14 @@ import { SelectableComponent } from "src/app/shared/components";
     QuestionTextComponent,
     SelectableComponent,
     CameraCaptureComponent,
-    FileUploadComponent
+    FileUploadComponent,
+    ToStringValuesPipe
   ]
 })
 export class ProjectSelectComponent {
   @Input({ required: true })
   question!: Question;
+
+  siteId = param("siteId")?.toNumber();
+  projects = useProjects(() => ({ siteId: this.siteId }));
 }

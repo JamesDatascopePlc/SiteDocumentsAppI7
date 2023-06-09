@@ -18,6 +18,7 @@ import { CameraCaptureComponent, FileUploadComponent, QuestionTextComponent } fr
         placeholder="Select"
         [title]="question.QuestionText"
         [items]="question.Options"
+        itemValue="Val"
         itemText="Text"
         [canClear]="!question.Required" />
     </ion-list>

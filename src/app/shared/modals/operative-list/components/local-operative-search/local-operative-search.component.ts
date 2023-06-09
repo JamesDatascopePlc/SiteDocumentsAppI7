@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, inject, Input, Output } from "@angular/core";
+import { FormsModule } from "@angular/forms";
 import { IonicModule } from "@ionic/angular";
 import { Operative, OperativesStore } from "src/app/core/stores/operative/operatives.store";
 import { UserStore } from "src/app/core/stores/user/user.store";
@@ -8,7 +9,7 @@ import { AngularComponent } from "src/app/shared/lifecycles";
 @Component({
   selector: "local-operative-search",
   template: `
-    <ion-searchbar class="animate__animated animate__fadeIn" />
+    <ion-searchbar [(ngModel)]="search" class="animate__animated animate__fadeIn" debounce="300" />
 
     <ion-list *rxLet="user$; let user">
       <ion-item 
@@ -34,6 +35,7 @@ import { AngularComponent } from "src/app/shared/lifecycles";
   imports: [
     IonicModule,
     ...importRxTemplate(),
+    FormsModule
   ]
 })
 export class LocalOperativeSearchComponent extends AngularComponent() {
@@ -45,6 +47,8 @@ export class LocalOperativeSearchComponent extends AngularComponent() {
 
   @Input()
   hideMyself: boolean = false;
+
+  search: string = "";
 
   user$ = this.userStore.user$;
   operatives$ = this.operativesStore.operatives$;

@@ -35,7 +35,7 @@ import { IfComponent } from "../if/if.component";
             <ion-title class="ion-text-center">{{ title }}</ion-title>
           </ion-toolbar>
           <ion-toolbar>
-            <ion-searchbar [(ngModel)]="searchValue" placeholder="Search" />
+            <ion-searchbar [(ngModel)]="searchValue" debounce="300" placeholder="Search" />
           </ion-toolbar>
         </ion-header>
 

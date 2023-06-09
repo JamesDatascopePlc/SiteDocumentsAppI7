@@ -1,42 +1,79 @@
-import { EMPTY, Observable, catchError, take, tap } from "rxjs";
-import { use } from "../rxjs";
+import { EMPTY, Observable, Subject, catchError, merge, mergeMap, shareReplay, tap } from "rxjs";
+import { use, UseOf, UsePipe, createPipe } from "../rxjs";
 
 export type TrackingStatus = "Idle" | "Success" | "Error" | "Loading";
 
-export class Track<TResult, TParams = void> {
-  status = use<TrackingStatus>("Idle");
-  data = use<TResult>();
-  error = use<unknown>();
+export interface Tracking<T> {
+  status: UseOf<TrackingStatus>,
+  error: UseOf<unknown>,
+  data: UsePipe<T>
+  isIdle: UsePipe<boolean>,
+  isSuccess: UsePipe<boolean>,
+  isError: UsePipe<boolean>,
+  isLoading: UsePipe<boolean>
+}
 
-  isIdle = this.status(s => s === "Idle");
-  isSuccess = this.status(s => s === "Success");
-  isError = this.status(s => s === "Error");
-  isLoading = this.status(s => s === "Loading");
+export interface TrackingOptions<TParams, TResult> {
+  deps: Observable<TParams>[],
+  fn: (params: TParams) => Observable<TResult>
+}
 
-  constructor(protected fn: (params: TParams) => Observable<TResult>) {}
+export function track<TResult>(fn: () => Observable<TResult>): Tracking<TResult>;
+export function track<TParams, TResult>(options: TrackingOptions<TParams, TResult>): Tracking<TResult>;
+export function track<TParams, TResult>(param: TrackingOptions<TParams, TResult> | (() => Observable<TResult>)): Tracking<TResult> {
+  const status = use<TrackingStatus>("Idle");
+  const error = use<unknown>();
+  const trackingFn = typeof param === "function" 
+    ? () => {
+      status.next("Loading");
+      return param();
+    }
+    : () => merge(...param.deps).pipe(
+      tap(() => status.next("Loading")),
+      mergeMap(params => param.fn(params))
+    );
+    
 
-  fire(params: TParams) {
-    this.status.next("Loading");
-
-    this.fn(params).pipe(
-      take(1),
-      tap(value => {
-        this.status.next("Success");
-        this.data.next(value);
+  return {
+    status,
+    data: createPipe(trackingFn().pipe(
+      tap(() => {
+        status.next("Success");
       }),
       catchError((err) => {
-        this.status.next("Error");
-        this.error.next(err);
+        status.next("Error");
+        error.next(err);
 
         return EMPTY;
-      })
-    )
-    .subscribe();
-
-    return this;
+      }),
+      shareReplay()
+    )),
+    error,
+    isIdle: status(s => s === "Idle"),
+    isSuccess: status(s => s === "Success"),
+    isError: status(s => s === "Error"),
+    isLoading: status(s => s === "Loading")
   }
 }
 
-export function track<TResult, TParams = void>(fn: (params: TParams) => Observable<TResult>) {
-  return new Track<TResult, TParams>(fn);
+export function dependencyTrack<TParams, TResult>(options: {
+  binding: () => TParams,
+  fn: (params: TParams) => Observable<TResult>
+}) {
+  const params$ = new Subject<TParams>();
+
+  const tracking = track({
+    deps: [params$],
+    fn: params => options.fn(params)
+  });
+
+  return {
+    ...tracking,
+    fetch: (params?: Partial<TParams>) => {
+      params$.next({
+        ...options.binding(),
+        ...params
+      } as TParams);
+    }
+  }
 }

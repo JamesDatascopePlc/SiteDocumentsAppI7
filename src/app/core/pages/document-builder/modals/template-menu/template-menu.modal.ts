@@ -1,12 +1,9 @@
-import { HttpClient } from "@angular/common/http";
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, inject } from "@angular/core";
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from "@angular/core";
+import { FormsModule } from "@angular/forms";
 import { IonicModule } from "@ionic/angular";
-import { orderBy } from "lodash-es";
-import { EMPTY, expand, map, reduce } from "rxjs";
-import { SiteDocument } from "src/app/core/stores/site-document/models";
+import { useAllTemplates } from "src/app/core/http/template.api";
 import { importRxTemplate, importRxFixedVirtualScroll } from "src/app/shared/imports";
-import { track } from "src/app/shared/rxjs";
-import { environment } from "src/environments/environment";
+import { FusePipe } from "src/app/shared/pipes";
 
 export interface PaginatedList<T> {
   Items: T[],
@@ -26,16 +23,26 @@ export interface PaginatedList<T> {
           <ion-toolbar>
             <ion-title class="text-center">
               Templates
-              <ion-spinner *rxIf="templatesTracking.isLoading()" class="float-right" />
+              <ion-spinner *rxIf="templates.isLoading()" class="float-right" />
             </ion-title>
+          </ion-toolbar>
+          <ion-toolbar>
+            <ion-searchbar [(ngModel)]="search" debounce="300" />
           </ion-toolbar>
         </ion-header>
 
         <ion-content class="ion-padding">
           <ion-list class="h-full">
             <rx-virtual-scroll-viewport [itemSize]="50">
-              <ion-item *rxVirtualFor="let template of templatesTracking.data()" class="w-full" (click)="select.emit(template.DocumentID); modal.dismiss()" button>
-                {{ template.DocumentTitle }}
+              <ion-item *rxVirtualFor="let template of templates.data()
+              | fuse: {
+                search: search,
+                keys: ['Title']
+              }" 
+              class="w-full" 
+              (click)="select.emit(template.Id); modal.dismiss()" 
+              button>
+                {{ template.Title }}
               </ion-item>
             </rx-virtual-scroll-viewport>
           </ion-list>
@@ -48,35 +55,17 @@ export interface PaginatedList<T> {
   imports: [
     IonicModule,
     ...importRxTemplate(),
-    ...importRxFixedVirtualScroll()
+    ...importRxFixedVirtualScroll(),
+    FormsModule,
+    FusePipe
   ]
 })
 export class TemplateMenuModal {
-  httpClient = inject(HttpClient);
-
-  templatesTracking = track(() => this.httpClient.get<PaginatedList<SiteDocument>>(`${environment.siteDocsApi}/TemplateApi/GetLatestTemplatesWithPagination`, {
-    params: {
-      pageNumber: 1,
-      pageSize: 20
-    }
-  }).pipe(
-    expand((res, idx) => res.HasNextPage
-      ? this.httpClient.get<PaginatedList<SiteDocument>>(`${environment.siteDocsApi}/TemplateApi/GetLatestTemplatesWithPagination`, {
-        params: {
-          pageNumber: idx + 2,
-          pageSize: 20
-        }
-      })
-      : EMPTY
-    ),
-    map(res => res.Items),
-    reduce((acc, docs) => [...acc, ...docs]),
-    map(tpls => orderBy(tpls, "DocumentTitle"))
-  ))
-  .fire();
+  templates = useAllTemplates();
 
   @Input()
   isOpen: boolean = false;
+  search: string = "";
 
   @Output()
   select = new EventEmitter<number>();

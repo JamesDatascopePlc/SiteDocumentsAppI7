@@ -1,1 +1,1 @@
-export { query } from "./query.route";
+export { param } from "./param.route";
