@@ -1,5 +1,5 @@
 import { addHours, format, isAfter, isBefore, isEqual, subHours } from "date-fns";
-import { DateFormat, ListIterator } from "global";
+import { DateFormat, ListIterator, Many } from "global";
 import { parse } from "json5";
 import { flatMap, orderBy } from "lodash-es";
 
@@ -43,10 +43,18 @@ Date.prototype.subtrackHours = function(hours: number) {
   return subHours(this, hours);
 }
 
+Array.prototype.first = function<T>(this: T[]) {
+  return this[0]
+}
+
+Array.prototype.last = function<T>(this: T[]) {
+  return this[this.length - 1];
+}
+
 Array.prototype.orderBy = function<T, TResult>(this: T[], iteratees: keyof T | ListIterator<T, TResult>, order: "asc" | "desc" = "asc") {
   return orderBy(this, iteratees, order);
 }
 
-Array.prototype.flatMap = function<T, TResult>(this: T[], iteratee: ListIterator<T, TResult>) {
+Array.prototype.flatMap = function<T, TResult>(this: T[], iteratee: ListIterator<T, Many<TResult>>) {
   return flatMap(this, iteratee);
 }

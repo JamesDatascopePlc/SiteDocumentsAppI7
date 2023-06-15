@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, Input } from "@angular/core";
 import { IonicModule } from "@ionic/angular";
 import { Question } from "src/app/core/stores/site-document/models";
 import { CameraCaptureComponent, FileUploadComponent, QuestionTextComponent } from "../extras";
+import { importRxTemplate } from "src/app/shared/imports";
 
 @Component({
   selector: "radio-table-question",
@@ -33,6 +34,7 @@ import { CameraCaptureComponent, FileUploadComponent, QuestionTextComponent } fr
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     IonicModule,
+    ...importRxTemplate(),
     QuestionTextComponent,
     CameraCaptureComponent,
     FileUploadComponent

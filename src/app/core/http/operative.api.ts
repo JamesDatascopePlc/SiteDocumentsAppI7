@@ -1,7 +1,7 @@
 import { environment } from "src/environments/environment";
 import { createApi } from "./create-api";
 import { memoize } from "lodash-es";
-import { dependencyTrack } from "src/app/shared/rxjs/track";
+import { dependencyTrack } from "src/app/shared/rxjs";
 
 export interface OperativeSearchParams {
   search: string,

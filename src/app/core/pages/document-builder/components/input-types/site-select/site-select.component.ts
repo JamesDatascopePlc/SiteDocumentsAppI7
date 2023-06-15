@@ -1,12 +1,10 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from "@angular/core";
 import { IonicModule } from "@ionic/angular";
-import { memoize } from "lodash-es";
-import { useLoginApi } from "src/app/core/http/login.api";
+import { useSites } from "src/app/core/http/login.api";
 import { SelectableComponent } from "src/app/shared/components";
 import { importRxTemplate } from "src/app/shared/imports";
 import { AngularComponent, withAfterViewInit, withOnChanges } from "src/app/shared/lifecycles";
 import { isMobileApp } from "src/app/shared/plugins/platform.plugin";
-import { track } from "src/app/shared/rxjs";
 
 @Component({
   selector: "site-select",
@@ -57,9 +55,3 @@ export class SiteSelectComponent extends AngularComponent(withAfterViewInit, wit
     this.siteIdChange.emit(this.siteId);
   }
 }
-
-const useSites = memoize(() => {
-  const loginApi = useLoginApi();
-
-  return track(() => loginApi.getSites());
-});

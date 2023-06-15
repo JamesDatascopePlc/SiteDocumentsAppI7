@@ -23,7 +23,9 @@ export const defaultSiteDocument: SiteDocument = {
   Pinned: false,
   AllowAnon: false,
   RemainAnon: false,
-  MetaData: {}
+  ReqGps: false,
+  MetaData: {},
+  PageIdx: 1
 }
 
 export const defaultSection: Section = {
@@ -33,6 +35,7 @@ export const defaultSection: Section = {
   Questions: [],
   SectionQuestiontype: QuestionType.Label,
   IsRepeatable: false,
+  Hidden: false,
   TableTitles: [
     "Yes",
     "No",
@@ -47,6 +50,7 @@ export const defaultQuestion: Question = {
   CommentsText: "",
   CascadeOptionsText: faker.lorem.word(),
   Required: true,
+  Hidden: false,
   Assets: Array
     .from({ length: 3 })
     .map((val, idx) => 
@@ -72,7 +76,7 @@ export const defaultQuestion: Question = {
   AnswerText: "",
   DateAndTime: new Date(),
   DateAndTime2: new Date(),
-  Options: [],
+  AnswerOptions: [],
   CascadeOptions: [],
   YesNoNA: null,
   ValidationData: []

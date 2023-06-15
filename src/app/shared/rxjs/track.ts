@@ -1,4 +1,4 @@
-import { EMPTY, Observable, Subject, catchError, merge, mergeMap, shareReplay, tap } from "rxjs";
+import { EMPTY, Observable, Subject, catchError, merge, mergeMap, of, shareReplay, tap } from "rxjs";
 import { use, UseOf, UsePipe, createPipe } from "../rxjs";
 
 export type TrackingStatus = "Idle" | "Success" | "Error" | "Loading";
@@ -37,10 +37,9 @@ export function track<TParams, TResult>(param: TrackingOptions<TParams, TResult>
   return {
     status,
     data: createPipe(trackingFn().pipe(
-      tap(() => {
-        status.next("Success");
-      }),
-      catchError((err) => {
+      tap(() => status.next("Success")),
+      catchError(err => {
+        console.error(err);
         status.next("Error");
         error.next(err);
 
@@ -54,6 +53,10 @@ export function track<TParams, TResult>(param: TrackingOptions<TParams, TResult>
     isError: status(s => s === "Error"),
     isLoading: status(s => s === "Loading")
   }
+}
+
+export function trackOf<T>(value: T) {
+  return track(() => of(value));
 }
 
 export function dependencyTrack<TParams, TResult>(options: {

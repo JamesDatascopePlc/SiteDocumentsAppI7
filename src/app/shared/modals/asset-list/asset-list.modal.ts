@@ -54,7 +54,6 @@ export class AssetListModal {
   @Input({ required: true })
   trigger!: string;
 
-  @Input()
   isOpen: boolean = false;
 
   @Output()

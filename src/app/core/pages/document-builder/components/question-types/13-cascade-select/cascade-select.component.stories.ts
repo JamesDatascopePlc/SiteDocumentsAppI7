@@ -14,7 +14,7 @@ export default {
     question: { table: { disable: true } },
     "question.QuestionText": { name: "QuestionText", control: "text" },
     "question.Required": { name: "Required", control: "boolean" },
-    "question.Options": { name: "Options", control: "object" },
+    "question.AnswerOptions": { name: "AnswerOptions", control: "object" },
     "question.CascadeOptions": { name: "CascadeOptions", control: "object" },
     "question.CanHaveImg": { name: "CanHaveImg", control: "boolean" },
     "question.CanHaveFiles": { name: "CanHaveFiles", control: "boolean" }
@@ -28,7 +28,7 @@ const Template: StoryFn<Story> = args => ({
       ...defaultQuestion,
       QuestionText: args["question.QuestionText"],
       Required: args["question.Required"],
-      Options: args["question.Options"],
+      Options: args["question.AnswerOptions"],
       CascadeOptions: args["question.CascadeOptions"],
       CanHaveImg: args["question.CanHaveImg"],
       CanHaveFiles: args["question.CanHaveFiles"]
@@ -41,7 +41,7 @@ export const Default = Template.bind({});
 Default.args = {
   "question.QuestionText": "Select a colour and letter",
   "question.Required": true,
-  "question.Options": [
+  "question.AnswerOptions": [
     { Val: "0", Text: "Red", MetaData: { ColourHex: "#ff0000" } },
     { Val: "1", Text: "Blue", MetaData: { ColourHex: "#0000ff" } },
     { Val: "2", Text: "Green", MetaData: { ColourHex: "#009933" } },

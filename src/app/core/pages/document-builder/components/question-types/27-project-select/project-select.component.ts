@@ -3,7 +3,7 @@ import { IonicModule } from "@ionic/angular";
 import { Question } from "src/app/core/stores/site-document/models";
 import { importRxTemplate } from "src/app/shared/imports";
 import { CameraCaptureComponent, FileUploadComponent, QuestionTextComponent } from "../extras";
-import { SelectableComponent } from "src/app/shared/components";
+import { IfComponent, SelectableComponent } from "src/app/shared/components";
 import { param } from "src/app/shared/route";
 import { useProjects } from "src/app/core/http/collab-plan.api";
 import { ToStringValuesPipe } from "src/app/shared/pipes";
@@ -19,7 +19,6 @@ import { ToStringValuesPipe } from "src/app/shared/pipes";
       </ion-item>
 
       <selectable
-        *rxIf="projects != null"
         placeholder="Select"
         [title]="question.QuestionText"
         [items]="projects.data() 
@@ -39,6 +38,7 @@ import { ToStringValuesPipe } from "src/app/shared/pipes";
     SelectableComponent,
     CameraCaptureComponent,
     FileUploadComponent,
+    IfComponent,
     ToStringValuesPipe
   ]
 })
@@ -47,5 +47,5 @@ export class ProjectSelectComponent {
   question!: Question;
 
   siteId = param("siteId")?.toNumber();
-  projects = useProjects(() => ({ siteId: this.siteId }));
+  projects = useProjects(this.siteId);
 }

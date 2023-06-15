@@ -8,7 +8,7 @@ import { mapValues } from 'lodash-es';
 export class ToStringValuesPipe implements PipeTransform {
 
   transform<T extends object>(values: T[]) {
-    return values.map(obj => mapValues(obj, val => val + ""));
+    return values?.map(obj => mapValues(obj, val => val + ""));
   }
 
 }

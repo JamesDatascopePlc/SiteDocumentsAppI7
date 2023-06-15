@@ -17,7 +17,7 @@ import { Question } from "src/app/core/stores/site-document/models";
       <selectable 
         placeholder="Select"
         [title]="question.QuestionText"
-        [items]="question.Options"
+        [items]="question.AnswerOptions"
         itemValue="Val"
         itemText="Text"
         [canClear]="!question.Required" />

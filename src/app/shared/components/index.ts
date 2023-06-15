@@ -5,4 +5,5 @@ export { MultiSelectableComponent } from "./multi-selectable/multi-selectable.co
 export { SelectableComponent } from "./selectable/selectable.component";
 export { SignaturePadComponent } from "./signature-pad/signature-pad.component";
 export { TimePickerComponent } from "./time-picker/time-picker.component";
+export { ToggleButtonComponent } from "./toggle-button/toggle-button.component";
 export { UploadComponent } from "./upload/upload.component";

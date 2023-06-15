@@ -4,11 +4,8 @@ import { importRxTemplate } from "src/app/shared/imports";
 import { CameraCaptureComponent, FileUploadComponent, QuestionTextComponent } from "../extras";
 import { SelectableComponent } from "src/app/shared/components";
 import { Question } from "src/app/core/stores/site-document/models";
-
-interface HighRiskActivity {
-  Id: number,
-  Activity: string
-}
+import { useHighRiskActivities } from "src/app/core/http/collab-plan.api";
+import { param } from "src/app/shared/route";
 
 @Component({
   selector: "hra-select-question",
@@ -22,9 +19,9 @@ interface HighRiskActivity {
       <selectable 
         placeholder="Select"
         [title]="question.QuestionText"
-        [items]="hras"
+        [items]="hras.data() | push"
         itemValue="Id"
-        itemText="Activity"
+        itemText="AreaName"
         [canClear]="!question.Required" />
     </ion-list>
   `,
@@ -43,5 +40,6 @@ export class HraSelectComponent {
   @Input({ required: true })
   question!: Question;
 
-  hras: HighRiskActivity[] = [];
+  siteId = param("siteId")?.toNumber();
+  hras = useHighRiskActivities(this.siteId);
 }

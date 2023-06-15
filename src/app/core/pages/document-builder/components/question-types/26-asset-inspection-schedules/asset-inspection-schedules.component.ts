@@ -4,7 +4,7 @@ import { importRxTemplate } from "src/app/shared/imports";
 import { CameraCaptureComponent, FileUploadComponent, QuestionTextComponent } from "../extras";
 import { SelectableComponent } from "src/app/shared/components";
 import { Question } from "src/app/core/stores/site-document/models";
-import { AssetInspectionSchedule } from "src/app/core/stores/asset/asset.store";
+import { useAssetInspectionSchedules } from "src/app/core/http/asset.api";
 
 @Component({
   selector: "asset-inspection-schedules-question",
@@ -19,7 +19,7 @@ import { AssetInspectionSchedule } from "src/app/core/stores/asset/asset.store";
       <selectable
         placeholder="Select"
         [title]="question.QuestionText"
-        [items]="schedules"
+        [items]="schedules.data() | push"
         itemValue="ScheduleID"
         itemText="ScheduleName"
         [canClear]="!question.Required" />
@@ -40,5 +40,5 @@ export class AssetInspectionSchedulesComponent {
   @Input({ required: true })
   question!: Question;
 
-  schedules: AssetInspectionSchedule[] = [];
+  schedules = useAssetInspectionSchedules();
 }

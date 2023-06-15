@@ -15,7 +15,7 @@ export default {
     "question.QuestionText": { name: "QuestionText", control: "text" },
     "question.Required": { name: "Required", control: "boolean" },
     "question.AnswerText": { name: "AnswerText", control: "text" },
-    "question.Options": { name: "Options", control: "object" },
+    "question.AnswerOptions": { name: "AnswerOptions", control: "object" },
     "question.CanHaveImg": { name: "CanHaveImg", control: "boolean" },
     "question.CanHaveFiles": { name: "CanHaveFiles", control: "boolean" }
   }
@@ -29,7 +29,7 @@ const Template: StoryFn<Story> = args => ({
       QuestionText: args["question.QuestionText"],
       Required: args["question.Required"],
       AnswerText: args["question.AnswerText"],
-      Options: args["question.Options"],
+      Options: args["question.AnswerOptions"],
       CanHaveImg: args["question.CanHaveImg"],
       CanHaveFiles: args["question.CanHaveFiles"]
     }
@@ -42,7 +42,7 @@ Default.args = {
   "question.QuestionText": "Select a colour",
   "question.Required": true,
   "question.AnswerText": "",
-  "question.Options": [
+  "question.AnswerOptions": [
     { Val: "0", Text: "Red", MetaData: { ColourHex: "#ff0000" } },
     { Val: "1", Text: "Blue", MetaData: { ColourHex: "#0000ff" } },
     { Val: "2", Text: "Green", MetaData: { ColourHex: "#009933" } },

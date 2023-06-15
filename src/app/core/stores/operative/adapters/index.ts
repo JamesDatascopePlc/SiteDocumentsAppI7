@@ -1,1 +1,0 @@
-export { operativesAdapter, operativeSearchAdapter } from "./operatives.adapter";

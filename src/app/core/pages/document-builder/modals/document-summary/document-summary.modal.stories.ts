@@ -42,6 +42,8 @@ const defaultDoc: SiteDocument = {
     {
       PageID: 1,
       PageTitle: faker.lorem.word(),
+      PageNo: 1,
+      Hidden: false,
       Sections: Object
         .values(QuestionType)
         .filter(qt => typeof qt === "number")

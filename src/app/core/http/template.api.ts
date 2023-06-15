@@ -2,12 +2,10 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable, inject } from "@angular/core";
 import { SiteDocument } from "../stores/site-document/models";
 import { environment } from "src/environments/environment";
-import { EMPTY, Subject, expand, map, mergeMap, reduce } from "rxjs";
+import { EMPTY, Observable, expand, map, of, reduce, switchMap } from "rxjs";
 import { memoize, orderBy } from "lodash-es";
 import { createApi } from "./create-api";
 import { track } from "src/app/shared/rxjs";
-import { Function } from "src/app/shared/types";
-import { dependencyTrack } from "src/app/shared/rxjs/track";
 
 export interface TemplateItem {
   Id: number,
@@ -74,11 +72,18 @@ export const useAllTemplates = memoize(() => {
   return track(() => getAllTemplates());
 });
 
-export const useTemplate = memoize((binding: Function<{ id: number }>) => {
+export const useTemplate = memoize((id$: Observable<Nullable<number>>) => {
   const { getTemplate } = useTemplateApi();
 
-  return dependencyTrack({
-    binding,
-    fn: (params) => getTemplate(params)
-  })
+  return track(() => id$.pipe(
+    switchMap(id => id != null 
+      ? getTemplate({ id }).pipe(
+        map(doc => ({
+          ...doc,
+          PageIdx: 1
+        }))
+      )
+      : of(null)
+    )
+  ));
 });

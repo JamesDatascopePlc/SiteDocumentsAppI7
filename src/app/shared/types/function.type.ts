@@ -1,1 +1,0 @@
-export type Function<R, T = void> = (param: T) => R;

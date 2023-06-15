@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, inject, Input, Output } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { IonicModule } from "@ionic/angular";
-import { Operative, OperativesStore } from "src/app/core/stores/operative/operatives.store";
+import { Operative, useOperativeStore } from "src/app/core/stores/operative/operatives.store";
 import { UserStore } from "src/app/core/stores/user/user.store";
 import { importRxTemplate } from "src/app/shared/imports";
 import { AngularComponent } from "src/app/shared/lifecycles";
@@ -18,7 +18,7 @@ import { AngularComponent } from "src/app/shared/lifecycles";
         button>
           {{ user.Id }} - {{ user.FirstName }} {{ user.LastName }}
       </ion-item>
-      <ion-item-sliding *rxFor="let op of operatives$; last as isLast">
+      <ion-item-sliding *rxFor="let op of operativeStore.data(); last as isLast">
         <ion-item (click)="select.emit(op)" button>
           {{ op.ID }} - {{ op.Name }}
         </ion-item>
@@ -40,7 +40,7 @@ import { AngularComponent } from "src/app/shared/lifecycles";
 })
 export class LocalOperativeSearchComponent extends AngularComponent() {
   userStore = inject(UserStore);
-  operativesStore = inject(OperativesStore);
+  operativeStore = useOperativeStore();
 
   @Output()
   select = new EventEmitter<Operative>();
@@ -51,5 +51,4 @@ export class LocalOperativeSearchComponent extends AngularComponent() {
   search: string = "";
 
   user$ = this.userStore.user$;
-  operatives$ = this.operativesStore.operatives$;
 }

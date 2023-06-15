@@ -1,14 +1,5 @@
-import { Injectable } from "@angular/core";
-import { createStore } from "@ngneat/elf";
-import { selectAllEntities, withEntities } from "@ngneat/elf-entities";
 import { SiteDocument } from "./models";
+import { memoize } from "lodash-es";
+import { store } from "src/app/shared/rxjs";
 
-const store = createStore(
-  { name: "site-documents" },
-  withEntities<SiteDocument, "DocumentID">({ idKey: "DocumentID" })
-);
-
-@Injectable({ providedIn: "root" })
-export class SiteDocumentStore {
-  templates$ = store.pipe(selectAllEntities());
-}
+export const useSiteDocumentStore = memoize(() => store<SiteDocument, "DocumentID">("Site-Document", "DocumentID"));

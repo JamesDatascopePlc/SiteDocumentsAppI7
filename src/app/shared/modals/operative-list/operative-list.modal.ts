@@ -37,7 +37,9 @@ import { Operative } from "src/app/core/stores/operative/operatives.store";
             *ngSwitchCase="'local'" 
             [hideMyself]="hideMyself" 
             (select)="select.emit($event); modal.dismiss();" />
-          <online-operative-search *ngSwitchCase="'online'" />
+          <online-operative-search 
+            *ngSwitchCase="'online'"
+            (select)="select.emit($event); modal.dismiss();" />
         </ion-content>
       </ng-template>
     </ion-modal>
@@ -57,7 +59,6 @@ export class OperativeListModal {
   @Input({ required: true })
   trigger!: string;
   
-  @Input()
   isOpen: boolean = false;
 
   @Input()

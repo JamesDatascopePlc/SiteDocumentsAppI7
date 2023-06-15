@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, inject } from "@angular/core";
-import { CameraResultType, CameraSource, ImageOptions, Photo } from "@capacitor/camera";
+import { Photo } from "@capacitor/camera";
 import { IonicModule } from "@ionic/angular";
 import { Observable, map } from "rxjs";
 import { SiteDocumentImageStore } from "src/app/core/stores/site-document-image/site-document-image.store";
@@ -100,15 +100,6 @@ export class DocumentImageUploadComponent extends AngularComponent(withOnChanges
 
   @Input()
   document!: SiteDocument;
-
-  cameraOptions: ImageOptions = {
-    resultType: CameraResultType.Base64
-  }
-
-  galleryOptions: ImageOptions = {
-    resultType: CameraResultType.Base64,
-    source: CameraSource.Photos
-  }
 
   docImages$: Observable<string> = this.input("document").pipe(
     map(() => this.document.DocumentGroup)

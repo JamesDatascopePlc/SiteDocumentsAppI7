@@ -18,7 +18,7 @@ export class FusePipe implements PipeTransform {
     if (options.search == null || options.search.length === 0)
       return values;
     
-    return values instanceof Observable<T[]>
+    return values instanceof Observable
       ? values.pipe(
         map(vals => new Fuse(vals, { 
           threshold: .1,

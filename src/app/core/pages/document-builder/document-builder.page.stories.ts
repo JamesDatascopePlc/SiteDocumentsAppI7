@@ -1,48 +1,25 @@
 import { defaultQuestion, defaultSection, defaultSiteDocument } from ".storybook/default";
 import { faker } from "@faker-js/faker";
-import { applicationConfig, Meta, StoryFn } from "@storybook/angular";
-import { Observable, of, Subject } from "rxjs";
-import { FormFillerStore } from "../../stores/site-document/form-filler/form-filler.store";
+import { Meta, StoryFn } from "@storybook/angular";
+import { of } from "rxjs";
 import { DocumentBuilderPage } from "./document-builder.page";
 import { SiteDocument } from "../../stores/site-document/models";
 import { QuestionType } from "../../stores/site-document/models/site-document.model";
-import { DocumentBuilderRoute } from "./document-builder.route";
-
-const formFillerRouteMock: Partial<DocumentBuilderRoute> = {
-  documentIds$: of([29]),
-  lastDocumentId$: of(29)
-}
-
-const formFillerStoreMock: Partial<FormFillerStore> = {
-  writingDocument$: new Subject<SiteDocument>(),
-  submitDocument$: (action$: Observable<SiteDocument>) => of(),
-  getTemplateRequest$: (action$: Observable<number>) => of()
-}
+import { trackOf } from "src/app/shared/rxjs";
 
 export default {
   title: "Pages/Document-Builder",
   component: DocumentBuilderPage,
   argTypes: {
     document$: { control: "object" }
-  },
-  decorators: [
-    applicationConfig({
-      providers: [
-        {
-          provide: DocumentBuilderRoute,
-          useValue: formFillerRouteMock
-        },
-        {
-          provide: FormFillerStore,
-          useValue: formFillerStoreMock
-        }
-      ]
-    })
-  ]
+  }
 } as Meta;
 
 const Template: StoryFn<DocumentBuilderPage> = (args: DocumentBuilderPage) => ({
-  props: args,
+  props: {
+    ...args,
+    id$: of(1)
+  },
   styles: [`
     app-document-builder { display: contents; }
   `]
@@ -50,136 +27,137 @@ const Template: StoryFn<DocumentBuilderPage> = (args: DocumentBuilderPage) => ({
 
 export const Default = Template.bind({});
 
-const defaultDoc: SiteDocument = {
-  ...defaultSiteDocument,
-  DocumentTitle: faker.lorem.word(),
-  Pages: [
-    {
-      PageID: 1,
-      PageTitle: faker.lorem.word(),
-      Sections: Object
-        .values(QuestionType)
-        .filter(qt => typeof qt === "number")
-        .map((qt, idx) => 
-          ({
-            ...defaultSection,
-            SectionID: idx,
-            SectionNo: idx,
-            SectionTitle: "",
-            SectionQuestiontype: qt as QuestionType,
-            Questions: [
-              {
-                ...defaultQuestion,
-                QuestionText: QuestionType[qt as number].toString()
-              }
-            ]
-          })
-        )
-    }
-  ]
-}
-
 Default.args = {
-  document$: of<SiteDocument>(defaultDoc)
-}
-
-const docWithAllPermissionsOn: SiteDocument = {
-  ...defaultSiteDocument,
-  DocumentTitle: faker.lorem.word(),
-  Pages: [
-    {
-      PageID: 1,
-      PageTitle: faker.lorem.word(),
-      Sections: Object
-        .values(QuestionType)
-        .filter(qt => typeof qt === "number")
-        .map((qt, idx) => 
-          ({
-            ...defaultSection,
-            SectionID: idx,
-            SectionNo: idx,
-            SectionTitle: "",
-            SectionQuestiontype: qt as QuestionType,
-            Questions: [
-              {
-                ...defaultQuestion,
-                QuestionText: QuestionType[qt as number].toString()
-              }
-            ]
-          })
-        )
-    }
-  ],
-  Queues: Array
-    .from({ length: 5 })
-    .map((val, idx) => 
-      ({
-        Key: idx.toString(),
-        Value: faker.lorem.word()
-      })
-  ),
-  CanAddAsset: true,
-  CanAddOperative: true,
-  CanCreateHotspot: true,
-  CanAddActionerFromApp: true,
-  CanAddCategoryActioner: true,
-  CanCreateAssetsFromDocument: true,
-  CanHaveCompanyActioner: true,
-  CanHaveDocLevelPhotoRoll: true,
-  CanHaveDocumentLevelImages: true,
-  CanHaveQueueDuration: true,
-  ShowDocLevelPhotoButtonAtStartOfDoc: true,
-  CanBeAddedToHotspot: true,
-  CanBeSavedAsDraft: true,
-  AllowAnon: true,
-  RemainAnon: false,
-  MetaData: {
-    ActionerText: faker.lorem.word(),
-    CanBeEditableDocument: true,
-    CannotAddSelfAsActioner: true,
-    HasSiteList: true,
-    ColourHex: faker.color.rgb({ prefix: "", casing: "upper" }),
-    QueueSelectorTitle: faker.lorem.word()
-  }
+  document: trackOf<SiteDocument>({
+    ...defaultSiteDocument,
+    DocumentTitle: faker.lorem.word(),
+    Pages: [
+      {
+        PageID: 1,
+        PageTitle: faker.lorem.word(),
+        PageNo: 1,
+        Hidden: false,
+        Sections: Object
+          .values(QuestionType)
+          .filter(qt => typeof qt === "number")
+          .map((qt, idx) => 
+            ({
+              ...defaultSection,
+              SectionID: idx,
+              SectionNo: idx,
+              SectionTitle: "",
+              SectionQuestiontype: qt as QuestionType,
+              Questions: [
+                {
+                  ...defaultQuestion,
+                  QuestionText: QuestionType[qt as number].toString()
+                }
+              ]
+            })
+          )
+      }
+    ]
+  })
 }
 
 export const DocumentWithAllPermissionsTurnedOn = Template.bind({});
 
 DocumentWithAllPermissionsTurnedOn.args = {
-  document$: of<SiteDocument>(docWithAllPermissionsOn)
-}
-
-const docWithMultiplePages: SiteDocument = {
-  ...defaultSiteDocument,
-  DocumentTitle: faker.lorem.word(),
-  Pages: Object
-    .values(QuestionType)
-    .filter(qt => typeof qt === "number")
-    .map((qt, idx) => 
-      ({
-        PageID: idx,
-        PageTitle: "",
-        Sections: [
-          {
-            ...defaultSection,
-            SectionID: idx,
-            SectionNo: idx,
-            SectionTitle: "",
-            SectionQuestiontype: qt as QuestionType,
-            Questions: [
-              {
-                ...defaultQuestion,
-                QuestionText: QuestionType[qt as number].toString()
-              }
-            ]
-          }
-        ]
-      })
-  )
+  document: trackOf({
+    ...defaultSiteDocument,
+    DocumentTitle: faker.lorem.word(),
+    Pages: [
+      {
+        PageID: 1,
+        PageTitle: faker.lorem.word(),
+        PageNo: 1,
+        Hidden: false,
+        Sections: Object
+          .values(QuestionType)
+          .filter(qt => typeof qt === "number")
+          .map((qt, idx) => 
+            ({
+              ...defaultSection,
+              SectionID: idx,
+              SectionNo: idx,
+              SectionTitle: "",
+              SectionQuestiontype: qt as QuestionType,
+              Questions: [
+                {
+                  ...defaultQuestion,
+                  QuestionText: QuestionType[qt as number].toString()
+                }
+              ]
+            })
+          )
+      }
+    ],
+    Queues: Array
+      .from({ length: 5 })
+      .map((val, idx) => 
+        ({
+          Key: idx.toString(),
+          Value: faker.lorem.word()
+        })
+    ),
+    CanAddAsset: true,
+    CanAddOperative: true,
+    CanCreateHotspot: true,
+    CanAddActionerFromApp: true,
+    CanAddCategoryActioner: true,
+    CanCreateAssetsFromDocument: true,
+    CanHaveCompanyActioner: true,
+    CanHaveDocLevelPhotoRoll: true,
+    CanHaveDocumentLevelImages: true,
+    CanHaveQueueDuration: true,
+    ShowDocLevelPhotoButtonAtStartOfDoc: true,
+    CanBeAddedToHotspot: true,
+    CanBeSavedAsDraft: true,
+    AllowAnon: true,
+    RemainAnon: false,
+    ReqGps: true,
+    MetaData: {
+      ActionerText: faker.lorem.word(),
+      CanBeEditableDocument: true,
+      CannotAddSelfAsActioner: true,
+      HasSiteList: true,
+      ColourHex: faker.color.rgb({ prefix: "", casing: "upper" }),
+      QueueSelectorTitle: faker.lorem.word()
+    }
+  })
 }
 
 export const DocumentWithMultiplePages = Template.bind({});
 
 DocumentWithMultiplePages.args = {
-  document$: of<SiteDocument>(docWithMultiplePages)
+  document: trackOf({
+    ...defaultSiteDocument,
+    DocumentTitle: faker.lorem.word(),
+    Pages: Object
+      .values(QuestionType)
+      .filter(qt => typeof qt === "number")
+      .map((qt, idx) => 
+        ({
+          PageID: idx,
+          PageTitle: "",
+          PageNo: idx + 1,
+          Hidden: false,
+          Sections: [
+            {
+              ...defaultSection,
+              SectionID: idx,
+              SectionNo: idx,
+              SectionTitle: "",
+              SectionQuestiontype: qt as QuestionType,
+              Questions: [
+                {
+                  ...defaultQuestion,
+                  QuestionText: QuestionType[qt as number].toString()
+                }
+              ]
+            }
+          ]
+        })
+    )
+  })
 }

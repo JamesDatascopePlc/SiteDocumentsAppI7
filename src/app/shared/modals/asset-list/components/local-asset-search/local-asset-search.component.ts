@@ -8,10 +8,10 @@ import { FusePipe } from "src/app/shared/pipes";
 @Component({
   selector: "local-asset-search",
   template: `
-    <ion-searchbar [(ngModel)]="searchRegistration" class="animate__animated animate__fadeIn" debounce="300" />
+    <ion-searchbar [(ngModel)]="searchRegistration" debounce="300" />
 
     <ion-list>
-      <ion-item-sliding *rxFor="let asset of assets()
+      <ion-item-sliding *rxFor="let asset of assetStore.data()
         | fuse: {
           search: searchRegistration,
           keys: ['Registration']
@@ -37,7 +37,7 @@ import { FusePipe } from "src/app/shared/pipes";
   ]
 })
 export class LocalAssetSearchComponent {
-  assets = useAssetStore();
+  assetStore = useAssetStore();
   searchRegistration: string = "";
 
   @Output()

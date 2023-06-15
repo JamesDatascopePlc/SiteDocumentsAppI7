@@ -5,7 +5,6 @@ import { importRxFixedVirtualScroll, importRxTemplate } from "../../imports";
 import { FusePipe } from "../../pipes";
 import { AngularComponent, AngularDirective, withAfterViewInit, withGenericTemplateContextGuard, withOnChanges } from "../../lifecycles";
 import { using } from "../../rxjs";
-import { Nullable } from "../../types";
 
 @Directive({
   selector: "ng-template[items]",
@@ -123,7 +122,7 @@ export class SelectableComponent<T = unknown> extends AngularComponent(withAfter
 
   item = using(this.afterViewInit(), this.input("items"), this.input("value"), this.itemChange)
     .calculate(() => this.itemValue != null 
-      ? this.items.find(item => item[this.itemValue as keyof T] === this.value)
+      ? this.items?.find(item => item[this.itemValue as keyof T] === this.value)
       : this.value as T
     );
 

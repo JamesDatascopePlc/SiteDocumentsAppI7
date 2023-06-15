@@ -32,6 +32,8 @@ export interface SiteDocument {
     Value: number;
     Type: string;
   }
+  ReqGps: boolean;
+  PageIdx: number
 }
 
 export interface SiteDocumentImage {
@@ -69,7 +71,9 @@ export interface SiteDocumentOperative {
 export interface Page {
   PageID: number;
   PageTitle: string;
-  Sections: Section[]
+  PageNo: number;
+  Sections: Section[];
+  Hidden: boolean;
 }
 
 export interface Section {
@@ -80,6 +84,7 @@ export interface Section {
   SectionQuestiontype: QuestionType;
   IsRepeatable: boolean;
   TableTitles: string[];
+  Hidden: boolean;
 }
 
 export enum QuestionType {
@@ -130,7 +135,7 @@ export interface Question {
   DateAndTime2: Date;
   NumberVal?: number;
   OptionVal?: string | null;
-  Options: SelectOption[];
+  AnswerOptions: SelectOption[];
   CascadeOptions: CascadeOption[];
   CascadeOptionVal?: string | null;
   YesNoNA: boolean | null;
@@ -138,6 +143,7 @@ export interface Question {
   CanHaveFiles: boolean;
   SignaturePoints?: PointGroup[];
   ValidationData: ValidationData[];
+  Hidden: boolean;
 }
 
 export interface ValidationData {

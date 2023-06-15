@@ -1,25 +1,24 @@
-import { ChangeDetectionStrategy, Component, inject } from "@angular/core";
-import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
+import { ChangeDetectionStrategy, Component } from "@angular/core";
 import { IonicModule } from "@ionic/angular";
-import { filter, merge, shareReplay, switchMap } from "rxjs";
-import { IfComponent } from "src/app/shared/components";
+import { IfComponent, ToggleButtonComponent } from "src/app/shared/components";
 import { importNgSwitch, importRxTemplate } from "src/app/shared/imports";
-import { FormFillerStore } from "../../stores/site-document/form-filler/form-filler.store";
-import { DocumentPageComponent, DocumentSectionComponent, QuestionsTemplateDirective, importInputTypes, importQuestionTypes } from "./components";
-import { clickReaction, reaction } from "src/app/shared/reactions";
-import { QuestionType, SiteDocument } from "../../stores/site-document/models";
+import { DocumentNavigationComponent, DocumentPageComponent, DocumentSectionComponent, QuestionsTemplateDirective, importInfoTypes, importInputTypes, importQuestionTypes } from "./components";
+import { QuestionType } from "../../stores/site-document/models";
 import { isMobileApp } from "src/app/shared/plugins/platform.plugin";
-import { numberState } from "src/app/shared/states/number.state";
-import { DocumentBuilderRoute } from "./document-builder.route";
 import { importDocumentBuilderModals } from "./modals";
-import { ActivatedRoute, Router } from "@angular/router";
+import { useTemplate } from "../../http/template.api";
+import { param, param$, useGoRelative } from "src/app/shared/route";
+
+interface DocumentBuilderOptions {
+  inSinglePageMode: boolean
+}
 
 @Component({
   selector: 'app-document-builder',
   template: `
     <ion-header>
-      <ion-toolbar *rxIf="document$; let document">
-        <ion-buttons>
+      <ion-toolbar *rxIf="document.data(); let document">
+        <ion-buttons slot="start">
           <ion-button>
             <ion-icon name="arrow-back-outline" />
           </ion-button>
@@ -27,29 +26,19 @@ import { ActivatedRoute, Router } from "@angular/router";
         <ion-title class="ion-text-center ion-text-wrap">
           {{ document.DocumentTitle }}
         </ion-title>
-        <ion-buttons *rxIf="isMobileApp" slot="end">
-          <if [condition]="document.Pinned">
-            <ion-button [unpatch] show color="primary">
-              <ion-icon name="bookmark" />
-            </ion-button>
+        <ion-buttons slot="end">
+          <toggle-button [(checked)]="options.inSinglePageMode" icon="reader" />
 
-            <ion-button [unpatch] else>
-              <ion-icon name="bookmark-outline" />
-            </ion-button>
-          </if>
+          <toggle-button 
+            *rxIf="isMobileApp" 
+            [(checked)]="document.Pinned" 
+            icon="bookmark" />
         </ion-buttons>
       </ion-toolbar>
     </ion-header>
 
-    <ion-content *rxIf="document$; let document" class="ion-padding">
-      <ion-list>
-        <ion-item>
-          <ion-label>
-            Show document as single page
-          </ion-label>
-          <ion-toggle></ion-toggle>
-        </ion-item>
-      </ion-list>
+    <ion-content *rxIf="document.data(); let document" class="ion-padding">
+      <require-gps *rxIf="document.ReqGps" />
 
       <actioner-select
          *rxIf="document.CanAddActionerFromApp"
@@ -80,22 +69,26 @@ import { ActivatedRoute, Router } from "@angular/router";
       
       <queue-duration *rxIf="document.CanHaveQueueDuration" />
 
-      <document-page *rxFor="let page of document.Pages; index as idx" [page]="page" [hidden]="pageIndex.isNotNumber$(idx) | push">
+      <document-page *rxFor="let page of document.Pages; index as idx" [page]="page" [hidden]="!options.inSinglePageMode && document.PageIdx !== page.PageNo">
         <document-section *rxFor="let section of page.Sections" [section]="section">
           <ng-template [ngSwitch]="section.SectionQuestiontype" [questions]="section.Questions" let-question>
             <label-question *ngSwitchCase="QuestionType.Label" [question]="question" />
             <checkbox-question *ngSwitchCase="QuestionType.Checkbox" [question]="question" />
-            <radio-group-question *ngSwitchCase="QuestionType.RadioGroup" [section]="section" [question]="question" />
-            <radio-table-question 
-              *rxIf="section.SectionQuestiontype === QuestionType.RadioGroup && document.MetaData.UsesRadioGroupTable" 
-              [question]="question" />
+            
+            <if *ngSwitchCase="QuestionType.RadioGroup" [condition]="document.MetaData.UsesRadioGroupTable === true">
+              <radio-table-question show [question]="question" />
+              <radio-group-question else [section]="section" [question]="question" />
+            </if>
+
             <textarea-question *ngSwitchCase="QuestionType.TextArea" [question]="question" />
             <select-question *ngSwitchCase="QuestionType.Select" [question]="question" />
             <checkbox-question *ngSwitchCase="QuestionType.CheckboxTextbox" [question]="question" />
-            <radio-group-textbox-question *ngSwitchCase="QuestionType.RadioGroupTextbox" [question]="question" [section]="section" />
-            <radio-table-textbox-question 
-              *rxIf="section.SectionQuestiontype === QuestionType.RadioGroupTextbox && document.MetaData.UsesRadioGroupTable" 
-              [question]="question" />
+
+            <if *ngSwitchCase="QuestionType.RadioGroupTextbox" [condition]="document.MetaData.UsesRadioGroupTable === true">
+              <radio-table-textbox-question show [question]="question" />
+              <radio-group-textbox-question else [question]="question" [section]="section" />
+            </if>
+
             <date-question *ngSwitchCase="QuestionType.Date" [question]="question" />
             <datetime-question *ngSwitchCase="QuestionType.DateTime" [question]="question" />
             <operative-list-question *ngSwitchCase="QuestionType.OperativeList" [question]="question" />
@@ -117,33 +110,25 @@ import { ActivatedRoute, Router } from "@angular/router";
 
       <remain-anonymous *rxIf="document.AllowAnon" [(isTicked)]="document.RemainAnon" />
 
-      <ion-button
-        (click)="submit(document)"
-        [unpatch] 
-        class="ion-margin-vertical" 
-        expand="full">
+      <ion-button *rxIf="options.inSinglePageMode || document.PageIdx === (document.Pages.length - 1)" class="ion-margin-vertical" expand="full">
         Submit
       </ion-button>
     </ion-content>
 
-    <ng-container *rxIf="document$; let document">
-      <ion-footer *rxLet="pageIndex.value$; let idx">
-        <ion-button 
-          *rxIf="idx > 0" 
-          (click)="pageIndex.decrement()"
-          class="float-left">
-          Back
-        </ion-button>
-        <ion-button 
-          *rxIf="idx < document.Pages.length - 1" 
-          (click)="pageIndex.increment()"
-          class="float-right">
-          Next
-        </ion-button>
+    <ng-container *rxIf="document.data(); let doc">
+      <ion-footer *rxIf="!options.inSinglePageMode && doc.Pages.length > 0">
+        <document-navigation [pages]="doc.Pages" [(index)]="doc.PageIdx" />
       </ion-footer>
     </ng-container>
 
-    <template-menu-modal [isOpen]="route.noParams$ | push" (select)="navigateDocument($event)" />
+    <template-menu-modal 
+      *rxLet="id$; let id" 
+      [isOpen]="id == null"
+      (select)="goRelative({ 
+        queryParams: { id: $event },
+        queryParamsHandling: 'merge',
+        skipLocationChange: true 
+      })" />
   `,
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -152,56 +137,29 @@ import { ActivatedRoute, Router } from "@angular/router";
     ...importRxTemplate(),
     ...importNgSwitch(),
     IfComponent,
+    ToggleButtonComponent,
+    DocumentNavigationComponent,
     DocumentPageComponent,
     DocumentSectionComponent,
     QuestionsTemplateDirective,
+    ...importInfoTypes(),
     ...importInputTypes(),
     ...importQuestionTypes(),
     ...importDocumentBuilderModals()
   ]
 })
 export class DocumentBuilderPage {
-  protected readonly router = inject(Router);
-  _route = inject(ActivatedRoute);
-  protected readonly route = inject(DocumentBuilderRoute);
-  protected readonly formFillerStore = inject(FormFillerStore);
-
   QuestionType = QuestionType;
   isMobileApp = isMobileApp();
+  goRelative = useGoRelative();
+  
 
-  document$ = merge(
-    this.formFillerStore.getTemplateRequest$(this.route.lastDocumentId$),
-  ).pipe(
-    switchMap(() => this.formFillerStore.writingDocument$),
-    shareReplay()
-  );
-
-  navigateDocument(id: number) {
-    this.router.navigate([], {
-      relativeTo: this._route,
-      queryParams: {
-        ids: [id]
-      },
-      queryParamsHandling: "merge",
-      skipLocationChange: true
-    });
+  options: DocumentBuilderOptions = {
+    inSinglePageMode: false
   }
 
-  submit = reaction<SiteDocument>(doc$ => this.formFillerStore.submitDocument$(doc$()).pipe(
-    takeUntilDestroyed(),
-    clickReaction()
-  ));
+  id$ = param$("id", id => id?.toNumber());
+  queueId = param("queueId")?.toNumber();
 
-  pageIndex = numberState({
-    name: "PageIndex",
-    initialValue: 0,
-    props: state => ({
-      isNotNumber$: (page: number) => state.is$(idx => idx !== page),
-      isGreaterThan0$: () => state.is$(idx => idx > 0),
-      isLessThanDocumentLength$: () => this.document$.pipe(
-        filter(doc => doc != null),
-        switchMap(doc => state.is$(idx => idx < doc!.Pages.length))
-      )
-    })
-  })
+  document = useTemplate(this.id$);
 }

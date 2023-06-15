@@ -61,6 +61,7 @@ Default.args = {
     SectionTitle: "",
     IsRepeatable: false,
     Questions: [],
+    Hidden: false,
     TableTitles: ["Yes", "No", "N/A"]
   }
 }

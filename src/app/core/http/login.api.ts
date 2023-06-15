@@ -2,9 +2,9 @@ import { environment } from "src/environments/environment";
 import { Area, Company, Site } from "../stores/user/user.store";
 import { AspNetData, createApi } from "./create-api";
 import { CategoryActioner } from "../stores/category-actioners/category-actioners.store";
-import { flatMap, memoize } from "lodash-es";
+import { memoize } from "lodash-es";
 import { track } from "src/app/shared/rxjs";
-import { map } from "rxjs";
+import { BehaviorSubject, map } from "rxjs";
 
 export interface RamsItem {
   Reference: string,
@@ -14,7 +14,7 @@ export interface RamsItem {
 }
 
 export interface GetCategoryActionerParams {
-  siteId: number
+  categoryId: number
 }
 
 export interface ResponsibilityAreaType {
@@ -67,7 +67,7 @@ export const useRams = memoize(() => {
   const rams = track(() => getRams().pipe(
     map(rams => rams.map(r => ({
       ...r,
-      ExpiryDate: r.ExpiryDate.toDate()
+      ExpiryDate: r.ExpiryDate?.toDate()
     })))
   ));
 
@@ -77,6 +77,15 @@ export const useRams = memoize(() => {
   }
 });
 
+
+export const useCategoryActioners = memoize((categoryId: Nullable<number>) => {
+  const loginApi = useLoginApi();
+
+  return track(() => categoryId != null 
+    ? loginApi.getCategoryActioners({ categoryId })
+    : new BehaviorSubject([]))
+});
+
 export const useResAreaTypes = memoize(() => {
   const { getResAreaTypes } = useLoginApi();
 
@@ -84,6 +93,6 @@ export const useResAreaTypes = memoize(() => {
 
   return {
     ...resAreaTypes,
-    areas: resAreaTypes.data(types => flatMap(types, t => t.Areas))
+    areas: resAreaTypes.data(types => types.flatMap(t => t.Areas))
   }
 })

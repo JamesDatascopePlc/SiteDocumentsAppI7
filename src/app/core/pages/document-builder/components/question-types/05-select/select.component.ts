@@ -17,7 +17,7 @@ import { CameraCaptureComponent, FileUploadComponent, QuestionTextComponent } fr
       <selectable 
         placeholder="Select"
         [title]="question.QuestionText"
-        [items]="question.Options"
+        [items]="question.AnswerOptions"
         itemValue="Val"
         itemText="Text"
         [canClear]="!question.Required" />

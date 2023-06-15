@@ -1,5 +1,6 @@
 export {};
 
+export type Many<T> = T | T[];
 export type ListIterator<T, TResult> = (value: T, index: number) => TResult;
 
 export type DateFormat = `dd${string}MM${string}yyyy` 
@@ -10,6 +11,8 @@ export type DateFormat = `dd${string}MM${string}yyyy`
   | `HH${string}mm${string}ss`;
 
 declare global {
+  type Func<R, T = void> = (param: T) => R;
+  type Nullable<T> = T | null | undefined;
   interface String {
     toNumber(): number;
     toDate(): Date;
@@ -29,7 +32,9 @@ declare global {
     subtrackHours(hours: number): Date;
   }
   interface Array<T> {
+    first(): T | undefined;
+    last(): T | undefined;
     orderBy<TResult>(iteratees: keyof T | ListIterator<T, TResult>, order?: "asc" | "desc"): T[]
-    flatMap<TResult>(iteratee: ListIterator<T, TResult>): TResult[]
+    flatMap<TResult>(iteratee: ListIterator<T, Many<TResult>>): TResult[];
   }
 }
