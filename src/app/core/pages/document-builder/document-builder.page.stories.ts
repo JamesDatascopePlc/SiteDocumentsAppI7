@@ -66,6 +66,8 @@ DocumentWithAllPermissionsTurnedOn.args = {
   document: trackOf({
     ...defaultSiteDocument,
     DocumentTitle: faker.lorem.word(),
+    Subtitle: faker.lorem.words(),
+    Preamble: `${faker.lorem.words()}\n${faker.lorem.words()}`,
     Pages: [
       {
         PageID: 1,

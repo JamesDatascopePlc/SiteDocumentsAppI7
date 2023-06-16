@@ -54,19 +54,22 @@ export function createBuildApi<TApi>(options: CreateApiOptions<TApi>): BuildApi 
               : {}
         }),
     post: <TResponse, TParams = object | void>(postOptions: PostRequestOptions<TParams>) =>
-      (params: TParams) => http.post<TResponse>(
-        `${options.baseUrl}/${postOptions.path}`, 
-        postOptions.body != null
-          ? postOptions.body(params)
-          : params != null
-          ? omitBy(params, val => val == null)
-          : {}, 
-        {
-          headers: postOptions.headers != null 
-          ? mapValues(omitBy(postOptions.headers(params) as Params, val => val == null), val => val.toString()) 
-          : {}
-        }
-      )
+      (params: TParams) => {
+        debugger;
+        return http.post<TResponse>(
+          `${options.baseUrl}/${postOptions.path}`, 
+          postOptions.body != null
+            ? postOptions.body(params)
+            : params != null
+            ? omitBy(params, val => val == null)
+            : {}, 
+          {
+            headers: postOptions.headers != null 
+            ? mapValues(omitBy(postOptions.headers(params) as Params, val => val == null), val => val.toString()) 
+            : {}
+          }
+        );
+      } 
   }
 }
 

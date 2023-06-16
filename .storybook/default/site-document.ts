@@ -5,6 +5,8 @@ export const defaultSiteDocument: SiteDocument = {
   DocumentID: 1,
   DocumentTitle: "",
   DocumentGroup: "",
+  Subtitle: "",
+  Preamble: "",
   Pages: [],
   Queues: [],
   CanAddAsset: false,

@@ -34,9 +34,27 @@ export interface AssetInspectionSchedule {
   Active: boolean;
 }
 
+export interface Detail {
+  Title: string,
+}
+
+export interface DetailListItem {
+  Content: string;
+}
+
+export interface GetAssetDetailsByAssetIdJsonQuery {
+  id: number;
+}
+
+export interface GetAssetDetailsByTagQuery {
+  tag: string;
+}
+
 export const useAssetApi = createApi({
   baseUrl: `${environment.siteDocsApi}/AssetApi`,
   endpoints: ({ get }) => ({
+    getAssetDetailsByAssetId: get<Asset, GetAssetDetailsByAssetIdJsonQuery>("AssetDetailsByAssetId"),
+    getAssetDetailsByTag: get<Asset, GetAssetDetailsByTagQuery>("AssetDetailsByTag"),
     getAssetsByRegistration: get<Asset[], GetAssetsByRegistrationParams>("GetAssetsByReg"),
     getAssetsByType: get<Asset[], GetAssetsByTypeParams>("getAssetsByType"),
     getAssetGroups: get<AssetGroup[]>("GetAssetGroups"),
@@ -44,6 +62,12 @@ export const useAssetApi = createApi({
     getAssetInspectionSchedules: get<AssetInspectionSchedule[]>("GetAssetInspectionSchedules")
   })
 });
+
+export const useAssetDetailsByTag = memoize((tag: string) => {
+  const { getAssetDetailsByTag } = useAssetApi();
+
+  return track(() => getAssetDetailsByTag({ tag }));
+})
 
 export const useFetchAssetsByRegistration = memoize((binding: Func<GetAssetsByRegistrationParams>) => {
   const { getAssetsByRegistration } = useAssetApi();

@@ -8,13 +8,13 @@ import { isMobileApp } from "src/app/shared/plugins/platform.plugin";
 import { importDocumentBuilderModals } from "./modals";
 import { useTemplate } from "../../http/template.api";
 import { param, param$, useGoRelative } from "src/app/shared/route";
-
-interface DocumentBuilderOptions {
-  inSinglePageMode: boolean
-}
+import { useSpecificDocument, useUploadDocument } from "../../http/site-document.api";
+import { useUpdateDocMove } from "../../http/queues.api";
+import { filter, tap } from "rxjs";
+import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 
 @Component({
-  selector: 'app-document-builder',
+  selector: 'document-builder-page',
   template: `
     <ion-header>
       <ion-toolbar *rxIf="document.data(); let document">
@@ -38,6 +38,8 @@ interface DocumentBuilderOptions {
     </ion-header>
 
     <ion-content *rxIf="document.data(); let document" class="ion-padding">
+      <preamble [subtitle]="document.Subtitle" [text]="document.Preamble" />
+
       <require-gps *rxIf="document.ReqGps" />
 
       <actioner-select
@@ -68,6 +70,8 @@ interface DocumentBuilderOptions {
         [(siteId)]="document.SiteId" />
       
       <queue-duration *rxIf="document.CanHaveQueueDuration" />
+
+      <document-image-upload [documentId]="document.DocumentID" />
 
       <document-page *rxFor="let page of document.Pages; index as idx" [page]="page" [hidden]="!options.inSinglePageMode && document.PageIdx !== page.PageNo">
         <document-section *rxFor="let section of page.Sections" [section]="section">
@@ -110,7 +114,10 @@ interface DocumentBuilderOptions {
 
       <remain-anonymous *rxIf="document.AllowAnon" [(isTicked)]="document.RemainAnon" />
 
-      <ion-button *rxIf="options.inSinglePageMode || document.PageIdx === (document.Pages.length - 1)" class="ion-margin-vertical" expand="full">
+      <ion-button 
+        *rxIf="options.inSinglePageMode || document.PageIdx === document.Pages.length" 
+        class="ion-margin-vertical" 
+        expand="full">
         Submit
       </ion-button>
     </ion-content>
@@ -152,14 +159,40 @@ export class DocumentBuilderPage {
   QuestionType = QuestionType;
   isMobileApp = isMobileApp();
   goRelative = useGoRelative();
-  
+  uploadDocument = useUploadDocument();
+  updateDocMove = useUpdateDocMove();
 
   options: DocumentBuilderOptions = {
     inSinglePageMode: false
   }
 
   id$ = param$("id", id => id?.toNumber());
+  parentDocId = param("parentDocumentId")?.toNumber();
+  specificId = param("specificId")?.toNumber();
   queueId = param("queueId")?.toNumber();
+  toSuccessQueue = param("toSuccessQueue")?.toBoolean();
+  token = param("token");
 
-  document = useTemplate(this.id$);
+  document = this.specificId != null 
+    ? useSpecificDocument(this.specificId)
+    : useTemplate(this.id$);
+
+  effects = [
+    this.uploadDocument.data().pipe(
+      takeUntilDestroyed(),
+      filter(() => this.queueId != null && this.toSuccessQueue != null),
+      tap(({ submissionId }) => this.updateDocMove.send({
+        documentId: submissionId,
+        queueId: this.queueId,
+        note: null,
+        success: this.toSuccessQueue,
+        img64: null
+      }))
+    )
+    .subscribe()
+  ];
+}
+
+interface DocumentBuilderOptions {
+  inSinglePageMode: boolean
 }

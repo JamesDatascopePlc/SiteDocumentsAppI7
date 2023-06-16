@@ -3,6 +3,8 @@ import { PointGroup } from "signature_pad";
 export interface SiteDocument {
   DocumentID: number;
   DocumentTitle: string;
+  Subtitle: string;
+  Preamble: string;
   Pinned: boolean;
   Pages: Page[];
   AllowAnon: boolean;
@@ -37,10 +39,9 @@ export interface SiteDocument {
 }
 
 export interface SiteDocumentImage {
+  Id: string,
   DocumentId: number,
-  DocumentSubmissionId: number,
   Base64: string,
-  ImageNo: number
 }
 
 export interface SiteDocumentMetaData {

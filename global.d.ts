@@ -15,6 +15,7 @@ declare global {
   type Nullable<T> = T | null | undefined;
   interface String {
     toNumber(): number;
+    toBoolean(): boolean;
     toDate(): Date;
     toJSON<T>(): T;
   }

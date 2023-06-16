@@ -12,3 +12,7 @@ const Template: StoryFn<DocumentImageUploadComponent> = args => ({
 });
 
 export const Default = Template.bind({});
+
+Default.args = {
+  documentId: 1
+}

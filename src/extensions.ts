@@ -7,6 +7,10 @@ String.prototype.toNumber = function(this: string) {
   return Number(this);
 }
 
+String.prototype.toBoolean = function(this: string) {
+  return Boolean(this);
+}
+
 String.prototype.toDate = function(this: string) {
   return new Date(this);
 }

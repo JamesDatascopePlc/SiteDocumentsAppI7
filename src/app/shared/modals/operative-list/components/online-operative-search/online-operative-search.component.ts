@@ -15,7 +15,7 @@ import { addEntities } from "@ngneat/elf-entities";
     ion-list { height: calc(100% - 58px); }
   `],
   template: `
-    <ion-searchbar [(ngModel)]="searchName" (keyup.enter)="operativeSearch.fetch()" />
+    <ion-searchbar [(ngModel)]="searchName" (keyup.enter)="operativeSearch.send()" />
 
     <if [condition]="operativeSearch.isLoading() | push">
       <ion-list show>

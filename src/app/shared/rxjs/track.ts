@@ -60,7 +60,7 @@ export function trackOf<T>(value: T) {
 }
 
 export function dependencyTrack<TParams, TResult>(options: {
-  binding: () => TParams,
+  binding?: () => TParams,
   fn: (params: TParams) => Observable<TResult>
 }) {
   const params$ = new Subject<TParams>();
@@ -69,12 +69,15 @@ export function dependencyTrack<TParams, TResult>(options: {
     deps: [params$],
     fn: params => options.fn(params)
   });
+  let binding = options.binding == null 
+    ? () => ({})
+    : options.binding; 
 
   return {
     ...tracking,
-    fetch: (params?: Partial<TParams>) => {
+    send: (params?: Partial<TParams>) => {
       params$.next({
-        ...options.binding(),
+        ...binding(),
         ...params
       } as TParams);
     }

@@ -24,7 +24,7 @@ import { param } from "src/app/shared/route";
     </ion-item>
 
     <if [condition]="lookup === 'Registration'">
-      <ion-searchbar show [(ngModel)]="searchRegistration" (keyup.enter)="findAssetsByReg.fetch()" />
+      <ion-searchbar show [(ngModel)]="searchRegistration" (keyup.enter)="findAssetsByReg.send()" />
 
       <ng-container else>
         <selectable 
@@ -43,7 +43,7 @@ import { param } from "src/app/shared/route";
           itemValue="Id" 
           itemText="Description" 
           (itemChange)="$event != null 
-            ? findAssetsByType.fetch({ typeId: $event.Id }) 
+            ? findAssetsByType.send({ typeId: $event.Id }) 
             : null" />
       </ng-container>
     </if>

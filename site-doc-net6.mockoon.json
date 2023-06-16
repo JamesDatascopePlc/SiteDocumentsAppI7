@@ -169,6 +169,23 @@
           "disableTemplating": false,
           "fallbackTo404": false,
           "default": true
+        },
+        {
+          "uuid": "2b14b3bc-49a3-44c5-8fc9-41f3fc28ab25",
+          "body": "{}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false
         }
       ],
       "enabled": true,
@@ -622,6 +639,118 @@
       ],
       "enabled": true,
       "responseMode": null
+    },
+    {
+      "uuid": "0def111a-6c66-4322-a597-15393cdfe126",
+      "type": "http",
+      "documentation": "",
+      "method": "post",
+      "endpoint": "api/SiteDocumentApi/UploadCompletedDocument",
+      "responses": [
+        {
+          "uuid": "f1cb2702-c2c6-47a9-9a19-4ef371a61c93",
+          "body": "{\n  \"documentId\": 1\n}",
+          "latency": 2000,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    },
+    {
+      "uuid": "05dbb4ee-44a9-46fe-817b-8a08ca9c3943",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "api/LoginApi/GetAreas",
+      "responses": [
+        {
+          "uuid": "e6c24075-d2e1-4fe8-8ae4-1a3e0d4dd1bb",
+          "body": "[]",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    },
+    {
+      "uuid": "a89aa168-65d0-4ca0-8113-b18fad9910f7",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "api/SiteDocumentApi/GetCompletedDocument",
+      "responses": [
+        {
+          "uuid": "dfe38e53-bd52-41e5-8c70-2d805bebe356",
+          "body": "{}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    },
+    {
+      "uuid": "d3b164b8-4b32-487e-b7d9-71c5a1a8a485",
+      "type": "http",
+      "documentation": "",
+      "method": "post",
+      "endpoint": "api/QueuesApi/UpdateDocMove",
+      "responses": [
+        {
+          "uuid": "e8feb1fd-b97c-4919-af7c-4967bd407dc6",
+          "body": "{\n  \"Message\": \"Success document moved to random queue\"\n  \"MovedToQueueId\": 1\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
     }
   ],
   "proxyMode": false,
@@ -676,15 +805,15 @@
       "children": [
         {
           "type": "route",
+          "uuid": "61062790-3717-42de-9255-313e09ed203a"
+        },
+        {
+          "type": "route",
           "uuid": "efc08181-197f-4588-9ed6-e4bf0144e549"
         },
         {
           "type": "route",
           "uuid": "8cc70c71-7989-4b05-a90b-69c14bc7fa77"
-        },
-        {
-          "type": "route",
-          "uuid": "61062790-3717-42de-9255-313e09ed203a"
         },
         {
           "type": "route",
@@ -732,6 +861,10 @@
         {
           "type": "route",
           "uuid": "09f5ee67-5e01-4e26-9bec-a86c42bc46b7"
+        },
+        {
+          "type": "route",
+          "uuid": "05dbb4ee-44a9-46fe-817b-8a08ca9c3943"
         }
       ]
     },
@@ -743,6 +876,10 @@
         {
           "type": "route",
           "uuid": "6afbf8ee-5556-4ab5-9198-7ecfd9374dac"
+        },
+        {
+          "type": "route",
+          "uuid": "d3b164b8-4b32-487e-b7d9-71c5a1a8a485"
         }
       ]
     },
@@ -798,6 +935,21 @@
           "uuid": "18fb2aa9-8e4d-46b6-ae80-fd359c2f35f7"
         }
       ]
+    },
+    {
+      "uuid": "eea5fb09-5d73-4de3-92d9-a0e6ecbe1cfc",
+      "name": "SiteDocumentApi",
+      "collapsed": false,
+      "children": [
+        {
+          "type": "route",
+          "uuid": "0def111a-6c66-4322-a597-15393cdfe126"
+        },
+        {
+          "type": "route",
+          "uuid": "a89aa168-65d0-4ca0-8113-b18fad9910f7"
+        }
+      ]
     }
   ],
   "rootChildren": [
@@ -824,6 +976,10 @@
     {
       "type": "folder",
       "uuid": "23592c53-75c0-40cb-a244-7ebfbe21c2e1"
+    },
+    {
+      "type": "folder",
+      "uuid": "eea5fb09-5d73-4de3-92d9-a0e6ecbe1cfc"
     }
   ]
 }

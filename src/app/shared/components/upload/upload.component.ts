@@ -29,7 +29,7 @@ function fileToDataUrlFile(file: File): Promise<DataUrlFile> {
   `],
   template: `
     <label [for]="id" class="w-full h-full fixed cursor-pointer z-50"></label>
-    <input [id]="id" type="file" [accept]="accept" (change)="take($event)" class="hidden" />
+    <input [id]="id" type="file" [accept]="accept" [multiple]="multiple" (change)="take($event)" class="hidden" />
   `,
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -39,6 +39,9 @@ export class UploadComponent {
 
   @Input()
   accept?: string;
+
+  @Input()
+  multiple: boolean = false;
 
   @Output()
   uploadFiles = new EventEmitter<DataUrlFile[]>();

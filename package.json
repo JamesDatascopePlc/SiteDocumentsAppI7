@@ -30,7 +30,7 @@
     "@capacitor/keyboard": "4.1.1",
     "@capacitor/preferences": "^4.0.2",
     "@capacitor/status-bar": "4.1.1",
-    "@ionic/angular": "^7.0.6",
+    "@ionic/angular": "^7.0.13",
     "@ngneat/elf": "^2.3.1",
     "@ngneat/elf-devtools": "^1.2.1",
     "@ngneat/elf-entities": "^4.4.4",
