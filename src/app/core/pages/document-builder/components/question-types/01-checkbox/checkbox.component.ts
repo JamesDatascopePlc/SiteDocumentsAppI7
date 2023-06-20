@@ -11,8 +11,8 @@ import { FormsModule } from "@angular/forms";
     <ion-item lines="none">
       <ion-checkbox [(ngModel)]="question.YesNoNA" aria-label="" slot="start" />
       <question-text [required]="question.Required">{{ question.QuestionText }}</question-text>
-      <camera-capture *rxIf="question.CanHaveImg" class="ion-no-margin" slot="end" />
-      <file-upload *rxIf="question.CanHaveFiles" class="ion-no-margin" slot="end" />
+      <camera-capture *rxIf="question.CanHaveImg" class="m-0" slot="end" />
+      <file-upload *rxIf="question.CanHaveFiles" class="m-0" slot="end" />
     </ion-item>
   `,
   standalone: true,

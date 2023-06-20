@@ -30,6 +30,7 @@ declare global {
     isEqualOrBefore(date: Date): boolean;
     isEqualOrBeforeToday(date: Date): boolean;
     addHours(hours: number): Date;
+    addDays(days: number): Date;
     subtrackHours(hours: number): Date;
   }
   interface Array<T> {

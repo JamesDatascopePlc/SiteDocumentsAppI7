@@ -53,3 +53,16 @@ import 'zone.js';  // Included with Angular CLI.
 /***************************************************************************************************
  * APPLICATION IMPORTS
  */
+
+//import { Observable } from "rxjs";
+
+// declare module "rxjs" {
+//   type Pipe<T> = Observable<T>["pipe"];
+//   interface Observable<T> {
+//     toPipe(): Pipe<T>
+//   }
+// }
+
+// Observable.prototype.toPipe = function<T>(this: Observable<T>) {
+//   return this.pipe.bind(this);
+// }

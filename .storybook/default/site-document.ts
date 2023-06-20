@@ -3,6 +3,7 @@ import { Question, QuestionType, Section, SiteDocument } from "src/app/core/stor
 
 export const defaultSiteDocument: SiteDocument = {
   DocumentID: 1,
+  SiteDocumentType: 1,
   DocumentTitle: "",
   DocumentGroup: "",
   Subtitle: "",
@@ -50,7 +51,9 @@ export const defaultQuestion: Question = {
   QuestionID: 1,
   QuestionText: faker.lorem.word(),
   CommentsText: "",
+  SelectedOptionText: faker.lorem.word(),
   CascadeOptionsText: faker.lorem.word(),
+  NumberVal: +faker.random.numeric(2),
   Required: true,
   Hidden: false,
   Assets: Array

@@ -13,6 +13,7 @@ export default {
   argTypes: {
     question: { table: { disable: true } },
     "question.QuestionText": { name: "QuestionText", control: "text" },
+    "question.CascadeOptionsText": { name: "CascadeOptionsText", control: "text" },
     "question.Required": { name: "Required", control: "boolean" },
     "question.AnswerOptions": { name: "AnswerOptions", control: "object" },
     "question.CanHaveImg": { name: "CanHaveImg", control: "boolean" },
@@ -27,7 +28,7 @@ const Template: StoryFn<Story> = args => ({
       ...defaultQuestion,
       QuestionText: args["question.QuestionText"],
       Required: args["question.Required"],
-      Options: args["question.AnswerOptions"],
+      AnswerOptions: args["question.AnswerOptions"],
       CanHaveImg: args["question.CanHaveImg"],
       CanHaveFiles: args["question.CanHaveFiles"]
     }
@@ -44,7 +45,8 @@ Default.args = {
     { Val: "1", Text: "Blue", MetaData: { ColourHex: "#0000ff" } },
     { Val: "2", Text: "Green", MetaData: { ColourHex: "#009933" } },
     { Val: "3", Text: "Yellow", MetaData: { ColourHex: "#ffff00" } },
-    { Val: "4", Text: "Orange", MetaData: { ColourHex: "#ff9900" } }
+    { Val: "4", Text: "Orange", MetaData: { ColourHex: "#ff9900" } },
+    { Val: "-1", Text: "Some Other Color" }
   ],
   "question.CanHaveImg": true,
   "question.CanHaveFiles": true

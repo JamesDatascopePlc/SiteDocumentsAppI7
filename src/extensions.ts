@@ -1,4 +1,4 @@
-import { addHours, format, isAfter, isBefore, isEqual, subHours } from "date-fns";
+import { addDays, addHours, format, isAfter, isBefore, isEqual, parse as parseFormat, parseISO, subHours } from "date-fns";
 import { DateFormat, ListIterator, Many } from "global";
 import { parse } from "json5";
 import { flatMap, orderBy } from "lodash-es";
@@ -17,6 +17,14 @@ String.prototype.toDate = function(this: string) {
 
 String.prototype.toJSON = function<T = unknown>(this: string) {
   return parse<T>(this)
+}
+
+Date.parseFormat = function(value: string, from: DateFormat) {
+  return parseFormat(value, from, new Date());
+}
+
+Date.fromISOString = function(value: string) {
+  return parseISO(value);
 }
 
 Date.prototype.toFormat = function(to: DateFormat) {
@@ -41,6 +49,10 @@ Date.prototype.isEqualOrBeforeToday = function() {
 
 Date.prototype.addHours = function(hours: number) {
   return addHours(this, hours);
+}
+
+Date.prototype.addDays = function(days: number) {
+  return addDays(this, days);
 }
 
 Date.prototype.subtrackHours = function(hours: number) {

@@ -7,7 +7,7 @@ import { Question, Section } from "src/app/core/stores/site-document/models";
   selector: "radio-group-textbox-question",
   template: `
     <radio-group-question [section]="section" [question]="question"></radio-group-question>
-    <ion-textarea label="" rows="4" fill="outline" />
+    <ion-textarea class="p-2" label="" rows="4" fill="outline" />
   `,
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,

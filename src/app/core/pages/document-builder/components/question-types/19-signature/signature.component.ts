@@ -49,7 +49,7 @@ import { SignaturePadComponent } from "src/app/shared/components";
                 </ion-button>
               </ion-col>
               <ion-col>
-                <ion-button (click)="modal.dismiss()" color="secondary" expand="full">
+                <ion-button (click)="save(); modal.dismiss()" color="secondary" expand="full">
                   Save
                 </ion-button>
               </ion-col>
@@ -84,5 +84,6 @@ export class SignatureComponent {
 
   save() {
     this.question.SignaturePoints = this.signaturePad.dataPoints();
+    this.question.SignatureDataUrl = this.signaturePad.toDataUrl();
   }
 }

@@ -1,7 +1,7 @@
 import { environment } from "src/environments/environment";
 import { createApi } from "./create-api";
 import { memoize } from "lodash-es";
-import { dependencyTrack } from "src/app/shared/rxjs";
+import { trackSend } from "src/app/shared/rxjs";
 
 export interface UpdateDocMoveCommand {
   documentId: number,
@@ -26,7 +26,7 @@ export const useQueuesApi = createApi({
 export const useUpdateDocMove = memoize(() => {
   const { updateDocMove } = useQueuesApi();
 
-  return dependencyTrack({
+  return trackSend({
     fn: (params: UpdateDocMoveCommand) => updateDocMove(params)
   });
 });

@@ -1,7 +1,7 @@
 import { environment } from "src/environments/environment";
 import { createApi } from "./create-api";
 import { memoize } from "lodash-es";
-import { dependencyTrack } from "src/app/shared/rxjs";
+import { trackSend } from "src/app/shared/rxjs";
 
 export interface OperativeSearchParams {
   search: string,
@@ -27,7 +27,7 @@ export const useOperativeApi = createApi({
 export const useFetchOperativesByName = memoize((binding: () => OperativeSearchParams) => {
   const { getOperativesByName } = useOperativeApi();
 
-  return dependencyTrack({
+  return trackSend({
     binding,
     fn: params => getOperativesByName(params)
   })

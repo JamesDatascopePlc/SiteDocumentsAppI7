@@ -1,7 +1,8 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from "@angular/core";
 import { IonicModule } from "@ionic/angular";
-import { SiteDocument } from "src/app/core/stores/site-document/models";
-import { importRxTemplate } from "src/app/shared/imports";
+import { QuestionType, SiteDocument } from "src/app/core/stores/site-document/models";
+import { importNgSwitch, importRxTemplate } from "src/app/shared/imports";
+import { importQuestionSummaries } from "../../components/question-types/question-summary.imports";
 
 @Component({
   selector: "document-summary-modal",
@@ -55,6 +56,25 @@ import { importRxTemplate } from "src/app/shared/imports";
             </ion-label>
           </ion-item>
 
+          <ng-container *rxFor="let page of document.Pages">
+            <ng-container *rxFor="let section of page.Sections">
+              <ng-container *rxFor="let question of section.Questions" [ngSwitch]="section.SectionQuestiontype">
+                <checkbox-summary *ngSwitchCase="QuestionType.Checkbox" [question]="question" />
+                <radio-group-summary *ngSwitchCase="QuestionType.RadioGroup" [question]="question" />
+                <textbox-summary *ngSwitchCase="QuestionType.Textbox" [question]="question" />
+                <textbox-summary *ngSwitchCase="QuestionType.TextArea" [question]="question" />
+                <select-summary *ngSwitchCase="QuestionType.Select" [question]="question" />
+                <checkbox-textbox-summary *ngSwitchCase="QuestionType.CheckboxTextbox" [question]="question" />
+                <radio-group-textbox-summary *ngSwitchCase="QuestionType.RadioGroupTextbox" [question]="question" />
+                <date-summary *ngSwitchCase="QuestionType.Date" [question]="question" />
+                <datetime-summary *ngSwitchCase="QuestionType.DateTime" [question]="question" />
+                <number-summary *ngSwitchCase="QuestionType.Number" [question]="question" />
+                <linked-dates-summary *ngSwitchCase="QuestionType.LinkedDates" [question]="question" />
+                <signature-summary *ngSwitchCase="QuestionType.Signature" [question]="question" />
+              </ng-container>
+            </ng-container>
+          </ng-container>
+
           <ion-item *rxIf="document.RemainAnon" lines="none">
             <ion-checkbox checked disabled="true">Remain Anonymous?</ion-checkbox>
           </ion-item>
@@ -80,13 +100,16 @@ import { importRxTemplate } from "src/app/shared/imports";
   imports: [
     IonicModule,
     ...importRxTemplate(),
+    ...importNgSwitch(),
+    ...importQuestionSummaries()
   ]
 })
 export class DocumentSummaryModal {
+  QuestionType = QuestionType;
+
   @Input({ required: true })
   trigger!: string;
 
-  @Input()
   isOpen: boolean = false;
 
   @Input({ required: true })

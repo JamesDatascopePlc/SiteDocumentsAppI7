@@ -29,7 +29,7 @@ const Template: StoryFn<Story> = args => ({
       QuestionText: args["question.QuestionText"],
       Required: args["question.Required"],
       AnswerText: args["question.AnswerText"],
-      Options: args["question.AnswerOptions"],
+      AnswerOptions: args["question.AnswerOptions"],
       CanHaveImg: args["question.CanHaveImg"],
       CanHaveFiles: args["question.CanHaveFiles"]
     }

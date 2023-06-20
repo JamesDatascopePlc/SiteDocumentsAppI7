@@ -2,7 +2,7 @@ import { environment } from "src/environments/environment";
 import { createApi } from "./create-api";
 import { SiteDocument } from "../stores/site-document/models";
 import { memoize } from "lodash-es";
-import { dependencyTrack, track } from "src/app/shared/rxjs";
+import { trackSend, track } from "src/app/shared/rxjs";
 import { concat, map } from "rxjs";
 
 export interface AddDocumentLevelImageCommand {
@@ -36,11 +36,14 @@ export const useSpecificDocument = memoize((id: number) => {
 export const useUploadDocument = memoize(() => {
   const { uploadDocument } = useSiteDocumentApi();
 
-  return dependencyTrack({
+  return trackSend({
     fn: (param: { document: SiteDocument }) => uploadDocument({ document: param.document }).pipe(
       map(({ documentId }) => ({
         submissionId: documentId,
-        document: param.document
+        document: param.document,
+        questions: param.document.Pages
+          .flatMap(p => p.Sections)
+          .flatMap(s => s.Questions)
       }))
     )
   })
@@ -49,7 +52,7 @@ export const useUploadDocument = memoize(() => {
 export const useUploadDocumentImages = memoize(() => {
   const { uploadDocumentImage } = useSiteDocumentApi();
 
-  return dependencyTrack({
+  return trackSend({
     fn: (params: AddDocumentLevelImageCommand[]) => {
       const uploads = params.map(p => uploadDocumentImage(p))
 
@@ -61,7 +64,7 @@ export const useUploadDocumentImages = memoize(() => {
 export const useUploadQuestionImages = memoize(() => {
   const { uploadQuestionImage } = useSiteDocumentApi();
 
-  return dependencyTrack({
+  return trackSend({
     fn: (params: AddQuestionLevelImageCommand[]) => {
       const uploads = params.map(p => uploadQuestionImage(p))
     

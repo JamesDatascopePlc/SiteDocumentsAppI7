@@ -12,8 +12,8 @@ import { useRams } from "src/app/core/http/login.api";
     <ion-list>
       <ion-item lines="none">
         <question-text [required]="question.Required">{{ question.QuestionText }}</question-text>
-        <camera-capture *rxIf="question.CanHaveImg" class="ion-no-margin" slot="end" />
-        <file-upload *rxIf="question.CanHaveFiles" class="ion-no-margin" slot="end" />
+        <camera-capture *rxIf="question.CanHaveImg" class="m-0" slot="end" />
+        <file-upload *rxIf="question.CanHaveFiles" class="m-0" slot="end" />
       </ion-item>
       <selectable 
         placeholder="Select"

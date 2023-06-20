@@ -8,9 +8,9 @@ import { isMobileApp } from "src/app/shared/plugins/platform.plugin";
 import { importDocumentBuilderModals } from "./modals";
 import { useTemplate } from "../../http/template.api";
 import { param, param$, useGoRelative } from "src/app/shared/route";
-import { useSpecificDocument, useUploadDocument } from "../../http/site-document.api";
+import { AddQuestionLevelImageCommand, useSpecificDocument, useUploadDocument, useUploadQuestionImages } from "../../http/site-document.api";
 import { useUpdateDocMove } from "../../http/queues.api";
-import { filter, tap } from "rxjs";
+import { filter, map, tap } from "rxjs";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 
 @Component({
@@ -159,8 +159,10 @@ export class DocumentBuilderPage {
   QuestionType = QuestionType;
   isMobileApp = isMobileApp();
   goRelative = useGoRelative();
+
   uploadDocument = useUploadDocument();
   updateDocMove = useUpdateDocMove();
+  uploadQuestionImgs = useUploadQuestionImages();
 
   options: DocumentBuilderOptions = {
     inSinglePageMode: false
@@ -188,6 +190,25 @@ export class DocumentBuilderPage {
         success: this.toSuccessQueue,
         img64: null
       }))
+    )
+    .subscribe(),
+
+    this.uploadDocument.data().pipe(
+      takeUntilDestroyed(),
+      map(({ document, questions }) => 
+      ({
+        document,
+        questions: questions.filter(q => q.Img != null)
+      })),
+      filter(({ questions }) => questions.length > 0),
+      map(({ document, questions }) => questions.map(q => 
+        ({
+          base64: q.Img,
+          siteDocumentTypeId: document.SiteDocumentType,
+          fileName: q.QuestionID.toString()
+        }) as AddQuestionLevelImageCommand)
+      ),
+      tap(uploads => this.uploadQuestionImgs.send(uploads))
     )
     .subscribe()
   ];

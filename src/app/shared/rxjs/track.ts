@@ -59,7 +59,7 @@ export function trackOf<T>(value: T) {
   return track(() => of(value));
 }
 
-export function dependencyTrack<TParams, TResult>(options: {
+export function trackSend<TParams, TResult>(options: {
   binding?: () => TParams,
   fn: (params: TParams) => Observable<TResult>
 }) {

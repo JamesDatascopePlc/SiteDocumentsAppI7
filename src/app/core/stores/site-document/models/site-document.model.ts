@@ -28,6 +28,7 @@ export interface SiteDocument {
   CanAddOperative?: boolean;
   CanHaveCompanyActioner: boolean;
   MetaData: Partial<SiteDocumentMetaData>;
+  SiteDocumentType: number,
   SiteId?: number;
   AutoQueueID?: number;
   QueueDuration?: {
@@ -132,17 +133,21 @@ export interface Question {
   Operatives: SiteDocumentOperative[];
   Required: boolean;
   AnswerText: string;
-  DateAndTime: Date;
-  DateAndTime2: Date;
+  DateAndTime: Nullable<Date>;
+  DateAndTime2: Nullable<Date>;
   NumberVal?: number;
   OptionVal?: string | null;
+  SelectedOptionText?: Nullable<string>;
+  Img?: Nullable<string>;
   AnswerOptions: SelectOption[];
   CascadeOptions: CascadeOption[];
   CascadeOptionVal?: string | null;
   YesNoNA: boolean | null;
   CanHaveImg: boolean;
   CanHaveFiles: boolean;
+  SignatureArray?: number[];
   SignaturePoints?: PointGroup[];
+  SignatureDataUrl?: string;
   ValidationData: ValidationData[];
   Hidden: boolean;
 }

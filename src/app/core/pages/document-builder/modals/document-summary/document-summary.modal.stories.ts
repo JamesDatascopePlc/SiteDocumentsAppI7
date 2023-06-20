@@ -57,7 +57,8 @@ const defaultDoc: SiteDocument = {
             Questions: [
               {
                 ...defaultQuestion,
-                QuestionText: QuestionType[qt as number].toString()
+                QuestionText: QuestionType[qt as number].toString(),
+                AnswerText: faker.lorem.paragraphs()
               }
             ]
           })
