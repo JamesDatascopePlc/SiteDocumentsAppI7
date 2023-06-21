@@ -23,9 +23,10 @@ import { useCompanies } from "src/app/core/http/login.api";
         [items]="companies.data() 
           | push 
           | toStringValues"
-        [(value)]="question.OptionVal"
         itemValue="Id"
         itemText="Name"
+        [(value)]="question.OptionVal"
+        (itemChange)="question.SelectedOptionText = $event?.Name"
         [canClear]="!question.Required" />
     </ion-list>
   `,

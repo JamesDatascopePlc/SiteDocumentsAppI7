@@ -4,6 +4,7 @@ import { importRxTemplate } from "src/app/shared/imports";
 import { CameraCaptureComponent, FileUploadComponent, QuestionTextComponent } from "../extras";
 import { SelectableComponent } from "src/app/shared/components";
 import { Question } from "src/app/core/stores/site-document/models";
+import { FormsModule } from "@angular/forms";
 
 @Component({
   selector: "cascade-select-text-question",
@@ -31,12 +32,14 @@ import { Question } from "src/app/core/stores/site-document/models";
         itemValue="Val"
         itemText="Text"
         [canClear]="!question.Required" />
-      <ion-item>
-        <ion-input 
-          [label]="question.CommentsText || 'Comments'" 
-          labelPlacement="floating" 
-          type="text" />
-      </ion-item>
+      <ion-textarea 
+        class="p-2" 
+        [label]="question.CommentsText || 'Comments'" 
+        labelPlacement="floating" 
+        [(ngModel)]="question.MoreAdditionalText"
+        rows="4" 
+        type="text" 
+        fill="outline" />
     </ion-list>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -44,6 +47,7 @@ import { Question } from "src/app/core/stores/site-document/models";
   imports: [
     IonicModule,
     ...importRxTemplate(),
+    FormsModule,
     QuestionTextComponent,
     SelectableComponent,
     CameraCaptureComponent,

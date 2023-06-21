@@ -10,7 +10,7 @@ import { UtcDateTimePipe } from "src/app/shared/pipes";
       <ion-item lines="none">
         <ion-label>
           <b class="whitespace-normal">{{ question.QuestionText }}</b>
-          <p class="text-base">{{ question.DateAndTime! | utcDateTime }}</p>
+          <p>{{ question.DateAndTime! | utcDateTime }}</p>
         </ion-label>
       </ion-item>
       <ion-datetime 

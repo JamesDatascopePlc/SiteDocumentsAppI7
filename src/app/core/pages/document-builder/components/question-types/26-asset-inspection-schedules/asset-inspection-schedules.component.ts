@@ -19,9 +19,11 @@ import { useAssetInspectionSchedules } from "src/app/core/http/asset.api";
       <selectable
         placeholder="Select"
         [title]="question.QuestionText"
-        [items]="schedules.data() | push"
-        itemValue="ScheduleID"
+        [items]="schedules.options() | push"
+        itemValue="ScheduleId"
         itemText="ScheduleName"
+        [(value)]="question.OptionVal"
+        (itemChange)="question.SelectedOptionText = $event?.ScheduleName"
         [canClear]="!question.Required" />
     </ion-list>
   `,

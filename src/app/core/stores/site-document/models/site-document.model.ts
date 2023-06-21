@@ -133,11 +133,13 @@ export interface Question {
   Operatives: SiteDocumentOperative[];
   Required: boolean;
   AnswerText: string;
+  MoreAdditionalText?: string;
   DateAndTime: Nullable<Date>;
   DateAndTime2: Nullable<Date>;
   NumberVal?: number;
   OptionVal?: string | null;
   SelectedOptionText?: Nullable<string>;
+  SelectedCascadeOptionText?: Nullable<string>;
   Img?: Nullable<string>;
   AnswerOptions: SelectOption[];
   CascadeOptions: CascadeOption[];

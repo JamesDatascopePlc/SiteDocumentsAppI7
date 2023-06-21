@@ -1,10 +1,9 @@
 import { ChangeDetectionStrategy, Component, Input } from "@angular/core";
 import { IonicModule } from "@ionic/angular";
 import { Question } from "src/app/core/stores/site-document/models";
-import { importRxTemplate } from "src/app/shared/imports";
 
 @Component({
-  selector: "select-summary",
+  selector: "select-text-summary",
   template: `
     <ion-list>
       <ion-item lines="none">
@@ -20,13 +19,20 @@ import { importRxTemplate } from "src/app/shared/imports";
           <p class="whitespace-normal">{{ question.AnswerText }}</p>
         </ion-label>
       </ion-item>
+
+      <ion-item lines="none">
+        <ion-label>
+          <b class="whitespace-normal">{{ question.CommentsText || 'Comments' }}</b>
+          <p class="whitespace-normal">{{ question.MoreAdditionalText }}</p>
+        </ion-label>
+      </ion-item>
     </ion-list>
   `,
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [IonicModule, ...importRxTemplate()]
+  imports: [IonicModule]
 })
-export class SelectSummaryComponent {
+export class SelectTextSummaryComponent {
   @Input({ required: true })
   question!: Question;
 }

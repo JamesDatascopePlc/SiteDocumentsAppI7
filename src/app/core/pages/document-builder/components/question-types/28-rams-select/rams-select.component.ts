@@ -21,6 +21,8 @@ import { useRams } from "src/app/core/http/login.api";
         [items]="rams.thatArentExpiredToday() | push"
         itemValue="Reference"
         itemText="Description"
+        [(value)]="question.OptionVal"
+        (itemChange)="question.SelectedOptionText = $event?.Description"
         [canClear]="!question.Required" />
     </ion-list>
   `,

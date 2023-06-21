@@ -18,6 +18,8 @@ import { Question } from "src/app/core/stores/site-document/models";
         placeholder="Select"
         [title]="question.QuestionText"
         [items]="question.AnswerOptions"
+        [(value)]="question.OptionVal"
+        (itemChange)="question.SelectedOptionText = $event?.Text"
         itemValue="Val"
         itemText="Text"
         [canClear]="!question.Required" />
@@ -28,6 +30,8 @@ import { Question } from "src/app/core/stores/site-document/models";
         placeholder="Select"
         [title]="question.CascadeOptionsText"
         [items]="question.CascadeOptions"
+        [(value)]="question.CascadeOptionVal"
+        (itemChange)="question.SelectedCascadeOptionText = $event?.Text"
         itemValue="Val"
         itemText="Text"
         [canClear]="!question.Required" />

@@ -22,7 +22,11 @@ import { CameraCaptureComponent, FileUploadComponent, QuestionTextComponent } fr
 
       <ion-item>
         <ion-label>{{ section.TableTitles[2] }}</ion-label>
-        <ion-checkbox [disabled]="!question.YesNoNA" slot="end" />
+        <ion-checkbox 
+          [ngModel]="question.NumberVal === 1" 
+          (ngModelChange)="question.NumberVal = +$event;"
+          [disabled]="!question.YesNoNA" 
+          slot="end" />
       </ion-item>
     </ion-list>
   `,

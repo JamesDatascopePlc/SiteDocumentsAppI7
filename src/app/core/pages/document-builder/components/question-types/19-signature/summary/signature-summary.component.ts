@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input } from "@angular/core";
 import { IonicModule } from "@ionic/angular";
 import { Question } from "src/app/core/stores/site-document/models";
+import { importRxTemplate } from "src/app/shared/imports";
 
 @Component({
   selector: "signature-summary",
@@ -9,16 +10,19 @@ import { Question } from "src/app/core/stores/site-document/models";
       <ion-item lines="none">
         <ion-label>
           <b class="whitespace-normal">{{ question.QuestionText }}</b>
-          <p class="whitespace-normal text-base">{{ question.AnswerText }}</p>
+          <p class="whitespace-normal">{{ question.AnswerText }}</p>
         </ion-label>
       </ion-item>
     </ion-list>
 
-    <img [src]="question.SignatureDataUrl" />
+    <img *rxIf="question.SignatureDataUrl != null" [src]="question.SignatureDataUrl" />
   `,
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [IonicModule]
+  imports: [
+    IonicModule,
+    ...importRxTemplate()
+  ]
 })
 export class SignatureSummaryComponent {
   @Input({ required: true })

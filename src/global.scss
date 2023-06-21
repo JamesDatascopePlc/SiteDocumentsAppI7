@@ -45,3 +45,7 @@ ion-radio.ios::part(container) {
   border: 2px solid #ddd;
   border-radius: 4px;
 }
+
+.sc-ion-label-md-s > p, .sc-ion-label-ios-s > p {
+  font-size: 16px;
+}

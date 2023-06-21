@@ -4,7 +4,7 @@ import { createApi } from "./create-api";
 import { memoize } from "lodash-es";
 import { track } from "src/app/shared/rxjs";
 import { trackSend } from "src/app/shared/rxjs";
-import { of, startWith } from "rxjs";
+import { of } from "rxjs";
 
 export interface GetAssetsByRegistrationParams { 
   searchString: string, 
@@ -137,21 +137,47 @@ export const useFetchAssetsByType = memoize((binding: Func<Partial<GetAssetsByTy
 export const useAssetGroups = memoize(() => {
   const { getAssetGroups } = useAssetApi();
 
-  return track(() => getAssetGroups().pipe(
-    startWith([])
-  ));
+  const assetGroups = track(() => getAssetGroups());
+
+  return {
+    ...assetGroups,
+    options: assetGroups.data(groups => groups.map(g => 
+      ({
+        GroupId: g.GroupID.toString(),
+        GroupName: g.GroupName
+      })
+    ))
+  }
 });
 
 export const useAssetTypes = memoize(() => {
   const { getAssetTypes } = useAssetApi();
 
-  return track(() => getAssetTypes().pipe(
-    startWith([])
-  ));
+  const assetTypes = track(() => getAssetTypes());
+
+  return {
+    ...assetTypes,
+    options: assetTypes.data(types => types.map(t => 
+      ({
+        Id: t.Id.toString(),
+        Description: t.Description
+      })
+    ))
+  }
 });
 
 export const useAssetInspectionSchedules = memoize(() => {
   const { getAssetInspectionSchedules } = useAssetApi();
 
-  return track(() => getAssetInspectionSchedules());
+  const inspectionSchedules = track(() => getAssetInspectionSchedules());
+
+  return {
+    ...inspectionSchedules,
+    options: inspectionSchedules.data(schedules => schedules.map(s => 
+      ({
+        ScheduleId: s.ScheduleID.toString(),
+        ScheduleName: s.ScheduleName
+      })
+    ))
+  }
 });

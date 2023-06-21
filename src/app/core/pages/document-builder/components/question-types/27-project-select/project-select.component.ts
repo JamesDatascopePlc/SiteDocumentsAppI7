@@ -26,6 +26,8 @@ import { ToStringValuesPipe } from "src/app/shared/pipes";
           | toStringValues"
         itemValue="ID"
         itemText="Name"
+        [(value)]="question.OptionVal"
+        (itemChange)="question.SelectedOptionText = $event?.Name"
         [canClear]="!question.Required" />
     </ion-list>
   `,

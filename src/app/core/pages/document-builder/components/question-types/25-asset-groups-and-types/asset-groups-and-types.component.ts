@@ -20,9 +20,11 @@ import { useAssetGroups, useAssetTypes } from "src/app/core/http/asset.api";
       <selectable 
         placeholder="Select"
         [title]="question.QuestionText"
-        [items]="assetGroups.data() | push"
+        [items]="assetGroups.options() | push"
         itemValue="GroupId"
         itemText="GroupName"
+        [(value)]="question.OptionVal"
+        (itemChange)="question.SelectedOptionText = $event?.GroupName"
         [canClear]="!question.Required" />
 
       <ion-item lines="none">
@@ -32,7 +34,7 @@ import { useAssetGroups, useAssetTypes } from "src/app/core/http/asset.api";
       <selectable
         placeholder="Select"
         [title]="question.CascadeOptionsText"
-        [items]="assetTypes.data()
+        [items]="assetTypes.options()
           | fuse: {
             search: question.OptionVal,
             keys: ['Id']
@@ -40,6 +42,8 @@ import { useAssetGroups, useAssetTypes } from "src/app/core/http/asset.api";
           | push"
         itemValue="Id"
         itemText="Description"
+        [(value)]="question.CascadeOptionVal"
+        (itemChange)="question.SelectedCascadeOptionText = $event?.Description"
         [canClear]="!question.Required" />
     </ion-list>
   `,

@@ -22,6 +22,8 @@ import { param } from "src/app/shared/route";
         [items]="hras.data() | push"
         itemValue="Id"
         itemText="AreaName"
+        [(value)]="question.OptionVal"
+        (itemChange)="question.SelectedOptionText = $event?.AreaName"
         [canClear]="!question.Required" />
     </ion-list>
   `,

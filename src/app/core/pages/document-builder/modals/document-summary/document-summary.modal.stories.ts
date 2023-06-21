@@ -53,6 +53,11 @@ const defaultDoc: SiteDocument = {
             SectionID: idx,
             SectionNo: idx,
             SectionTitle: "",
+            TableTitles: [
+              faker.lorem.word(),
+              faker.lorem.word(),
+              faker.lorem.word()
+            ],
             SectionQuestiontype: qt as QuestionType,
             Questions: [
               {

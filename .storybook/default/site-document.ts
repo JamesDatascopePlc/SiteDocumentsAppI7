@@ -50,9 +50,11 @@ export const defaultSection: Section = {
 export const defaultQuestion: Question = {
   QuestionID: 1,
   QuestionText: faker.lorem.word(),
-  CommentsText: "",
+  CommentsText: faker.lorem.word(),
   SelectedOptionText: faker.lorem.word(),
   CascadeOptionsText: faker.lorem.word(),
+  MoreAdditionalText: faker.lorem.paragraph(),
+  SelectedCascadeOptionText: faker.lorem.word(),
   NumberVal: +faker.random.numeric(2),
   Required: true,
   Hidden: false,
@@ -61,7 +63,7 @@ export const defaultQuestion: Question = {
     .map((val, idx) => 
     ({
       AssetID: idx,
-      Tag: "",
+      Tag: faker.random.alphaNumeric(5),
       Name: faker.lorem.word(),
       QRCode: "",
       TemplateID: 1

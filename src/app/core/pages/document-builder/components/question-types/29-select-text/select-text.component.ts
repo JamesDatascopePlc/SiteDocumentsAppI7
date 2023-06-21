@@ -4,6 +4,7 @@ import { Question } from "src/app/core/stores/site-document/models";
 import { SelectableComponent } from "src/app/shared/components/selectable/selectable.component";
 import { importRxTemplate } from "src/app/shared/imports";
 import { CameraCaptureComponent, FileUploadComponent, QuestionTextComponent } from "../extras";
+import { FormsModule } from "@angular/forms";
 
 @Component({
   selector: "select-text-question",
@@ -18,10 +19,27 @@ import { CameraCaptureComponent, FileUploadComponent, QuestionTextComponent } fr
         placeholder="Select"
         [title]="question.QuestionText"
         [items]="question.AnswerOptions"
+        [(value)]="question.OptionVal"
+        (itemChange)="question.SelectedOptionText = $event?.Text"
         itemValue="Val"
         itemText="Text"
         [canClear]="!question.Required" />
-      <ion-textarea class="p-2" label="Comments" labelPlacement="floating" rows="4" type="text" fill="outline" />
+      <ion-textarea 
+        *rxIf="question.OptionVal === '-1' || question.OptionVal?.includes('###2')" 
+        class="p-2"
+        [label]="question.CascadeOptionsText || 'Other'" 
+        labelPlacement="floating" 
+        [(ngModel)]="question.AnswerText"
+        rows="3" 
+        fill="outline" />
+      <ion-textarea 
+        class="p-2" 
+        [label]="question.CommentsText || 'Comments'" 
+        labelPlacement="floating" 
+        [(ngModel)]="question.MoreAdditionalText"
+        rows="4" 
+        type="text" 
+        fill="outline" />
     </ion-list>
   `,
   standalone: true,
@@ -29,6 +47,7 @@ import { CameraCaptureComponent, FileUploadComponent, QuestionTextComponent } fr
   imports: [
     IonicModule,
     ...importRxTemplate(),
+    FormsModule,
     QuestionTextComponent,
     SelectableComponent,
     CameraCaptureComponent,

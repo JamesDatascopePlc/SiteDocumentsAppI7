@@ -1,24 +1,25 @@
 import { ChangeDetectionStrategy, Component, Input } from "@angular/core";
 import { IonicModule } from "@ionic/angular";
 import { Question } from "src/app/core/stores/site-document/models";
+import { importRxTemplate } from "src/app/shared/imports";
 
 @Component({
-  selector: "number-summary",
+  selector: "asset-list-summary",
   template: `
     <ion-list>
       <ion-item lines="none">
-        <ion-label>
-          <b class="whitespace-normal">{{ question.QuestionText }}</b>
-          <p class="whitespace-normal">{{ question.NumberVal }}</p>
-        </ion-label>
+        <b class="whitespace-normal">{{ question.QuestionText }}</b>
+      </ion-item>
+      <ion-item *rxFor="let asset of question.Assets" lines="none">
+        {{ asset.AssetID }} - {{ asset.Name }}
       </ion-item>
     </ion-list>
   `,
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [IonicModule]
+  imports: [IonicModule, ...importRxTemplate()]
 })
-export class NumberSummaryComponent {
+export class AssetListSummaryComponent {
   @Input({ required: true })
   question!: Question;
 }

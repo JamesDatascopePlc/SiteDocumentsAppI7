@@ -60,17 +60,32 @@ import { importQuestionSummaries } from "../../components/question-types/questio
             <ng-container *rxFor="let section of page.Sections">
               <ng-container *rxFor="let question of section.Questions" [ngSwitch]="section.SectionQuestiontype">
                 <checkbox-summary *ngSwitchCase="QuestionType.Checkbox" [question]="question" />
-                <radio-group-summary *ngSwitchCase="QuestionType.RadioGroup" [question]="question" />
+                <radio-group-summary *ngSwitchCase="QuestionType.RadioGroup" [section]="section" [question]="question" />
                 <textbox-summary *ngSwitchCase="QuestionType.Textbox" [question]="question" />
                 <textbox-summary *ngSwitchCase="QuestionType.TextArea" [question]="question" />
                 <select-summary *ngSwitchCase="QuestionType.Select" [question]="question" />
                 <checkbox-textbox-summary *ngSwitchCase="QuestionType.CheckboxTextbox" [question]="question" />
-                <radio-group-textbox-summary *ngSwitchCase="QuestionType.RadioGroupTextbox" [question]="question" />
+                <radio-group-textbox-summary *ngSwitchCase="QuestionType.RadioGroupTextbox" [section]="section" [question]="question" />
                 <date-summary *ngSwitchCase="QuestionType.Date" [question]="question" />
                 <datetime-summary *ngSwitchCase="QuestionType.DateTime" [question]="question" />
+                <operative-list-summary *ngSwitchCase="QuestionType.OperativeList" [question]="question" />
                 <number-summary *ngSwitchCase="QuestionType.Number" [question]="question" />
+                <cascade-select-summary *ngSwitchCase="QuestionType.CascadeDropdown" [question]="question" />
+                <linked-bool-summary *ngSwitchCase="QuestionType.LinkedBool" [section]="section" [question]="question" />
+                <asset-list-summary *ngSwitchCase="QuestionType.AssetList" [question]="question" />
                 <linked-dates-summary *ngSwitchCase="QuestionType.LinkedDates" [question]="question" />
                 <signature-summary *ngSwitchCase="QuestionType.Signature" [question]="question" />
+                <select-summary *ngSwitchCase="QuestionType.CompanySelect" [question]="question" />
+                <cascade-select-summary *ngSwitchCase="QuestionType.AreaSelect" [question]="question" />
+                <select-summary *ngSwitchCase="QuestionType.AssetGroupsAndTypes" [question]="question" />
+                <select-summary *ngSwitchCase="QuestionType.AssetInspectionSchedule" [question]="question" />
+                <select-summary *ngSwitchCase="QuestionType.ProjectSelect" [question]="question" />
+                <select-summary *ngSwitchCase="QuestionType.RamsSelect" [question]="question" />
+                <select-text-summary *ngSwitchCase="QuestionType.SelectText" [question]="question" />
+                <cascade-select-text-summary *ngSwitchCase="QuestionType.CascadeDropdownText" [question]="question" />
+                <time-summary *ngSwitchCase="QuestionType.Time" [question]="question" />
+                <linked-times-summary *ngSwitchCase="QuestionType.LinkedTimes" [question]="question" />
+                <linked-date-time-summary *ngSwitchCase="QuestionType.LinkedDateAndTime" [question]="question" />
               </ng-container>
             </ng-container>
           </ng-container>
@@ -87,7 +102,7 @@ import { importQuestionSummaries } from "../../components/question-types/questio
                 <ion-button (click)="modal.dismiss()" color="danger" expand="full">Cancel</ion-button>
               </ion-col>
               <ion-col>
-                <ion-button (click)="submit.emit()" expand="full">Submit</ion-button>
+                <ion-button (click)="submit.emit(); modal.dismiss();" expand="full">Submit</ion-button>
               </ion-col>
             </ion-row>
           </ion-grid>

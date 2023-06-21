@@ -1,24 +1,25 @@
 import { ChangeDetectionStrategy, Component, Input } from "@angular/core";
 import { IonicModule } from "@ionic/angular";
 import { Question } from "src/app/core/stores/site-document/models";
+import { importRxTemplate } from "src/app/shared/imports";
 
 @Component({
-  selector: "number-summary",
+  selector: "operative-list-summary",
   template: `
     <ion-list>
       <ion-item lines="none">
-        <ion-label>
-          <b class="whitespace-normal">{{ question.QuestionText }}</b>
-          <p class="whitespace-normal">{{ question.NumberVal }}</p>
-        </ion-label>
+        <b class="whitespace-normal">{{ question.QuestionText }}</b>
+      </ion-item>
+      <ion-item *rxFor="let op of question.Operatives" lines="none">
+        {{ op.AttendeeID }} - {{ op.Name }}
       </ion-item>
     </ion-list>
   `,
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [IonicModule]
+  imports: [IonicModule, ...importRxTemplate()]
 })
-export class NumberSummaryComponent {
+export class OperativeListSummaryComponent {
   @Input({ required: true })
   question!: Question;
 }
