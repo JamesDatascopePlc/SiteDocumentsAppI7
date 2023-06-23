@@ -8,7 +8,7 @@ import { Question } from "src/app/core/stores/site-document/models";
     <ion-list>
       <ion-item lines="none">
         <ion-label>
-          <b class="whitespace-normal">{{ question.QuestionText }}</b>
+          <b>{{ question.QuestionText }}</b>
           <p>{{ question.DateAndTime?.toFormat("HH:mm") }} - {{ question.DateAndTime2?.toFormat("HH:mm") }}</p>
         </ion-label>
       </ion-item>

@@ -36,6 +36,8 @@ import { AngularComponent, withAfterViewInit, withOnChanges } from "src/app/shar
   ]
 })
 export class CompanyActionerSelectComponent extends AngularComponent(withAfterViewInit, withOnChanges) {
+  companies = useCompanies();
+
   @Input()
   title?: string;
 
@@ -44,8 +46,6 @@ export class CompanyActionerSelectComponent extends AngularComponent(withAfterVi
 
   @Output()
   companyIdChange = new EventEmitter<number>();
-
-  companies = useCompanies();
 
   companyChange(companyId: number) {
     this.companyId = companyId;

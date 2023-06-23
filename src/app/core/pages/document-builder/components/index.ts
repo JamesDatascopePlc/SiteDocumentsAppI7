@@ -1,4 +1,3 @@
-
 export { QuestionsTemplateDirective } from "./document-section/document-section.component";
 
 export { ChildDocumentCardComponent } from "./child-document-card/child-document-card.component";
@@ -9,3 +8,5 @@ export { DocumentSectionComponent } from "./document-section/document-section.co
 export { importInfoTypes } from "./info-types/info-types.import";
 export { importInputTypes } from "./input-types/input-types.import";
 export { importQuestionTypes } from "./question-types/question-types.import";
+export { importInputSummaries } from "./input-types/input-summaries.import";
+export { importQuestionSummaries } from "./question-types/question-summary.imports";

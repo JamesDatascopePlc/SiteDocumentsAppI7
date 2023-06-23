@@ -80,8 +80,11 @@ export const useTemplate = memoize((id$: Observable<Nullable<number>>) => {
       ? getTemplate({ id }).pipe(
         map(doc => ({
           ...doc,
+          QueueDuration: doc.CanHaveQueueDuration 
+            ? { Value: 0, Type: "Mins" }
+            : null,
           PageIdx: 1
-        }))
+        }) as SiteDocument)
       )
       : of(null)
     )

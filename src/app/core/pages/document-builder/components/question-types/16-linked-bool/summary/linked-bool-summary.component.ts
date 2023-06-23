@@ -8,18 +8,18 @@ import { importRxTemplate } from "src/app/shared/imports";
   template: `
     <ion-list>
       <ion-item lines="none">
-        <b class="whitespace-normal">{{ question.QuestionText }}</b>
+        <ion-label class="font-bold">{{ question.QuestionText }}</ion-label>
       </ion-item>
 
       <ion-item lines="none">
-        <span *rxIf="section.TableTitles[0]">{{ section.TableTitles[0] }}</span>
+        <ion-label *rxIf="section.TableTitles[0]">{{ section.TableTitles[0] }}</ion-label>
         
         <ion-icon *rxIf="question.YesNoNA === true" name="checkmark-circle" color="success" />
         <ion-icon *rxIf="question.YesNoNA !== true" name="remove-circle" color="secondary" />
       </ion-item>
 
       <ion-item lines="none">
-        <span *rxIf="section.TableTitles[1]">{{ section.TableTitles[1] }}</span>
+        <ion-label *rxIf="section.TableTitles[1]">{{ section.TableTitles[1] }}</ion-label>
 
         <ion-icon *rxIf="question.NumberVal === 1" name="checkmark-circle" color="success" />
         <ion-icon *rxIf="question.NumberVal !== 1" name="remove-circle" color="secondary" />

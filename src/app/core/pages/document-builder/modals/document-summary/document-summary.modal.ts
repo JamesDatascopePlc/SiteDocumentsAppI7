@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from 
 import { IonicModule } from "@ionic/angular";
 import { QuestionType, SiteDocument } from "src/app/core/stores/site-document/models";
 import { importNgSwitch, importRxTemplate } from "src/app/shared/imports";
-import { importQuestionSummaries } from "../../components/question-types/question-summary.imports";
+import { importInputSummaries, importQuestionSummaries } from "../../components";
 
 @Component({
   selector: "document-summary-modal",
@@ -21,44 +21,44 @@ import { importQuestionSummaries } from "../../components/question-types/questio
         </ion-header>
 
         <ion-content class="ion-padding">
-          <ion-item *rxIf="document.CurrentActionerOperativeID != null" lines="none">
-            <ion-label>
-              <h3>{{ document.MetaData.ActionerText || "Actioner" }}</h3>
-              <p>{{ document.CurrentActionerOperativeID }}</p>
-            </ion-label>
-          </ion-item>
-        
-          <ion-item *rxIf="document.CompanyActionerId != null" lines="none">
-            <ion-label>
-              <h3>{{ document.MetaData.ActionerText || "Company Actioner" }}</h3>
-              <p>{{ document.CompanyActionerId }}</p>
-            </ion-label>
-          </ion-item>
+          <actioner-select-summary
+            *rxIf="document.CanAddActionerFromApp && document.CurrentActionerOperativeID != null" 
+            [title]="document.MetaData.ActionerText"
+            [actionerId]="document.CurrentActionerOperativeID" />
 
-          <ion-item *rxIf="document.AutoQueueID != null" lines="none">
-            <ion-label>
-              <h3>Queue</h3>
-              <p>{{ document.CompanyActionerId }}</p>
-            </ion-label>
-          </ion-item>
+          <category-actioner-select-summary 
+            *rxIf="document.CanAddCategoryActioner" 
+            [title]="document.MetaData.ActionerText"
+            [categoryId]="document.DocumentCategory"
+            [actionerId]="document.CurrentActionerOperativeID" />
 
-          <ion-item *rxIf="document.SiteId != null" lines="none">
-            <ion-label>
-              <h3>{{ document.MetaData.SiteListTitle || "Site" }}</h3>
-              <p>{{ document.SiteId }}</p>
-            </ion-label>
-          </ion-item>
+          <company-actioner-select-summary
+            *rxIf="document.CompanyActionerId != null" 
+            [title]="document.MetaData.ActionerText" 
+            [companyId]="document.CompanyActionerId" />
 
-          <ion-item *rxIf="document.QueueDuration != null" lines="none">
-            <ion-label>
-              <h3>Queue Duration</h3>
-              <p>{{ document.QueueDuration.Value }} ({{ document.QueueDuration.Type }})</p>
-            </ion-label>
-          </ion-item>
+          <queue-select-summary 
+            *rxIf="document.Queues && document.Queues.length > 0 && document.AutoQueueID != null" 
+            [queues]="document.Queues"
+            [queueId]="document.AutoQueueID" />
+
+          <site-select-summary 
+            *rxIf="document.MetaData?.HasSiteList && document.SiteId != null"
+            [title]="document.MetaData.SiteListTitle"
+            [siteId]="document.SiteId" />
+
+          <queue-duration-summary 
+            *rxIf="document.QueueDuration != null" 
+            [duration]="document.QueueDuration" />
 
           <ng-container *rxFor="let page of document.Pages">
+            <h1 *rxIf="page.PageTitle.length > 0">{{ page.PageTitle }}</h1>
+
             <ng-container *rxFor="let section of page.Sections">
+              <h3 *rxIf="section.SectionTitle.length > 0">{{ section.SectionTitle }}</h3>
+
               <ng-container *rxFor="let question of section.Questions" [ngSwitch]="section.SectionQuestiontype">
+                <label-summary *ngSwitchCase="QuestionType.Label" [question]="question" />
                 <checkbox-summary *ngSwitchCase="QuestionType.Checkbox" [question]="question" />
                 <radio-group-summary *ngSwitchCase="QuestionType.RadioGroup" [section]="section" [question]="question" />
                 <textbox-summary *ngSwitchCase="QuestionType.Textbox" [question]="question" />
@@ -90,9 +90,7 @@ import { importQuestionSummaries } from "../../components/question-types/questio
             </ng-container>
           </ng-container>
 
-          <ion-item *rxIf="document.RemainAnon" lines="none">
-            <ion-checkbox checked disabled="true">Remain Anonymous?</ion-checkbox>
-          </ion-item>
+          <remain-anonymous-summary *rxIf="document.RemainAnon" [isTicked]="document.RemainAnon" />
         </ion-content>
 
         <ion-footer>
@@ -116,6 +114,7 @@ import { importQuestionSummaries } from "../../components/question-types/questio
     IonicModule,
     ...importRxTemplate(),
     ...importNgSwitch(),
+    ...importInputSummaries(),
     ...importQuestionSummaries()
   ]
 })

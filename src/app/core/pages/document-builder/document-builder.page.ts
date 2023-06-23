@@ -60,16 +60,25 @@ import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
         [title]="document.MetaData.ActionerText"
         [(companyId)]="document.CompanyActionerId" />
       
+      <responsibility-area-select 
+        *rxIf="document.DocumentResponsibilityAreaTypeId != null" 
+        [responsibilityAreaTypeId]="document.DocumentResponsibilityAreaTypeId"
+        [(responsibilityAreaId)]="document.DocumentResponsibilityAreaId"/>
+
       <queue-select 
         *rxIf="document.Queues && document.Queues.length > 0"
-        [queueId]="document.AutoQueueID" />
+        [queues]="document.Queues"
+        [(queueId)]="document.AutoQueueID" />
       
       <site-select 
         *rxIf="document.MetaData?.HasSiteList"
         [title]="document.MetaData.SiteListTitle"
         [(siteId)]="document.SiteId" />
       
-      <queue-duration *rxIf="document.CanHaveQueueDuration" />
+      <queue-duration 
+        *rxIf="document.CanHaveQueueDuration && document.QueueDuration != null"
+        [(type)]="document.QueueDuration!.Type"
+        [(duration)]="document.QueueDuration!.Value" />
 
       <document-image-upload [documentId]="document.DocumentID" />
 

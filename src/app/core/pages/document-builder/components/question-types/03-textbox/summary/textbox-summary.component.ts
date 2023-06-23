@@ -7,10 +7,10 @@ import { Question } from "src/app/core/stores/site-document/models";
   template: `
     <ion-list>
       <ion-item lines="none">
-        <b class="whitespace-normal">{{ question.QuestionText }}</b>
+        <ion-label class="font-bold">{{ question.QuestionText }}</ion-label>
       </ion-item>
       <ion-item lines="none">
-        <p class="whitespace-normal">{{ question.AnswerText }}</p>
+        <p>{{ question.AnswerText }}</p>
       </ion-item>
     </ion-list>
   `,

@@ -93,6 +93,7 @@ export const useResAreaTypes = memoize(() => {
 
   return {
     ...resAreaTypes,
+    find: (predicate: (value: ResponsibilityAreaType, index: number) => boolean) => resAreaTypes.data(types => types.find(predicate)),
     areas: resAreaTypes.data(types => types.flatMap(t => t.Areas))
   }
 })

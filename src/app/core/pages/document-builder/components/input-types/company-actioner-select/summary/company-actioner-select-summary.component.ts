@@ -1,23 +1,16 @@
 import { ChangeDetectionStrategy, Component, Input } from "@angular/core";
 import { IonicModule } from "@ionic/angular";
-import { Question } from "src/app/core/stores/site-document/models";
+import { useCompanies } from "src/app/core/http/login.api";
 import { importRxTemplate } from "src/app/shared/imports";
 
 @Component({
-  selector: "cascade-select-summary",
+  selector: "company-actioner-select-summary",
   template: `
     <ion-list>
       <ion-item lines="none">
         <ion-label>
-          <b>{{ question.QuestionText }}</b>
-          <p>{{ question.SelectedOptionText }}</p>
-        </ion-label>
-      </ion-item>
-
-      <ion-item lines="none">
-        <ion-label>
-          <b>{{ question.CascadeOptionsText }}</b>
-          <p>{{ question.SelectedCascadeOptionText }}</p>
+          <b>{{ title || "Company Actioners" }}</b>
+          <p *rxIf="company(); let company">{{ company.Name }}</p>
         </ion-label>
       </ion-item>
     </ion-list>
@@ -26,7 +19,14 @@ import { importRxTemplate } from "src/app/shared/imports";
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [IonicModule, ...importRxTemplate()]
 })
-export class CascadeSelectSummaryComponent {
+export class CompanyActionerSelectSummaryComponent {
+  companies = useCompanies();
+
+  @Input()
+  title?: string;
+
   @Input({ required: true })
-  question!: Question;
+  companyId!: number;
+
+  company = this.companies.data(companies => companies.find(c => c.Id === this.companyId))
 }

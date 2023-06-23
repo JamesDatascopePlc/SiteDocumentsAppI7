@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from "@angular/core";
 import { IonicModule } from "@ionic/angular";
 import { map, merge, Observable } from "rxjs";
+import { Queue } from "src/app/core/stores/site-document/models/site-document.model";
 import { SelectableComponent } from "src/app/shared/components/selectable/selectable.component";
 import { importRxTemplate } from "src/app/shared/imports";
 import { AngularComponent, withAfterViewInit, withOnChanges } from "src/app/shared/lifecycles";
@@ -20,9 +21,9 @@ import { AngularComponent, withAfterViewInit, withOnChanges } from "src/app/shar
             placeholder="Queues"
             (valueChange)="queueIdChange.emit($event!.id)"
             [items]="queues" 
-            [value]="queueId"
-            itemText="name"
-            itemValue="id"
+            [(value)]="queueId"
+            itemText="Name"
+            itemValue="Id"
             [canClear]="false" />
         </ion-list>
       </ion-card-content>
@@ -41,7 +42,7 @@ export class QueueSelectComponent extends AngularComponent(withAfterViewInit, wi
   title: string = "Select Queue";
 
   @Input()
-  queues: Array<{ id: number, name: string }> = [];
+  queues: Queue[] = [];
 
   @Input()
   queueId?: number;
@@ -49,10 +50,10 @@ export class QueueSelectComponent extends AngularComponent(withAfterViewInit, wi
   @Output()
   queueIdChange = new EventEmitter<number>();
 
-  queue$: Observable<{ id: number, name: string } | null> = merge(
+  queue$: Observable<Queue | undefined> = merge(
     this.afterViewInit(),
     this.input("queueId")
   ).pipe(
-    map(() => this.queues.find(q => q.id === this.queueId) || null)
+    map(() => this.queues.find(q => q.Id === this.queueId))
   );
 }

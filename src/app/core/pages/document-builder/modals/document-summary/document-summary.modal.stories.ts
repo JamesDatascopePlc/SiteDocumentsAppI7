@@ -41,7 +41,7 @@ const defaultDoc: SiteDocument = {
   Pages: [
     {
       PageID: 1,
-      PageTitle: faker.lorem.word(),
+      PageTitle: faker.lorem.words(),
       PageNo: 1,
       Hidden: false,
       Sections: Object
@@ -52,7 +52,7 @@ const defaultDoc: SiteDocument = {
             ...defaultSection,
             SectionID: idx,
             SectionNo: idx,
-            SectionTitle: "",
+            SectionTitle: faker.lorem.words(),
             TableTitles: [
               faker.lorem.word(),
               faker.lorem.word(),

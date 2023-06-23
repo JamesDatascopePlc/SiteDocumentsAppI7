@@ -9,15 +9,15 @@ import { importRxTemplate } from "src/app/shared/imports";
     <ion-list>
       <ion-item lines="none">
         <ion-label>
-          <b class="whitespace-normal">{{ question.QuestionText }}</b>
-          <p class="whitespace-normal">{{ question.SelectedOptionText }}</p>
+          <b>{{ question.QuestionText }}</b>
+          <p>{{ question.SelectedOptionText }}</p>
         </ion-label>
       </ion-item>
 
       <ion-item *rxIf="question.OptionVal === '-1' || question.OptionVal?.includes('###2')" lines="none">
         <ion-label>
-          <b class="whitespace-normal">{{ question.CascadeOptionsText || 'Other' }}</b>
-          <p class="whitespace-normal">{{ question.AnswerText }}</p>
+          <b>{{ question.CascadeOptionsText || 'Other' }}</b>
+          <p>{{ question.AnswerText }}</p>
         </ion-label>
       </ion-item>
     </ion-list>

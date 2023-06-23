@@ -9,7 +9,7 @@ export interface SiteDocument {
   Pages: Page[];
   AllowAnon: boolean;
   RemainAnon: boolean;
-  Queues: { Key: string, Value: string }[],
+  Queues: Queue[],
   DocumentGroup: string;
   DocumentCategory?: number;
   CanCreateHotspot: boolean;
@@ -31,12 +31,21 @@ export interface SiteDocument {
   SiteDocumentType: number,
   SiteId?: number;
   AutoQueueID?: number;
-  QueueDuration?: {
-    Value: number;
-    Type: string;
-  }
+  QueueDuration?: QueueDuration;
+  DocumentResponsibilityAreaTypeId?: number;
+  DocumentResponsibilityAreaId?: number;
   ReqGps: boolean;
   PageIdx: number
+}
+
+export interface Queue {
+  Id: number,
+  Name: string
+}
+
+export interface QueueDuration {
+  Value: number;
+  Type: "Mins" | "Hours" | "Days";
 }
 
 export interface SiteDocumentImage {

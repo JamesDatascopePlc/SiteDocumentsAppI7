@@ -24,8 +24,8 @@ const queues = Array
   .from({ length: 10 })
   .map((val, idx) => 
     ({
-      id: idx,
-      name: faker.lorem.word()
+      Id: idx,
+      Name: faker.lorem.word()
     })
   );
 
@@ -40,6 +40,6 @@ export const Prepopulated = Template.bind({});
 
 Prepopulated.args = {
   title: "Prepopulated Queue Example",
-  queueId: queues[+faker.random.numeric(1)]?.id,
+  queueId: queues[+faker.random.numeric(1)]?.Id,
   queues
 }

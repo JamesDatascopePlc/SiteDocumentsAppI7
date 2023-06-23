@@ -1,3 +1,4 @@
+import { LabelSummaryComponent } from "./00-label/summary/label-summary.component";
 import { CheckboxSummaryComponent } from "./01-checkbox/summary/checkbox-summary.component";
 import { RadioGroupSummaryComponent } from "./02-radio-group/summary/radio-group-summary.component";
 import { TextboxSummaryComponent } from "./03-textbox/summary/textbox-summary.component";
@@ -21,6 +22,7 @@ import { LinkedDateTimeSummaryComponent } from "./36-linked-date-time/summary/li
 
 export function importQuestionSummaries() {
   return [
+    LabelSummaryComponent,
     CheckboxSummaryComponent,
     RadioGroupSummaryComponent,
     TextboxSummaryComponent,

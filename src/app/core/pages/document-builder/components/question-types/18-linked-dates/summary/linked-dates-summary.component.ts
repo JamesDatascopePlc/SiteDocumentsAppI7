@@ -9,7 +9,7 @@ import { UtcDatePipe } from "src/app/shared/pipes";
     <ion-list>
       <ion-item lines="none">
         <ion-label>
-          <b class="whitespace-normal">{{ question.QuestionText }}</b>
+          <b>{{ question.QuestionText }}</b>
           <p>{{ question.DateAndTime! | utcDate }}</p>
         </ion-label>
       </ion-item>
@@ -17,7 +17,7 @@ import { UtcDatePipe } from "src/app/shared/pipes";
 
       <ion-item lines="none">
         <ion-label>
-          <b class="whitespace-normal">{{ question.CascadeOptionsText }}</b>
+          <b>{{ question.CascadeOptionsText }}</b>
           <p>{{ question.DateAndTime2! | utcDate }}</p>
         </ion-label>
       </ion-item>

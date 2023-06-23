@@ -35,14 +35,14 @@ import { IonicModule } from "@ionic/angular";
   ]
 })
 export class QueueDurationComponent {
-  @Input()
-  duration?: number;
+  @Input({ required: true })
+  duration!: number;
 
   @Output()
   durationChange = new EventEmitter<number>();
 
-  @Input()
-  type: "Mins" | "Hours" | "Days" = "Mins";
+  @Input({ required: true })
+  type!: "Mins" | "Hours" | "Days";
 
   @Output()
   typeChange = new EventEmitter<"Mins" | "Hours" | "Days">();

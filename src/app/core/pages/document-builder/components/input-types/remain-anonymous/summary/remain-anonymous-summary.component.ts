@@ -1,17 +1,23 @@
 import { ChangeDetectionStrategy, Component, Input } from "@angular/core";
 import { IonicModule } from "@ionic/angular";
-import { Question } from "src/app/core/stores/site-document/models";
 import { importRxTemplate } from "src/app/shared/imports";
 
 @Component({
-  selector: "operative-list-summary",
+  selector: "remain-anonymous-summary",
   template: `
     <ion-list>
       <ion-item lines="none">
-        <ion-label class="font-bold">{{ question.QuestionText }}</ion-label>
-      </ion-item>
-      <ion-item *rxFor="let op of question.Operatives" lines="none">
-        {{ op.AttendeeID }} - {{ op.Name }}
+        <ion-label>
+          <b>Remain Anonymous</b>
+        </ion-label>
+        <ion-icon 
+          *rxIf="isTicked" 
+          name="checkmark-circle" 
+          color="success" />
+        <ion-icon 
+          *rxIf="!isTicked" 
+          name="close-circle" 
+          color="danger" />
       </ion-item>
     </ion-list>
   `,
@@ -19,7 +25,7 @@ import { importRxTemplate } from "src/app/shared/imports";
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [IonicModule, ...importRxTemplate()]
 })
-export class OperativeListSummaryComponent {
+export class RemainAnonymousSummaryComponent {
   @Input({ required: true })
-  question!: Question;
+  isTicked: boolean = false;
 }

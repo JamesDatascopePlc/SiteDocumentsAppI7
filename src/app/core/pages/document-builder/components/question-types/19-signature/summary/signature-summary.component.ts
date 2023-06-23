@@ -9,8 +9,8 @@ import { importRxTemplate } from "src/app/shared/imports";
     <ion-list>
       <ion-item lines="none">
         <ion-label>
-          <b class="whitespace-normal">{{ question.QuestionText }}</b>
-          <p class="whitespace-normal">{{ question.AnswerText }}</p>
+          <b >{{ question.QuestionText }}</b>
+          <p>{{ question.AnswerText }}</p>
         </ion-label>
       </ion-item>
     </ion-list>

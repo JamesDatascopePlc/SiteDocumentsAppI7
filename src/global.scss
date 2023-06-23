@@ -49,3 +49,13 @@ ion-radio.ios::part(container) {
 .sc-ion-label-md-s > p, .sc-ion-label-ios-s > p {
   font-size: 16px;
 }
+
+.item.sc-ion-label-md-h, 
+.item .sc-ion-label-md-h, 
+.item.sc-ion-label-ios-h, 
+.item .sc-ion-label-ios-h 
+ion-label > b,
+ion-label > p 
+ion-item > p {
+  white-space: normal;
+}

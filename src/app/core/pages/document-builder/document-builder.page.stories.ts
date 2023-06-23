@@ -98,8 +98,8 @@ DocumentWithAllPermissionsTurnedOn.args = {
       .from({ length: 5 })
       .map((val, idx) => 
         ({
-          Key: idx.toString(),
-          Value: faker.lorem.word()
+          Id: idx,
+          Name: faker.lorem.word()
         })
     ),
     CanAddAsset: true,

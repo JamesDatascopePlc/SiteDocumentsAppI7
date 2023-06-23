@@ -8,7 +8,7 @@ import { importRxTemplate } from "src/app/shared/imports";
   template: `
     <ion-list>
       <ion-item lines="none">
-        <b class="whitespace-normal">{{ question.QuestionText }}</b>
+        <ion-label class="font-bold">{{ question.QuestionText }}</ion-label>
       </ion-item>
       <ion-item *rxFor="let asset of question.Assets" lines="none">
         {{ asset.AssetID }} - {{ asset.Name }}

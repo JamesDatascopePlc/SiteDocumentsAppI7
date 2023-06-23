@@ -3,12 +3,11 @@ import { IonicModule } from "@ionic/angular";
 import { useResAreaTypes } from "src/app/core/http/login.api";
 import { IfComponent, SelectableComponent } from "src/app/shared/components";
 import { importRxTemplate } from "src/app/shared/imports";
-import { FindPipe } from "src/app/shared/pipes";
 
 @Component({
   selector: "responsibility-area-select",
   template: `
-    <ion-card *rxLet="resAreasTypes.data() | find: { 'Id': responsibilityAreaTypeId }; let rat">
+    <ion-card *rxLet="resAreaType(); let rat">
       <ion-card-header *rxIf="rat != null">
         <ion-card-title class="text-center">
           {{ rat.AppQuestionText }}
@@ -41,8 +40,7 @@ import { FindPipe } from "src/app/shared/pipes";
     IonicModule,
     ...importRxTemplate(),
     SelectableComponent,
-    IfComponent,
-    FindPipe
+    IfComponent
   ]
 })
 export class ResponsibilityAreaSelectComponent {
@@ -50,6 +48,7 @@ export class ResponsibilityAreaSelectComponent {
   
   @Input({ required: true })
   responsibilityAreaTypeId!: number;
+  resAreaType = this.resAreasTypes.find(at => at.Id === this.responsibilityAreaTypeId);
 
   @Input()
   responsibilityAreaId?: number;

@@ -1,24 +1,30 @@
 import { ChangeDetectionStrategy, Component, Input } from "@angular/core";
 import { IonicModule } from "@ionic/angular";
-import { SiteDocument } from "src/app/core/stores/site-document/models";
+import { useSites } from "src/app/core/http/login.api";
+import { importRxTemplate } from "src/app/shared/imports";
 
 @Component({
-  selector: "queue-select-summary",
+  selector: "site-select-summary",
   template: `
-    <ion-item *rxIf="queue != null" lines="none">
+    <ion-item lines="none">
       <ion-label>
-        <b>Queue</b>
-        <p>{{ queue!.Value }}</p>
+        <h3>{{ title || "Site" }}</h3>
+        <p *rxIf="site(); let site">{{ site.Name }}</p>
       </ion-label>
     </ion-item>
   `,
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [IonicModule]
+  imports: [IonicModule, ...importRxTemplate()]
 })
 export class SiteSelectSummaryComponent {
-  @Input({ required: true })
-  document!: SiteDocument;
+  sites = useSites();
 
-  queue = this.document.Queues.find(q => q.Key === this.document.AutoQueueID?.toString());
+  @Input()
+  title?: string;
+
+  @Input({ required: true })
+  siteId!: number;
+
+  site = this.sites.data(sites => sites.find(s => s.Id === this.siteId));
 }

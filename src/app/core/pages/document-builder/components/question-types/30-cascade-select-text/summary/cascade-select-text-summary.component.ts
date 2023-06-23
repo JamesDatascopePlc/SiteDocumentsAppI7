@@ -8,22 +8,22 @@ import { Question } from "src/app/core/stores/site-document/models";
     <ion-list>
       <ion-item lines="none">
         <ion-label>
-          <b class="whitespace-normal">{{ question.QuestionText }}</b>
-          <p class="whitespace-normal">{{ question.SelectedOptionText }}</p>
+          <b>{{ question.QuestionText }}</b>
+          <p>{{ question.SelectedOptionText }}</p>
         </ion-label>
       </ion-item>
 
       <ion-item lines="none">
         <ion-label>
-          <b class="whitespace-normal">{{ question.CascadeOptionsText }}</b>
-          <p class="whitespace-normal">{{ question.SelectedCascadeOptionText }}</p>
+          <b>{{ question.CascadeOptionsText }}</b>
+          <p>{{ question.SelectedCascadeOptionText }}</p>
         </ion-label>
       </ion-item>
 
       <ion-item lines="none">
         <ion-label>
-          <b class="whitespace-normal">{{ question.CommentsText || 'Comments' }}</b>
-          <p class="whitespace-normal">{{ question.MoreAdditionalText }}</p>
+          <b>{{ question.CommentsText || 'Comments' }}</b>
+          <p>{{ question.MoreAdditionalText }}</p>
         </ion-label>
       </ion-item>
     </ion-list>

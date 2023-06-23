@@ -8,27 +8,14 @@ import { importRxTemplate } from "src/app/shared/imports";
   template: `
     <ion-list>
       <ion-item lines="none">
-        <b class="whitespace-normal">{{ question.QuestionText }}</b>
-      </ion-item>
-      <ion-item lines="none">
-        <ng-container *rxIf="question.YesNoNA">
-          <span *rxIf="section.TableTitles[0]">{{ section.TableTitles[0] }}</span>
-          <ion-icon name="checkmark-circle" color="success" />
-        </ng-container>
-
-        <ng-container *rxIf="question.YesNoNA === false">
-          <span *rxIf="section.TableTitles[1]">{{ section.TableTitles[1] }}</span>
-          <ion-icon name="close-circle" color="danger" />
-        </ng-container>
-
-        <ng-container *rxIf="question.YesNoNA == null" >
-          <span *rxIf="section.TableTitles[2]">{{ section.TableTitles[2] }}</span>
-          <ion-icon name="remove-circle" color="secondary" />
-        </ng-container>
+        <ion-label class="font-bold">{{ question.QuestionText }}</ion-label>
+        <ion-icon *rxIf="question.YesNoNA" name="checkmark-circle" color="success" slot="end" />
+        <ion-icon *rxIf="question.YesNoNA === false" name="close-circle" color="danger" slot="end" />
+        <ion-icon *rxIf="question.YesNoNA == null" name="remove-circle" color="secondary" slot="end" />
       </ion-item>
 
       <ion-item lines="none">
-        <p class="whitespace-normal">{{ question.AnswerText }}</p>
+        <p>{{ question.AnswerText }}</p>
       </ion-item>
     </ion-list>
   `,
