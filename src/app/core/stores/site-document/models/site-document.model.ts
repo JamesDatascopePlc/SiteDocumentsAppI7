@@ -149,6 +149,7 @@ export interface Question {
   OptionVal?: string | null;
   SelectedOptionText?: Nullable<string>;
   SelectedCascadeOptionText?: Nullable<string>;
+  File?: Nullable<string>;
   Img?: Nullable<string>;
   AnswerOptions: SelectOption[];
   CascadeOptions: CascadeOption[];
@@ -156,6 +157,7 @@ export interface Question {
   YesNoNA: boolean | null;
   CanHaveImg: boolean;
   CanHaveFiles: boolean;
+  CanUsePhotoLib: boolean;
   SignatureArray?: number[];
   SignaturePoints?: PointGroup[];
   SignatureDataUrl?: string;

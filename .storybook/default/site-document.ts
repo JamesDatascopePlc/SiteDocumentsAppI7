@@ -80,6 +80,7 @@ export const defaultQuestion: Question = {
   ),
   CanHaveImg: true,
   CanHaveFiles: true,
+  CanUsePhotoLib: true,
   AnswerText: "",
   DateAndTime: new Date(),
   DateAndTime2: new Date(),

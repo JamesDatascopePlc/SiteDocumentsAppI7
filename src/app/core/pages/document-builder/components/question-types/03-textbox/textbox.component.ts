@@ -3,7 +3,9 @@ import { IonicModule } from "@ionic/angular";
 import { Question } from "src/app/core/stores/site-document/models";
 import { importRxTemplate } from "src/app/shared/imports";
 import { CameraCaptureComponent, FileUploadComponent, QuestionTextComponent } from "../extras";
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { useValidator } from "src/app/shared/validation";
+import { TextboxValidator } from "./validation/textbox-validator";
 
 @Component({
   selector: "textbox-question",
@@ -15,7 +17,13 @@ import { FormsModule } from "@angular/forms";
         <file-upload *rxIf="question.CanHaveFiles" class="m-0" slot="end" />
       </ion-item>
       <ion-item>
-        <ion-input label="" type="text" [(ngModel)]="question.AnswerText" />
+        <ion-input
+          [class.ng-invalid]="validator.isInvalid()" 
+          [class.ng-valid]="!validator.isInvalid()"
+          label="" 
+          type="text" 
+          [(ngModel)]="question.AnswerText"
+          (keyup)="validator.validate()" />
       </ion-item>
     </ion-list>
   `,
@@ -25,6 +33,7 @@ import { FormsModule } from "@angular/forms";
     IonicModule,
     ...importRxTemplate(),
     FormsModule,
+    ReactiveFormsModule,
     QuestionTextComponent,
     CameraCaptureComponent,
     FileUploadComponent
@@ -33,4 +42,13 @@ import { FormsModule } from "@angular/forms";
 export class TextboxComponent {
   @Input({ required: true })
   question!: Question;
+
+  validator = useValidator({
+    validator: new TextboxValidator(),
+    value: () => this.question
+  });
+
+  ngAfterViewInit() {
+    this.validator.validate();
+  }
 }
