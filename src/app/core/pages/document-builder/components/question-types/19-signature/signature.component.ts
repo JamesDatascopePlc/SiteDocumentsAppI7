@@ -5,6 +5,7 @@ import { QuestionTextComponent } from "../extras";
 import { FormsModule } from "@angular/forms";
 import { importRxTemplate } from "src/app/shared/imports";
 import { SignaturePadComponent } from "src/app/shared/components";
+import { useSignatureValidator } from "./validation/signature.validator";
 
 @Component({
   selector: "signature-question",
@@ -74,6 +75,8 @@ export class SignatureComponent {
   
   @Input({ required: true })
   question!: Question;
+
+  validator = useSignatureValidator(() => this.question);
 
   @ViewChild(SignaturePadComponent)
   signaturePad!: SignaturePadComponent;

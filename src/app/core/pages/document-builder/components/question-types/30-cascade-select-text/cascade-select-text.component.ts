@@ -5,6 +5,7 @@ import { CameraCaptureComponent, FileUploadComponent, QuestionTextComponent } fr
 import { SelectableComponent } from "src/app/shared/components";
 import { Question } from "src/app/core/stores/site-document/models";
 import { FormsModule } from "@angular/forms";
+import { useCascadeSelectValidator } from "../13-cascade-select/validation/cascade-select.validator";
 
 @Component({
   selector: "cascade-select-text-question",
@@ -57,4 +58,6 @@ import { FormsModule } from "@angular/forms";
 export class CascadeSelectTextComponent {
   @Input({ required: true })
   question!: Question;
+
+  validator = useCascadeSelectValidator(() => this.question);
 }

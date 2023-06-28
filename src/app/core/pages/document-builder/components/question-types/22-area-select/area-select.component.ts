@@ -6,6 +6,7 @@ import { SelectableComponent } from "src/app/shared/components";
 import { Question } from "src/app/core/stores/site-document/models";
 import { useAreas } from "src/app/core/http/login.api";
 import { ToStringValuesPipe } from "src/app/shared/pipes";
+import { useSelectValidator } from "../05-select/validation/select.validator";
 
 @Component({
   selector: "area-select-question",
@@ -47,4 +48,6 @@ export class AreaSelectComponent {
   question!: Question;
   
   areas = useAreas();
+
+  validator = useSelectValidator(() => this.question);
 }

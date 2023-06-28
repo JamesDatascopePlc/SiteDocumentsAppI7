@@ -9,6 +9,7 @@ export interface SiteDocument {
   Pages: Page[];
   AllowAnon: boolean;
   RemainAnon: boolean;
+  ChildTemplateID: number;
   Queues: Queue[],
   DocumentGroup: string;
   DocumentCategory?: number;
@@ -35,7 +36,8 @@ export interface SiteDocument {
   DocumentResponsibilityAreaTypeId?: number;
   DocumentResponsibilityAreaId?: number;
   ReqGps: boolean;
-  PageIdx: number
+  PageIdx: number;
+  Images: string[];
 }
 
 export interface Queue {
@@ -136,12 +138,14 @@ export enum QuestionType {
 export interface Question {
   QuestionID: number;
   QuestionText: string;
+  Index: number;
   CascadeOptionsText: string;
   CommentsText: string;
   Assets: SiteDocumentAsset[];
   Operatives: SiteDocumentOperative[];
   Required: boolean;
   AnswerText: string;
+  AdditionalText?: string;
   MoreAdditionalText?: string;
   DateAndTime: Nullable<Date>;
   DateAndTime2: Nullable<Date>;
@@ -163,10 +167,54 @@ export interface Question {
   SignatureDataUrl?: string;
   ValidationData: ValidationData[];
   Hidden: boolean;
+  Disabled?: boolean;
+}
+
+export function useValidationData(rules: ValidationData[]) {
+  const min = rules.find(r => r.Key === "Min")?.Value.toNumber();
+  const max = rules.find(r => r.Key === "Max")?.Value.toNumber();
+
+  return {
+    min,
+    max
+  }
+}
+
+export function minDate(question: Question) {
+  const min = question.ValidationData.find(r => r.Key === "Min")?.Value.toNumber();
+
+  return min != null
+    ? new Date().subtrackHours(min)
+    : null;
+}
+
+export function maxDate(question: Question) {
+  const max = question.ValidationData.find(r => r.Key === "Max")?.Value.toNumber();
+
+  return max != null
+    ? new Date().addHours(max)
+    : null;
+}
+
+export function spreadDate(question: Question) {
+  const spread = question.ValidationData.find(r => r.Key === "Spread")?.Value.toNumber();
+  const max = question.ValidationData.find(r => r.Key === "Max")?.Value.toNumber();  
+
+  const hours = spread != null && max != null
+    ? spread > max
+      ? spread
+      : max
+    : spread != null
+      ? spread
+      : max;
+
+  return hours != null
+    ? new Date().addHours(hours)
+    : null;
 }
 
 export interface ValidationData {
-  Key: "Min" | "Max",
+  Key: "Min" | "Max" | "Spread",
   Value: string,
   Msg: string
 }

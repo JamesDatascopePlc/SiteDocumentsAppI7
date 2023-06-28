@@ -7,6 +7,7 @@ import { IfComponent, SelectableComponent } from "src/app/shared/components";
 import { param } from "src/app/shared/route";
 import { useProjects } from "src/app/core/http/collab-plan.api";
 import { ToStringValuesPipe } from "src/app/shared/pipes";
+import { useSelectValidator } from "../05-select/validation/select.validator";
 
 @Component({
   selector: "project-select",
@@ -47,6 +48,7 @@ import { ToStringValuesPipe } from "src/app/shared/pipes";
 export class ProjectSelectComponent {
   @Input({ required: true })
   question!: Question;
+  validator = useSelectValidator(() => this.question);
 
   siteId = param("siteId")?.toNumber();
   projects = useProjects(this.siteId);

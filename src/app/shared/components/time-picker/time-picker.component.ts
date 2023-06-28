@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from "@angular/core";
 import { PushPipe } from "@rx-angular/template/push";
 import { AngularComponent, withAfterViewInit, withOnChanges } from "../../lifecycles";
-import { Observable, Subscription, filter, map, merge, switchMap, tap } from "rxjs";
+import { Observable, Subscription, filter, map, merge, switchMap } from "rxjs";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 
 @Component({
@@ -48,9 +48,8 @@ export class TimePickerComponent extends AngularComponent(withAfterViewInit, wit
     takeUntilDestroyed(),
     filter(() => this.time == null),
     switchMap(() => this.time$),
-    tap(time => this.timeChange.emit(time))
   )
-  .subscribe();
+  .subscribe(time => this.timeChange.emit(time));
   
   change(value: string) {
     const time = Date.parseFormat(value, "HH:mm");

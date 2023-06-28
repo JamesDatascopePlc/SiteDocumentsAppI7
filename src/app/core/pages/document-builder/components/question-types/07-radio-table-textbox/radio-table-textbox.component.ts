@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, Input } from "@angular/core";
 import { IonicModule } from "@ionic/angular";
 import { Question } from "src/app/core/stores/site-document/models";
 import { QuestionTextComponent } from "../extras";
+import { useRadioGroupTextboxValidator } from "../07-radio-group-textbox/validation/radio-group-textbox.validator";
 
 @Component({
   selector: "radio-table-textbox-question",
@@ -38,4 +39,6 @@ import { QuestionTextComponent } from "../extras";
 export class RadioTableTextboxComponent {
   @Input({ required: true })
   question!: Question;
+
+  validator = useRadioGroupTextboxValidator(() => this.question);
 }

@@ -3,6 +3,7 @@ import { IonicModule } from "@ionic/angular";
 import { Question } from "src/app/core/stores/site-document/models";
 import { CameraCaptureComponent, FileUploadComponent, QuestionTextComponent } from "../extras";
 import { importRxTemplate } from "src/app/shared/imports";
+import { useRadioGroupValidator } from "../02-radio-group/validation/radio-group.validator";
 
 @Component({
   selector: "radio-table-question",
@@ -43,4 +44,6 @@ import { importRxTemplate } from "src/app/shared/imports";
 export class RadioTableComponent {  
   @Input({ required: true })
   question!: Question;
+
+  validator = useRadioGroupValidator(() => this.question);
 }

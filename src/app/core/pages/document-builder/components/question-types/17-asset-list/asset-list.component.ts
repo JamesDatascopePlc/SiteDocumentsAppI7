@@ -6,6 +6,7 @@ import { isMobileApp } from "src/app/shared/plugins/platform.plugin";
 import { QuestionTextComponent } from "../extras";
 import { AssetListModal } from "src/app/shared/modals/asset-list/asset-list.modal";
 import { Asset } from "src/app/core/stores/asset/asset.store";
+import { useAssetListValidator } from "./validation/asset-list.validator";
 
 @Component({
   selector: "asset-list-question",
@@ -48,11 +49,12 @@ import { Asset } from "src/app/core/stores/asset/asset.store";
 })
 export class AssetListComponent {
   id = crypto.randomUUID();
+  isMobileApp = isMobileApp();
 
   @Input({ required: true })
   question!: Question;
 
-  isMobileApp = isMobileApp();
+  validator = useAssetListValidator(() => this.question);
 
   select(asset: Asset) {
     if (this.question.Assets.find(a => a.AssetID === asset.Id) == null)

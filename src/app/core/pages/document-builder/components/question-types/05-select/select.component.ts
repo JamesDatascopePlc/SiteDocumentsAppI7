@@ -5,6 +5,7 @@ import { importRxTemplate } from "src/app/shared/imports";
 import { SelectableComponent } from "src/app/shared/components/selectable/selectable.component";
 import { CameraCaptureComponent, FileUploadComponent, QuestionTextComponent } from "../extras";
 import { FormsModule } from "@angular/forms";
+import { useSelectValidator } from "./validation/select.validator";
 
 @Component({
   selector: "select-question",
@@ -49,4 +50,6 @@ import { FormsModule } from "@angular/forms";
 export class SelectComponent {
   @Input({ required: true })
   question!: Question;
+
+  validator = useSelectValidator(() => this.question);
 }

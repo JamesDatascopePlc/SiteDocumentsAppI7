@@ -1,5 +1,6 @@
 import { Validator } from "fluentvalidation-ts";
 import { Question } from "src/app/core/stores/site-document/models";
+import { RxValidator } from "src/app/shared/validation";
 
 export class CheckboxValidator extends Validator<Question> {
   constructor() {
@@ -12,9 +13,5 @@ export class CheckboxValidator extends Validator<Question> {
 }
 
 export function useCheckboxValidator(value: Func<Question>) {
-  const validator = new CheckboxValidator();
-
-  return {
-    validate: () => validator.validate(value())
-  }
+  return new RxValidator(new CheckboxValidator(), value);
 }

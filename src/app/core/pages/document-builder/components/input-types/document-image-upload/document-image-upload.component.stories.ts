@@ -4,7 +4,11 @@ import { StoryFn } from "@storybook/angular";
 
 export default {
   title: "Pages/Document-Builder/Input-Types/Document-Image-Upload",
-  component: DocumentImageUploadComponent
+  component: DocumentImageUploadComponent,
+  argTypes: {
+    images: { control: "object" },
+    imagesChange: { action: "imagesChange" }
+  }
 } as StorybookMeta<DocumentImageUploadComponent>;
 
 const Template: StoryFn<DocumentImageUploadComponent> = args => ({
@@ -12,7 +16,3 @@ const Template: StoryFn<DocumentImageUploadComponent> = args => ({
 });
 
 export const Default = Template.bind({});
-
-Default.args = {
-  documentId: 1
-}

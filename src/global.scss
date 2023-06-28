@@ -60,6 +60,6 @@ ion-item > p {
   white-space: normal;
 }
 
-ion-input.ion-invalid.ion-dirty {
+ion-input.ion-invalid.ion-dirty, ion-item:has(ion-checkbox.ion-invalid.ion-dirty), ion-item.ion-invalid.ion-dirty {
   border-bottom: 2px solid #ff0000;
 }

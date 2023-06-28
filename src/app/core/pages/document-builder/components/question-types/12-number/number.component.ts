@@ -4,6 +4,7 @@ import { Question } from "src/app/core/stores/site-document/models";
 import { importRxTemplate } from "src/app/shared/imports";
 import { CameraCaptureComponent, FileUploadComponent, QuestionTextComponent } from "../extras";
 import { FormsModule } from "@angular/forms";
+import { useNumberValidator } from "./validation/number.validator";
 
 @Component({
   selector: "number-question",
@@ -34,4 +35,6 @@ import { FormsModule } from "@angular/forms";
 export class NumberComponent {
   @Input({ required: true })
   question!: Question;
+
+  validator = useNumberValidator(() => this.question);
 }

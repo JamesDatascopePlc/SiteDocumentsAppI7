@@ -4,6 +4,7 @@ import { IonicModule } from "@ionic/angular";
 import { Question, Section } from "src/app/core/stores/site-document/models";
 import { importRxTemplate } from "src/app/shared/imports";
 import { CameraCaptureComponent, FileUploadComponent, QuestionTextComponent } from "../extras";
+import { useLinkedBoolValidator } from "./validation/linked-bool.validator";
 
 @Component({
   selector: "linked-bool-question",
@@ -44,6 +45,8 @@ import { CameraCaptureComponent, FileUploadComponent, QuestionTextComponent } fr
 export class LinkedBoolComponent {
   @Input({ required: true })
   question!: Question;
+
+  validator = useLinkedBoolValidator(() => this.question);
 
   @Input({ required: true })
   section!: Section;

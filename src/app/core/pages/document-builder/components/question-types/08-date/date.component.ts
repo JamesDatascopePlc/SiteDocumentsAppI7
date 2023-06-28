@@ -4,8 +4,9 @@ import { Question } from "src/app/core/stores/site-document/models";
 import { DatetimePickerComponent } from "src/app/shared/components/datetime-picker/datetime-picker.component";
 import { QuestionTextComponent } from "../extras";
 import { AngularComponent, withAfterViewInit, withOnChanges } from "src/app/shared/lifecycles";
-import { using } from "src/app/shared/rxjs";
 import { importRxTemplate } from "src/app/shared/imports";
+import { merge } from "rxjs";
+import { maxDate, minDate } from "src/app/core/stores/site-document/models/site-document.model";
 
 @Component({
   selector: "date-question",
@@ -17,8 +18,8 @@ import { importRxTemplate } from "src/app/shared/imports";
       <datetime-picker 
         [(datetime)]="question.DateAndTime" 
         presentation="date"
-        [min]="minDate() | push"
-        [max]="maxDate() | push" />
+        [min]="min() | push"
+        [max]="max() | push" />
     </ion-list>
   `,
   standalone: true,
@@ -33,20 +34,8 @@ import { importRxTemplate } from "src/app/shared/imports";
 export class DateComponent extends AngularComponent(withAfterViewInit, withOnChanges) {
   @Input({ required: true })
   question!: Question;
+  question$ = merge(this.afterViewInit(), this.input("question")).toPipe();
 
-  minRule = using(this.afterViewInit(), this.input("question"))
-    .calculate(() => this.question.ValidationData.find(rule => rule.Key === "Min"));
-
-  maxRule = using(this.afterViewInit(), this.input("question"))
-    .calculate(() => this.question.ValidationData.find(rule => rule.Key === "Max"));
-
-  minDate = this.minRule(min => min != null 
-    ? new Date().subtrackHours(+min.Value)
-    : null
-  );
-
-  maxDate = this.maxRule(max => max != null
-    ? new Date().addHours(+max.Value)
-    : null
-  );
+  min = this.question$(() => minDate(this.question));
+  max = this.question$(() => maxDate(this.question));
 }

@@ -1,3 +1,4 @@
+export { createEffect } from "./effect";
 export { using, calculate } from "./using-calculate";
 export { selector } from "./selector";
 export { UseOf, UsePipe, createPipe, use } from "./use";

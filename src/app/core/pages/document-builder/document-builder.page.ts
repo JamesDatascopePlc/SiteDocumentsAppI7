@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component } from "@angular/core";
 import { IonicModule } from "@ionic/angular";
 import { IfComponent, ToggleButtonComponent } from "src/app/shared/components";
 import { importNgSwitch, importRxTemplate } from "src/app/shared/imports";
-import { DocumentNavigationComponent, DocumentPageComponent, DocumentSectionComponent, QuestionsTemplateDirective, importInfoTypes, importInputTypes, importQuestionTypes } from "./components";
+import { ChildDocumentCardComponent, DocumentNavigationComponent, DocumentPageComponent, DocumentSectionComponent, QuestionsTemplateDirective, importInfoTypes, importInputTypes, importQuestionTypes } from "./components";
 import { QuestionType } from "../../stores/site-document/models";
 import { isMobileApp } from "src/app/shared/plugins/platform.plugin";
 import { importDocumentBuilderModals } from "./modals";
@@ -10,7 +10,7 @@ import { useTemplate } from "../../http/template.api";
 import { param, param$, useGoRelative } from "src/app/shared/route";
 import { AddQuestionLevelImageCommand, useSpecificDocument, useUploadDocument, useUploadQuestionImages } from "../../http/site-document.api";
 import { useUpdateDocMove } from "../../http/queues.api";
-import { filter, map, tap } from "rxjs";
+import { filter, map } from "rxjs";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 
 @Component({
@@ -80,7 +80,7 @@ import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
         [(type)]="document.QueueDuration!.Type"
         [(duration)]="document.QueueDuration!.Value" />
 
-      <document-image-upload [documentId]="document.DocumentID" />
+      <document-image-upload *rxIf="document.CanHaveDocumentLevelImages && document.ShowDocLevelPhotoButtonAtStartOfDoc" [(images)]="document.Images" />
 
       <document-page *rxFor="let page of document.Pages; index as idx" [page]="page" [hidden]="!options.inSinglePageMode && document.PageIdx !== page.PageNo">
         <document-section *rxFor="let section of page.Sections" [section]="section">
@@ -121,7 +121,11 @@ import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
         </document-section>
       </document-page>
 
+      <child-document-card *rxIf="document.ChildTemplateID > 0" [templateId]="document.ChildTemplateID" />
+
       <remain-anonymous *rxIf="document.AllowAnon" [(isTicked)]="document.RemainAnon" />
+
+      <document-image-upload *rxIf="document.CanHaveDocumentLevelImages && !document.ShowDocLevelPhotoButtonAtStartOfDoc" [(images)]="document.Images" />
 
       <ion-button 
         *rxIf="options.inSinglePageMode || document.PageIdx === document.Pages.length" 
@@ -157,6 +161,7 @@ import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
     DocumentNavigationComponent,
     DocumentPageComponent,
     DocumentSectionComponent,
+    ChildDocumentCardComponent,
     QuestionsTemplateDirective,
     ...importInfoTypes(),
     ...importInputTypes(),
@@ -191,16 +196,15 @@ export class DocumentBuilderPage {
   effects = [
     this.uploadDocument.data().pipe(
       takeUntilDestroyed(),
-      filter(() => this.queueId != null && this.toSuccessQueue != null),
-      tap(({ submissionId }) => this.updateDocMove.send({
-        documentId: submissionId,
-        queueId: this.queueId,
-        note: null,
-        success: this.toSuccessQueue,
-        img64: null
-      }))
+      filter(() => this.queueId != null && this.toSuccessQueue != null)
     )
-    .subscribe(),
+    .subscribe(({ submissionId }) => this.updateDocMove.send({
+      documentId: submissionId,
+      queueId: this.queueId,
+      note: null,
+      success: this.toSuccessQueue,
+      img64: null
+    })),
 
     this.uploadDocument.data().pipe(
       takeUntilDestroyed(),
@@ -216,10 +220,9 @@ export class DocumentBuilderPage {
           siteDocumentTypeId: document.SiteDocumentType,
           fileName: q.QuestionID.toString()
         }) as AddQuestionLevelImageCommand)
-      ),
-      tap(uploads => this.uploadQuestionImgs.send(uploads))
+      )
     )
-    .subscribe()
+    .subscribe(uploads => this.uploadQuestionImgs.send(uploads))
   ];
 }
 

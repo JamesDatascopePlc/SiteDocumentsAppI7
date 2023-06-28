@@ -6,6 +6,7 @@ import { SelectableComponent } from "src/app/shared/components";
 import { Question } from "src/app/core/stores/site-document/models";
 import { useHighRiskActivities } from "src/app/core/http/collab-plan.api";
 import { param } from "src/app/shared/route";
+import { useSelectValidator } from "../05-select/validation/select.validator";
 
 @Component({
   selector: "hra-select-question",
@@ -41,6 +42,8 @@ import { param } from "src/app/shared/route";
 export class HraSelectComponent {
   @Input({ required: true })
   question!: Question;
+
+  validator = useSelectValidator(() => this.question);
 
   siteId = param("siteId")?.toNumber();
   hras = useHighRiskActivities(this.siteId);

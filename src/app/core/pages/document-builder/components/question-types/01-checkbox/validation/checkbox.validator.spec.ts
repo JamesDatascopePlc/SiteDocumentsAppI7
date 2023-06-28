@@ -1,4 +1,4 @@
-import { CheckboxValidator } from './checkbox-validator';
+import { CheckboxValidator } from './checkbox.validator';
 
 describe('CheckboxValidator', () => {
   it('should create an instance', () => {

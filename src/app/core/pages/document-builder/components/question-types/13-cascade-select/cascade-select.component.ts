@@ -4,6 +4,7 @@ import { importRxTemplate } from "src/app/shared/imports";
 import { CameraCaptureComponent, FileUploadComponent, QuestionTextComponent } from "../extras";
 import { SelectableComponent } from "src/app/shared/components";
 import { Question } from "src/app/core/stores/site-document/models";
+import { useCascadeSelectValidator } from "./validation/cascade-select.validator";
 
 @Component({
   selector: "cascade-select-question",
@@ -51,4 +52,6 @@ import { Question } from "src/app/core/stores/site-document/models";
 export class CascadeSelectComponent {
   @Input({ required: true })
   question!: Question;
+
+  validator = useCascadeSelectValidator(() => this.question);
 }

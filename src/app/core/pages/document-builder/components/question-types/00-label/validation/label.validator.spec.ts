@@ -1,4 +1,4 @@
-import { LabelValidator } from './label-validator';
+import { LabelValidator } from './label.validator';
 
 describe('LabelValidator', () => {
   it('should create an instance', () => {

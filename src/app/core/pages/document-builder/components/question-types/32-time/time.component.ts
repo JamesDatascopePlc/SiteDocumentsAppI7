@@ -3,6 +3,7 @@ import { IonicModule } from "@ionic/angular";
 import { Question } from "src/app/core/stores/site-document/models";
 import { QuestionTextComponent } from "../extras";
 import { TimePickerComponent } from "src/app/shared/components";
+import { useTimeValidiator } from "./validation/time.validator";
 
 @Component({
   selector: "time-question",
@@ -29,4 +30,6 @@ import { TimePickerComponent } from "src/app/shared/components";
 export class TimeComponent {
   @Input({ required: true })
   question!: Question;
+
+  validator = useTimeValidiator(() => this.question);
 }

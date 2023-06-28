@@ -3,8 +3,7 @@ import { IonicModule } from "@ionic/angular";
 import { Question } from "src/app/core/stores/site-document/models";
 import { importRxTemplate } from "src/app/shared/imports";
 import { CameraCaptureComponent, FileUploadComponent, QuestionTextComponent } from "../extras";
-import { useValidator } from "src/app/shared/validation";
-import { LabelValidator } from "./validation/label-validator";
+import { useLabelValidator } from "./validation/label.validator";
 
 @Component({
   selector: 'label-question',
@@ -29,8 +28,5 @@ export class LabelComponent {
   @Input({ required: true })
   question!: Question;
 
-  validator = useValidator({
-    validator: new LabelValidator(),
-    value: () => this.question
-  })
+  validator = useLabelValidator(() => this.question);
 }

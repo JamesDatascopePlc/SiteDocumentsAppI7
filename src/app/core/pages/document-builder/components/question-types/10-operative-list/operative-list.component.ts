@@ -7,6 +7,7 @@ import { isMobileApp } from "src/app/shared/plugins/platform.plugin";
 import { QuestionTextComponent } from "../extras";
 import { OperativeListModal } from "src/app/shared/modals/operative-list/operative-list.modal";
 import { Operative } from "src/app/core/stores/operative/operatives.store";
+import { useOperativeValidator } from "./validation/operative-list.validator";
 
 @Component({
   selector: "operative-list-question",
@@ -54,6 +55,8 @@ export class OperativeListComponent {
 
   @Input({ required: true })
   question!: Question;  
+
+  validator = useOperativeValidator(() => this.question);
 
   select(operative: Operative) {
     if (this.question.Operatives.find(o => o.AttendeeID === operative.ID) == null)

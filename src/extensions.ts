@@ -67,6 +67,12 @@ Array.prototype.last = function<T>(this: T[]) {
   return this[this.length - 1];
 }
 
+Array.prototype.removeAt = function<T>(this: T[], index: number) {
+  const copy = this.slice();
+  copy.splice(index, 1);
+  return copy;
+}
+
 Array.prototype.orderBy = function<T, TResult>(this: T[], iteratees: keyof T | ListIterator<T, TResult>, order: "asc" | "desc" = "asc") {
   return orderBy(this, iteratees, order);
 }

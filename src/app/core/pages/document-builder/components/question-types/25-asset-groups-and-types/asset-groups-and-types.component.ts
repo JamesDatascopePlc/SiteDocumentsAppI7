@@ -6,6 +6,7 @@ import { SelectableComponent } from "src/app/shared/components";
 import { Question } from "src/app/core/stores/site-document/models";
 import { FusePipe } from "src/app/shared/pipes";
 import { useAssetGroups, useAssetTypes } from "src/app/core/http/asset.api";
+import { useCascadeSelectValidator } from "../13-cascade-select/validation/cascade-select.validator";
 
 @Component({
   selector: "asset-groups-and-types-question",
@@ -62,6 +63,8 @@ import { useAssetGroups, useAssetTypes } from "src/app/core/http/asset.api";
 export class AssetGroupsAndTypesComponent {
   @Input({ required: true })
   question!: Question;
+
+  validator = useCascadeSelectValidator(() => this.question);
 
   assetGroups = useAssetGroups();
   assetTypes = useAssetTypes();

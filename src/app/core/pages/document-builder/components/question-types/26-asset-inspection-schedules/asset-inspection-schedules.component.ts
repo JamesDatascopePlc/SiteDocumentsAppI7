@@ -5,6 +5,7 @@ import { CameraCaptureComponent, FileUploadComponent, QuestionTextComponent } fr
 import { SelectableComponent } from "src/app/shared/components";
 import { Question } from "src/app/core/stores/site-document/models";
 import { useAssetInspectionSchedules } from "src/app/core/http/asset.api";
+import { useSelectValidator } from "../05-select/validation/select.validator";
 
 @Component({
   selector: "asset-inspection-schedules-question",
@@ -41,6 +42,8 @@ import { useAssetInspectionSchedules } from "src/app/core/http/asset.api";
 export class AssetInspectionSchedulesComponent {
   @Input({ required: true })
   question!: Question;
+
+  validator = useSelectValidator(() => this.question);
 
   schedules = useAssetInspectionSchedules();
 }

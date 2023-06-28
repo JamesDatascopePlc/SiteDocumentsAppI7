@@ -1,1 +1,1 @@
-export { useValidator } from "./validator";
+export { RxValidator } from "./validator";

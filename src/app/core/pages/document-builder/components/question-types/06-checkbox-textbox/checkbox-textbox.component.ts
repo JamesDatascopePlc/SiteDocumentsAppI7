@@ -4,6 +4,7 @@ import { Question } from "src/app/core/stores/site-document/models";
 import { importRxTemplate } from "src/app/shared/imports";
 import { CameraCaptureComponent, FileUploadComponent, QuestionTextComponent } from "../extras";
 import { FormsModule } from "@angular/forms";
+import { useCheckboxTextboxValidator } from "./validation/checkbox-textbox.validator";
 
 @Component({
   selector: "checkbox-question-question",
@@ -33,4 +34,6 @@ import { FormsModule } from "@angular/forms";
 export class CheckboxTextboxComponent {
   @Input({ required: true })
   question!: Question;
+
+  validator = useCheckboxTextboxValidator(() => this.question);
 }

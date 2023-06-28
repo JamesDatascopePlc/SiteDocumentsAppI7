@@ -6,6 +6,7 @@ import { EMPTY, Observable, expand, map, of, reduce, switchMap } from "rxjs";
 import { memoize, orderBy } from "lodash-es";
 import { createApi } from "./create-api";
 import { track } from "src/app/shared/rxjs";
+import { param } from "src/app/shared/route";
 
 export interface TemplateItem {
   Id: number,
@@ -72,14 +73,17 @@ export const useAllTemplates = memoize(() => {
   return track(() => getAllTemplates());
 });
 
-export const useTemplate = memoize((id$: Observable<Nullable<number>>) => {
+export const useTemplate = (id$: Observable<Nullable<number>>) => {
   const { getTemplate } = useTemplateApi();
+  const loginId = param("loginId") || 0;
 
   return track(() => id$.pipe(
     switchMap(id => id != null 
       ? getTemplate({ id }).pipe(
         map(doc => ({
           ...doc,
+          Images: [],
+          GroupedDocumentID: `${loginId}_${Date.now()}`,
           QueueDuration: doc.CanHaveQueueDuration 
             ? { Value: 0, Type: "Mins" }
             : null,
@@ -89,4 +93,4 @@ export const useTemplate = memoize((id$: Observable<Nullable<number>>) => {
       : of(null)
     )
   ));
-});
+};

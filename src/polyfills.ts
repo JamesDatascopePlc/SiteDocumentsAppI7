@@ -54,15 +54,43 @@ import 'zone.js';  // Included with Angular CLI.
  * APPLICATION IMPORTS
  */
 
-//import { Observable } from "rxjs";
+import { Observable, OperatorFunction, map } from "rxjs";
 
-// declare module "rxjs" {
-//   type Pipe<T> = Observable<T>["pipe"];
-//   interface Observable<T> {
-//     toPipe(): Pipe<T>
-//   }
-// }
+export type ToPipe<T> = ReturnType<typeof toPipe<T>>;
 
-// Observable.prototype.toPipe = function<T>(this: Observable<T>) {
-//   return this.pipe.bind(this);
-// }
+export function toPipe<T>(s: Observable<T>) {
+  function pipe<R>(fn: (arg: T) => R): ToPipe<R>;
+  function pipe(): Observable<T>;
+  function pipe<A>(op1: OperatorFunction<T, A>): ToPipe<A>;
+  function pipe<A, B>(op1: OperatorFunction<T, A>, op2: OperatorFunction<A, B>): ToPipe<B>;
+  function pipe<A, B, C>(op1: OperatorFunction<T, A>, op2: OperatorFunction<A, B>, op3: OperatorFunction<B, C>): ToPipe<C>;
+  function pipe<A, B, C, D>(op1: OperatorFunction<T, A>, op2: OperatorFunction<A, B>, op3: OperatorFunction<B, C>, op4: OperatorFunction<C, D>): ToPipe<D>;
+  function pipe<A, B, C, D, E>(op1: OperatorFunction<T, A>, op2: OperatorFunction<A, B>, op3: OperatorFunction<B, C>, op4: OperatorFunction<C, D>, op5: OperatorFunction<D, E>): ToPipe<E>;
+  function pipe<A, B, C, D, E, F>(op1: OperatorFunction<T, A>, op2: OperatorFunction<A, B>, op3: OperatorFunction<B, C>, op4: OperatorFunction<C, D>, op5: OperatorFunction<D, E>, op6: OperatorFunction<E, F>): ToPipe<F>;
+  function pipe<A, B, C, D, E, F, G>(op1: OperatorFunction<T, A>, op2: OperatorFunction<A, B>, op3: OperatorFunction<B, C>, op4: OperatorFunction<C, D>, op5: OperatorFunction<D, E>, op6: OperatorFunction<E, F>, op7: OperatorFunction<F, G>): ToPipe<G>;
+  function pipe<R>(...args: any): any {
+    if (args.length === 0) {
+      return s;
+    }
+    
+    if (typeof args[0] === "function") {
+      const fn: (arg: T) => R = args[0];
+      return toPipe(s.pipe(map(fn)));
+    }
+
+    return toPipe(s.pipe.apply(s, args));
+  }
+
+  return pipe;
+}
+
+
+declare module "rxjs" {
+  interface Observable<T> {
+    toPipe(): ToPipe<T>
+  }
+}
+
+Observable.prototype.toPipe = function<T>(this: Observable<T>) {
+  return toPipe(this);
+}

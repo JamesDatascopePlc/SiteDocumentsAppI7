@@ -6,6 +6,7 @@ import { SelectableComponent } from "src/app/shared/components";
 import { Question } from "src/app/core/stores/site-document/models";
 import { ToStringValuesPipe } from "src/app/shared/pipes";
 import { useCompanies } from "src/app/core/http/login.api";
+import { useSelectValidator } from "../05-select/validation/select.validator";
 
 @Component({
   selector: "company-select-question",
@@ -47,4 +48,6 @@ export class CompanySelectComponent {
 
   @Input({ required: true })
   question!: Question;
+
+  validator = useSelectValidator(() => this.question);
 }

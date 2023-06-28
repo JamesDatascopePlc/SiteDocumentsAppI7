@@ -5,6 +5,7 @@ import { importRxTemplate } from "src/app/shared/imports";
 import { CameraCaptureComponent, FileUploadComponent, QuestionTextComponent } from "../extras";
 import { SelectableComponent } from "src/app/shared/components";
 import { useRams } from "src/app/core/http/login.api";
+import { useSelectValidator } from "../05-select/validation/select.validator";
 
 @Component({
   selector: "rams-select-question",
@@ -40,6 +41,8 @@ import { useRams } from "src/app/core/http/login.api";
 export class RamsSelectComponent {
   @Input({ required: true })
   question!: Question;
+
+  validator = useSelectValidator(() => this.question);
 
   rams = useRams();
 }

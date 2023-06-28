@@ -1,11 +1,13 @@
 import { ChangeDetectionStrategy, Component, Input } from "@angular/core";
 import { IonicModule } from "@ionic/angular";
+import { merge } from "rxjs";
 import { Question } from "src/app/core/stores/site-document/models";
 import { importRxTemplate } from "src/app/shared/imports";
 import { CameraCaptureComponent, FileUploadComponent, QuestionTextComponent } from "../extras";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { useValidator } from "src/app/shared/validation";
-import { TextboxValidator } from "./validation/textbox-validator";
+import { useTextboxValidator } from "./validation/textbox-validator";
+import { AngularComponent, withAfterViewInit, withOnChanges } from "src/app/shared/lifecycles";
+import { createEffect } from "src/app/shared/rxjs";
 
 @Component({
   selector: "textbox-question",
@@ -18,8 +20,8 @@ import { TextboxValidator } from "./validation/textbox-validator";
       </ion-item>
       <ion-item>
         <ion-input
-          [class.ng-invalid]="validator.isInvalid()" 
-          [class.ng-valid]="!validator.isInvalid()"
+          [class.ng-invalid]="validator.isInvalid$ | push" 
+          [class.ng-valid]="validator.isValid$ | push"
           label="" 
           type="text" 
           [(ngModel)]="question.AnswerText"
@@ -39,16 +41,16 @@ import { TextboxValidator } from "./validation/textbox-validator";
     FileUploadComponent
   ]
 })
-export class TextboxComponent {
+export class TextboxComponent extends AngularComponent(withAfterViewInit, withOnChanges) {
   @Input({ required: true })
   question!: Question;
 
-  validator = useValidator({
-    validator: new TextboxValidator(),
-    value: () => this.question
-  });
+  validator = useTextboxValidator(() => this.question);
 
-  ngAfterViewInit() {
-    this.validator.validate();
-  }
+  effects = [
+    createEffect(
+      () => this.validator.validate(),
+      merge(this.afterViewInit(), this.input("question"))
+    )
+  ];
 }

@@ -33,5 +33,5 @@ import { TimePickerComponent } from "src/app/shared/components";
 })
 export class LinkedTimesComponent {
   @Input({ required: true })
-  question!: Question;  
+  question!: Question;
 }

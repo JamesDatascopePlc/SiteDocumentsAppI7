@@ -4,6 +4,10 @@ import { Question } from "src/app/core/stores/site-document/models";
 import { importRxTemplate } from "src/app/shared/imports";
 import { CameraCaptureComponent, FileUploadComponent, QuestionTextComponent } from "../extras";
 import { FormsModule } from "@angular/forms";
+import { useTextboxValidator } from "../03-textbox/validation/textbox-validator";
+import { createEffect } from "src/app/shared/rxjs";
+import { merge } from "rxjs";
+import { AngularComponent, withAfterViewInit, withOnChanges } from "src/app/shared/lifecycles";
 
 @Component({
   selector: "textarea-question",
@@ -30,7 +34,16 @@ import { FormsModule } from "@angular/forms";
     FileUploadComponent
   ]
 })
-export class TextareaComponent {
+export class TextareaComponent extends AngularComponent(withAfterViewInit, withOnChanges) {
   @Input({ required: true })
   question!: Question;
+
+  validator = useTextboxValidator(() => this.question);
+
+  effects = [
+    createEffect(
+      () => this.validator.validate(),
+      merge(this.afterViewInit(), this.input("question"))
+    )
+  ];
 }

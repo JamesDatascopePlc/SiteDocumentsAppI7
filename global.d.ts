@@ -36,7 +36,8 @@ declare global {
   interface Array<T> {
     first(): T | undefined;
     last(): T | undefined;
-    orderBy<TResult>(iteratees: keyof T | ListIterator<T, TResult>, order?: "asc" | "desc"): T[]
+    removeAt(index: number): T[];
+    orderBy<TResult>(iteratees: keyof T | ListIterator<T, TResult>, order?: "asc" | "desc"): T[];
     flatMap<TResult>(iteratee: ListIterator<T, Many<TResult>>): TResult[];
   }
 }

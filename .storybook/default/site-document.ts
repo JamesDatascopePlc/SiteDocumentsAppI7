@@ -10,6 +10,8 @@ export const defaultSiteDocument: SiteDocument = {
   Preamble: "",
   Pages: [],
   Queues: [],
+  Images: [],
+  ChildTemplateID: 0,
   CanAddAsset: false,
   CanAddOperative: false,
   CanCreateHotspot: false,
@@ -58,6 +60,7 @@ export const defaultQuestion: Question = {
   NumberVal: +faker.random.numeric(2),
   Required: true,
   Hidden: false,
+  Index: 0,
   Assets: Array
     .from({ length: 3 })
     .map((val, idx) => 
