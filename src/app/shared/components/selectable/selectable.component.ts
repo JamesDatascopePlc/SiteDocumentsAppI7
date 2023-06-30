@@ -4,7 +4,7 @@ import { IonicModule } from "@ionic/angular";
 import { importRxFixedVirtualScroll, importRxTemplate } from "../../imports";
 import { FusePipe } from "../../pipes";
 import { AngularComponent, AngularDirective, withAfterViewInit, withGenericTemplateContextGuard, withOnChanges } from "../../lifecycles";
-import { using } from "../../rxjs";
+import { merge } from "rxjs";
 
 @Directive({
   selector: "ng-template[items]",
@@ -23,7 +23,7 @@ export class ItemsTemplateDirective<T> extends AngularDirective(withGenericTempl
     </ng-template> -->
 
     <ion-item [id]="id" detail="false" button>
-      <ion-label *rxLet="item(); let item" [color]="value == null ? 'medium' : ''" class="ion-text-wrap">
+      <ion-label *rxLet="item$; let item" [color]="value == null ? 'medium' : ''" class="ion-text-wrap">
       {{ 
         item != null 
           ? itemText != null 
@@ -120,11 +120,10 @@ export class SelectableComponent<T = unknown> extends AngularComponent(withAfter
   @Output()
   valueChange = new EventEmitter<any>();
 
-  item = using(this.afterViewInit(), this.input("items"), this.input("value"), this.itemChange)
-    .calculate(() => this.itemValue != null 
-      ? this.items?.find(item => item[this.itemValue as keyof T] === this.value)
-      : this.value as T
-    );
+  item$ = merge(this.afterViewInit(), this.input("items"), this.input("value"), this.itemChange).map(() => this.itemValue != null 
+    ? this.items?.find(item => item[this.itemValue as keyof T] === this.value)
+    : this.value as T
+  );
 
   @Input()
   canClear: boolean = true;

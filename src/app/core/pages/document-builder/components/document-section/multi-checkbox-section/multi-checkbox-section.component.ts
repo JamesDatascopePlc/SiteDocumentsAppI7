@@ -6,8 +6,9 @@ import { CheckboxComponent } from "../../question-types/01-checkbox/checkbox.com
 import { FusePipe } from "src/app/shared/pipes";
 import { Section } from "src/app/core/stores/site-document/models";
 import { FixedSizeVirtualScrollStrategy } from "@rx-angular/template/experimental/virtual-scrolling";
-import { use, using } from "src/app/shared/rxjs";
+import { use } from "src/app/shared/rxjs";
 import { AngularComponent, withAfterViewInit } from "src/app/shared/lifecycles";
+import { merge } from "rxjs";
 
 @Component({
   selector: "multi-checkbox-section",
@@ -80,8 +81,10 @@ export class MultiCheckboxSectionComponent extends AngularComponent(withAfterVie
   @Input({ required: true })
   section!: Section;
   saved = use();
-  questions = using(this.afterViewInit(), this.saved())
-    .calculate(() => this.section.Questions);
+
+  questions = merge(this.afterViewInit(), this.saved())
+    .map(() => this.section.Questions)
+    .toPipe();
 
   searchValue: string = "";
 

@@ -7,6 +7,7 @@ import { QuestionTextComponent } from "../extras";
 import { AssetListModal } from "src/app/shared/modals/asset-list/asset-list.modal";
 import { Asset } from "src/app/core/stores/asset/asset.store";
 import { useAssetListValidator } from "./validation/asset-list.validator";
+import { NavigateDirective } from "src/app/shared/directives";
 
 @Component({
   selector: "asset-list-question",
@@ -26,7 +27,7 @@ import { useAssetListValidator } from "./validation/asset-list.validator";
 
     <ion-list>
       <ion-item-sliding *rxFor="let asset of question.Assets; last as isLast">
-        <ion-item [lines]="isLast ? 'none' : 'inset'" button>
+        <ion-item navigate="/Asset-Info/id={{ asset.AssetID }}" [lines]="isLast ? 'none' : 'inset'" button>
           <ion-label>{{ asset.AssetID }}: {{ asset.Name }}</ion-label>
         </ion-item>
 
@@ -44,7 +45,8 @@ import { useAssetListValidator } from "./validation/asset-list.validator";
     IonicModule,
     ...importRxTemplate(),
     QuestionTextComponent,
-    AssetListModal
+    AssetListModal,
+    NavigateDirective
   ]
 })
 export class AssetListComponent {

@@ -1,7 +1,6 @@
 import { createStore } from "@ngneat/elf";
 import { selectAllEntities, withEntities } from "@ngneat/elf-entities";
 import { memoize } from "lodash-es";
-import { createPipe } from "src/app/shared/rxjs";
 
 export interface Asset {
   Id : number,
@@ -34,7 +33,7 @@ export const useAssetStore = memoize(() => {
   );
 
   return {
-    data: createPipe(store.pipe(selectAllEntities())),
+    data: store.pipe(selectAllEntities()).toPipe(),
     update: store.update.bind(store)
   }
 });

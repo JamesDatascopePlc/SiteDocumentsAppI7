@@ -13,5 +13,9 @@ export const routes: Routes = [
   {
     path: "Form-Filler",
     loadComponent: () => import("./core/pages/document-builder/document-builder.page").then(m => m.DocumentBuilderPage)
+  },
+  {
+    path: "Asset-Info",
+    loadComponent: () => import("./core/pages/info/asset-info/asset-info.page").then(m => m.AssetInfoPage)
   }
 ];

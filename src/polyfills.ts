@@ -54,7 +54,7 @@ import 'zone.js';  // Included with Angular CLI.
  * APPLICATION IMPORTS
  */
 
-import { Observable, OperatorFunction, map } from "rxjs";
+import { Observable, ObservableInputTuple, OperatorFunction, Subject, map, merge } from "rxjs";
 
 export type ToPipe<T> = ReturnType<typeof toPipe<T>>;
 
@@ -70,10 +70,10 @@ export function toPipe<T>(s: Observable<T>) {
   function pipe<A, B, C, D, E, F, G>(op1: OperatorFunction<T, A>, op2: OperatorFunction<A, B>, op3: OperatorFunction<B, C>, op4: OperatorFunction<C, D>, op5: OperatorFunction<D, E>, op6: OperatorFunction<E, F>, op7: OperatorFunction<F, G>): ToPipe<G>;
   function pipe<R>(...args: any): any {
     if (args.length === 0) {
-      return s;
+      return s.pipe();
     }
     
-    if (typeof args[0] === "function") {
+    if (args.length === 1 && !args[0].toString().includes("function (source)")) {
       const fn: (arg: T) => R = args[0];
       return toPipe(s.pipe(map(fn)));
     }
@@ -87,10 +87,24 @@ export function toPipe<T>(s: Observable<T>) {
 
 declare module "rxjs" {
   interface Observable<T> {
-    toPipe(): ToPipe<T>
+    toPipe(): ToPipe<T>;
+    map<R>(project: (value: T, index: number) => R): Observable<R>;
+  }
+  interface Subject<T> {
+    merge<A extends readonly unknown[]>(...sources: [...ObservableInputTuple<A>]): Observable<A> & { next: Subject<T>["next"] }
   }
 }
 
 Observable.prototype.toPipe = function<T>(this: Observable<T>) {
   return toPipe(this);
+}
+
+Observable.prototype.map = function<T, R>(this: Observable<T>, project: (value: T, index: number) => R) {
+  return this.pipe(map(project))
+}
+
+Subject.prototype.merge = function<T, A extends readonly unknown[]>(this: Subject<T>, ...sources: [...ObservableInputTuple<A>]) {
+  return Object.assign(merge(this, ...sources), {
+    next: this.next.bind(this)
+  });
 }

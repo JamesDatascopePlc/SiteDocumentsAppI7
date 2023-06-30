@@ -1,6 +1,5 @@
 import { createStore } from "@ngneat/elf";
 import { selectAllEntities, withEntities } from "@ngneat/elf-entities";
-import { createPipe } from "./use";
 
 export function buildStore<TEntity extends { [P in TId]: PropertyKey }, TId extends keyof TEntity & string = keyof TEntity & string>(name: string, idKey: TId) {
   const store = createStore(
@@ -9,7 +8,7 @@ export function buildStore<TEntity extends { [P in TId]: PropertyKey }, TId exte
   );
 
   return {
-    data: createPipe(store.pipe(selectAllEntities())),
+    data: store.pipe(selectAllEntities()).toPipe(),
     update: store.update.bind(store)
   }
 }

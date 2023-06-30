@@ -3,8 +3,9 @@ import { IonicModule } from "@ionic/angular";
 import { param } from "src/app/shared/route";
 import { useAssetDetailsById, useAssetDetailsByTag } from "../../../http/asset.api";
 import { merge } from "rxjs";
-import { DatePipe } from "@angular/common";
 import { importRxTemplate } from "src/app/shared/imports";
+import { DetailsListsComponent } from "../components/details-lists/details-lists.component";
+import { UtcDatePipe } from "src/app/shared/pipes";
 
 @Component({
   selector: "asset-info-page",
@@ -30,14 +31,16 @@ import { importRxTemplate } from "src/app/shared/imports";
                 <p class="mb-2">{{ info.Registration }}</p>
                 <p class="mb-2">{{ info.AssetNotes }}</p>
                 <p *rxIf="info.AcquiredDate != null" class="mb-2">
-                  <b>Acquire Date: </b>{{ info.AcquiredDate | date: "yyyy-MM-dd" }}
+                  <b>Acquire Date: </b>{{ info.AcquiredDate | utcDate }}
                 </p>
                 <p *rxIf="info.DateOnSite != null" class="mb-2">
-                  <b>Date on Site: </b>{{ info.DateOnSite | date: 'yyyy-MM-dd' }}
+                  <b>Date on Site: </b>{{ info.DateOnSite | utcDate }}
                 </p>
               </ion-label>
             </ion-item>
           </ion-list>
+
+          <details-lists [details]="info.DetailsLists" />
         </ion-card-content>
       </ion-card>
     </ion-content>
@@ -47,7 +50,8 @@ import { importRxTemplate } from "src/app/shared/imports";
   imports: [
     IonicModule,
     ...importRxTemplate(),
-    DatePipe
+    DetailsListsComponent,
+    UtcDatePipe
   ]
 })
 export class AssetInfoPage {

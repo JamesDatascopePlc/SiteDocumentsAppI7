@@ -1,10 +1,9 @@
 import { ChangeDetectionStrategy, Component, Directive, EventEmitter, Input, Output, ViewChild } from "@angular/core";
-import { debounceTime, map, merge } from "rxjs";
 import SignaturePad, { PointGroup } from "signature_pad";
 import { AngularComponent, withAfterViewInit } from "../../lifecycles";
 import { PushPipe } from "@rx-angular/template/push";
-import { use } from "../../rxjs/use";
-import { useElement, useParentElement } from "../../angular/element";
+import { useElement } from "../../angular/element";
+import { CanvasResize } from "../../directives";
 
 @Directive({
   selector: "canvas[signature-pad]",
@@ -47,16 +46,14 @@ export class SignaturePadDirective {
   template: `
     <canvas 
       signature-pad 
+      resize
       [points]="points"
-      class="border border-black bg-white" 
-      (window:resize)="resize.next()"
-      [width]="width$ | push"
-      [height]="height$ | push">
+      class="border border-black bg-white">
     </canvas>
   `,
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [PushPipe, SignaturePadDirective]
+  imports: [PushPipe, SignaturePadDirective, CanvasResize]
 })
 export class SignaturePadComponent extends AngularComponent(withAfterViewInit) {
   @ViewChild(SignaturePadDirective)
@@ -64,19 +61,6 @@ export class SignaturePadComponent extends AngularComponent(withAfterViewInit) {
 
   @Input()
   points?: PointGroup[] = [];
-
-  parentElement = useParentElement();
-  resize = use();
-
-  width$ = merge(this.afterViewInit(), this.resize()).pipe(
-    debounceTime(300),
-    map(() => this.parentElement.offsetWidth - 2)
-  );
-
-  height$ = merge(this.afterViewInit(), this.resize()).pipe(
-    debounceTime(300),
-    map(() => this.parentElement.offsetHeight - 2)
-  );
 
   dataPoints() {
     return this.signatureDirective?.dataPoints();

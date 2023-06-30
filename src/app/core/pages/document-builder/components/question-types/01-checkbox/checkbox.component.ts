@@ -21,8 +21,8 @@ import { createEffect } from "src/app/shared/rxjs";
         aria-label="" 
         slot="start" />
       <question-text [required]="question.Required">{{ question.QuestionText }}</question-text>
-      <camera-capture *rxIf="question.CanHaveImg" class="m-0" slot="end" />
-      <file-upload *rxIf="question.CanHaveFiles" class="m-0" slot="end" />
+      <camera-capture *rxIf="question.CanHaveImg" [(img)]="question.Img" class="m-0" slot="end" />
+      <file-upload *rxIf="question.CanHaveFiles" [(dataUrl)]="question.File" class="m-0" slot="end" />
     </ion-item>
   `,
   standalone: true,

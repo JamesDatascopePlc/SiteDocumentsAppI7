@@ -7,13 +7,13 @@ import { importRxTemplate } from "src/app/shared/imports";
 @Component({
   selector: "camera-capture",
   template: `
-    <if [condition]="base64Img == null">
+    <if [condition]="img == null">
       <camera show (takePhoto)="take($event)" fill="clear">
         <ion-icon name="camera-outline" slot="icon-only" />
       </camera>
 
       <ng-container else>
-        <ion-button [src]="base64Img!" fill="clear">
+        <ion-button [src]="img!" fill="clear">
           <ion-icon name="eye-outline" slot="icon-only" />
         </ion-button>
         <ion-button (click)="remove()" fill="clear" color="danger">
@@ -33,20 +33,19 @@ import { importRxTemplate } from "src/app/shared/imports";
   ]
 })
 export class CameraCaptureComponent {
-
   @Input()
-  base64Img: string | null = null;
+  img: Nullable<string>;
 
   @Output()
-  base64ImgChange = new EventEmitter<string | null>();
+  imgChange = new EventEmitter<Nullable<string>>();
 
   take(base64Img: string) {
-    this.base64Img = base64Img || null;
-    this.base64ImgChange.emit(this.base64Img);
+    this.img = base64Img || null;
+    this.imgChange.emit(this.img);
   }
 
   remove() {
-    this.base64Img = null;
-    this.base64ImgChange.emit(this.base64Img);
+    this.img = null;
+    this.imgChange.emit(this.img);
   }
 }

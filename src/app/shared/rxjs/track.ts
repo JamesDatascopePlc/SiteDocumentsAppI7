@@ -1,16 +1,17 @@
 import { EMPTY, Observable, Subject, catchError, merge, mergeMap, of, shareReplay, tap } from "rxjs";
-import { use, UseOf, UsePipe, createPipe } from "../rxjs";
+import { use, UseOf } from "../rxjs";
+import { ToPipe } from "src/polyfills";
 
 export type TrackingStatus = "Idle" | "Success" | "Error" | "Loading";
 
 export interface Tracking<T> {
   status: UseOf<TrackingStatus>,
   error: UseOf<unknown>,
-  data: UsePipe<T>
-  isIdle: UsePipe<boolean>,
-  isSuccess: UsePipe<boolean>,
-  isError: UsePipe<boolean>,
-  isLoading: UsePipe<boolean>
+  data: ToPipe<T>
+  isIdle: ToPipe<boolean>,
+  isSuccess: ToPipe<boolean>,
+  isError: ToPipe<boolean>,
+  isLoading: ToPipe<boolean>
 }
 
 export interface TrackingOptions<TParams, TResult> {
@@ -36,7 +37,7 @@ export function track<TParams, TResult>(param: TrackingOptions<TParams, TResult>
 
   return {
     status,
-    data: createPipe(trackingFn().pipe(
+    data: trackingFn().pipe(
       tap(() => status.next("Success")),
       catchError(err => {
         console.error(err);
@@ -46,7 +47,8 @@ export function track<TParams, TResult>(param: TrackingOptions<TParams, TResult>
         return EMPTY;
       }),
       shareReplay()
-    )),
+    )
+    .toPipe(),
     error,
     isIdle: status(s => s === "Idle"),
     isSuccess: status(s => s === "Success"),

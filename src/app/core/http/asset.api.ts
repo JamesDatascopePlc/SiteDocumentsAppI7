@@ -54,7 +54,7 @@ export interface DetailsListItem {
   Icon: string;
   CssClass: string;
   Content: string;
-  Date: Date;
+  Date?: Date;
   IconStyle: { [key: string]: string };
   Id: number;
   StringId?: string;
