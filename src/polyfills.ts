@@ -54,7 +54,7 @@ import 'zone.js';  // Included with Angular CLI.
  * APPLICATION IMPORTS
  */
 
-import { Observable, ObservableInputTuple, OperatorFunction, Subject, map, merge } from "rxjs";
+import { Observable, ObservableInputTuple, OperatorFunction, Subject, firstValueFrom, map, merge } from "rxjs";
 
 export type ToPipe<T> = ReturnType<typeof toPipe<T>>;
 
@@ -81,7 +81,9 @@ export function toPipe<T>(s: Observable<T>) {
     return toPipe(s.pipe.apply(s, args));
   }
 
-  return pipe;
+  return Object.assign(pipe, {
+    toObservable: () => pipe()
+  });
 }
 
 
@@ -92,6 +94,7 @@ declare module "rxjs" {
   }
   interface Subject<T> {
     merge<A extends readonly unknown[]>(...sources: [...ObservableInputTuple<A>]): Observable<A> & { next: Subject<T>["next"] }
+    update(update: Func<T, T>): void;
   }
 }
 
@@ -106,5 +109,12 @@ Observable.prototype.map = function<T, R>(this: Observable<T>, project: (value: 
 Subject.prototype.merge = function<T, A extends readonly unknown[]>(this: Subject<T>, ...sources: [...ObservableInputTuple<A>]) {
   return Object.assign(merge(this, ...sources), {
     next: this.next.bind(this)
+  });
+}
+
+Subject.prototype.update = function<T>(this: Subject<T>, update: Func<T, T>) {
+  firstValueFrom(this).then(value => {
+    const nextValue = update(value);
+    this.next(nextValue);
   });
 }

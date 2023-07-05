@@ -10,7 +10,7 @@ export function use<T = void>(initialState?: T) {
   return Object.assign(s.toPipe(), {
     next: s.next.bind(s),
     complete: s.complete.bind(s),
-    mutate: async (mutation: (value: T) => T) => {
+    update: async (mutation: (value: T) => T) => {
       const value = await lastValueFrom(s);
       const update = mutation(value);
 

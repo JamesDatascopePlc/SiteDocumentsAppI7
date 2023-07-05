@@ -1,6 +1,7 @@
 import { SimpleChanges } from "@angular/core";
 import { Observable, Subject, filter, map, merge } from "rxjs";
 import { ReactiveConstructor } from "../types";
+import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 
 
 export function withOnChanges<TBase extends ReactiveConstructor>(Base: TBase) {
@@ -14,6 +15,7 @@ export function withOnChanges<TBase extends ReactiveConstructor>(Base: TBase) {
 
     input<P extends keyof this & string>(property: P): Observable<this[P]> {
       return this.changes$.pipe(
+        takeUntilDestroyed(),
         map(changes => changes[property]),
         filter(change => change !== undefined),
         map(change => change!.currentValue)

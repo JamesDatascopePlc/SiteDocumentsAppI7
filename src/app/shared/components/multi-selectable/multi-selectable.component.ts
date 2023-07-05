@@ -55,7 +55,7 @@ import { IfComponent } from "../if/if.component";
                 button>
                 <ion-label class="ion-text-wrap">{{ itemText != null ? item[itemText] : item }}</ion-label>
                 <ion-icon 
-                  *rxIf="selectedValues.includes(itemVal != null ? item[itemVal].toString() : item.toString())" 
+                  *rxIf="selectedValues.includes(itemVal != null ? item[itemVal]!.toString() : item.toString())" 
                   name="checkmark-outline" 
                   slot="end" />
               </ion-item>

@@ -50,7 +50,7 @@ Default.args = {
               Questions: [
                 {
                   ...defaultQuestion,
-                  QuestionText: QuestionType[qt as number].toString()
+                  QuestionText: QuestionType[qt as number]!.toString()
                 }
               ]
             })
@@ -87,7 +87,7 @@ DocumentWithAllPermissionsTurnedOn.args = {
               Questions: [
                 {
                   ...defaultQuestion,
-                  QuestionText: QuestionType[qt as number].toString()
+                  QuestionText: QuestionType[qt as number]!.toString()
                 }
               ]
             })
@@ -154,7 +154,7 @@ DocumentWithMultiplePages.args = {
               Questions: [
                 {
                   ...defaultQuestion,
-                  QuestionText: QuestionType[qt as number].toString()
+                  QuestionText: QuestionType[qt as number]!.toString()
                 }
               ]
             }
