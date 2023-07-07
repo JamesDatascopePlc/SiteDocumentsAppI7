@@ -16,10 +16,22 @@ export class MoveableDirective {
       target: this.element,
       draggable: true,
       keepRatio: true,
+      origin: false,
+      useResizeObserver: true,
+      useMutationObserver: true
     });
-    this.moveable.on("drag", ({ transform }) => {
-      this.element.style.transform = transform;
-    })
-    console.log(this.moveable);
+
+    this.moveable.on("drag", ({ left, top }) => {
+      this.element.style.left = `${left}px`;
+      this.element.style.top = `${top}px`;
+    });
+
+    this.moveable.on("click", ({ inputTarget }) => {
+      (inputTarget as HTMLElement).focus();
+    });
+  }
+
+  ngOnDestroy() {
+    this.moveable?.destroy();
   }
 }

@@ -5,7 +5,9 @@ import { AngularComponent, withAfterViewInit } from "../../lifecycles";
 import { importRxTemplate } from "../../imports";
 import { CanvasImageDirective, MoveableDirective, ShowDirective } from "../../directives";
 import { FormsModule } from "@angular/forms";
-import { FontSize, PenColour, PenColourOption, PenWeight, PenWeightOption, PenWeights, useFontSizes, usePenColours, usePenWeights } from "./models";
+import { FontSize, PenColour, PenWeight, PenWeights } from "./models";
+import { importAnnotationControls } from "./components/annotation-controls.import";
+import { Changes, Toggle } from "../../utilities";
 
 export type Brush = { colour: PenColour, weight: PenWeight }
 export type Font = { colour: PenColour, size: FontSize }
@@ -13,104 +15,77 @@ export type Font = { colour: PenColour, size: FontSize }
 @Component({
   selector: "image-annotation-modal",
   styles: [`
-    .target {
-      position: absolute;
-      width: 100px;
-      height: 100px;
-      top: 150px;
-      left: 100px;
-      line-height: 100px;
-      text-align: center;
-      background: #ee8;
-      color: #333;
-      font-weight: bold;
-      border: 1px solid #333;
-      box-sizing: border-box;
+    .input {
+      border: 1px solid #ccc;
+      padding: 1px 6px;
     }
   `],
   template: `
     <ion-modal #modal [isOpen]="isOpen" [backdropDismiss]="false">
       <ng-template>
         <ion-content>
-          <!-- <canvas 
+          <canvas 
             signature-pad 
             [src]="image"
+            (beginStroke)="imageChanges.addUndo(signatureDirective!.toDataUrl())"
             [penColor]="brush.colour"
-            [minWidth]="brush.weight.min"
-            [maxWidth]="brush.weight.max">
-          </canvas> -->
+            [minWidth]="mode.value === 'Brush' ? brush.weight.min : 0"
+            [maxWidth]="mode.value === 'Brush' ? brush.weight.max : 0">
+          </canvas>
 
-          <div class="target" moveable>
-            <!-- <ion-button fill="outline">
-              <ion-icon slot="icon-only" name="add-circle-outline" size="small"></ion-icon>
-            </ion-button> -->
+          <div *rxIf="mode.value === 'Text'" class="absolute w-full h-full top-0 left-0">
+            <div
+              class="absolute 
+              top-1/2 
+              left-1/2 
+              -translate-x-1/2 
+              -translate-y-1/2
+              p-2" 
+              moveable>
+              <span 
+                role="textbox" 
+                [style.color]="font.colour" 
+                [style.font-size]="font.size + 'px'" 
+                contenteditable>
+                Enter Text Here
+              </span>
+            </div>
           </div>
-
         </ion-content>
         
         <ion-footer>
+          <brush-controls [show]="mode.value === 'Brush'" [(brush)]="brush" />
+          <text-controls [show]="mode.value === 'Text'" [(font)]="font" />
+
           <ion-grid>
-            <ion-row [show]="mode === 'Brush'">
-              <ion-col>
-                <ion-select #colourSelect class="hidden" label="Colour" [(ngModel)]="brush.colour">
-                  <ion-select-option *rxFor="let colour of colours; strategy: 'immediate'" [value]="colour.value">
-                    {{ colour.label }}
-                  </ion-select-option>
-                </ion-select>
-                <ion-button (click)="colourSelect.open($event)" fill="outline">
-                  Colour <ion-icon name="ellipse" slot="end" [style.color]="brush.colour" />
-                </ion-button>
-              </ion-col>
-
-              <ion-col>
-                <ion-select label="Weight" [(ngModel)]="brush.weight" label-placement="floating" fill="outline">
-                  <ion-select-option *rxFor="let weight of weights; strategy: 'immediate'" [value]="weight.value">
-                    {{ weight.label }}
-                  </ion-select-option>
-                </ion-select>
-              </ion-col>
-
-              <ion-col>
-                <ion-button (click)="toggle()">
-                  Add Text
-                  <ion-icon name="create-outline" slot="end" />
-                </ion-button>
-              </ion-col>
-            </ion-row>
-
-            <ion-row [show]="mode === 'Text'">
-              <ion-col>
-                <ion-button (click)="toggle()">
-                  <ion-icon name="arrow-back-outline" />
-                </ion-button>
-              </ion-col>
-
-              <ion-col>
-                <ion-select #colourSelect class="hidden" label="Colour" [(ngModel)]="font.colour">
-                  <ion-select-option *rxFor="let colour of colours" [value]="colour.value">
-                    {{ colour.label }}
-                  </ion-select-option>
-                </ion-select>
-                <ion-button (click)="colourSelect.open($event)" fill="outline">
-                  Colour <ion-icon name="ellipse" slot="end" [style.color]="brush.colour" />
-                </ion-button>
-              </ion-col>
-
-              <ion-col>
-                <ion-select label="Size" [(ngModel)]="font.size" label-placement="floating" fill="outline">
-                  <ion-select-option *rxFor="let size of sizes" [value]="size">
-                    {{ size }}
-                  </ion-select-option>
-                </ion-select>
-              </ion-col>
-            </ion-row>
-
             <ion-row>
               <ion-col>
                 <ion-button class="float-left" (click)="modal.dismiss()">Cancel</ion-button>
               </ion-col>
+
               <ion-col>
-                <ion-button class="float-right">Save</ion-button>
+                <ion-button [show]="imageChanges.undoCount > 0" (click)="image = imageChanges.undo(image)!">
+                  <ion-icon name="arrow-undo-outline" />
+                </ion-button>
+              </ion-col>
+
+              <ion-col>
+                <ion-button [show]="mode.value === 'Brush'" (click)="mode.toggle()">
+                  <ion-icon name="create-outline" />
+                </ion-button>
+                <ion-button [show]="mode.value === 'Text'" (click)="mode.toggle()">
+                  <ion-icon name="pencil-outline" />
+                </ion-button>
+              </ion-col>
+
+              <ion-col>
+                <ion-button [show]="imageChanges.redoCount > 0" (click)="image = imageChanges.redo()!">
+                  <ion-icon name="arrow-redo-outline" />
+                </ion-button>
+              </ion-col>
+
+              <ion-col>
+                <ion-button class="float-right" (click)="save()">Save</ion-button>
               </ion-col>
             </ion-row>
           </ion-grid>
@@ -127,7 +102,8 @@ export type Font = { colour: PenColour, size: FontSize }
     SignaturePadDirective,
     CanvasImageDirective,
     ShowDirective,
-    MoveableDirective
+    MoveableDirective,
+    ...importAnnotationControls()
   ],
 })
 export class ImageAnnotationModal extends AngularComponent(withAfterViewInit) {
@@ -135,20 +111,13 @@ export class ImageAnnotationModal extends AngularComponent(withAfterViewInit) {
   signatureDirective?: SignaturePadDirective;
 
   isOpen: boolean = false;
-
-  mode: "Brush" | "Text" = "Brush";
-  toggle() {
-    this.mode = this.mode === "Text" ? "Brush" : "Text";
-  }
+  mode: Toggle<"Brush" | "Text"> = new Toggle("Brush", "Text");
 
   @Input()
   image: string = "";
+  imageChanges: Changes<string> = new Changes<string>();
   @Output()
   imageChange = new EventEmitter<string>();
-
-  colours: PenColourOption[] = usePenColours();
-  weights: PenWeightOption[] = usePenWeights();
-  sizes: FontSize[] = useFontSizes();
 
   brush: Brush = {
     colour: PenColour.Black,
@@ -160,8 +129,8 @@ export class ImageAnnotationModal extends AngularComponent(withAfterViewInit) {
     size: 14
   }
 
-  save() {
-    const image = this.signatureDirective?.toDataUrl();
+  save(): void {
+    const image = this.signatureDirective?.toDataUrl() || "";
     this.imageChange.emit(image);
   }
 }

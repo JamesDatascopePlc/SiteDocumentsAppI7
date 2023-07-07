@@ -4,6 +4,7 @@ import { InputType } from "@storybook/types";
 // https://storybook.js.org/docs/react/essentials/controls#annotation
 export type StorybookArgTypes<TArg> = {
   [name in keyof Partial<TArg>]: InputType 
+    & { action?: string }
     & { control?: "boolean" }
     | { control?: { type: "number" | "range", min?: number, max?: number, step?: number } }
     | { control?: "object" }

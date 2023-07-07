@@ -31,9 +31,14 @@ export class SignaturePadDirective extends AngularDirective(withOnInit, withOnCh
 
   @Output()
   beginStroke = new EventEmitter<void>();
-  beginStrokeEmit(event: unknown) { 
-    console.log(event);
+  beginStrokeEmit() { 
     this.beginStroke.emit();
+  }
+
+  @Output()
+  endStroke = new EventEmitter<void>();
+  endStrokeEmit() {
+    this.endStroke.emit();
   }
 
   signaturePad = new SignaturePad(this.element, {
@@ -48,6 +53,11 @@ export class SignaturePadDirective extends AngularDirective(withOnInit, withOnCh
       .subscribe(() => this.signaturePad.addEventListener("beginStroke", this.beginStrokeEmit.bind(this))),
     this.destroy()
       .subscribe(() => this.signaturePad.removeEventListener("beginStroke", this.beginStrokeEmit.bind(this))),
+
+      this.init()
+      .subscribe(() => this.signaturePad.addEventListener("endStroke", this.endStrokeEmit.bind(this))),
+    this.destroy()
+      .subscribe(() => this.signaturePad.removeEventListener("endStroke", this.endStrokeEmit.bind(this))),
 
     this.input("penColor")
       .subscribe(() => this.signaturePad.penColor = this.penColor),
